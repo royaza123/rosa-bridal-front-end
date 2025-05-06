@@ -8,7 +8,7 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Cormorant:wght@300;400;500&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Cormorant+Garamond:wght@300;400;500&family=Lato:wght@300;400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
     
     <style>
         /* Base Styles */
@@ -20,10 +20,12 @@
         
         :root {
             --primary-font: 'Playfair Display', serif;
-            --secondary-font: 'Cormorant', serif;
-            --body-font: 'Montserrat', sans-serif;
+            --secondary-font: 'Cormorant Garamond', serif;
+            --body-font: 'Lato', sans-serif;
             --primary-color: #fff;
-            --accent-color: #f8f3ee;
+            --accent-color: #f9f5f2;
+            --accent-pink: #f8e7e7;
+            --accent-champagne: #f0e8dc;
             --text-color: #333;
             --light-text: #777;
             --border-color: #e6e0d8;
@@ -64,13 +66,13 @@
             width: 90%;
             max-width: 1200px;
             margin: 0 auto;
-            padding: 3rem 0;
+            padding: 5rem 0;
         }
         
         .section-title {
             text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 2rem;
+            font-size: 2.8rem;
+            margin-bottom: 3rem;
             font-weight: 500;
             color: var(--text-color);
             position: relative;
@@ -88,10 +90,22 @@
             background-color: var(--border-color);
         }
         
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        
+        .fade-in.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
         /* Header/Hero Section */
         .hero {
             position: relative;
             height: 100vh;
+            min-height: 600px;
             overflow: hidden;
             display: flex;
             align-items: center;
@@ -106,6 +120,8 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+            object-position: center;
+            filter: brightness(0.9) blur(2px);
         }
         
         .hero-overlay {
@@ -114,7 +130,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(255, 255, 255, 0.4);
+            background: rgba(0, 0, 0, 0.3);
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -130,15 +146,22 @@
         }
         
         .logo {
-            height: 60px;
+            height: 70px;
             filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.8));
+        }
+        
+        .hero-content {
+            background-color: rgba(255, 255, 255, 0.85);
+            padding: 3rem 4rem;
+            border-radius: 5px;
+            max-width: 700px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.15);
         }
         
         .hero-title {
             font-size: 3.5rem;
             color: var(--text-color);
             margin-bottom: 1rem;
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.9);
         }
         
         .hero-subtitle {
@@ -146,7 +169,27 @@
             font-size: 1.5rem;
             color: var(--text-color);
             margin-bottom: 2rem;
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.9);
+        }
+        
+        .hero-cta {
+            display: inline-block;
+            background-color: var(--accent-champagne);
+            color: var(--text-color);
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            font-family: var(--body-font);
+            font-size: 1rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+        
+        .hero-cta:hover {
+            background-color: transparent;
+            border-color: var(--accent-champagne);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
         
         .scroll-cta {
@@ -157,7 +200,7 @@
             font-size: 1rem;
             text-transform: uppercase;
             letter-spacing: 2px;
-            color: var(--text-color);
+            color: white;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -195,16 +238,17 @@
         
         .gallery-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2.5rem;
         }
         
         .dress-item {
             position: relative;
+            height: 500px;
             overflow: hidden;
             border-radius: 5px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-            transition: all 0.3s ease;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.4s ease;
             cursor: pointer;
             background-color: white;
         }
@@ -216,7 +260,7 @@
         
         .dress-thumbnail {
             width: 100%;
-            height: 400px;
+            height: 100%;
             object-fit: cover;
             display: block;
             transition: all 0.5s ease;
@@ -228,29 +272,48 @@
         
         .dress-overlay {
             position: absolute;
-            bottom: -50px;
+            bottom: 0;
             left: 0;
             width: 100%;
-            padding: 1rem;
+            padding: 1.5rem;
             background: rgba(255, 255, 255, 0.9);
             text-align: center;
-            transition: all 0.3s ease;
+            transform: translateY(100%);
+            transition: all 0.4s ease;
         }
         
         .dress-item:hover .dress-overlay {
-            bottom: 0;
+            transform: translateY(0);
+        }
+        
+        .dress-title {
+            font-family: var(--primary-font);
+            font-size: 1.3rem;
+            margin-bottom: 0.8rem;
+            color: var(--text-color);
         }
         
         .view-button {
-            font-family: var(--secondary-font);
-            font-size: 1.2rem;
+            display: inline-block;
+            font-family: var(--body-font);
+            font-size: 0.9rem;
             color: var(--text-color);
+            background-color: var(--accent-champagne);
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
             letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+        
+        .view-button:hover {
+            background-color: var(--accent-pink);
+            transform: translateY(-3px);
         }
         
         /* Size Chart Section */
         .size-chart-section {
             padding: 5rem 0;
+            background-color: white;
         }
         
         .size-chart-container {
@@ -272,10 +335,12 @@
             overflow: hidden;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
             transition: all 0.3s ease;
+            cursor: pointer;
         }
         
         .size-chart-item:hover {
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            transform: translateY(-5px);
         }
         
         .size-chart-image {
@@ -284,10 +349,175 @@
             display: block;
         }
         
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            overflow: auto;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 1;
+        }
+        
+        .modal-content {
+            position: relative;
+            background-color: white;
+            border-radius: 5px;
+            max-width: 90%;
+            max-height: 90vh;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+        
+        .modal.active .modal-content {
+            transform: scale(1);
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            color: white;
+            background-color: rgba(0, 0, 0, 0.5);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10;
+            transition: all 0.3s ease;
+        }
+        
+        .modal-close:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+            transform: rotate(90deg);
+        }
+        
+        /* Carousel Styles */
+        .carousel {
+            position: relative;
+            width: 100%;
+            height: 80vh;
+            overflow: hidden;
+        }
+        
+        .carousel-inner {
+            height: 100%;
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+        
+        .carousel-item {
+            flex: 0 0 100%;
+            height: 100%;
+            position: relative;
+        }
+        
+        .carousel-image {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            cursor: zoom-in;
+        }
+        
+        .carousel-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 1rem;
+            text-align: center;
+        }
+        
+        .carousel-control {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50px;
+            height: 50px;
+            background-color: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.5rem;
+            z-index: 10;
+            transition: all 0.3s ease;
+        }
+        
+        .carousel-control:hover {
+            background-color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .carousel-control.prev {
+            left: 1rem;
+        }
+        
+        .carousel-control.next {
+            right: 1rem;
+        }
+        
+        /* Size Chart Modal */
+        .size-modal-content {
+            max-width: 80%;
+            max-height: 90vh;
+            overflow: auto;
+            padding: 2rem;
+            background-color: white;
+            border-radius: 5px;
+            position: relative;
+        }
+        
+        .size-modal-image {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        /* Zoom Effect */
+        .zoomed {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .zoom-image {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            cursor: zoom-out;
+        }
+        
         /* Footer Section */
         footer {
             background-color: var(--accent-color);
-            padding: 3rem 0;
+            padding: 4rem 0;
             text-align: center;
         }
         
@@ -299,18 +529,20 @@
         }
         
         .footer-logo {
-            height: 40px;
+            height: 80px;
+            margin-bottom: 1rem;
         }
         
         .footer-text {
             max-width: 600px;
             margin: 0 auto;
             line-height: 1.6;
+            font-size: 1.1rem;
         }
         
         .footer-link {
             color: #b7a99a;
-            font-weight: 400;
+            font-weight: 500;
         }
         
         .footer-link:hover {
@@ -333,7 +565,15 @@
             }
             
             .logo {
-                height: 50px;
+                height: 60px;
+            }
+            
+            .hero-content {
+                padding: 2.5rem;
+            }
+            
+            .carousel {
+                height: 70vh;
             }
         }
         
@@ -346,12 +586,35 @@
                 font-size: 1.1rem;
             }
             
+            .hero-content {
+                padding: 2rem;
+                max-width: 90%;
+            }
+            
             .section-title {
-                font-size: 2rem;
+                font-size: 2.2rem;
             }
             
             .gallery-grid {
-                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            }
+            
+            .carousel-control {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
+            
+            .modal-content {
+                max-width: 95%;
+            }
+            
+            .footer-logo {
+                height: 60px;
+            }
+            
+            .footer-text {
+                font-size: 1rem;
             }
         }
         
@@ -364,16 +627,42 @@
                 font-size: 1rem;
             }
             
+            .hero-content {
+                padding: 1.5rem;
+            }
+            
             .logo {
-                height: 40px;
+                height: 50px;
             }
             
             .gallery-grid {
                 grid-template-columns: 1fr;
             }
             
+            .dress-item {
+                height: 450px;
+            }
+            
             .size-chart-image {
                 max-width: 100%;
+            }
+            
+            .carousel {
+                height: 60vh;
+            }
+            
+            .carousel-caption {
+                padding: 0.7rem;
+            }
+            
+            .carousel-control {
+                width: 35px;
+                height: 35px;
+                font-size: 1rem;
+            }
+            
+            .footer-logo {
+                height: 50px;
             }
         }
     </style>
@@ -386,8 +675,11 @@
             <img src="./assets/logos/logo.webp" alt="Roza Bridal Logo" class="logo">
         </div>
         <div class="hero-overlay">
-            <h1 class="hero-title">Roza Bridal Dresses</h1>
-            <p class="hero-subtitle">Elegant Handcrafted Gowns for Your Big Day</p>
+            <div class="hero-content">
+                <h1 class="hero-title">Roza Bridal Dresses</h1>
+                <p class="hero-subtitle">Elegant Handcrafted Gowns for Your Big Day</p>
+                <a href="#gallery" class="hero-cta">Discover Our Collection</a>
+            </div>
         </div>
         <a href="#gallery" class="scroll-cta">
             <span>Browse Collection</span>
@@ -398,7 +690,7 @@
     <!-- Dress Gallery Section -->
     <section id="gallery" class="gallery-section">
         <div class="container">
-            <h2 class="section-title">Our Collection</h2>
+            <h2 class="section-title fade-in">Our Collection</h2>
             <div class="gallery-grid" id="dress-gallery">
                 <!-- Dress images will be dynamically loaded here via JavaScript -->
             </div>
@@ -408,8 +700,8 @@
     <!-- Size Chart Section -->
     <section class="size-chart-section">
         <div class="container">
-            <h2 class="section-title">🧵 Size Guide</h2>
-            <div class="size-chart-container">
+            <h2 class="section-title fade-in">🧵 Size Guide</h2>
+            <div class="size-chart-container fade-in">
                 <div class="size-chart-wrapper" id="size-charts">
                     <!-- Size chart images will be dynamically loaded here via JavaScript -->
                 </div>
@@ -431,86 +723,349 @@
         </div>
     </footer>
 
+    <!-- Dress Modal -->
+    <div class="modal" id="dress-modal">
+        <div class="modal-content">
+            <div class="modal-close" id="dress-modal-close">✕</div>
+            <div class="carousel" id="dress-carousel">
+                <div class="carousel-inner" id="carousel-inner">
+                    <!-- Carousel items will be dynamically loaded here -->
+                </div>
+                <div class="carousel-control prev" id="prev-slide">❮</div>
+                <div class="carousel-control next" id="next-slide">❯</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Size Chart Modal -->
+    <div class="modal" id="size-chart-modal">
+        <div class="size-modal-content">
+            <div class="modal-close" id="size-chart-modal-close">✕</div>
+            <img class="size-modal-image" id="size-modal-image" src="" alt="Size Chart">
+        </div>
+    </div>
+
+    <!-- Zoom Modal -->
+    <div class="zoom-container" id="zoom-container" style="display: none;"></div>
+
     <!-- JavaScript -->
     <script>
-        // Function to dynamically load dress images from /assets/images/
-        function loadDressImages() {
-            // This would normally fetch from the server, but for this example, we'll simulate with some image names
-            const dressImages = [
-                'il_1588xN.6848375657_b263.avif',
-                'il_1588xN.6772649876_j3k4.webp',
-                'il_1588xN.4928476523_p9r7.avif',
-                'il_1588xN.3854762345_s7t9.webp',
-                'il_1588xN.5673941852_a5c7.avif',
-                'il_1588xN.2345678901_d8f2.webp'
-            ];
-            
-            const galleryContainer = document.getElementById('dress-gallery');
-            
-            dressImages.forEach(image => {
-                const dressItemElement = document.createElement('a');
-                dressItemElement.href = '#'; // This would link to the product page or Etsy listing
-                dressItemElement.classList.add('dress-item');
+        // Dress catalog - in a real scenario, this would come from a database
+        const dresses = [
+            {
+                id: 1,
+                title: "Elegant Lace A-Line Wedding Dress",
+                images: [
+                    "./assets/images/il_1588xN.6848375657_b263.avif",
+                    "./assets/images/il_1588xN.6848375657_b263_2.avif",
+                    "./assets/images/il_1588xN.6848375657_b263_3.avif"
+                ],
+                description: "Beautiful A-line wedding dress with delicate lace detailing and flowing skirt."
+            },
+            {
+                id: 2,
+                title: "Romantic Tulle Ballgown",
+                images: [
+                    "./assets/images/il_1588xN.6772649876_j3k4.webp",
+                    "./assets/images/il_1588xN.6772649876_j3k4_2.webp",
+                    "./assets/images/il_1588xN.6772649876_j3k4_3.webp"
+                ],
+                description: "Stunning ballgown with layers of tulle and romantic details."
+            },
+            {
+                id: 3,
+                title: "Classic Satin Mermaid Gown",
+                images: [
+                    "./assets/images/il_1588xN.4928476523_p9r7.avif",
+                    "./assets/images/il_1588xN.4928476523_p9r7_2.avif",
+                    "./assets/images/il_1588xN.4928476523_p9r7_3.avif"
+                ],
+                description: "Sophisticated mermaid silhouette with luxurious satin fabric."
+            },
+            {
+                id: 4,
+                title: "Bohemian Lace Wedding Dress",
+                images: [
+                    "./assets/images/il_1588xN.3854762345_s7t9.webp",
+                    "./assets/images/il_1588xN.3854762345_s7t9_2.webp",
+                    "./assets/images/il_1588xN.3854762345_s7t9_3.webp"
+                ],
+                description: "Free-spirited bohemian style with intricate lace patterns."
+            },
+            {
+                id: 5,
+                title: "Modern Minimalist Crepe Gown",
+                images: [
+                    "./assets/images/il_1588xN.5673941852_a5c7.avif",
+                    "./assets/images/il_1588xN.5673941852_a5c7_2.avif",
+                    "./assets/images/il_1588xN.5673941852_a5c7_3.avif"
+                ],
+                description: "Clean lines and sophisticated simplicity in this modern crepe gown."
+            },
+            {
+                id: 6,
+                title: "Vintage-Inspired Tea Length Dress",
+                images: [
+                    "./assets/images/il_1588xN.2345678901_d8f2.webp",
+                    "./assets/images/il_1588xN.2345678901_d8f2_2.webp",
+                    "./assets/images/il_1588xN.2345678901_d8f2_3.webp"
+                ],
+                description: "Charming tea-length dress with vintage-inspired details and flair."
+            }
+        ];
+        
+        // Size charts
+        const sizeCharts = [
+            "./assets/size-charts/deatiles.webp",
+            "./assets/size-charts/deatiles2.webp",
+            "./assets/size-charts/deatiles.avif",
+            "./assets/size-charts/chart1.webp",
+            "./assets/size-charts/chart2.avif"
+        ];
+        
+        // DOM elements
+        const dressGallery = document.getElementById('dress-gallery');
+        const sizeChartContainer = document.getElementById('size-charts');
+        const dressModal = document.getElementById('dress-modal');
+        const carouselInner = document.getElementById('carousel-inner');
+        const prevSlide = document.getElementById('prev-slide');
+        const nextSlide = document.getElementById('next-slide');
+        const sizeChartModal = document.getElementById('size-chart-modal');
+        const sizeModalImage = document.getElementById('size-modal-image');
+        const fadeElements = document.querySelectorAll('.fade-in');
+        
+        // Current slide index
+        let currentSlide = 0;
+        
+        // Function to load dress images
+        function loadDresses() {
+            dresses.forEach((dress, index) => {
+                const dressItem = document.createElement('div');
+                dressItem.classList.add('dress-item', 'fade-in');
                 
-                dressItemElement.innerHTML = `
-                    <img src="./assets/images/${image}" alt="Bridal Dress" class="dress-thumbnail">
+                // Using the first image as the thumbnail
+                dressItem.innerHTML = `
+                    <img src="${dress.images[0]}" alt="${dress.title}" class="dress-thumbnail">
                     <div class="dress-overlay">
+                        <h3 class="dress-title">${dress.title}</h3>
                         <span class="view-button">View Dress</span>
                     </div>
                 `;
                 
-                galleryContainer.appendChild(dressItemElement);
+                // Add click event to open modal
+                dressItem.addEventListener('click', () => {
+                    openDressModal(index);
+                });
+                
+                dressGallery.appendChild(dressItem);
             });
         }
         
-        // Function to dynamically load size chart images from /assets/size-charts/
+        // Function to load size charts
         function loadSizeCharts() {
-            // This would normally fetch from the server, but for this example, we'll simulate with some image names
-            const sizeChartImages = [
-                'deatiles.webp',
-                'deatiles2.webp',
-                'deatiles.avif',
-                'chart1.webp',
-                'chart2.avif'
-            ];
-            
-            const sizeChartContainer = document.getElementById('size-charts');
-            
-            sizeChartImages.forEach(image => {
-                const chartItemElement = document.createElement('div');
-                chartItemElement.classList.add('size-chart-item');
+            sizeCharts.forEach((chart, index) => {
+                const chartItem = document.createElement('div');
+                chartItem.classList.add('size-chart-item', 'fade-in');
                 
-                chartItemElement.innerHTML = `
-                    <img src="./assets/size-charts/${image}" alt="Size Chart" class="size-chart-image">
+                chartItem.innerHTML = `
+                    <img src="${chart}" alt="Size Chart ${index + 1}" class="size-chart-image">
                 `;
                 
-                sizeChartContainer.appendChild(chartItemElement);
+                // Add click event to open modal
+                chartItem.addEventListener('click', () => {
+                    openSizeChartModal(chart);
+                });
+                
+                sizeChartContainer.appendChild(chartItem);
             });
         }
         
-        // Initialize when the page is loaded
-        document.addEventListener('DOMContentLoaded', function() {
-            loadDressImages();
-            loadSizeCharts();
+        // Function to open dress modal
+        function openDressModal(dressIndex) {
+            const dress = dresses[dressIndex];
+            carouselInner.innerHTML = '';
             
-            // Smooth scrolling for anchor links
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    
-                    const targetId = this.getAttribute('href');
-                    if (targetId === '#') return;
-                    
-                    const targetElement = document.querySelector(targetId);
-                    if (targetElement) {
-                        window.scrollTo({
-                            top: targetElement.offsetTop,
-                            behavior: 'smooth'
-                        });
-                    }
+            // Add all images to the carousel
+            dress.images.forEach((image, index) => {
+                const item = document.createElement('div');
+                item.classList.add('carousel-item');
+                item.innerHTML = `
+                    <img src="${image}" alt="${dress.title}" class="carousel-image">
+                    <div class="carousel-caption">
+                        <h3>${dress.title}</h3>
+                        <p>${dress.description}</p>
+                    </div>
+                `;
+                
+                // Add zoom functionality
+                const carouselImage = item.querySelector('.carousel-image');
+                carouselImage.addEventListener('click', () => {
+                    zoomImage(image, dress.title);
                 });
+                
+                carouselInner.appendChild(item);
             });
+            
+            // Reset to first slide
+            currentSlide = 0;
+            updateCarousel();
+            
+            // Show the modal
+            dressModal.classList.add('active');
+            document.body.style.overflow = 'hidden'; // Prevent scrolling
+        }
+        
+        // Function to open size chart modal
+        function openSizeChartModal(chartSrc) {
+            sizeModalImage.src = chartSrc;
+            sizeChartModal.classList.add('active');
+            document.body.style.overflow = 'hidden'; // Prevent scrolling
+        }
+        
+        // Function to zoom image 
+function zoomImage(src, alt) { 
+    const zoomContainer = document.getElementById('zoom-container'); 
+    zoomContainer.innerHTML = ` 
+        <div class="zoomed"> 
+            <img src="${src}" alt="${alt}" class="zoom-image">
+        </div>
+    `;
+    zoomContainer.style.display = 'block';
+    document.body.style.overflow = 'hidden';
+    
+    // Add event listener to close on click
+    zoomContainer.addEventListener('click', () => {
+        zoomContainer.style.display = 'none';
+        document.body.style.overflow = 'auto';
+    });
+}
+
+// Function to update carousel position
+function updateCarousel() {
+    carouselInner.style.transform = `translateX(-${currentSlide * 100}%)`;
+}
+
+// Function to go to next slide
+function nextSlideHandler() {
+    const totalSlides = carouselInner.children.length;
+    if (currentSlide < totalSlides - 1) {
+        currentSlide++;
+    } else {
+        currentSlide = 0; // Loop back to first slide
+    }
+    updateCarousel();
+}
+
+// Function to go to previous slide
+function prevSlideHandler() {
+    const totalSlides = carouselInner.children.length;
+    if (currentSlide > 0) {
+        currentSlide--;
+    } else {
+        currentSlide = totalSlides - 1; // Loop to last slide
+    }
+    updateCarousel();
+}
+
+// Function to check if element is in viewport
+function isElementInViewport(el) {
+    const rect = el.getBoundingClientRect();
+    return (
+        rect.top >= 0 &&
+        rect.left >= 0 &&
+        rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+        rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+    );
+}
+
+// Function to handle scroll animation
+function handleScrollAnimation() {
+    fadeElements.forEach(element => {
+        if (isElementInViewport(element)) {
+            element.classList.add('active');
+        }
+    });
+}
+
+// Event Listeners
+document.addEventListener('DOMContentLoaded', () => {
+    // Load content
+    loadDresses();
+    loadSizeCharts();
+    
+    // Modal close buttons
+    document.getElementById('dress-modal-close').addEventListener('click', () => {
+        dressModal.classList.remove('active');
+        document.body.style.overflow = 'auto';
+    });
+    
+    document.getElementById('size-chart-modal-close').addEventListener('click', () => {
+        sizeChartModal.classList.remove('active');
+        document.body.style.overflow = 'auto';
+    });
+    
+    // Carousel navigation
+    prevSlide.addEventListener('click', prevSlideHandler);
+    nextSlide.addEventListener('click', nextSlideHandler);
+    
+    // Keyboard navigation for carousel
+    document.addEventListener('keydown', (e) => {
+        if (dressModal.classList.contains('active')) {
+            if (e.key === 'ArrowLeft') {
+                prevSlideHandler();
+            } else if (e.key === 'ArrowRight') {
+                nextSlideHandler();
+            } else if (e.key === 'Escape') {
+                dressModal.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        }
+        
+        if (sizeChartModal.classList.contains('active') && e.key === 'Escape') {
+            sizeChartModal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+    });
+    
+    // Close modal if clicked outside content
+    dressModal.addEventListener('click', (e) => {
+        if (e.target === dressModal) {
+            dressModal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+    });
+    
+    sizeChartModal.addEventListener('click', (e) => {
+        if (e.target === sizeChartModal) {
+            sizeChartModal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+    });
+    
+    // Smooth scrolling for navigation
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            const targetId = this.getAttribute('href');
+            if (targetId === '#') return;
+            
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                window.scrollTo({
+                    top: targetElement.offsetTop,
+                    behavior: 'smooth'
+                });
+            }
         });
-    </script>
+    });
+    
+    // Initial scroll animation check
+    handleScrollAnimation();
+    
+    // Scroll event for animation
+    window.addEventListener('scroll', handleScrollAnimation);
+});
+</script>
 </body>
 </html>
