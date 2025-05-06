@@ -3,13 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ethereal Bridal | Handcrafted Wedding Dresses</title>
+    <title>Roza Bridal Dresses - Elegant Handcrafted Gowns</title>
+    
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Cormorant:wght@300;400;500&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
+    
     <style>
-        /* Reset & Base Styles */
+        /* Base Styles */
         * {
             margin: 0;
             padding: 0;
@@ -17,70 +19,59 @@
         }
         
         :root {
-            --primary-color: #f8f5f2;
-            --accent-color: #d4bfaa;
-            --dark-accent: #a69283;
-            --text-color: #3a3a3a;
-            --light-text: #6a6a6a;
-            --white: #ffffff;
+            --primary-font: 'Playfair Display', serif;
+            --secondary-font: 'Cormorant', serif;
+            --body-font: 'Montserrat', sans-serif;
+            --primary-color: #fff;
+            --accent-color: #f8f3ee;
+            --text-color: #333;
+            --light-text: #777;
+            --border-color: #e6e0d8;
+        }
+        
+        html {
+            scroll-behavior: smooth;
         }
         
         body {
-            font-family: 'Montserrat', sans-serif;
+            font-family: var(--body-font);
             color: var(--text-color);
             background-color: var(--primary-color);
             line-height: 1.6;
         }
         
-        h1, h2, h3, h4, h5 {
-            font-family: 'Cormorant Garamond', serif;
+        h1, h2, h3, h4 {
+            font-family: var(--primary-font);
             font-weight: 500;
+        }
+        
+        p {
+            margin-bottom: 1rem;
+            font-weight: 300;
         }
         
         a {
             text-decoration: none;
             color: inherit;
+            transition: all 0.3s ease;
+        }
+        
+        a:hover {
+            color: #b7a99a;
         }
         
         .container {
             width: 90%;
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 1rem;
-        }
-        
-        .btn {
-            display: inline-block;
-            padding: 0.8rem 1.5rem;
-            background-color: transparent;
-            border: 1px solid var(--accent-color);
-            color: var(--text-color);
-            font-family: 'Montserrat', sans-serif;
-            font-size: 0.9rem;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-        
-        .btn:hover {
-            background-color: var(--accent-color);
-            color: var(--white);
-        }
-        
-        .btn-primary {
-            background-color: var(--accent-color);
-            color: var(--white);
-        }
-        
-        .btn-primary:hover {
-            background-color: var(--dark-accent);
+            padding: 3rem 0;
         }
         
         .section-title {
             text-align: center;
             font-size: 2.5rem;
             margin-bottom: 2rem;
+            font-weight: 500;
             color: var(--text-color);
             position: relative;
             padding-bottom: 1rem;
@@ -94,317 +85,277 @@
             transform: translateX(-50%);
             width: 80px;
             height: 1px;
-            background-color: var(--accent-color);
-        }
-
-        /* Header Styles */
-        header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            z-index: 100;
-            padding: 1rem 0;
-            background-color: rgba(248, 245, 242, 0.9);
-            backdrop-filter: blur(5px);
-            transition: all 0.3s ease;
+            background-color: var(--border-color);
         }
         
-        header.scrolled {
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-        
-        .header-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .logo {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.8rem;
-            font-weight: 500;
-            color: var(--text-color);
-            letter-spacing: 1px;
-        }
-        
-        .nav-menu {
-            display: flex;
-            list-style: none;
-        }
-        
-        .nav-item {
-            margin-left: 2rem;
-            font-size: 0.9rem;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-        }
-        
-        .nav-link {
-            position: relative;
-            padding-bottom: 3px;
-        }
-        
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 1px;
-            background-color: var(--accent-color);
-            transition: width 0.3s ease;
-        }
-        
-        .nav-link:hover::after {
-            width: 100%;
-        }
-        
-        .mobile-toggle {
-            display: none;
-            cursor: pointer;
-            font-size: 1.5rem;
-        }
-
-        /* Hero Section Styles */
+        /* Header/Hero Section */
         .hero {
+            position: relative;
             height: 100vh;
-            min-height: 600px;
+            overflow: hidden;
             display: flex;
             align-items: center;
             justify-content: center;
-            position: relative;
-            background-image: url('https://i.etsystatic.com/1874731954/r/il/0b1f2b/1874731954/il_794xN.1874731954_0b1f2b.jpg');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
+            text-align: center;
         }
         
-        .hero::before {
-            content: '';
+        .hero-image {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(248, 245, 242, 0.5);
+            object-fit: cover;
         }
         
-        .hero-content {
-            text-align: center;
-            position: relative;
-            z-index: 1;
-            max-width: 800px;
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.4);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
             padding: 2rem;
+        }
+        
+        .logo-container {
+            position: absolute;
+            top: 2rem;
+            left: 2rem;
+            z-index: 10;
+        }
+        
+        .logo {
+            height: 60px;
+            filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.8));
         }
         
         .hero-title {
             font-size: 3.5rem;
-            margin-bottom: 1rem;
             color: var(--text-color);
+            margin-bottom: 1rem;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.9);
         }
         
         .hero-subtitle {
-            font-size: 1.2rem;
+            font-family: var(--secondary-font);
+            font-size: 1.5rem;
+            color: var(--text-color);
             margin-bottom: 2rem;
-            color: var(--light-text);
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.9);
         }
-
-        /* Dresses Gallery Section */
-        .dresses {
+        
+        .scroll-cta {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .scroll-cta:hover {
+            transform: translateX(-50%) translateY(-5px);
+        }
+        
+        .scroll-icon {
+            margin-top: 0.5rem;
+            font-size: 1.5rem;
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-10px);
+            }
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+        
+        /* Dress Gallery Section */
+        .gallery-section {
+            background-color: var(--accent-color);
             padding: 5rem 0;
         }
         
-        .gallery {
+        .gallery-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 2rem;
-            margin-top: 3rem;
         }
         
-        .dress-card {
-            background-color: var(--white);
-            border-radius: 5px;
+        .dress-item {
+            position: relative;
             overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-radius: 5px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            background-color: white;
         }
         
-        .dress-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        .dress-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
         }
         
-        .dress-image {
+        .dress-thumbnail {
             width: 100%;
             height: 400px;
             object-fit: cover;
             display: block;
+            transition: all 0.5s ease;
         }
         
-        .dress-info {
-            padding: 1.5rem;
+        .dress-item:hover .dress-thumbnail {
+            transform: scale(1.05);
         }
         
-        .dress-title {
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
-            color: var(--text-color);
-        }
-        
-        .dress-description {
-            font-size: 0.9rem;
-            color: var(--light-text);
-            margin-bottom: 1.5rem;
-            line-height: 1.6;
-        }
-        
-        .dress-buttons {
-            display: flex;
-            gap: 1rem;
-        }
-        
-        /* Dress Gallery */
-        .dress-gallery {
-            position: relative;
-            height: 400px;
-            overflow: hidden;
-        }
-        
-        .gallery-image {
-            width: 100%;
-            height: 400px;
-            object-fit: cover;
+        .dress-overlay {
             position: absolute;
-            top: 0;
-            left: 0;
-            opacity: 0;
-            transition: opacity 0.5s ease;
-        }
-        
-        .gallery-image.active {
-            opacity: 1;
-        }
-        
-        .gallery-nav {
-            position: absolute;
-            bottom: 1rem;
+            bottom: -50px;
             left: 0;
             width: 100%;
-            display: flex;
-            justify-content: center;
-            gap: 0.5rem;
-            z-index: 2;
-        }
-        
-        .gallery-dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background-color: rgba(255, 255, 255, 0.5);
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-        
-        .gallery-dot.active {
-            background-color: var(--white);
-        }
-
-        /* Contact Section */
-        .contact {
-            padding: 5rem 0;
-            background-color: var(--white);
-        }
-        
-        .contact-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.9);
             text-align: center;
+            transition: all 0.3s ease;
         }
         
-        .contact-text {
+        .dress-item:hover .dress-overlay {
+            bottom: 0;
+        }
+        
+        .view-button {
+            font-family: var(--secondary-font);
             font-size: 1.2rem;
-            margin-bottom: 2rem;
-            max-width: 600px;
+            color: var(--text-color);
+            letter-spacing: 1px;
         }
         
-        .social-links {
+        /* Size Chart Section */
+        .size-chart-section {
+            padding: 5rem 0;
+        }
+        
+        .size-chart-container {
+            margin-top: 2rem;
+            overflow-x: auto;
+            padding-bottom: 1rem;
+        }
+        
+        .size-chart-wrapper {
             display: flex;
             gap: 2rem;
-            margin-bottom: 2rem;
+            padding: 1rem 0;
         }
         
-        .social-link {
-            font-size: 1.5rem;
-            color: var(--accent-color);
-            transition: color 0.3s ease;
+        .size-chart-item {
+            flex: 0 0 auto;
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
         }
         
-        .social-link:hover {
-            color: var(--dark-accent);
+        .size-chart-item:hover {
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
         }
-
-        /* Footer Styles */
+        
+        .size-chart-image {
+            max-width: 400px;
+            height: auto;
+            display: block;
+        }
+        
+        /* Footer Section */
         footer {
             background-color: var(--accent-color);
-            color: var(--white);
-            padding: 2rem 0;
+            padding: 3rem 0;
             text-align: center;
         }
         
         .footer-content {
-            font-size: 0.9rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
         }
-
-        /* Media Queries */
+        
+        .footer-logo {
+            height: 40px;
+        }
+        
+        .footer-text {
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        
+        .footer-link {
+            color: #b7a99a;
+            font-weight: 400;
+        }
+        
+        .footer-link:hover {
+            text-decoration: underline;
+        }
+        
+        /* Media Queries for Responsive Design */
+        @media (max-width: 992px) {
+            .hero-title {
+                font-size: 3rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.3rem;
+            }
+            
+            .logo-container {
+                top: 1rem;
+                left: 1rem;
+            }
+            
+            .logo {
+                height: 50px;
+            }
+        }
+        
         @media (max-width: 768px) {
-            .nav-menu {
-                position: fixed;
-                top: 0;
-                right: -100%;
-                width: 70%;
-                height: 100vh;
-                background-color: var(--white);
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-                transition: right 0.3s ease;
-                box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
-            }
-            
-            .nav-menu.active {
-                right: 0;
-            }
-            
-            .nav-item {
-                margin: 1.5rem 0;
-            }
-            
-            .mobile-toggle {
-                display: block;
-            }
-            
-            .close-menu {
-                position: absolute;
-                top: 2rem;
-                right: 2rem;
-            }
-            
             .hero-title {
                 font-size: 2.5rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.1rem;
             }
             
             .section-title {
                 font-size: 2rem;
             }
             
-            .gallery {
+            .gallery-grid {
                 grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
             }
         }
-
-        @media (max-width: 480px) {
+        
+        @media (max-width: 576px) {
             .hero-title {
                 font-size: 2rem;
             }
@@ -413,168 +364,152 @@
                 font-size: 1rem;
             }
             
-            .gallery {
+            .logo {
+                height: 40px;
+            }
+            
+            .gallery-grid {
                 grid-template-columns: 1fr;
             }
             
-            .dress-buttons {
-                flex-direction: column;
-            }
-            
-            .btn {
-                text-align: center;
+            .size-chart-image {
+                max-width: 100%;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Header -->
-    <header>
-        <div class="container header-container">
-            <a href="#" class="logo">Ethereal Bridal</a>
-            <div class="mobile-toggle">
-                <i class="fas fa-bars"></i>
-            </div>
-            <ul class="nav-menu">
-                <li class="nav-item"><a href="#" class="nav-link">Home</a></li>
-                <li class="nav-item"><a href="#dresses" class="nav-link">Dresses</a></li>
-                <li class="nav-item"><a href="#contact" class="nav-link">Contact</a></li>
-                <div class="mobile-toggle close-menu">
-                    <i class="fas fa-times"></i>
-                </div>
-            </ul>
-        </div>
-    </header>
-
     <!-- Hero Section -->
     <section class="hero">
-        <div class="hero-content">
-            <h1 class="hero-title">Find Your Dream Dress</h1>
-            <p class="hero-subtitle">Explore handmade bridal gowns from our Etsy shop</p>
-            <a href="#dresses" class="btn btn-primary">Browse Dresses</a>
+        <img src="./assets/banners/header.webp" alt="Roza Bridal Dresses Banner" class="hero-image">
+        <div class="logo-container">
+            <img src="./assets/logos/logo.webp" alt="Roza Bridal Logo" class="logo">
         </div>
+        <div class="hero-overlay">
+            <h1 class="hero-title">Roza Bridal Dresses</h1>
+            <p class="hero-subtitle">Elegant Handcrafted Gowns for Your Big Day</p>
+        </div>
+        <a href="#gallery" class="scroll-cta">
+            <span>Browse Collection</span>
+            <span class="scroll-icon">↓</span>
+        </a>
     </section>
 
-    <!-- Dresses Gallery Section -->
-    <section class="dresses" id="dresses">
+    <!-- Dress Gallery Section -->
+    <section id="gallery" class="gallery-section">
         <div class="container">
             <h2 class="section-title">Our Collection</h2>
-            <div class="gallery">
-                <!-- Dress 1 -->
-                <div class="dress-card">
-                    <div class="dress-image-container">
-                        <img src="https://i.etsystatic.com/1874731954/r/il/0b1f2b/1874731954/il_794xN.1874731954_0b1f2b.jpg" alt="Custom Lace Mermaid Wedding Dress" class="dress-image">
-                    </div>
-                    <div class="dress-info">
-                        <h3 class="dress-title">Custom Lace Mermaid Wedding Dress</h3>
-                        <p class="dress-description">Elegant V-neck bridal gown with spaghetti straps and detailed lace. Perfect for beach weddings.</p>
-                        <div class="dress-buttons">
-                            <a href="https://www.etsy.com/listing/1874731954/custom-lace-mermaid-wedding-dress" target="_blank" class="btn btn-primary">View on Etsy</a>
-                            <a href="#" class="btn">Buy on Ko-fi</a>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Dress 2 -->
-                <div class="dress-card">
-                    <div class="dress-image-container">
-                        <img src="https://i.etsystatic.com/1900115357/r/il/3f4e2b/1900115357/il_794xN.1900115357_3f4e2b.jpg" alt="Gorgeous Ivory Mermaid Wedding Gown with Long Train" class="dress-image">
-                    </div>
-                    <div class="dress-info">
-                        <h3 class="dress-title">Ivory Mermaid Wedding Gown</h3>
-                        <p class="dress-description">Backless mermaid gown with long sleeves, black lace details, and a dramatic train.</p>
-                        <div class="dress-buttons">
-                            <a href="https://www.etsy.com/listing/1900115357/gorgeous-ivory-mermaid-wedding-gown-with" target="_blank" class="btn btn-primary">View on Etsy</a>
-                            <a href="#" class="btn">Buy on Ko-fi</a>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Dress 3 -->
-                <div class="dress-card">
-                    <div class="dress-image-container">
-                        <img src="https://i.etsystatic.com/1883545950/r/il/5a1f2b/1883545950/il_794xN.1883545950_5a1f2b.jpg" alt="Elegant Ivory Satin Bridal Gown with Lace" class="dress-image">
-                    </div>
-                    <div class="dress-info">
-                        <h3 class="dress-title">Ivory Satin Bridal Gown</h3>
-                        <p class="dress-description">Vintage-inspired satin dress with long lace sleeves, scoop neckline, and corset back.</p>
-                        <div class="dress-buttons">
-                            <a href="https://www.etsy.com/listing/1883545950/elegant-ivory-satin-bridal-gown-lace" target="_blank" class="btn btn-primary">View on Etsy</a>
-                            <a href="#" class="btn">Buy on Ko-fi</a>
-                        </div>
-                    </div>
+            <div class="gallery-grid" id="dress-gallery">
+                <!-- Dress images will be dynamically loaded here via JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Size Chart Section -->
+    <section class="size-chart-section">
+        <div class="container">
+            <h2 class="section-title">🧵 Size Guide</h2>
+            <div class="size-chart-container">
+                <div class="size-chart-wrapper" id="size-charts">
+                    <!-- Size chart images will be dynamically loaded here via JavaScript -->
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Contact Section -->
-    <section class="contact" id="contact">
-        <div class="container contact-container">
-            <h2 class="section-title">Get in Touch</h2>
-            <p class="contact-text">Follow us on Instagram for the latest designs or email us anytime with questions about our handcrafted bridal gowns.</p>
-            <div class="social-links">
-                <a href="#" class="social-link" target="_blank">
-                    <i class="fab fa-instagram"></i>
-                </a>
-                <a href="mailto:info@etherealbridal.com" class="social-link">
-                    <i class="far fa-envelope"></i>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
+    <!-- Footer Section -->
     <footer>
         <div class="container">
-            <p class="footer-content">© 2025 Ethereal Bridal. All rights reserved.</p>
+            <div class="footer-content">
+                <img src="./assets/logos/logo.webp" alt="Roza Bridal Logo" class="footer-logo">
+                <p class="footer-text">
+                    For custom orders or questions, message us directly on 
+                    <a href="https://www.etsy.com/shop/RozaBridalDresses" target="_blank" class="footer-link">our Etsy shop</a> — it's much faster 💬
+                </p>
+                <p class="footer-text">Or email: <a href="mailto:aetophis@aetophis.com" class="footer-link">aetophis@aetophis.com</a></p>
+            </div>
         </div>
     </footer>
 
     <!-- JavaScript -->
     <script>
-        // Mobile Menu Toggle
-        const mobileToggle = document.querySelectorAll('.mobile-toggle');
-        const navMenu = document.querySelector('.nav-menu');
-        
-        mobileToggle.forEach(toggle => {
-            toggle.addEventListener('click', () => {
-                navMenu.classList.toggle('active');
+        // Function to dynamically load dress images from /assets/images/
+        function loadDressImages() {
+            // This would normally fetch from the server, but for this example, we'll simulate with some image names
+            const dressImages = [
+                'il_1588xN.6848375657_b263.avif',
+                'il_1588xN.6772649876_j3k4.webp',
+                'il_1588xN.4928476523_p9r7.avif',
+                'il_1588xN.3854762345_s7t9.webp',
+                'il_1588xN.5673941852_a5c7.avif',
+                'il_1588xN.2345678901_d8f2.webp'
+            ];
+            
+            const galleryContainer = document.getElementById('dress-gallery');
+            
+            dressImages.forEach(image => {
+                const dressItemElement = document.createElement('a');
+                dressItemElement.href = '#'; // This would link to the product page or Etsy listing
+                dressItemElement.classList.add('dress-item');
+                
+                dressItemElement.innerHTML = `
+                    <img src="./assets/images/${image}" alt="Bridal Dress" class="dress-thumbnail">
+                    <div class="dress-overlay">
+                        <span class="view-button">View Dress</span>
+                    </div>
+                `;
+                
+                galleryContainer.appendChild(dressItemElement);
             });
-        });
+        }
         
-        // Smooth Scrolling for Navigation Links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
+        // Function to dynamically load size chart images from /assets/size-charts/
+        function loadSizeCharts() {
+            // This would normally fetch from the server, but for this example, we'll simulate with some image names
+            const sizeChartImages = [
+                'deatiles.webp',
+                'deatiles2.webp',
+                'deatiles.avif',
+                'chart1.webp',
+                'chart2.avif'
+            ];
+            
+            const sizeChartContainer = document.getElementById('size-charts');
+            
+            sizeChartImages.forEach(image => {
+                const chartItemElement = document.createElement('div');
+                chartItemElement.classList.add('size-chart-item');
                 
-                const targetId = this.getAttribute('href');
-                if (targetId === '#') return;
+                chartItemElement.innerHTML = `
+                    <img src="./assets/size-charts/${image}" alt="Size Chart" class="size-chart-image">
+                `;
                 
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 80,
-                        behavior: 'smooth'
-                    });
+                sizeChartContainer.appendChild(chartItemElement);
+            });
+        }
+        
+        // Initialize when the page is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            loadDressImages();
+            loadSizeCharts();
+            
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
                     
-                    // Close mobile menu if open
-                    if (navMenu.classList.contains('active')) {
-                        navMenu.classList.remove('active');
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop,
+                            behavior: 'smooth'
+                        });
                     }
-                }
+                });
             });
-        });
-        
-        // Header Scroll Effect
-        const header = document.querySelector('header');
-        
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
-                header.classList.add('scrolled');
-            } else {
-                header.classList.remove('scrolled');
-            }
         });
     </script>
 </body>
