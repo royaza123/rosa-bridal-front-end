@@ -1,1 +1,259 @@
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sexy Sequin Mermaid Wedding Dress | Roza Bridal</title>
+  <link rel="stylesheet" href="../style.css">
+  <style>
+    /* Add page-specific enhanced styling */
+    @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500&display=swap');
+    
+    :root {
+      --primary-color: #f9f7f5;
+      --secondary-color: #f0e9e4;
+      --accent-color: #d4b7a8;
+      --dark-accent: #c1a698;
+      --text-color: #3f3f3f;
+      --light-text: #6c6c6c;
+      --border-color: rgba(212, 183, 168, 0.3);
+    }
+    
+    body {
+      font-family: 'Montserrat', sans-serif;
+      color: var(--text-color);
+      background-color: var(--primary-color);
+      line-height: 1.6;
+    }
+    
+    h1, h2, h3, h4, h5 {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 500;
+      letter-spacing: 0.03em;
+    }
+    
+    /* Header enhancement */
+    header {
+      background-color: rgba(249, 247, 245, 0.95);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border-color);
+      padding: 1.25rem;
+      transition: all 0.3s ease;
+    }
+    
+    .logo {
+      height: 2.5rem;
+      transition: transform 0.3s ease;
+    }
+    
+    .logo:hover {
+      transform: scale(1.05);
+    }
+    
+    /* Product page enhancements */
+    .product-page {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem 1.25rem;
+      gap: 3rem;
+    }
+    
+    /* Gallery enhancements */
+    .gallery {
+      border-radius: 4px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+      background-color: white;
+      overflow: hidden;
+    }
+    
+    /* Product details enhancements */
+    .product-details {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+    
+    .product-details h1 {
+      font-size: 2.2rem;
+      line-height: 1.2;
+      position: relative;
+      padding-bottom: 1rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .product-details h1::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 5rem;
+      height: 1px;
+      background-color: var(--accent-color);
+    }
+    
+    .product-details ul {
+      list-style-type: none;
+      padding-left: 0.3rem;
+    }
+    
+    .product-details li {
+      position: relative;
+      padding-left: 1.5rem;
+      margin-bottom: 0.75rem;
+      color: var(--light-text);
+      font-size: 0.95rem;
+    }
+    
+    .product-details li::before {
+      content: '✦';
+      position: absolute;
+      left: 0;
+      color: var(--accent-color);
+    }
+    
+    .product-details p {
+      font-size: 1rem;
+      line-height: 1.7;
+      color: var(--light-text);
+      margin-bottom: 1.5rem;
+      font-weight: 300;
+    }
+    
+    .buy-button {
+      display: inline-block;
+      background-color: transparent;
+      color: var(--text-color);
+      padding: 0.75rem 2rem;
+      border: 1px solid var(--accent-color);
+      border-radius: 2px;
+      font-size: 0.875rem;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      transition: all 0.3s ease;
+      text-align: center;
+      max-width: 15rem;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .buy-button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background-color: var(--secondary-color);
+      transition: left 0.5s ease;
+      z-index: -1;
+    }
+    
+    .buy-button:hover {
+      color: var(--text-color);
+    }
+    
+    .buy-button:hover::before {
+      left: 0;
+    }
+    
+    /* Footer enhancements */
+    footer {
+      margin-top: 4rem;
+      padding: 2rem 1.25rem;
+      background-color: var(--secondary-color);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-top: 1px solid var(--border-color);
+    }
+    
+    footer img {
+      height: 1.875rem;
+      opacity: 0.85;
+    }
+    
+    /* Add animation for product details */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .product-details > * {
+      animation: fadeInUp 0.8s ease-out forwards;
+      opacity: 0;
+    }
+    
+    .product-details > *:nth-child(1) {
+      animation-delay: 0.1s;
+    }
+    
+    .product-details > *:nth-child(2) {
+      animation-delay: 0.3s;
+    }
+    
+    .product-details > *:nth-child(3) {
+      animation-delay: 0.5s;
+    }
+    
+    .product-details > *:nth-child(4) {
+      animation-delay: 0.7s;
+    }
+    
+    /* Media Queries */
+    @media (min-width: 768px) {
+      .product-page {
+        grid-template-columns: 1fr 1fr;
+        gap: 4rem;
+        align-items: start;
+      }
+      
+      .gallery {
+        position: sticky;
+        top: 6rem;
+        max-height: calc(100vh - 8rem);
+      }
+      
+      .product-details h1 {
+        font-size: 2.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="../index.html"><img src="../assets/logos/roza-logo.png" alt="Roza Bridal Dresses Logo" class="logo"></a>
+  </header>
+  <main class="product-page">
+    <div class="gallery">
+      <img src="../assets/images/sexy-sequin-mermaid-wedding-dress/picture1.jpg" alt="Sexy Sequin Mermaid Wedding Dress - Front View">
+      <img src="../assets/images/sexy-sequin-mermaid-wedding-dress/picture2.jpg" alt="Sexy Sequin Mermaid Wedding Dress - Back View">
+      <img src="../assets/images/sexy-sequin-mermaid-wedding-dress/picture3.jpg" alt="Sexy Sequin Mermaid Wedding Dress - Detail View">
+      <img src="../assets/images/sexy-sequin-mermaid-wedding-dress/picture4.jpg" alt="Sexy Sequin Mermaid Wedding Dress - Full Length">
+    </div>
+    <section class="product-details">
+      <h1>Sexy Sequin Mermaid Wedding Dress</h1>
+      <ul>
+        <li>Deep V-Neck with Illusion Tulle</li>
+        <li>All-Over Sequin Embellishments</li>
+        <li>Curve-Hugging Mermaid Silhouette</li>
+        <li>Open Back with Train</li>
+        <li>Perfect for Glamorous Receptions or Ceremonies</li>
+      </ul>
+      <p>Make a dazzling entrance in this sexy mermaid wedding gown, designed for bold brides who love sparkle. Featuring a deep V neckline and shimmering sequins from top to train, it's made for unforgettable moments.</p>
+      <a href="https://www.etsy.com/listing/1876059768/sexy-sequin-mermaid-wedding-dress-deep-v" class="buy-button" target="_blank">View on Etsy</a>
+    </section>
+  </main>
+  <footer>
+    <img src="../assets/logos/roza-footer.png" alt="Roza Bridal Footer Logo">
+  </footer>
+  <script src="../script.js"></script>
+</body>
+</html>
