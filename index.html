@@ -446,14 +446,14 @@
     <div class="header-container">
       <div class="logo-container">
         <a href="index.html">
-          <img src="assets/images/minimalist-off-shoulder-satin-wedding-dress/main.avif" alt="Roza Bridal Dresses Logo" class="logo" onerror="this.src='assets/images/minimalist-off-shoulder-satin-wedding-dress/main.webp';">
+          <img src="./assets/logos/logo.webp" alt="Roza Bridal Dresses Logo" class="logo">
         </a>
       </div>
       <nav>
         <ul>
           <li><a href="#collection">Collection</a></li>
           <li><a href="#about">About</a></li>
-          <li><a href="mailto:aetophis@aetophis.com?subject=Wedding%20Dress%20Inquiry&body=Hello%20Roza%20Bridal%2C%0A%0AI'm%20interested%20in%20your%20wedding%20dresses%20and%20would%20like%20more%20information.">Contact</a></li>
+          <li><a href="mailto:aetophis@aetophis.com">Contact</a></li>
         </ul>
       </nav>
     </div>
@@ -666,7 +666,7 @@
       </div>
       
       <div class="contact-icons">
-        <a href="mailto:aetophis@aetophis.com?subject=Wedding%20Dress%20Inquiry&body=Hello%20Roza%20Bridal%2C%0A%0AI'm%20interested%20in%20your%20wedding%20dresses%20and%20would%20like%20more%20information." class="contact-icon">
+        <a href="mailto:aetophis@aetophis.com" class="contact-icon">
           <div class="icon-circle">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
           </div>
@@ -685,65 +685,109 @@
   
   <footer>
     <div class="footer-content">
-      <img src="assets/images/minimalist-off-shoulder-satin-wedding-dress/main.avif" alt="Roza Bridal Logo" class="footer-logo" onerror="this.src='assets/images/minimalist-off-shoulder-satin-wedding-dress/main.webp';">
+      <img src="./assets/logos/footer-1.png" alt="Roza Bridal Logo" class="footer-logo">
       <div class="footer-links">
         <a href="#collection">Collection</a>
         <a href="#about">About</a>
-        <a href="mailto:aetophis@aetophis.com?subject=Wedding%20Dress%20Inquiry&body=Hello%20Roza%20Bridal%2C%0A%0AI'm%20interested%20in%20your%20wedding%20dresses%20and%20would%20like%20more%20information.">Contact</a>
+        <a href="mailto:aetophis@aetophis.com">Contact</a>
       </div>
       <p class="copyright">&copy; 2025 Roza Bridal. All rights reserved.</p>
     </div>
   </footer>
 
   <script>
-  // Smooth scrolling for navigation links
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-      e.preventDefault();
-      
-      document.querySelector(this.getAttribute('href')).scrollIntoView({
-        behavior: 'smooth'
+    // Smooth scrolling for navigation links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
       });
     });
-  });
-  
-  // Add hover effect for product cards
-  document.querySelectorAll('.product-card').forEach(card => {
-    card.addEventListener('mouseenter', function() {
-      this.querySelector('.product-overlay').style.opacity = '1';
-      this.querySelector('.product-details').style.transform = 'translateY(0)';
-      this.querySelector('.product-details').style.opacity = '1';
+    
+    // Add hover effect for product cards
+    document.querySelectorAll('.product-card').forEach(card => {
+      card.addEventListener('mouseenter', function() {
+        this.querySelector('.product-overlay').style.opacity = '1';
+        this.querySelector('.product-details').style.transform = 'translateY(0)';
+        this.querySelector('.product-details').style.opacity = '1';
+      });
+      
+      card.addEventListener('mouseleave', function() {
+        this.querySelector('.product-overlay').style.opacity = '0';
+        this.querySelector('.product-details').style.transform = 'translateY(20px)';
+        this.querySelector('.product-details').style.opacity = '0';
+      });
     });
     
-    card.addEventListener('mouseleave', function() {
-      this.querySelector('.product-overlay').style.opacity = '0';
-      this.querySelector('.product-details').style.transform = 'translateY(20px)';
-      this.querySelector('.product-details').style.opacity = '0';
+    // Debug image loading
+    document.addEventListener('DOMContentLoaded', function() {
+      // Check if logo and footer images loaded successfully
+      const logoImg = document.querySelector('.logo');
+      const footerImg = document.querySelector('.footer-logo');
+      
+      logoImg.addEventListener('load', function() {
+        console.log('Logo image loaded successfully');
+      });
+      
+      logoImg.addEventListener('error', function() {
+        console.error('Logo image failed to load:', this.src);
+        // Fallback image if logo fails to load
+        this.src = './assets/logos/roza-logo.png';
+      });
+      
+      footerImg.addEventListener('load', function() {
+        console.log('Footer image loaded successfully');
+      });
+      
+      footerImg.addEventListener('error', function() {
+        console.error('Footer image failed to load:', this.src);
+        // Fallback image if footer logo fails to load
+        this.src = './assets/logos/roza-footer.png';
+      });
     });
-  });
-  
-  // Debug image loading
-  document.addEventListener('DOMContentLoaded', function() {
-    // Check if logo and footer images loaded successfully
-    const logoImg = document.querySelector('.logo');
-    const footerImg = document.querySelector('.footer-logo');
     
-    logoImg.addEventListener('load', function() {
-      console.log('Logo image loaded successfully');
+    // Smooth scrolling for navigation links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
+      });
     });
     
-    logoImg.addEventListener('error', function() {
-      console.error('Logo image failed to load:', this.src);
+    // Add hover effect for product cards
+    document.querySelectorAll('.product-card').forEach(card => {
+      card.addEventListener('mouseenter', function() {
+        this.querySelector('.product-overlay').style.opacity = '1';
+        this.querySelector('.product-details').style.transform = 'translateY(0)';
+        this.querySelector('.product-details').style.opacity = '1';
+      });
+      
+      card.addEventListener('mouseleave', function() {
+        this.querySelector('.product-overlay').style.opacity = '0';
+        this.querySelector('.product-details').style.transform = 'translateY(20px)';
+        this.querySelector('.product-details').style.opacity = '0';
+      });
     });
     
-    footerImg.addEventListener('load', function() {
-      console.log('Footer image loaded successfully');
+    // Fix product images that fail to load
+    document.querySelectorAll('.product-image').forEach(img => {
+      img.addEventListener('error', function() {
+        console.error('Product image failed to load:', this.src);
+        
+        // Try to find an alternative format or fallback
+        if (this.src.includes('.avif')) {
+          this.src = this.src.replace('.avif', '.webp');
+        } else if (this.src.includes('.webp')) {
+          this.src = this.src.replace('.webp', '.jpg');
+        }
+      });
     });
-    
-    footerImg.addEventListener('error', function() {
-      console.error('Footer image failed to load:', this.src);
-    });
-  });
 </script>
 </body>
 </html>
