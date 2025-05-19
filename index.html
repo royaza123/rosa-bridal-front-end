@@ -1,1 +1,666 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Roza Bridal - Elegant Wedding Dresses</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    /* Reset & Base Styles */
+    :root {
+      --primary-color: #f9f7f5;
+      --secondary-color: #f0e9e4;
+      --accent-color: #d4b7a8;
+      --dark-accent: #c1a698;
+      --text-color: #3f3f3f;
+      --light-text: #6c6c6c;
+      --border-color: rgba(212, 183, 168, 0.3);
+      --shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+      --transition: all 0.3s ease;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 300;
+      color: var(--text-color);
+      background-color: var(--primary-color);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    
+    h1, h2, h3, h4, h5 {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 500;
+      letter-spacing: 0.03em;
+      line-height: 1.3;
+    }
+    
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+    
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    
+    /* Header Styles */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background-color: rgba(249, 247, 245, 0.95);
+      padding: 1.25rem;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border-color);
+      transition: var(--transition);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo {
+      height: 2.5rem;
+      display: block;
+      transition: transform 0.3s ease;
+    }
+    
+    .logo:hover {
+      transform: scale(1.05);
+    }
 
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 2rem;
+    }
+
+    nav a {
+      font-size: 0.9rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      position: relative;
+      transition: var(--transition);
+    }
+
+    nav a:after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -5px;
+      width: 0;
+      height: 1px;
+      background-color: var(--accent-color);
+      transition: var(--transition);
+    }
+
+    nav a:hover {
+      color: var(--dark-accent);
+    }
+
+    nav a:hover:after {
+      width: 100%;
+    }
+    
+    /* Main Content Styles */
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.25rem;
+    }
+    
+    /* Hero Section */
+    .hero {
+      position: relative;
+      height: 85vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      margin-bottom: 5rem;
+    }
+    
+    .hero-image {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1;
+    }
+    
+    .hero-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.4));
+      z-index: -1;
+    }
+    
+    .hero-content {
+      text-align: center;
+      color: white;
+      max-width: 700px;
+      padding: 2rem;
+      animation: fadeIn 1.5s ease-out;
+    }
+    
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .hero-content h1 {
+      font-size: 3.5rem;
+      margin-bottom: 1rem;
+      font-weight: 400;
+    }
+    
+    .hero-content p {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+      font-weight: 300;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    
+    .hero-button {
+      display: inline-block;
+      background-color: white;
+      color: var(--text-color);
+      padding: 0.875rem 2.5rem;
+      border-radius: 2px;
+      font-size: 0.9rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      transition: var(--transition);
+      border: 1px solid transparent;
+    }
+    
+    .hero-button:hover {
+      background-color: transparent;
+      color: white;
+      border-color: white;
+    }
+    
+    /* Collection Section */
+    .collection {
+      padding: 5rem 0;
+    }
+    
+    .section-title {
+      text-align: center;
+      margin-bottom: 3rem;
+      position: relative;
+      padding-bottom: 1rem;
+    }
+    
+    .section-title:after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 1px;
+      background-color: var(--accent-color);
+    }
+    
+    .section-title h2 {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+      font-weight: 400;
+    }
+    
+    .section-title p {
+      color: var(--light-text);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 2.5rem;
+      margin-top: 2rem;
+    }
+    
+    .product-card {
+      background-color: white;
+      border-radius: 4px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+      position: relative;
+    }
+    
+    .product-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    }
+    
+    .product-image {
+      height: 400px;
+      width: 100%;
+      object-fit: cover;
+      transition: var(--transition);
+    }
+    
+    .product-card:hover .product-image {
+      transform: scale(1.03);
+    }
+    
+    .product-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to bottom, transparent 60%, rgba(0,0,0,0.7));
+      opacity: 0;
+      transition: var(--transition);
+    }
+    
+    .product-card:hover .product-overlay {
+      opacity: 1;
+    }
+    
+    .product-details {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      padding: 1.5rem;
+      color: white;
+      transform: translateY(20px);
+      opacity: 0;
+      transition: var(--transition);
+    }
+    
+    .product-card:hover .product-details {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    
+    .product-details h3 {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .product-details p {
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+      opacity: 0.9;
+    }
+    
+    .view-button {
+      display: inline-block;
+      background-color: transparent;
+      color: white;
+      padding: 0.5rem 1.5rem;
+      border: 1px solid white;
+      border-radius: 2px;
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      transition: var(--transition);
+    }
+    
+    .view-button:hover {
+      background-color: white;
+      color: var(--text-color);
+    }
+    
+    /* About Section */
+    .about {
+      padding: 5rem 0;
+      background-color: var(--secondary-color);
+      margin: 5rem 0;
+    }
+    
+    .about-content {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+    
+    .about-text {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    
+    .about-text h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1.5rem;
+      position: relative;
+      padding-bottom: 1rem;
+    }
+    
+    .about-text h2:after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 60px;
+      height: 1px;
+      background-color: var(--accent-color);
+    }
+    
+    .about-text p {
+      margin-bottom: 1.5rem;
+      color: var(--light-text);
+    }
+    
+    /* Contact Section */
+    .contact {
+      text-align: center;
+      padding: 3rem 0;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    
+    .contact-icons {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+    
+    .contact-icon {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .icon-circle {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background-color: var(--secondary-color);
+      margin-bottom: 0.5rem;
+      transition: var(--transition);
+    }
+    
+    .contact-icon:hover .icon-circle {
+      background-color: var(--accent-color);
+    }
+    
+    .contact-icon span {
+      font-size: 0.875rem;
+      color: var(--light-text);
+    }
+    
+    /* Footer Styles */
+    footer {
+      background-color: var(--secondary-color);
+      padding: 3rem 1.25rem;
+      text-align: center;
+      border-top: 1px solid var(--border-color);
+    }
+    
+    .footer-logo {
+      height: 2.5rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+    
+    .footer-links a {
+      font-size: 0.875rem;
+      color: var(--light-text);
+      transition: var(--transition);
+    }
+    
+    .footer-links a:hover {
+      color: var(--dark-accent);
+    }
+    
+    .copyright {
+      font-size: 0.875rem;
+      color: var(--light-text);
+    }
+    
+    /* Media Queries */
+    @media (max-width: 768px) {
+      .hero-content h1 {
+        font-size: 2.5rem;
+      }
+      
+      .hero-content p {
+        font-size: 1rem;
+      }
+      
+      nav {
+        display: none;
+      }
+      
+      .product-grid {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      }
+      
+      .product-image {
+        height: 350px;
+      }
+      
+      .section-title h2 {
+        font-size: 2rem;
+      }
+      
+      .about-content {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    @media (min-width: 769px) and (max-width: 1024px) {
+      .product-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    
+    @media (min-width: 1025px) {
+      .about-content {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="index.html"><img src="assets/logos/roza-logo.png" alt="Roza Bridal Dresses Logo" class="logo"></a>
+    <nav>
+      <ul>
+        <li><a href="#collection">Collection</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+  
+  <main>
+    <!-- Hero Section -->
+    <section class="hero">
+      <img src="assets/images/hero.jpg" alt="Beautiful Bride in Wedding Dress" class="hero-image">
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <h1>Find Your Dream Dress</h1>
+        <p>Explore our collection of elegant and unique wedding gowns designed for your special day.</p>
+        <a href="#collection" class="hero-button">View Collection</a>
+      </div>
+    </section>
+    
+    <!-- Collection Section -->
+    <section id="collection" class="collection">
+      <div class="section-title">
+        <h2>Our Collection</h2>
+        <p>Discover our carefully curated selection of wedding dresses, each designed with love and attention to detail.</p>
+      </div>
+      
+      <div class="product-grid">
+        <!-- Product 1 -->
+        <div class="product-card">
+          <img src="assets/images/custom-lace-mermaid-wedding-dress/picture1.jpg" alt="Custom Lace Mermaid Wedding Dress" class="product-image">
+          <div class="product-overlay"></div>
+          <div class="product-details">
+            <h3>Custom Lace Mermaid Wedding Dress</h3>
+            <p>Elegant V-neck design with delicate spaghetti straps and exquisite lace detailing.</p>
+            <a href="products/custom-lace-mermaid-wedding-dress.html" class="view-button">View Details</a>
+          </div>
+        </div>
+        
+        <!-- Product 2 -->
+        <div class="product-card">
+          <img src="assets/images/boho-beach-wedding-dress/picture1.jpg" alt="Boho Beach Wedding Dress" class="product-image">
+          <div class="product-overlay"></div>
+          <div class="product-details">
+            <h3>Boho Beach Wedding Dress</h3>
+            <p>Lightweight tulle fabric with romantic off-shoulder bodice, perfect for beach weddings.</p>
+            <a href="products/boho-beach-wedding-dress.html" class="view-button">View Details</a>
+          </div>
+        </div>
+        
+        <!-- Product 3 -->
+        <div class="product-card">
+          <img src="assets/images/sexy-sequin-mermaid-wedding-dress/picture1.jpg" alt="Sexy Sequin Mermaid Wedding Dress" class="product-image">
+          <div class="product-overlay"></div>
+          <div class="product-details">
+            <h3>Sexy Sequin Mermaid Wedding Dress</h3>
+            <p>Stunning sequin gown with deep V-neck and curve-hugging mermaid silhouette.</p>
+            <a href="products/sexy-sequin-mermaid-wedding-dress.html" class="view-button">View Details</a>
+          </div>
+        </div>
+        
+        <!-- Product 4 -->
+        <div class="product-card">
+          <img src="assets/images/modest-satin-wedding-dress/picture1.jpg" alt="Modest Satin Wedding Dress" class="product-image">
+          <div class="product-overlay"></div>
+          <div class="product-details">
+            <h3>Modest Satin Wedding Dress</h3>
+            <p>Elegant long sleeve gown with high-quality satin finish and flowing train.</p>
+            <a href="products/modest-satin-wedding-dress.html" class="view-button">View Details</a>
+          </div>
+        </div>
+        
+        <!-- Product 5 -->
+        <div class="product-card">
+          <img src="assets/images/floral-bridal-dress/picture1.jpg" alt="Floral Bridal Dress" class="product-image">
+          <div class="product-overlay"></div>
+          <div class="product-details">
+            <h3>Floral Bridal Dress</h3>
+            <p>Romantic floral lace gown with deep V-neck and lightweight mesh for easy movement.</p>
+            <a href="products/floral-bridal-dress.html" class="view-button">View Details</a>
+          </div>
+        </div>
+        
+        <!-- Product 6 -->
+        <div class="product-card">
+          <img src="assets/images/boho-wedding-dress-elegant-v-neck/picture1.jpg" alt="Boho V-Neck Wedding Dress" class="product-image">
+          <div class="product-overlay"></div>
+          <div class="product-details">
+            <h3>Boho V-Neck Wedding Dress</h3>
+            <p>Elegant V-neck bridal gown with lightweight tulle and romantic lace details.</p>
+            <a href="products/boho-wedding-dress-elegant-v-neck.html" class="view-button">View Details</a>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- About Section -->
+    <section id="about" class="about">
+      <div class="about-content">
+        <div class="about-text">
+          <h2>About Roza Bridal</h2>
+          <p>At Roza Bridal, we believe that every bride deserves to feel beautiful, comfortable, and confident on her special day. Our collection of wedding dresses is designed with love and attention to detail, using only the finest fabrics and materials.</p>
+          <p>We offer a variety of styles from bohemian beach gowns to elegant mermaid silhouettes, ensuring that every bride finds her perfect match. Each dress is created to capture the romance and magic of your wedding day.</p>
+          <p>Our mission is to make dream dresses accessible to all brides. We work directly with you to ensure the perfect fit and style for your unique vision.</p>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+      <div class="section-title">
+        <h2>Contact Us</h2>
+        <p>Have questions about our dresses? We're here to help you find your perfect wedding gown.</p>
+      </div>
+      
+      <div class="contact-icons">
+        <a href="https://www.etsy.com/shop/RozaBridal" target="_blank" class="contact-icon">
+          <div class="icon-circle">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"></path></svg>
+          </div>
+          <span>Etsy Shop</span>
+        </a>
+        
+        <a href="mailto:info@rozabridal.com" class="contact-icon">
+          <div class="icon-circle">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+          </div>
+          <span>Email Us</span>
+        </a>
+        
+        <a href="https://www.instagram.com/rozabridal" target="_blank" class="contact-icon">
+          <div class="icon-circle">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+          </div>
+          <span>Instagram</span>
+        </a>
+      </div>
+    </section>
+  </main>
+  
+  <footer>
+    <img src="assets/logos/roza-footer.png" alt="Roza Bridal Logo" class="footer-logo">
+    <div class="footer-links">
+      <a href="#collection">Collection</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <p class="copyright">&copy; 2025 Roza Bridal. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Smooth scrolling for navigation links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
+      });
+    });
+  </script>
+</body>
+</html>
