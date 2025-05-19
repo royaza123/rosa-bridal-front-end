@@ -80,13 +80,13 @@
     .logo:hover {
       transform: scale(1.05);
     }
-
+    
     nav ul {
       display: flex;
       list-style: none;
       gap: 2rem;
     }
-
+    
     nav a {
       font-size: 0.9rem;
       letter-spacing: 0.05em;
@@ -94,7 +94,7 @@
       position: relative;
       transition: var(--transition);
     }
-
+    
     nav a:after {
       content: '';
       position: absolute;
@@ -105,11 +105,11 @@
       background-color: var(--accent-color);
       transition: var(--transition);
     }
-
+    
     nav a:hover {
       color: var(--dark-accent);
     }
-
+    
     nav a:hover:after {
       width: 100%;
     }
@@ -121,95 +121,7 @@
       padding: 0 1.25rem;
     }
     
-    /* Hero Section */
-    .hero {
-      position: relative;
-      height: 85vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-      margin-bottom: 5rem;
-    }
-    
-    .hero-image {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      z-index: -1;
-    }
-    
-    .hero-overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.4));
-      z-index: -1;
-    }
-    
-    .hero-content {
-      text-align: center;
-      color: white;
-      max-width: 700px;
-      padding: 2rem;
-      animation: fadeIn 1.5s ease-out;
-    }
-    
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-    
-    .hero-content h1 {
-      font-size: 3.5rem;
-      margin-bottom: 1rem;
-      font-weight: 400;
-    }
-    
-    .hero-content p {
-      font-size: 1.2rem;
-      margin-bottom: 2rem;
-      font-weight: 300;
-      max-width: 600px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-    
-    .hero-button {
-      display: inline-block;
-      background-color: white;
-      color: var(--text-color);
-      padding: 0.875rem 2.5rem;
-      border-radius: 2px;
-      font-size: 0.9rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      transition: var(--transition);
-      border: 1px solid transparent;
-    }
-    
-    .hero-button:hover {
-      background-color: transparent;
-      color: white;
-      border-color: white;
-    }
-    
-    /* Collection Section */
-    .collection {
-      padding: 5rem 0;
-    }
-    
+    /* Section Title Styles */
     .section-title {
       text-align: center;
       margin-bottom: 3rem;
@@ -240,6 +152,11 @@
       margin: 0 auto;
     }
     
+    /* Collection Grid Styles */
+    .collection {
+      padding: 5rem 0;
+    }
+    
     .product-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -259,6 +176,12 @@
     .product-card:hover {
       transform: translateY(-5px);
       box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    }
+    
+    .product-card a {
+      display: block;
+      position: relative;
+      height: 100%;
     }
     
     .product-image {
@@ -454,18 +377,6 @@
     
     /* Media Queries */
     @media (max-width: 768px) {
-      .hero-content h1 {
-        font-size: 2.5rem;
-      }
-      
-      .hero-content p {
-        font-size: 1rem;
-      }
-      
-      nav {
-        display: none;
-      }
-      
       .product-grid {
         grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
       }
@@ -480,6 +391,10 @@
       
       .about-content {
         grid-template-columns: 1fr;
+      }
+      
+      nav {
+        display: none;
       }
     }
     
@@ -498,7 +413,9 @@
 </head>
 <body>
   <header>
-    <a href="index.html"><img src="assets/logos/roza-logo.png" alt="Roza Bridal Dresses Logo" class="logo"></a>
+    <a href="index.html">
+      <img src="assets/logos/roza-logo.png" alt="Roza Bridal Dresses Logo" class="logo">
+    </a>
     <nav>
       <ul>
         <li><a href="#collection">Collection</a></li>
@@ -509,17 +426,6 @@
   </header>
   
   <main>
-    <!-- Hero Section -->
-    <section class="hero">
-      <img src="assets/images/hero.jpg" alt="Beautiful Bride in Wedding Dress" class="hero-image">
-      <div class="hero-overlay"></div>
-      <div class="hero-content">
-        <h1>Find Your Dream Dress</h1>
-        <p>Explore our collection of elegant and unique wedding gowns designed for your special day.</p>
-        <a href="#collection" class="hero-button">View Collection</a>
-      </div>
-    </section>
-    
     <!-- Collection Section -->
     <section id="collection" class="collection">
       <div class="section-title">
@@ -528,70 +434,100 @@
       </div>
       
       <div class="product-grid">
-        <!-- Product 1 -->
+        <!-- Custom Lace Mermaid Wedding Dress -->
         <div class="product-card">
-          <img src="assets/images/custom-lace-mermaid-wedding-dress/picture1.jpg" alt="Custom Lace Mermaid Wedding Dress" class="product-image">
-          <div class="product-overlay"></div>
-          <div class="product-details">
-            <h3>Custom Lace Mermaid Wedding Dress</h3>
-            <p>Elegant V-neck design with delicate spaghetti straps and exquisite lace detailing.</p>
-            <a href="products/custom-lace-mermaid-wedding-dress.html" class="view-button">View Details</a>
-          </div>
+          <a href="products/custom-lace-mermaid-wedding-dress.html">
+            <img src="assets/images/custom-lace-mermaid-wedding-dress/main.avif" 
+                 alt="Custom Lace Mermaid Wedding Dress" 
+                 class="product-image"
+                 onerror="this.src='assets/images/custom-lace-mermaid-wedding-dress/main.webp'; this.onerror='';">
+            <div class="product-overlay"></div>
+            <div class="product-details">
+              <h3>Custom Lace Mermaid Wedding Dress</h3>
+              <p>Elegant V-neck design with delicate spaghetti straps and exquisite lace detailing.</p>
+              <span class="view-button">View Details</span>
+            </div>
+          </a>
         </div>
         
-        <!-- Product 2 -->
+        <!-- Boho Beach Wedding Dress -->
         <div class="product-card">
-          <img src="assets/images/boho-beach-wedding-dress/picture1.jpg" alt="Boho Beach Wedding Dress" class="product-image">
-          <div class="product-overlay"></div>
-          <div class="product-details">
-            <h3>Boho Beach Wedding Dress</h3>
-            <p>Lightweight tulle fabric with romantic off-shoulder bodice, perfect for beach weddings.</p>
-            <a href="products/boho-beach-wedding-dress.html" class="view-button">View Details</a>
-          </div>
+          <a href="products/boho-beach-wedding-dress.html">
+            <img src="assets/images/boho-beach-wedding-dress/main.avif" 
+                 alt="Boho Beach Wedding Dress" 
+                 class="product-image"
+                 onerror="this.src='assets/images/boho-beach-wedding-dress/main.webp'; this.onerror='';">
+            <div class="product-overlay"></div>
+            <div class="product-details">
+              <h3>Boho Beach Wedding Dress</h3>
+              <p>Lightweight tulle fabric with romantic off-shoulder bodice, perfect for beach weddings.</p>
+              <span class="view-button">View Details</span>
+            </div>
+          </a>
         </div>
         
-        <!-- Product 3 -->
+        <!-- Sexy Sequin Mermaid Wedding Dress -->
         <div class="product-card">
-          <img src="assets/images/sexy-sequin-mermaid-wedding-dress/picture1.jpg" alt="Sexy Sequin Mermaid Wedding Dress" class="product-image">
-          <div class="product-overlay"></div>
-          <div class="product-details">
-            <h3>Sexy Sequin Mermaid Wedding Dress</h3>
-            <p>Stunning sequin gown with deep V-neck and curve-hugging mermaid silhouette.</p>
-            <a href="products/sexy-sequin-mermaid-wedding-dress.html" class="view-button">View Details</a>
-          </div>
+          <a href="products/sexy-sequin-mermaid-wedding-dress.html">
+            <img src="assets/images/sexy-sequin-mermaid-wedding-dress/main.avif" 
+                 alt="Sexy Sequin Mermaid Wedding Dress" 
+                 class="product-image"
+                 onerror="this.src='assets/images/sexy-sequin-mermaid-wedding-dress/main.webp'; this.onerror='';">
+            <div class="product-overlay"></div>
+            <div class="product-details">
+              <h3>Sexy Sequin Mermaid Wedding Dress</h3>
+              <p>Stunning sequin gown with deep V-neck and curve-hugging mermaid silhouette.</p>
+              <span class="view-button">View Details</span>
+            </div>
+          </a>
         </div>
         
-        <!-- Product 4 -->
+        <!-- Modest Satin Wedding Dress -->
         <div class="product-card">
-          <img src="assets/images/modest-satin-wedding-dress/picture1.jpg" alt="Modest Satin Wedding Dress" class="product-image">
-          <div class="product-overlay"></div>
-          <div class="product-details">
-            <h3>Modest Satin Wedding Dress</h3>
-            <p>Elegant long sleeve gown with high-quality satin finish and flowing train.</p>
-            <a href="products/modest-satin-wedding-dress.html" class="view-button">View Details</a>
-          </div>
+          <a href="products/modest-satin-wedding-dress.html">
+            <img src="assets/images/modest-satin-wedding-dress/main.avif" 
+                 alt="Modest Satin Wedding Dress" 
+                 class="product-image"
+                 onerror="this.src='assets/images/modest-satin-wedding-dress/main.webp'; this.onerror='';">
+            <div class="product-overlay"></div>
+            <div class="product-details">
+              <h3>Modest Satin Wedding Dress</h3>
+              <p>Elegant long sleeve gown with high-quality satin finish and flowing train.</p>
+              <span class="view-button">View Details</span>
+            </div>
+          </a>
         </div>
         
-        <!-- Product 5 -->
+        <!-- Floral Bridal Dress -->
         <div class="product-card">
-          <img src="assets/images/floral-bridal-dress/picture1.jpg" alt="Floral Bridal Dress" class="product-image">
-          <div class="product-overlay"></div>
-          <div class="product-details">
-            <h3>Floral Bridal Dress</h3>
-            <p>Romantic floral lace gown with deep V-neck and lightweight mesh for easy movement.</p>
-            <a href="products/floral-bridal-dress.html" class="view-button">View Details</a>
-          </div>
+          <a href="products/floral-bridal-dress.html">
+            <img src="assets/images/floral-bridal-dress/main.avif" 
+                 alt="Floral Bridal Dress" 
+                 class="product-image"
+                 onerror="this.src='assets/images/floral-bridal-dress/main.webp'; this.onerror='';">
+            <div class="product-overlay"></div>
+            <div class="product-details">
+              <h3>Floral Bridal Dress</h3>
+              <p>Romantic floral lace gown with deep V-neck and lightweight mesh for easy movement.</p>
+              <span class="view-button">View Details</span>
+            </div>
+          </a>
         </div>
         
-        <!-- Product 6 -->
+        <!-- Boho V-Neck Wedding Dress -->
         <div class="product-card">
-          <img src="assets/images/boho-wedding-dress-elegant-v-neck/picture1.jpg" alt="Boho V-Neck Wedding Dress" class="product-image">
-          <div class="product-overlay"></div>
-          <div class="product-details">
-            <h3>Boho V-Neck Wedding Dress</h3>
-            <p>Elegant V-neck bridal gown with lightweight tulle and romantic lace details.</p>
-            <a href="products/boho-wedding-dress-elegant-v-neck.html" class="view-button">View Details</a>
-          </div>
+          <a href="products/boho-wedding-dress-elegant-v-neck.html">
+            <img src="assets/images/boho-wedding-dress-elegant-v-neck/main.avif" 
+                 alt="Boho V-Neck Wedding Dress" 
+                 class="product-image"
+                 onerror="this.src='assets/images/boho-wedding-dress-elegant-v-neck/main.webp'; this.onerror='';">
+            <div class="product-overlay"></div>
+            <div class="product-details">
+              <h3>Boho V-Neck Wedding Dress</h3>
+              <p>Elegant V-neck bridal gown with lightweight tulle and romantic lace details.</p>
+              <span class="view-button">View Details</span>
+            </div>
+          </a>
         </div>
       </div>
     </section>
@@ -659,6 +595,21 @@
         document.querySelector(this.getAttribute('href')).scrollIntoView({
           behavior: 'smooth'
         });
+      });
+    });
+    
+    // Add hover effect for product cards
+    document.querySelectorAll('.product-card').forEach(card => {
+      card.addEventListener('mouseenter', function() {
+        this.querySelector('.product-overlay').style.opacity = '1';
+        this.querySelector('.product-details').style.transform = 'translateY(0)';
+        this.querySelector('.product-details').style.opacity = '1';
+      });
+      
+      card.addEventListener('mouseleave', function() {
+        this.querySelector('.product-overlay').style.opacity = '0';
+        this.querySelector('.product-details').style.transform = 'translateY(20px)';
+        this.querySelector('.product-details').style.opacity = '0';
       });
     });
   </script>
