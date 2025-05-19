@@ -696,98 +696,64 @@
   </footer>
 
   <script>
-    // Smooth scrolling for navigation links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        
-        document.querySelector(this.getAttribute('href')).scrollIntoView({
-          behavior: 'smooth'
-        });
-      });
-    });
+  // Wait for DOM to be fully loaded before adding any event listeners
+  document.addEventListener('DOMContentLoaded', function() {
+    // Debug image loading - with one-time error handlers
+    const logoImg = document.querySelector('.logo');
+    const footerImg = document.querySelector('.footer-logo');
     
-    // Add hover effect for product cards
-    document.querySelectorAll('.product-card').forEach(card => {
-      card.addEventListener('mouseenter', function() {
-        this.querySelector('.product-overlay').style.opacity = '1';
-        this.querySelector('.product-details').style.transform = 'translateY(0)';
-        this.querySelector('.product-details').style.opacity = '1';
-      });
-      
-      card.addEventListener('mouseleave', function() {
-        this.querySelector('.product-overlay').style.opacity = '0';
-        this.querySelector('.product-details').style.transform = 'translateY(20px)';
-        this.querySelector('.product-details').style.opacity = '0';
-      });
-    });
+    // Use { once: true } to ensure handlers only run once
+    logoImg.addEventListener('error', function() {
+      console.error('Logo image failed to load:', this.src);
+      // Don't automatically set a new src - this can cause infinite loops
+      // Only log the error instead
+    }, { once: true });
     
-    // Debug image loading
-    document.addEventListener('DOMContentLoaded', function() {
-      // Check if logo and footer images loaded successfully
-      const logoImg = document.querySelector('.logo');
-      const footerImg = document.querySelector('.footer-logo');
-      
-      logoImg.addEventListener('load', function() {
-        console.log('Logo image loaded successfully');
-      });
-      
-      logoImg.addEventListener('error', function() {
-        console.error('Logo image failed to load:', this.src);
-        // Fallback image if logo fails to load
-        this.src = './assets/logos/roza-logo.png';
-      });
-      
-      footerImg.addEventListener('load', function() {
-        console.log('Footer image loaded successfully');
-      });
-      
-      footerImg.addEventListener('error', function() {
-        console.error('Footer image failed to load:', this.src);
-        // Fallback image if footer logo fails to load
-        this.src = './assets/logos/roza-footer.png';
-      });
-    });
+    footerImg.addEventListener('error', function() {
+      console.error('Footer image failed to load:', this.src);
+      // Don't automatically set a new src - this can cause infinite loops
+      // Only log the error instead
+    }, { once: true });
     
     // Smooth scrolling for navigation links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function (e) {
         e.preventDefault();
-        
-        document.querySelector(this.getAttribute('href')).scrollIntoView({
-          behavior: 'smooth'
-        });
-      });
-    });
-    
-    // Add hover effect for product cards
-    document.querySelectorAll('.product-card').forEach(card => {
-      card.addEventListener('mouseenter', function() {
-        this.querySelector('.product-overlay').style.opacity = '1';
-        this.querySelector('.product-details').style.transform = 'translateY(0)';
-        this.querySelector('.product-details').style.opacity = '1';
-      });
-      
-      card.addEventListener('mouseleave', function() {
-        this.querySelector('.product-overlay').style.opacity = '0';
-        this.querySelector('.product-details').style.transform = 'translateY(20px)';
-        this.querySelector('.product-details').style.opacity = '0';
-      });
-    });
-    
-    // Fix product images that fail to load
-    document.querySelectorAll('.product-image').forEach(img => {
-      img.addEventListener('error', function() {
-        console.error('Product image failed to load:', this.src);
-        
-        // Try to find an alternative format or fallback
-        if (this.src.includes('.avif')) {
-          this.src = this.src.replace('.avif', '.webp');
-        } else if (this.src.includes('.webp')) {
-          this.src = this.src.replace('.webp', '.jpg');
+        const targetElement = document.querySelector(this.getAttribute('href'));
+        if (targetElement) {
+          targetElement.scrollIntoView({
+            behavior: 'smooth'
+          });
         }
       });
     });
+    
+    // Add hover effect for product cards
+    document.querySelectorAll('.product-card').forEach(card => {
+      card.addEventListener('mouseenter', function() {
+        const overlay = this.querySelector('.product-overlay');
+        const details = this.querySelector('.product-details');
+        if (overlay) overlay.style.opacity = '1';
+        if (details) {
+          details.style.transform = 'translateY(0)';
+          details.style.opacity = '1';
+        }
+      });
+      
+      card.addEventListener('mouseleave', function() {
+        const overlay = this.querySelector('.product-overlay');
+        const details = this.querySelector('.product-details');
+        if (overlay) overlay.style.opacity = '0';
+        if (details) {
+          details.style.transform = 'translateY(20px)';
+          details.style.opacity = '0';
+        }
+      });
+    });
+    
+    // The key fix: We won't apply additional error handlers to product images
+    // The onerror attributes in the HTML should be sufficient
+  });
 </script>
 </body>
 </html>
