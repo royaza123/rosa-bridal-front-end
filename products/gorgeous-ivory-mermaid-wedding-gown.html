@@ -3,9 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gorgeous Ivory Mermaid Wedding Gown | Roza Bridal</title>
-  <link rel="stylesheet" href="../style.css">
-  <!-- Google Fonts -->
+  <title>Gorgeous Ivory Mermaid Wedding Gown with Long Train | Roza Bridal</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
@@ -66,9 +64,6 @@
       backdrop-filter: blur(10px);
       border-bottom: 1px solid var(--border-color);
       transition: var(--transition);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
     }
     
     .logo {
@@ -81,37 +76,11 @@
       transform: scale(1.05);
     }
     
-    nav ul {
-      display: flex;
-      list-style: none;
-      gap: 2rem;
-    }
-    
-    nav a {
-      font-size: 0.9rem;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      position: relative;
-      transition: var(--transition);
-    }
-    
-    nav a:after {
-      content: '';
-      position: absolute;
-      left: 0;
-      bottom: -5px;
-      width: 0;
-      height: 1px;
-      background-color: var(--accent-color);
-      transition: var(--transition);
-    }
-    
-    nav a:hover {
-      color: var(--dark-accent);
-    }
-    
-    nav a:hover:after {
-      width: 100%;
+    /* Main Content Styles */
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem 1.25rem;
     }
     
     /* Product Page Styles */
@@ -120,9 +89,6 @@
       grid-template-columns: 1fr;
       gap: 3rem;
       margin-top: 1rem;
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 2rem 1.25rem;
     }
     
     /* Gallery Styles */
@@ -132,34 +98,26 @@
       border-radius: 4px;
       box-shadow: var(--shadow);
       background-color: white;
+      aspect-ratio: 3/4;
     }
     
-    .gallery img {
+    .gallery-image-container {
+      position: relative;
       width: 100%;
-      height: auto;
+      height: 100%;
+    }
+    
+    .gallery-image {
+      position: absolute;
+      width: 100%;
+      height: 100%;
       object-fit: cover;
-      display: none;
-      transform-origin: center;
+      opacity: 0;
+      transition: opacity 0.5s ease;
     }
     
-    .gallery img:first-child {
-      display: block;
-    }
-    
-    .gallery img.active {
-      display: block;
-      animation: fadeInScale 0.8s ease-out;
-    }
-    
-    @keyframes fadeInScale {
-      from {
-        opacity: 0;
-        transform: scale(1.05);
-      }
-      to {
-        opacity: 1;
-        transform: scale(1);
-      }
+    .gallery-image.active {
+      opacity: 1;
     }
     
     .gallery-controls {
@@ -168,6 +126,7 @@
       left: 0;
       width: 100%;
       height: 100%;
+      z-index: 5;
     }
     
     .gallery-nav {
@@ -330,38 +289,49 @@
     
     /* Footer Styles */
     footer {
-      background-color: var(--secondary-color);
-      padding: 3rem 1.25rem;
-      text-align: center;
-      border-top: 1px solid var(--border-color);
       margin-top: 4rem;
-    }
-    
-    .footer-logo {
-      height: 2.5rem;
-      margin-bottom: 1.5rem;
-    }
-    
-    .footer-links {
+      padding: 2rem 1.25rem;
+      background-color: var(--secondary-color);
       display: flex;
       justify-content: center;
-      gap: 2rem;
-      margin-bottom: 2rem;
+      align-items: center;
+      flex-direction: column;
+      gap: 1rem;
+      border-top: 1px solid var(--border-color);
     }
     
-    .footer-links a {
-      font-size: 0.875rem;
-      color: var(--light-text);
-      transition: var(--transition);
+    footer img {
+      height: 1.875rem;
+      opacity: 0.85;
     }
     
-    .footer-links a:hover {
-      color: var(--dark-accent);
+    /* Media Queries */
+    @media (min-width: 768px) {
+      .product-page {
+        grid-template-columns: 1fr 1fr;
+        gap: 4rem;
+        align-items: start;
+      }
+      
+      .gallery {
+        position: sticky;
+        top: 6rem;
+        max-height: calc(100vh - 8rem);
+      }
+      
+      .product-details h1 {
+        font-size: 2.5rem;
+      }
+      
+      .product-details {
+        padding-top: 1rem;
+      }
     }
     
-    .copyright {
-      font-size: 0.875rem;
-      color: var(--light-text);
+    @media (min-width: 1024px) {
+      .gallery {
+        max-height: 80vh;
+      }
     }
     
     /* Animation for product details */
@@ -396,74 +366,35 @@
     .product-details > *:nth-child(4) {
       animation-delay: 0.7s;
     }
-    
-    /* Media Queries */
-    @media (min-width: 768px) {
-      .product-page {
-        grid-template-columns: 1fr 1fr;
-        gap: 4rem;
-        align-items: start;
-      }
-      
-      .gallery {
-        position: sticky;
-        top: 6rem;
-        max-height: calc(100vh - 8rem);
-      }
-      
-      .gallery img {
-        height: calc(100vh - 10rem);
-        max-height: 70vh;
-        object-fit: cover;
-        object-position: center;
-      }
-      
-      .product-details h1 {
-        font-size: 2.5rem;
-      }
-      
-      .product-details {
-        padding-top: 1rem;
-      }
-    }
-    
-    @media (min-width: 1024px) {
-      .gallery img {
-        max-height: 80vh;
-      }
-    }
   </style>
 </head>
 <body>
   <header>
-    <a href="../index.html">
-      <img src="../assets/logos/roza-logo.png" alt="Roza Bridal Dresses Logo" class="logo" />
-    </a>
-    <nav>
-      <ul>
-        <li><a href="../index.html#collection">Collection</a></li>
-        <li><a href="../index.html#about">About</a></li>
-        <li><a href="../index.html#contact">Contact</a></li>
-      </ul>
-    </nav>
+    <a href="../index.html"><img src="../assets/logos/roza-logo.png" alt="Roza Bridal Dresses Logo" class="logo"></a>
   </header>
   <main class="product-page">
     <div class="gallery">
-      <img src="../assets/images/gorgeous-ivory-mermaid-wedding-gown/main.avif" 
-           alt="Gorgeous Ivory Mermaid Wedding Gown - Main View"
-           onerror="this.src='../assets/images/gorgeous-ivory-mermaid-wedding-gown/main.webp'; this.onerror=function(){this.src='../assets/images/gorgeous-ivory-mermaid-wedding-gown/picture1.avif'; this.onerror=null;};">
-      
-      <img src="../assets/images/gorgeous-ivory-mermaid-wedding-gown/picture1.avif" 
-           alt="Gorgeous Ivory Mermaid Wedding Gown - Additional View 1"
-           onerror="this.src='../assets/images/gorgeous-ivory-mermaid-wedding-gown/picture1.webp'; this.onerror=function(){this.src='../assets/images/gorgeous-ivory-mermaid-wedding-gown/detail.avif'; this.onerror=null;};">
-      
-      <img src="../assets/images/gorgeous-ivory-mermaid-wedding-gown/picture2.avif" 
-           alt="Gorgeous Ivory Mermaid Wedding Gown - Additional View 2"
-           onerror="this.src='../assets/images/gorgeous-ivory-mermaid-wedding-gown/picture2.webp'; this.onerror=null;">
-      
-      <img src="../assets/images/gorgeous-ivory-mermaid-wedding-gown/detail.avif" 
-           alt="Gorgeous Ivory Mermaid Wedding Gown - Details"
-           onerror="this.src='../assets/images/gorgeous-ivory-mermaid-wedding-gown/detail.webp'; this.onerror=null;">
+      <div class="gallery-image-container">
+        <img src="../assets/images/gorgeous-ivory-mermaid-wedding-gown/main.webp" 
+             alt="Gorgeous Ivory Mermaid Wedding Gown - Main View"
+             class="gallery-image active">
+        
+        <img src="../assets/images/gorgeous-ivory-mermaid-wedding-gown/picutre 1.webp" 
+             alt="Gorgeous Ivory Mermaid Wedding Gown - Additional View 1"
+             class="gallery-image">
+        
+        <img src="../assets/images/gorgeous-ivory-mermaid-wedding-gown/picture 2.webp" 
+             alt="Gorgeous Ivory Mermaid Wedding Gown - Additional View 2"
+             class="gallery-image">
+        
+        <img src="../assets/images/gorgeous-ivory-mermaid-wedding-gown/detail.webp" 
+             alt="Gorgeous Ivory Mermaid Wedding Gown - Detail View"
+             class="gallery-image">
+        
+        <img src="../assets/images/gorgeous-ivory-mermaid-wedding-gown/detail 2.webp" 
+             alt="Gorgeous Ivory Mermaid Wedding Gown - Detail View 2"
+             class="gallery-image">
+      </div>
     </div>
     <section class="product-details">
       <h1>Gorgeous Ivory Mermaid Wedding Gown with Long Train</h1>
@@ -474,18 +405,12 @@
         <li>Dramatic Floor-Sweeping Train</li>
         <li>Form-Fitting Mermaid Silhouette</li>
       </ul>
-      <p>Make a statement on your special day with this breathtaking backless mermaid gown. The contrast of ivory fabric with delicate black lace creates a truly unique look, while the dramatic train ensures all eyes will be on you as you walk down the aisle.</p>
+      <p>Make a statement on your special day with this breathtaking backless mermaid gown. The contrast of ivory fabric with delicate black lace creates a truly unique look, while the dramatic train ensures all eyes will be on you as you walk down the aisle. The form-fitting silhouette accentuates your curves for a glamorous bridal moment.</p>
       <a href="https://www.etsy.com/listing/1900115357/gorgeous-ivory-mermaid-wedding-gown-with" class="buy-button" target="_blank">View on Etsy</a>
     </section>
   </main>
   <footer>
-    <img src="../assets/logos/roza-footer.png" alt="Roza Bridal Footer Logo" class="footer-logo">
-    <div class="footer-links">
-      <a href="../index.html#collection">Collection</a>
-      <a href="../index.html#about">About</a>
-      <a href="../index.html#contact">Contact</a>
-    </div>
-    <p class="copyright">&copy; 2025 Roza Bridal. All rights reserved.</p>
+    <img src="../assets/logos/roza-footer.png" alt="Roza Bridal Footer Logo">
   </footer>
 
   <script>
@@ -493,7 +418,8 @@
       // Image gallery carousel functionality
       const gallery = document.querySelector('.gallery');
       if (gallery) {
-        const images = gallery.querySelectorAll('img');
+        const imageContainer = gallery.querySelector('.gallery-image-container');
+        const images = gallery.querySelectorAll('.gallery-image');
         let currentIndex = 0;
         let autoRotateInterval;
         
@@ -510,22 +436,22 @@
         const prevArrow = document.createElement('div');
         prevArrow.className = 'gallery-arrow gallery-prev';
         prevArrow.innerHTML = '❮';
+        prevArrow.setAttribute('aria-label', 'Previous image');
         controls.appendChild(prevArrow);
         
         // Create next arrow
         const nextArrow = document.createElement('div');
         nextArrow.className = 'gallery-arrow gallery-next';
         nextArrow.innerHTML = '❯';
+        nextArrow.setAttribute('aria-label', 'Next image');
         controls.appendChild(nextArrow);
-        
-        // Initialize the first image as active
-        images[0].classList.add('active');
         
         // Create dots based on number of images
         images.forEach((_, index) => {
           const dot = document.createElement('div');
           dot.className = 'gallery-dot';
           if (index === 0) dot.classList.add('active');
+          dot.setAttribute('aria-label', `View image ${index + 1}`);
           
           dot.addEventListener('click', () => {
             currentIndex = index;
@@ -539,10 +465,16 @@
         
         // Update gallery function
         function updateGallery() {
+          // Remove active class from all images
           images.forEach(img => img.classList.remove('active'));
+          
+          // Remove active class from all dots
           document.querySelectorAll('.gallery-dot').forEach(dot => dot.classList.remove('active'));
           
+          // Add active class to current image
           images[currentIndex].classList.add('active');
+          
+          // Add active class to current dot
           document.querySelectorAll('.gallery-dot')[currentIndex].classList.add('active');
         }
         
@@ -559,8 +491,8 @@
         }
         
         // Event listeners for arrows
-        nextArrow.addEventListener('click', nextImage);
         prevArrow.addEventListener('click', prevImage);
+        nextArrow.addEventListener('click', nextImage);
         
         // Auto-rotate images every 5 seconds
         function startAutoRotate() {
