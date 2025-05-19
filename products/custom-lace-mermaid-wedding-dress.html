@@ -30,7 +30,6 @@
       color: var(--text-color);
       background-color: var(--primary-color);
       line-height: 1.6;
-      overflow-x: hidden;
     }
     
     h1, h2, h3, h4, h5 {
@@ -59,17 +58,11 @@
       padding: 1.25rem;
       box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
       border-bottom: 1px solid var(--border-color);
-      transition: var(--transition);
     }
     
     .logo {
       height: 2.5rem;
       display: block;
-      transition: transform 0.3s ease;
-    }
-    
-    .logo:hover {
-      transform: scale(1.05);
     }
     
     /* Main Content Styles */
@@ -87,89 +80,37 @@
       margin-top: 1rem;
     }
     
-    /* Gallery Styles */
+    /* Simple Gallery Styles */
     .gallery {
       position: relative;
-      overflow: hidden;
       border-radius: 4px;
       box-shadow: var(--shadow);
       background-color: white;
     }
     
-    .gallery-image {
+    #main-image {
       width: 100%;
       display: block;
     }
     
-    .gallery-controls {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-    }
-    
-    .gallery-nav {
-      position: absolute;
-      bottom: 1.5rem;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      gap: 0.625rem;
-      z-index: 10;
-    }
-    
-    .gallery-dot {
-      width: 0.625rem;
-      height: 0.625rem;
-      border-radius: 50%;
-      background-color: rgba(255, 255, 255, 0.6);
-      border: 1px solid rgba(255, 255, 255, 0.8);
-      cursor: pointer;
-      transition: var(--transition);
-    }
-    
-    .gallery-dot.active {
-      background-color: white;
-      transform: scale(1.2);
-    }
-    
-    .gallery-arrow {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      background-color: rgba(255, 255, 255, 0.7);
-      width: 2.5rem;
-      height: 2.5rem;
-      border-radius: 50%;
+    .thumbnail-container {
       display: flex;
       justify-content: center;
-      align-items: center;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+    
+    .thumbnail {
+      width: 60px;
+      height: 60px;
+      object-fit: cover;
+      border-radius: 4px;
       cursor: pointer;
-      z-index: 10;
-      transition: var(--transition);
-      opacity: 0;
-      font-family: sans-serif;
-      color: var(--text-color);
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      border: 2px solid transparent;
     }
     
-    .gallery:hover .gallery-arrow {
-      opacity: 0.8;
-    }
-    
-    .gallery-arrow:hover {
-      background-color: rgba(255, 255, 255, 0.9);
-      opacity: 1 !important;
-      transform: translateY(-50%) scale(1.1);
-    }
-    
-    .gallery-prev {
-      left: 1rem;
-    }
-    
-    .gallery-next {
-      right: 1rem;
+    .thumbnail.active {
+      border-color: var(--accent-color);
     }
     
     /* Product Details Styles */
@@ -238,31 +179,12 @@
       font-weight: 400;
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      transition: var(--transition);
       text-align: center;
       max-width: 15rem;
-      position: relative;
-      overflow: hidden;
-    }
-    
-    .buy-button::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background-color: var(--secondary-color);
-      transition: left 0.5s ease;
-      z-index: -1;
     }
     
     .buy-button:hover {
-      color: var(--text-color);
-    }
-    
-    .buy-button:hover::before {
-      left: 0;
+      background-color: var(--secondary-color);
     }
     
     /* Footer Styles */
@@ -294,14 +216,11 @@
       .gallery {
         position: sticky;
         top: 6rem;
-        max-height: calc(100vh - 8rem);
       }
       
-      .gallery-image {
-        height: calc(100vh - 10rem);
+      #main-image {
         max-height: 70vh;
         object-fit: cover;
-        object-position: center;
       }
       
       .product-details h1 {
@@ -310,12 +229,6 @@
       
       .product-details {
         padding-top: 1rem;
-      }
-    }
-    
-    @media (min-width: 1024px) {
-      .gallery-image {
-        max-height: 80vh;
       }
     }
   </style>
@@ -328,8 +241,17 @@
   </header>
   <main class="product-page">
     <div class="gallery">
-      <!-- Single image element that will be dynamically updated -->
-      <img class="gallery-image" src="../assets/images/custom-lace-mermaid-wedding-dress/main.avif" alt="Custom Lace Mermaid Wedding Dress" />
+      <!-- Main image -->
+      <img id="main-image" src="../assets/images/custom-lace-mermaid-wedding-dress/main.avif" alt="Custom Lace Mermaid Wedding Dress" />
+      
+      <!-- Thumbnails -->
+      <div class="thumbnail-container">
+        <img class="thumbnail active" src="../assets/images/custom-lace-mermaid-wedding-dress/main.avif" alt="Main View" onclick="changeImage('../assets/images/custom-lace-mermaid-wedding-dress/main.avif', 0)" />
+        <img class="thumbnail" src="../assets/images/custom-lace-mermaid-wedding-dress/detail.1.avif" alt="Detail View 1" onclick="changeImage('../assets/images/custom-lace-mermaid-wedding-dress/detail.1.avif', 1)" />
+        <img class="thumbnail" src="../assets/images/custom-lace-mermaid-wedding-dress/detail.2.webp" alt="Detail View 2" onclick="changeImage('../assets/images/custom-lace-mermaid-wedding-dress/detail.2.webp', 2)" />
+        <img class="thumbnail" src="../assets/images/custom-lace-mermaid-wedding-dress/photo.1.avif" alt="Photo View 1" onclick="changeImage('../assets/images/custom-lace-mermaid-wedding-dress/photo.1.avif', 3)" />
+        <img class="thumbnail" src="../assets/images/custom-lace-mermaid-wedding-dress/photo.2.webp" alt="Photo View 2" onclick="changeImage('../assets/images/custom-lace-mermaid-wedding-dress/photo.2.webp', 4)" />
+      </div>
     </div>
     <section class="product-details">
       <h1>Custom Lace Mermaid Wedding Dress</h1>
@@ -343,7 +265,7 @@
       <p>
         This stunning lace mermaid wedding dress combines timeless elegance with modern romance. The delicate V-neck and spaghetti straps frame your shoulders beautifully, while the intricate lace details cascade down to create a breathtaking silhouette.
       </p>
-      <a href="https://www.etsy.com/listing/1874731954/custom-lace-mermaid-wedding-dress?ref=shop_home_active_3&pro=1&logging_key=14015454d6a4f7ef357fb2bdd1efa8593871a48d%3A1874731954" class="buy-button" target="_blank">
+      <a href="https://www.etsy.com/listing/1874731954/custom-lace-mermaid-wedding-dress?ref=shop_home_active_3&pro=1" class="buy-button" target="_blank">
         View on Etsy
       </a>
     </section>
@@ -353,156 +275,20 @@
   </footer>
 
   <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      // Image gallery carousel functionality
-      const gallery = document.querySelector('.gallery');
-      if (gallery) {
-        // Define all available images
-        const images = [
-          {
-            src: '../assets/images/custom-lace-mermaid-wedding-dress/main.avif',
-            alt: 'Custom Lace Mermaid Wedding Dress - Main View'
-          },
-          {
-            src: '../assets/images/custom-lace-mermaid-wedding-dress/detail.1.avif',
-            alt: 'Custom Lace Mermaid Wedding Dress - Detail View 1'
-          },
-          {
-            src: '../assets/images/custom-lace-mermaid-wedding-dress/detail.2.webp',
-            alt: 'Custom Lace Mermaid Wedding Dress - Detail View 2'
-          },
-          {
-            src: '../assets/images/custom-lace-mermaid-wedding-dress/photo.1.avif',
-            alt: 'Custom Lace Mermaid Wedding Dress - Photo View 1'
-          },
-          {
-            src: '../assets/images/custom-lace-mermaid-wedding-dress/photo.2.webp',
-            alt: 'Custom Lace Mermaid Wedding Dress - Photo View 2'
-          }
-        ];
-        
-        // Get the image element
-        const imgElement = gallery.querySelector('.gallery-image');
-        let currentIndex = 0;
-        let autoRotateInterval;
-        
-        // Create gallery controls
-        const controls = document.createElement('div');
-        controls.className = 'gallery-controls';
-        gallery.appendChild(controls);
-        
-        // Create navigation dots
-        const dotsContainer = document.createElement('div');
-        dotsContainer.className = 'gallery-nav';
-        
-        // Create previous arrow
-        const prevArrow = document.createElement('div');
-        prevArrow.className = 'gallery-arrow gallery-prev';
-        prevArrow.innerHTML = '❮';
-        controls.appendChild(prevArrow);
-        
-        // Create next arrow
-        const nextArrow = document.createElement('div');
-        nextArrow.className = 'gallery-arrow gallery-next';
-        nextArrow.innerHTML = '❯';
-        controls.appendChild(nextArrow);
-        
-        // Create dots based on number of images
-        images.forEach((_, index) => {
-          const dot = document.createElement('div');
-          dot.className = 'gallery-dot';
-          if (index === 0) dot.classList.add('active');
-          
-          dot.addEventListener('click', function() {
-            showImage(index);
-          });
-          
-          dotsContainer.appendChild(dot);
-        });
-        
-        controls.appendChild(dotsContainer);
-        
-        // Show specific image function
-        function showImage(index) {
-          const image = images[index];
-          imgElement.src = image.src;
-          imgElement.alt = image.alt;
-          
-          document.querySelectorAll('.gallery-dot').forEach((dot, i) => {
-            if (i === index) {
-              dot.classList.add('active');
-            } else {
-              dot.classList.remove('active');
-            }
-          });
-          
-          currentIndex = index;
+    // Simple image gallery function
+    function changeImage(src, index) {
+      document.getElementById('main-image').src = src;
+      
+      // Update active thumbnail
+      const thumbnails = document.querySelectorAll('.thumbnail');
+      thumbnails.forEach((thumb, i) => {
+        if (i === index) {
+          thumb.classList.add('active');
+        } else {
+          thumb.classList.remove('active');
         }
-        
-        // Next image function
-        function nextImage() {
-          showImage((currentIndex + 1) % images.length);
-        }
-        
-        // Previous image function
-        function prevImage() {
-          showImage((currentIndex - 1 + images.length) % images.length);
-        }
-        
-        // Event listeners for arrows
-        prevArrow.addEventListener('click', prevImage);
-        nextArrow.addEventListener('click', nextImage);
-        
-        // Auto-rotate images every 5 seconds
-        function startAutoRotate() {
-          autoRotateInterval = setInterval(nextImage, 5000);
-        }
-        
-        function stopAutoRotate() {
-          clearInterval(autoRotateInterval);
-        }
-        
-        startAutoRotate();
-        
-        // Pause auto-rotation when hovering over gallery
-        gallery.addEventListener('mouseenter', stopAutoRotate);
-        
-        // Resume auto-rotation when leaving gallery
-        gallery.addEventListener('mouseleave', startAutoRotate);
-        
-        // Keyboard navigation
-        document.addEventListener('keydown', function(e) {
-          if (e.key === 'ArrowRight') {
-            nextImage();
-          } else if (e.key === 'ArrowLeft') {
-            prevImage();
-          }
-        });
-        
-        // Add touch swipe functionality
-        let touchStartX = 0;
-        let touchEndX = 0;
-        
-        gallery.addEventListener('touchstart', function(e) {
-          touchStartX = e.changedTouches[0].screenX;
-        }, false);
-        
-        gallery.addEventListener('touchend', function(e) {
-          touchEndX = e.changedTouches[0].screenX;
-          handleSwipe();
-        }, false);
-        
-        function handleSwipe() {
-          if (touchEndX < touchStartX) {
-            // Swipe left, go to next image
-            nextImage();
-          } else if (touchEndX > touchStartX) {
-            // Swipe right, go to previous image
-            prevImage();
-          }
-        }
-      }
-    });
+      });
+    }
   </script>
 </body>
 </html>
