@@ -1,10 +1,10 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Roza Bridal - Elegant Wedding Gowns</title>
-  <!-- Google Fonts -->
+  <title>Minimalist Off Shoulder Satin Wedding Dress | Roza Bridal</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
@@ -99,30 +99,26 @@
       border-radius: 4px;
       box-shadow: var(--shadow);
       background-color: white;
+      aspect-ratio: 3/4;
     }
     
-    .gallery img {
+    .gallery-image-container {
+      position: relative;
       width: 100%;
-      height: auto;
+      height: 100%;
+    }
+    
+    .gallery-image {
+      position: absolute;
+      width: 100%;
+      height: 100%;
       object-fit: cover;
-      display: none;
-      transform-origin: center;
+      opacity: 0;
+      transition: opacity 0.5s ease;
     }
     
-    .gallery img.active {
-      display: block;
-      animation: fadeInScale 0.8s ease-out;
-    }
-    
-    @keyframes fadeInScale {
-      from {
-        opacity: 0;
-        transform: scale(1.05);
-      }
-      to {
-        opacity: 1;
-        transform: scale(1);
-      }
+    .gallery-image.active {
+      opacity: 1;
     }
     
     .gallery-controls {
@@ -131,6 +127,7 @@
       left: 0;
       width: 100%;
       height: 100%;
+      z-index: 5;
     }
     
     .gallery-nav {
@@ -323,13 +320,6 @@
         max-height: calc(100vh - 8rem);
       }
       
-      .gallery img {
-        height: calc(100vh - 10rem);
-        max-height: 70vh;
-        object-fit: cover;
-        object-position: center;
-      }
-      
       .product-details h1 {
         font-size: 2.5rem;
       }
@@ -340,7 +330,7 @@
     }
     
     @media (min-width: 1024px) {
-      .gallery img {
+      .gallery {
         max-height: 80vh;
       }
     }
@@ -385,22 +375,53 @@
   </header>
   <main class="product-page">
     <div class="gallery">
-      <img src="../assets/images/minimalist-off-shoulder-satin-wedding-dress/picture1.jpg" alt="Dress View 1">
-      <img src="../assets/images/minimalist-off-shoulder-satin-wedding-dress/picture2.jpg" alt="Dress View 2">
-      <img src="../assets/images/minimalist-off-shoulder-satin-wedding-dress/picture3.jpg" alt="Dress View 3">
-      <img src="../assets/images/minimalist-off-shoulder-satin-wedding-dress/picture4.jpg" alt="Dress View 4">
+      <div class="gallery-image-container">
+        <img src="../assets/images/minimalist-off-shoulder-satin-wedding-dress/main.avif" 
+             alt="Minimalist Off Shoulder Satin Wedding Dress - Main View"
+             class="gallery-image active"
+             onerror="this.src='../assets/images/minimalist-off-shoulder-satin-wedding-dress/main.webp'; this.onerror=null;">
+        
+        <img src="../assets/images/minimalist-off-shoulder-satin-wedding-dress/picture 1.avif" 
+             alt="Minimalist Off Shoulder Satin Wedding Dress - Additional View 1"
+             class="gallery-image"
+             onerror="this.src='../assets/images/minimalist-off-shoulder-satin-wedding-dress/picture 1.webp'; this.onerror=null;">
+        
+        <img src="../assets/images/minimalist-off-shoulder-satin-wedding-dress/picture 2.avif" 
+             alt="Minimalist Off Shoulder Satin Wedding Dress - Additional View 2"
+             class="gallery-image"
+             onerror="this.src='../assets/images/minimalist-off-shoulder-satin-wedding-dress/picture 2.webp'; this.onerror=null;">
+        
+        <img src="../assets/images/minimalist-off-shoulder-satin-wedding-dress/picture 3.avif" 
+             alt="Minimalist Off Shoulder Satin Wedding Dress - Additional View 3"
+             class="gallery-image"
+             onerror="this.src='../assets/images/minimalist-off-shoulder-satin-wedding-dress/picture 3.webp'; this.onerror=null;">
+        
+        <img src="../assets/images/minimalist-off-shoulder-satin-wedding-dress/picture 4.avif" 
+             alt="Minimalist Off Shoulder Satin Wedding Dress - Additional View 4"
+             class="gallery-image"
+             onerror="this.src='../assets/images/minimalist-off-shoulder-satin-wedding-dress/picture 4.webp'; this.onerror=null;">
+        
+        <img src="../assets/images/minimalist-off-shoulder-satin-wedding-dress/detail 1.webp" 
+             alt="Minimalist Off Shoulder Satin Wedding Dress - Detail View 1"
+             class="gallery-image">
+        
+        <img src="../assets/images/minimalist-off-shoulder-satin-wedding-dress/detail 2.avif" 
+             alt="Minimalist Off Shoulder Satin Wedding Dress - Detail View 2"
+             class="gallery-image"
+             onerror="this.src='../assets/images/minimalist-off-shoulder-satin-wedding-dress/detail 2.webp'; this.onerror=null;">
+      </div>
     </div>
     <section class="product-details">
       <h1>Minimalist Off Shoulder Satin Wedding Dress</h1>
       <ul>
-        <li>Luxurious Satin & Silk Blend</li>
-        <li>Romantic Off-Shoulder Corset</li>
-        <li>Minimalist, Modern Design</li>
-        <li>Custom Sizing Available</li>
-        <li>Perfect for Civil Weddings & Elopements</li>
+        <li>Elegant Off-Shoulder Neckline</li>
+        <li>Premium Smooth Satin Fabric</li>
+        <li>Clean, Modern Silhouette</li>
+        <li>Sleek Minimalist Design</li>
+        <li>Perfect for Contemporary Weddings</li>
       </ul>
-      <p>Your wedding dress should be as breathtaking as the moment you say, "I do." This off-shoulder satin bridal gown is perfect for the modern bride who loves simplicity, elegance, and comfort.</p>
-      <a href="https://www.etsy.com/listing/1874374454/minimalist-off-shoulder-satin-wedding?ref=shop_home_active_11" class="buy-button" target="_blank">View on Etsy</a>
+      <p>This stunning minimalist wedding dress embraces simplicity with sophisticated style. The off-shoulder neckline frames your décolletage beautifully, while the premium satin fabric creates a luxurious drape that moves gracefully with you. The clean lines and understated elegance make this gown perfect for the modern bride who appreciates refined simplicity and timeless design.</p>
+      <a href="https://www.etsy.com/listing/1874374454/minimalist-off-shoulder-satin-wedding" class="buy-button" target="_blank">View on Etsy</a>
     </section>
   </main>
   <footer>
@@ -412,7 +433,8 @@
       // Image gallery carousel functionality
       const gallery = document.querySelector('.gallery');
       if (gallery) {
-        const images = gallery.querySelectorAll('img');
+        const imageContainer = gallery.querySelector('.gallery-image-container');
+        const images = gallery.querySelectorAll('.gallery-image');
         let currentIndex = 0;
         let autoRotateInterval;
         
@@ -429,22 +451,22 @@
         const prevArrow = document.createElement('div');
         prevArrow.className = 'gallery-arrow gallery-prev';
         prevArrow.innerHTML = '❮';
+        prevArrow.setAttribute('aria-label', 'Previous image');
         controls.appendChild(prevArrow);
         
         // Create next arrow
         const nextArrow = document.createElement('div');
         nextArrow.className = 'gallery-arrow gallery-next';
         nextArrow.innerHTML = '❯';
+        nextArrow.setAttribute('aria-label', 'Next image');
         controls.appendChild(nextArrow);
-        
-        // Initialize the first image as active
-        images[0].classList.add('active');
         
         // Create dots based on number of images
         images.forEach((_, index) => {
           const dot = document.createElement('div');
           dot.className = 'gallery-dot';
           if (index === 0) dot.classList.add('active');
+          dot.setAttribute('aria-label', `View image ${index + 1}`);
           
           dot.addEventListener('click', () => {
             currentIndex = index;
@@ -458,10 +480,16 @@
         
         // Update gallery function
         function updateGallery() {
+          // Remove active class from all images
           images.forEach(img => img.classList.remove('active'));
+          
+          // Remove active class from all dots
           document.querySelectorAll('.gallery-dot').forEach(dot => dot.classList.remove('active'));
           
+          // Add active class to current image
           images[currentIndex].classList.add('active');
+          
+          // Add active class to current dot
           document.querySelectorAll('.gallery-dot')[currentIndex].classList.add('active');
         }
         
@@ -478,8 +506,8 @@
         }
         
         // Event listeners for arrows
-        nextArrow.addEventListener('click', nextImage);
         prevArrow.addEventListener('click', prevImage);
+        nextArrow.addEventListener('click', nextImage);
         
         // Auto-rotate images every 5 seconds
         function startAutoRotate() {
@@ -531,6 +559,18 @@
         }
       }
     });
+    
+    // Add debugging if needed (uncomment to use)
+    /*
+    window.addEventListener('DOMContentLoaded', function() {
+      // Log when images fail to load to help debug
+      document.querySelectorAll('.gallery-image').forEach(img => {
+        img.addEventListener('error', function() {
+          console.error('Failed to load image:', this.src);
+        });
+      });
+    });
+    */
   </script>
 </body>
 </html>
