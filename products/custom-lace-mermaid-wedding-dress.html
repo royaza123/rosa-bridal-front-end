@@ -107,27 +107,10 @@
       height: auto;
       object-fit: cover;
       display: none;
-      transform-origin: center;
-    }
-    
-    .gallery img:first-child {
-      display: block;
     }
     
     .gallery img.active {
       display: block;
-      animation: fadeInScale 0.8s ease-out;
-    }
-    
-    @keyframes fadeInScale {
-      from {
-        opacity: 0;
-        transform: scale(1.05);
-      }
-      to {
-        opacity: 1;
-        transform: scale(1);
-      }
     }
     
     .gallery-controls {
@@ -392,10 +375,11 @@
   </header>
   <main class="product-page">
     <div class="gallery">
-      <img src="../assets/images/custom-lace-mermaid-wedding-dress/picture1.jpg" alt="Custom Lace Mermaid Wedding Dress - Front View" />
-      <img src="../assets/images/custom-lace-mermaid-wedding-dress/picture2.jpg" alt="Custom Lace Mermaid Wedding Dress - Back View" />
-      <img src="../assets/images/custom-lace-mermaid-wedding-dress/picture3.jpg" alt="Custom Lace Mermaid Wedding Dress - Side View" />
-      <img src="../assets/images/custom-lace-mermaid-wedding-dress/picture4.jpg" alt="Custom Lace Mermaid Wedding Dress - Detail View" />
+      <!-- Main image is displayed by default, others are hidden -->
+      <img src="../assets/images/custom-lace-mermaid-wedding-dress/picture1.jpg" alt="Custom Lace Mermaid Wedding Dress - Front View" class="active" style="display: block;" />
+      <img src="../assets/images/custom-lace-mermaid-wedding-dress/picture2.jpg" alt="Custom Lace Mermaid Wedding Dress - Back View" style="display: none;" />
+      <img src="../assets/images/custom-lace-mermaid-wedding-dress/picture3.jpg" alt="Custom Lace Mermaid Wedding Dress - Side View" style="display: none;" />
+      <img src="../assets/images/custom-lace-mermaid-wedding-dress/picture4.jpg" alt="Custom Lace Mermaid Wedding Dress - Detail View" style="display: none;" />
     </div>
     <section class="product-details">
       <h1>Custom Lace Mermaid Wedding Dress</h1>
@@ -448,18 +432,14 @@
         nextArrow.innerHTML = '❯';
         controls.appendChild(nextArrow);
         
-        // Initialize the first image as active
-        images[0].classList.add('active');
-        
         // Create dots based on number of images
         images.forEach((_, index) => {
           const dot = document.createElement('div');
           dot.className = 'gallery-dot';
           if (index === 0) dot.classList.add('active');
           
-          dot.addEventListener('click', () => {
-            currentIndex = index;
-            updateGallery();
+          dot.addEventListener('click', function() {
+            showImage(index);
           });
           
           dotsContainer.appendChild(dot);
@@ -467,30 +447,42 @@
         
         controls.appendChild(dotsContainer);
         
-        // Update gallery function
-        function updateGallery() {
-          images.forEach(img => img.classList.remove('active'));
-          document.querySelectorAll('.gallery-dot').forEach(dot => dot.classList.remove('active'));
+        // Show specific image function
+        function showImage(index) {
+          images.forEach((img, i) => {
+            if (i === index) {
+              img.classList.add('active');
+              img.style.display = 'block';
+            } else {
+              img.classList.remove('active');
+              img.style.display = 'none';
+            }
+          });
           
-          images[currentIndex].classList.add('active');
-          document.querySelectorAll('.gallery-dot')[currentIndex].classList.add('active');
+          document.querySelectorAll('.gallery-dot').forEach((dot, i) => {
+            if (i === index) {
+              dot.classList.add('active');
+            } else {
+              dot.classList.remove('active');
+            }
+          });
+          
+          currentIndex = index;
         }
         
         // Next image function
         function nextImage() {
-          currentIndex = (currentIndex + 1) % images.length;
-          updateGallery();
+          showImage((currentIndex + 1) % images.length);
         }
         
         // Previous image function
         function prevImage() {
-          currentIndex = (currentIndex - 1 + images.length) % images.length;
-          updateGallery();
+          showImage((currentIndex - 1 + images.length) % images.length);
         }
         
         // Event listeners for arrows
-        nextArrow.addEventListener('click', nextImage);
         prevArrow.addEventListener('click', prevImage);
+        nextArrow.addEventListener('click', nextImage);
         
         // Auto-rotate images every 5 seconds
         function startAutoRotate() {
@@ -510,7 +502,7 @@
         gallery.addEventListener('mouseleave', startAutoRotate);
         
         // Keyboard navigation
-        document.addEventListener('keydown', (e) => {
+        document.addEventListener('keydown', function(e) {
           if (e.key === 'ArrowRight') {
             nextImage();
           } else if (e.key === 'ArrowLeft') {
@@ -522,11 +514,11 @@
         let touchStartX = 0;
         let touchEndX = 0;
         
-        gallery.addEventListener('touchstart', (e) => {
+        gallery.addEventListener('touchstart', function(e) {
           touchStartX = e.changedTouches[0].screenX;
         }, false);
         
-        gallery.addEventListener('touchend', (e) => {
+        gallery.addEventListener('touchend', function(e) {
           touchEndX = e.changedTouches[0].screenX;
           handleSwipe();
         }, false);
