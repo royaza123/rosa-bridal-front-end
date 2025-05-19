@@ -390,25 +390,10 @@
   </header>
   <main class="product-page">
     <div class="gallery">
-      <img src="../assets/images/boho-wedding-dress-elegant/main.avif" 
-           alt="Boho Wedding Dress Elegant - Main View"
-           onerror="this.src='../assets/images/boho-wedding-dress-elegant/main.webp'; this.onerror=function(){this.src='../assets/images/boho-wedding-dress-elegant/picture1.avif'; this.onerror=function(){this.src='../assets/images/boho-wedding-dress-elegant/picture1.jpg'; this.onerror=null;}};">
-      
-      <img src="../assets/images/boho-wedding-dress-elegant/picture1.avif" 
-           alt="Boho Wedding Dress Elegant - Front View"
-           onerror="this.src='../assets/images/boho-wedding-dress-elegant/picture1.webp'; this.onerror=function(){this.src='../assets/images/boho-wedding-dress-elegant/picture1.jpg'; this.onerror=null;};">
-      
-      <img src="../assets/images/boho-wedding-dress-elegant/picture2.avif" 
-           alt="Boho Wedding Dress Elegant - Back View"
-           onerror="this.src='../assets/images/boho-wedding-dress-elegant/picture2.webp'; this.onerror=function(){this.src='../assets/images/boho-wedding-dress-elegant/picture2.jpg'; this.onerror=null;};">
-      
-      <img src="../assets/images/boho-wedding-dress-elegant/picture3.avif" 
-           alt="Boho Wedding Dress Elegant - Detail View"
-           onerror="this.src='../assets/images/boho-wedding-dress-elegant/picture3.webp'; this.onerror=function(){this.src='../assets/images/boho-wedding-dress-elegant/picture3.jpg'; this.onerror=null;};">
-      
-      <img src="../assets/images/boho-wedding-dress-elegant/picture4.avif" 
-           alt="Boho Wedding Dress Elegant - Full Length"
-           onerror="this.src='../assets/images/boho-wedding-dress-elegant/picture4.webp'; this.onerror=function(){this.src='../assets/images/boho-wedding-dress-elegant/picture4.jpg'; this.onerror=null;};">
+      <img src="../assets/images/boho-wedding-dress-elegant-v-neck/picture1.jpg" alt="Boho Wedding Dress Elegant - Front View">
+      <img src="../assets/images/boho-wedding-dress-elegant-v-neck/picture2.jpg" alt="Boho Wedding Dress Elegant - Back View">
+      <img src="../assets/images/boho-wedding-dress-elegant-v-neck/picture3.jpg" alt="Boho Wedding Dress Elegant - Detail">
+      <img src="../assets/images/boho-wedding-dress-elegant-v-neck/picture4.jpg" alt="Boho Wedding Dress Elegant - Side View">
     </div>
     <section class="product-details">
       <h1>Boho Wedding Dress – Elegant Ladies Wedding Gown</h1>
@@ -457,8 +442,15 @@
         nextArrow.innerHTML = '❯';
         controls.appendChild(nextArrow);
         
-        // Initialize the first image as active
-        images[0].classList.add('active');
+        // Make sure all images are not displayed initially except the first one
+        images.forEach((img, index) => {
+          if (index === 0) {
+            img.classList.add('active');
+          } else {
+            img.classList.remove('active');
+            img.style.display = 'none';
+          }
+        });
         
         // Create dots based on number of images
         images.forEach((_, index) => {
@@ -478,11 +470,23 @@
         
         // Update gallery function
         function updateGallery() {
-          images.forEach(img => img.classList.remove('active'));
-          document.querySelectorAll('.gallery-dot').forEach(dot => dot.classList.remove('active'));
+          images.forEach((img, idx) => {
+            if (idx === currentIndex) {
+              img.classList.add('active');
+              img.style.display = 'block';
+            } else {
+              img.classList.remove('active');
+              img.style.display = 'none';
+            }
+          });
           
-          images[currentIndex].classList.add('active');
-          document.querySelectorAll('.gallery-dot')[currentIndex].classList.add('active');
+          document.querySelectorAll('.gallery-dot').forEach((dot, idx) => {
+            if (idx === currentIndex) {
+              dot.classList.add('active');
+            } else {
+              dot.classList.remove('active');
+            }
+          });
         }
         
         // Next image function
@@ -498,8 +502,8 @@
         }
         
         // Event listeners for arrows
-        nextArrow.addEventListener('click', nextImage);
         prevArrow.addEventListener('click', prevImage);
+        nextArrow.addEventListener('click', nextImage);
         
         // Auto-rotate images every 5 seconds
         function startAutoRotate() {
