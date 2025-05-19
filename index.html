@@ -4,8 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Roza Bridal - Elegant Wedding Dresses</title>
-  <link rel="stylesheet" href="style.css">
-  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
@@ -29,6 +27,10 @@
       box-sizing: border-box;
     }
     
+    html, body {
+      height: 100%;
+    }
+    
     body {
       font-family: 'Montserrat', sans-serif;
       font-weight: 300;
@@ -36,6 +38,8 @@
       background-color: var(--primary-color);
       line-height: 1.6;
       overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
     }
     
     h1, h2, h3, h4, h5 {
@@ -57,18 +61,25 @@
     
     /* Header Styles */
     header {
-      position: sticky;
+      position: fixed;
       top: 0;
+      left: 0;
+      width: 100%;
       z-index: 100;
       background-color: rgba(249, 247, 245, 0.95);
       padding: 1.25rem;
       box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
       backdrop-filter: blur(10px);
       border-bottom: 1px solid var(--border-color);
-      transition: var(--transition);
+    }
+    
+    .header-container {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.25rem;
     }
     
     .logo {
@@ -116,9 +127,8 @@
     
     /* Main Content Styles */
     main {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 1.25rem;
+      flex: 1 0 auto;
+      padding-top: 5rem; /* Add padding for fixed header */
     }
     
     /* Section Title Styles */
@@ -155,6 +165,8 @@
     /* Collection Grid Styles */
     .collection {
       padding: 5rem 0;
+      max-width: 1200px;
+      margin: 0 auto;
     }
     
     .product-grid {
@@ -268,6 +280,9 @@
       grid-template-columns: 1fr;
       gap: 3rem;
       align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.25rem;
     }
     
     .about-text {
@@ -341,11 +356,17 @@
     }
     
     /* Footer Styles */
-    footer {
+    .sticky-footer {
+      flex-shrink: 0;
       background-color: var(--secondary-color);
       padding: 3rem 1.25rem;
       text-align: center;
       border-top: 1px solid var(--border-color);
+    }
+    
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
     }
     
     .footer-logo {
@@ -413,16 +434,18 @@
 </head>
 <body>
   <header>
-    <a href="index.html">
-      <img src="assets/logos/roza-logo.png" alt="Roza Bridal Dresses Logo" class="logo">
-    </a>
-    <nav>
-      <ul>
-        <li><a href="#collection">Collection</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-    </nav>
+    <div class="header-container">
+      <a href="index.html">
+        <img src="assets/logos/logo.webp" alt="Roza Bridal Dresses Logo" class="logo">
+      </a>
+      <nav>
+        <ul>
+          <li><a href="#collection">Collection</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="mailto:aetophis@aetophis.com">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
   </header>
   
   <main>
@@ -434,22 +457,22 @@
       </div>
       
       <div class="product-grid">
-      <!-- 1. Boho Wedding Dress Elegant -->
-      <div class="product-card">
-       <a href="products/boho-wedding-dress-elegant.html">
-         <img src="assets/images/boho-wedding-dress-elegant/main.avif" 
-              alt="Boho Wedding Dress Elegant" 
-              class="product-image"
-              onerror="this.src='assets/images/boho-wedding-dress-elegant/main.webp'; this.onerror=function(){this.src='assets/images/boho-wedding-dress-elegant/picture1.jpg'; this.onerror=null;};">
-         <div class="product-overlay"></div>
-         <div class="product-details">
-           <h3>Boho Wedding Dress Elegant</h3>
-           <p>Ethereal and free-spirited gown with delicate details and flowing silhouette.</p>
-           <span class="view-button">View Details</span>
-         </div>
-       </a>
-      </div>
-              
+        <!-- 1. Boho Wedding Dress Elegant -->
+        <div class="product-card">
+          <a href="products/boho-wedding-dress-elegant-ladies-wedding-gown.html">
+            <img src="assets/images/boho-wedding-dress-elegant/main.avif" 
+                 alt="Boho Wedding Dress Elegant" 
+                 class="product-image"
+                 onerror="this.src='assets/images/boho-wedding-dress-elegant/main.webp'; this.onerror=function(){this.src='assets/images/boho-wedding-dress-elegant/picture1.avif'; this.onerror=null;};">
+            <div class="product-overlay"></div>
+            <div class="product-details">
+              <h3>Boho Wedding Dress Elegant</h3>
+              <p>Ethereal and free-spirited gown with delicate details and flowing silhouette.</p>
+              <span class="view-button">View Details</span>
+            </div>
+          </a>
+        </div>
+        
         <!-- 2. Custom Lace Mermaid Wedding Dress -->
         <div class="product-card">
           <a href="products/custom-lace-mermaid-wedding-dress.html">
@@ -609,7 +632,6 @@
             </div>
           </a>
         </div>
-        
       </div>
     </section>
     
@@ -617,10 +639,10 @@
     <section id="about" class="about">
       <div class="about-content">
         <div class="about-text">
-          <h2>About Roza Bridal</h2>
-          <p>At Roza Bridal, we believe that every bride deserves to feel beautiful, comfortable, and confident on her special day. Our collection of wedding dresses is designed with love and attention to detail, using only the finest fabrics and materials.</p>
-          <p>We offer a variety of styles from bohemian beach gowns to elegant mermaid silhouettes, ensuring that every bride finds her perfect match. Each dress is created to capture the romance and magic of your wedding day.</p>
-          <p>Our mission is to make dream dresses accessible to all brides. We work directly with you to ensure the perfect fit and style for your unique vision.</p>
+          <h2>The Roza Bridal Story</h2>
+          <p>At Roza Bridal, we believe your wedding gown should tell your unique love story. Each of our dresses is crafted to capture those perfect moments when you walk down the aisle, your partner sees you for the first time, and you share your first dance as a married couple.</p>
+          <p>Our passion for bridal fashion began with a dream to create dresses that blend timeless elegance with modern romance. From delicate lace details to flowing silk trains, every element is thoughtfully designed to make you feel like the most beautiful version of yourself on your special day.</p>
+          <p>We offer diverse styles from bohemian beach gowns to sophisticated mermaid silhouettes, each created with premium fabrics and meticulous attention to detail. Our collection is designed for brides who appreciate quality craftsmanship and romantic design elements that will be cherished in wedding photos for generations to come.</p>
         </div>
       </div>
     </section>
@@ -633,14 +655,7 @@
       </div>
       
       <div class="contact-icons">
-        <a href="https://www.etsy.com/shop/RozaBridal" target="_blank" class="contact-icon">
-          <div class="icon-circle">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"></path></svg>
-          </div>
-          <span>Etsy Shop</span>
-        </a>
-        
-        <a href="mailto:info@rozabridal.com" class="contact-icon">
+        <a href="mailto:aetophis@aetophis.com" class="contact-icon">
           <div class="icon-circle">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
           </div>
@@ -657,14 +672,16 @@
     </section>
   </main>
   
-  <footer>
-    <img src="assets/logos/roza-footer.png" alt="Roza Bridal Logo" class="footer-logo">
-    <div class="footer-links">
-      <a href="#collection">Collection</a>
-      <a href="#about">About</a>
-      <a href="#contact">Contact</a>
+  <footer class="sticky-footer">
+    <div class="footer-content">
+      <img src="assets/logos/footer-1.png" alt="Roza Bridal Logo" class="footer-logo">
+      <div class="footer-links">
+        <a href="#collection">Collection</a>
+        <a href="#about">About</a>
+        <a href="mailto:aetophis@aetophis.com">Contact</a>
+      </div>
+      <p class="copyright">&copy; 2025 Roza Bridal. All rights reserved.</p>
     </div>
-    <p class="copyright">&copy; 2025 Roza Bridal. All rights reserved.</p>
   </footer>
 
   <script>
