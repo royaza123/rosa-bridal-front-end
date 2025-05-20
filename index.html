@@ -54,6 +54,12 @@
     a {
       text-decoration: none;
       color: inherit;
+      outline-color: var(--accent-color);
+    }
+    
+    a:focus-visible {
+      outline: 2px solid var(--accent-color);
+      outline-offset: 3px;
     }
     
     img {
@@ -89,7 +95,7 @@
     }
     
     .logo {
-      height: 100%;
+      height: 40px;
       display: block;
       transition: transform 0.3s ease;
     }
@@ -363,6 +369,13 @@
       color: var(--light-text);
     }
     
+    /* Footer divider */
+    .footer-divider {
+      width: 100%;
+      display: block;
+      margin-bottom: 0;
+    }
+    
     /* Footer Styles */
     footer {
       flex-shrink: 0; /* Prevent footer from shrinking */
@@ -370,7 +383,7 @@
       padding: 3rem 1.25rem;
       text-align: center;
       border-top: 1px solid var(--border-color);
-      margin-top: 2rem;
+      margin-top: 0; /* No margin needed with the divider above */
     }
     
     .footer-content {
@@ -379,8 +392,9 @@
     }
     
     .footer-logo {
-      height: 2.5rem;
-      margin-bottom: 1.5rem;
+      height: 60px;
+      margin: 0 auto 1rem;
+      display: block;
     }
     
     .footer-links {
@@ -446,14 +460,17 @@
     <div class="header-container">
       <div class="logo-container">
         <a href="index.html">
-          <img src="assets/logos/logo.webp" alt="Roza Bridal Dresses Logo" class="logo">
+          <picture>
+            <source srcset="./assets/images/logos/logo.webp" type="image/webp">
+            <img src="./assets/images/logos/logo.webp" alt="Roza Bridal Dresses Logo" class="logo">
+          </picture>
         </a>
       </div>
       <nav>
         <ul>
           <li><a href="#collection">Collection</a></li>
           <li><a href="#about">About</a></li>
-          <li><a href="mailto:aetophis@aetophis.com">Contact</a></li>
+          <li><a href="mailto:aetophis@aetophis.com" target="_blank" rel="noopener">Contact</a></li>
         </ul>
       </nav>
     </div>
@@ -471,10 +488,11 @@
         <!-- 1. Boho Wedding Dress Elegant -->
         <div class="product-card">
           <a href="products/boho-wedding-dress-elegant-ladies-wedding-gown.html">
-            <img src="assets/images/boho-wedding-dress-elegant/main.avif" 
+            <img src="./assets/images/boho-wedding-dress-elegant/main.avif" 
                  alt="Boho Wedding Dress Elegant" 
                  class="product-image"
-                 onerror="this.src='assets/images/boho-wedding-dress-elegant/main.webp'; this.onerror=function(){this.src='assets/images/boho-wedding-dress-elegant/picture1.avif'; this.onerror=null;};">
+                 loading="lazy"
+                 onerror="this.src='./assets/images/boho-wedding-dress-elegant/main.webp'; this.onerror=function(){this.src='./assets/images/boho-wedding-dress-elegant/picture1.avif'; this.onerror=null;};">
             <div class="product-overlay"></div>
             <div class="product-details">
               <h3>Boho Wedding Dress Elegant</h3>
@@ -487,10 +505,11 @@
         <!-- 2. Custom Lace Mermaid Wedding Dress -->
         <div class="product-card">
           <a href="products/custom-lace-mermaid-wedding-dress.html">
-            <img src="assets/images/custom-lace-mermaid-wedding-dress/main.avif" 
+            <img src="./assets/images/custom-lace-mermaid-wedding-dress/main.avif" 
                  alt="Custom Lace Mermaid Wedding Dress" 
                  class="product-image"
-                 onerror="this.src='assets/images/custom-lace-mermaid-wedding-dress/main.webp'; this.onerror=function(){this.src='assets/images/custom-lace-mermaid-wedding-dress/picture1.avif'; this.onerror=null;};">
+                 loading="lazy"
+                 onerror="this.src='./assets/images/custom-lace-mermaid-wedding-dress/main.webp'; this.onerror=function(){this.src='./assets/images/custom-lace-mermaid-wedding-dress/picture1.avif'; this.onerror=null;};">
             <div class="product-overlay"></div>
             <div class="product-details">
               <h3>Custom Lace Mermaid Wedding Dress</h3>
@@ -503,10 +522,11 @@
         <!-- 3. Custom Lace Mermaid Wedding Dress V-Neck -->
         <div class="product-card">
           <a href="products/custom-lace-mermaid-wedding-dress-v-neck.html">
-            <img src="assets/images/custom-lace-mermaid-wedding-dress-v-neck/main.avif" 
+            <img src="./assets/images/custom-lace-mermaid-wedding-dress-v-neck/main.avif" 
                  alt="Custom Lace Mermaid Wedding Dress V-Neck" 
                  class="product-image"
-                 onerror="this.src='assets/images/custom-lace-mermaid-wedding-dress-v-neck/main.webp'; this.onerror=function(){this.src='assets/images/custom-lace-mermaid-wedding-dress-v-neck/picture1.avif'; this.onerror=null;};">
+                 loading="lazy"
+                 onerror="this.src='./assets/images/custom-lace-mermaid-wedding-dress-v-neck/main.webp'; this.onerror=function(){this.src='./assets/images/custom-lace-mermaid-wedding-dress-v-neck/picture1.avif'; this.onerror=null;};">
             <div class="product-overlay"></div>
             <div class="product-details">
               <h3>Custom Lace Mermaid Wedding Dress V-Neck</h3>
@@ -519,10 +539,11 @@
         <!-- 4. Elegant Ivory Satin Bridal Gown -->
         <div class="product-card">
           <a href="products/elegant-ivory-satin-bridal-gown.html">
-            <img src="assets/images/elegant-ivory-satin-bridal-gown/main.avif" 
+            <img src="./assets/images/elegant-ivory-satin-bridal-gown/main.avif" 
                  alt="Elegant Ivory Satin Bridal Gown" 
                  class="product-image"
-                 onerror="this.src='assets/images/elegant-ivory-satin-bridal-gown/main.webp'; this.onerror=function(){this.src='assets/images/elegant-ivory-satin-bridal-gown/picture1.avif'; this.onerror=null;};">
+                 loading="lazy"
+                 onerror="this.src='./assets/images/elegant-ivory-satin-bridal-gown/main.webp'; this.onerror=function(){this.src='./assets/images/elegant-ivory-satin-bridal-gown/picture1.avif'; this.onerror=null;};">
             <div class="product-overlay"></div>
             <div class="product-details">
               <h3>Elegant Ivory Satin Bridal Gown</h3>
@@ -535,10 +556,11 @@
         <!-- 5. Gorgeous Ivory Mermaid Wedding Gown -->
         <div class="product-card">
           <a href="products/gorgeous-ivory-mermaid-wedding-gown.html">
-            <img src="assets/images/gorgeous-ivory-mermaid-wedding-gown/main.avif" 
+            <img src="./assets/images/gorgeous-ivory-mermaid-wedding-gown/main.avif" 
                  alt="Gorgeous Ivory Mermaid Wedding Gown" 
                  class="product-image"
-                 onerror="this.src='assets/images/gorgeous-ivory-mermaid-wedding-gown/main.webp'; this.onerror=function(){this.src='assets/images/gorgeous-ivory-mermaid-wedding-gown/picture1.avif'; this.onerror=null;};">
+                 loading="lazy"
+                 onerror="this.src='./assets/images/gorgeous-ivory-mermaid-wedding-gown/main.webp'; this.onerror=function(){this.src='./assets/images/gorgeous-ivory-mermaid-wedding-gown/picture1.avif'; this.onerror=null;};">
             <div class="product-overlay"></div>
             <div class="product-details">
               <h3>Gorgeous Ivory Mermaid Wedding Gown</h3>
@@ -551,10 +573,11 @@
         <!-- 6. Floral Bridal Dress -->
         <div class="product-card">
           <a href="products/floral-bridal-dress.html">
-            <img src="assets/images/floral-bridal-dress-ladies-wedding-gown/main.avif" 
+            <img src="./assets/images/floral-bridal-dress-ladies-wedding-gown/main.avif" 
                  alt="Floral Bridal Dress" 
                  class="product-image"
-                 onerror="this.src='assets/images/floral-bridal-dress-ladies-wedding-gown/main.webp'; this.onerror=function(){this.src='assets/images/floral-bridal-dress-ladies-wedding-gown/picture1.avif'; this.onerror=null;};">
+                 loading="lazy"
+                 onerror="this.src='./assets/images/floral-bridal-dress-ladies-wedding-gown/main.webp'; this.onerror=function(){this.src='./assets/images/floral-bridal-dress-ladies-wedding-gown/picture1.avif'; this.onerror=null;};">
             <div class="product-overlay"></div>
             <div class="product-details">
               <h3>Floral Bridal Dress</h3>
@@ -567,10 +590,11 @@
         <!-- 7. Boho Beach Wedding Dress -->
         <div class="product-card">
           <a href="products/boho-beach-wedding-dress.html">
-            <img src="assets/images/boho-beach-wedding-dress/main.avif" 
+            <img src="./assets/images/boho-beach-wedding-dress/main.avif" 
                  alt="Boho Beach Wedding Dress" 
                  class="product-image"
-                 onerror="this.src='assets/images/boho-beach-wedding-dress/main.webp'; this.onerror=function(){this.src='assets/images/boho-beach-wedding-dress/picture1.avif'; this.onerror=null;};">
+                 loading="lazy"
+                 onerror="this.src='./assets/images/boho-beach-wedding-dress/main.webp'; this.onerror=function(){this.src='./assets/images/boho-beach-wedding-dress/picture1.avif'; this.onerror=null;};">
             <div class="product-overlay"></div>
             <div class="product-details">
               <h3>Boho Beach Wedding Dress</h3>
@@ -583,10 +607,11 @@
         <!-- 8. Modest Satin Wedding Dress -->
         <div class="product-card">
           <a href="products/modest-satin-wedding-dress.html">
-            <img src="assets/images/modest-satin-wedding-dress/main.avif" 
+            <img src="./assets/images/modest-satin-wedding-dress/main.avif" 
                  alt="Modest Satin Wedding Dress" 
                  class="product-image"
-                 onerror="this.src='assets/images/modest-satin-wedding-dress/main.webp'; this.onerror=function(){this.src='assets/images/modest-satin-wedding-dress/picture1.avif'; this.onerror=null;};">
+                 loading="lazy"
+                 onerror="this.src='./assets/images/modest-satin-wedding-dress/main.webp'; this.onerror=function(){this.src='./assets/images/modest-satin-wedding-dress/picture1.avif'; this.onerror=null;};">
             <div class="product-overlay"></div>
             <div class="product-details">
               <h3>Modest Satin Wedding Dress</h3>
@@ -599,10 +624,11 @@
         <!-- 9. Sexy Fishtail Bridal Gown -->
         <div class="product-card">
           <a href="products/sexy-fishtail-bridal-gown.html">
-            <img src="assets/images/sexy-fishtail-bridal-gown/main.avif" 
+            <img src="./assets/images/sexy-fishtail-bridal-gown/main.avif" 
                  alt="Sexy Fishtail Bridal Gown" 
                  class="product-image"
-                 onerror="this.src='assets/images/sexy-fishtail-bridal-gown/main.webp'; this.onerror=function(){this.src='assets/images/sexy-fishtail-bridal-gown/picture1.avif'; this.onerror=null;};">
+                 loading="lazy"
+                 onerror="this.src='./assets/images/sexy-fishtail-bridal-gown/main.webp'; this.onerror=function(){this.src='./assets/images/sexy-fishtail-bridal-gown/picture1.avif'; this.onerror=null;};">
             <div class="product-overlay"></div>
             <div class="product-details">
               <h3>Sexy Fishtail Bridal Gown</h3>
@@ -615,10 +641,11 @@
         <!-- 10. Sexy Sequin Mermaid Wedding Dress -->
         <div class="product-card">
           <a href="products/sexy-sequin-mermaid-wedding-dress.html">
-            <img src="assets/images/sexy-sequin-mermaid-wedding-dress/main.avif" 
+            <img src="./assets/images/sexy-sequin-mermaid-wedding-dress/main.avif" 
                  alt="Sexy Sequin Mermaid Wedding Dress" 
                  class="product-image"
-                 onerror="this.src='assets/images/sexy-sequin-mermaid-wedding-dress/main.webp'; this.onerror=function(){this.src='assets/images/sexy-sequin-mermaid-wedding-dress/picture1.avif'; this.onerror=null;};">
+                 loading="lazy"
+                 onerror="this.src='./assets/images/sexy-sequin-mermaid-wedding-dress/main.webp'; this.onerror=function(){this.src='./assets/images/sexy-sequin-mermaid-wedding-dress/picture1.avif'; this.onerror=null;};">
             <div class="product-overlay"></div>
             <div class="product-details">
               <h3>Sexy Sequin Mermaid Wedding Dress</h3>
@@ -631,10 +658,11 @@
         <!-- 11. Minimalist Off Shoulder Satin Wedding Dress -->
         <div class="product-card">
           <a href="products/minimalist-off-shoulder-satin-dress.html">
-            <img src="assets/images/minimalist-off-shoulder-satin-wedding-dress/main.avif" 
+            <img src="./assets/images/minimalist-off-shoulder-satin-wedding-dress/main.avif" 
                  alt="Minimalist Off Shoulder Satin Wedding Dress" 
                  class="product-image"
-                 onerror="this.src='assets/images/minimalist-off-shoulder-satin-wedding-dress/main.webp'; this.onerror=function(){this.src='assets/images/minimalist-off-shoulder-satin-wedding-dress/picture1.avif'; this.onerror=null;};">
+                 loading="lazy"
+                 onerror="this.src='./assets/images/minimalist-off-shoulder-satin-wedding-dress/main.webp'; this.onerror=function(){this.src='./assets/images/minimalist-off-shoulder-satin-wedding-dress/picture1.avif'; this.onerror=null;};">
             <div class="product-overlay"></div>
             <div class="product-details">
               <h3>Minimalist Off Shoulder Satin Wedding Dress</h3>
@@ -666,14 +694,14 @@
       </div>
       
       <div class="contact-icons">
-        <a href="mailto:aetophis@aetophis.com" class="contact-icon">
+        <a href="mailto:aetophis@aetophis.com" target="_blank" rel="noopener" class="contact-icon">
           <div class="icon-circle">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
           </div>
           <span>Email Us</span>
         </a>
         
-        <a href="https://www.instagram.com/rozabridal" target="_blank" class="contact-icon">
+        <a href="https://www.instagram.com/rozabridal" target="_blank" rel="noopener" class="contact-icon">
           <div class="icon-circle">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
           </div>
@@ -683,87 +711,98 @@
     </section>
   </main>
   
-  <footer>
-    <div class="footer-content">
-      <img src="assets/logos/footer-1.png" alt="Roza Bridal Logo" class="footer-logo">
-      <div class="footer-links">
-        <a href="#collection">Collection</a>
-        <a href="#about">About</a>
-        <a href="mailto:aetophis@aetophis.com">Contact</a>
-      </div>
-      <p class="copyright">&copy; 2025 Roza Bridal. All rights reserved.</p>
-    </div>
-  </footer>
+  <!-- Footer divider -->
+  <img src="./assets/images/logos/footer-1.png" alt="Roza Bridal Divider" class="footer-divider" loading="lazy">
+  
+ <footer>
+   <div class="footer-content">
+     <picture>
+       <source srcset="./assets/images/logos/logo.webp" type="image/webp">
+       <img src="./assets/images/logos/logo.webp" alt="Roza Bridal Logo" class="footer-logo" loading="lazy">
+     </picture>
+     <div class="footer-links">
+       <a href="#collection">Collection</a>
+       <a href="#about">About</a>
+       <a href="mailto:aetophis@aetophis.com" target="_blank" rel="noopener">Contact</a>
+     </div>
+     <p class="copyright">&copy; 2025 Roza Bridal. All rights reserved.</p>
+   </div>
+ </footer>
 
-  <script>
-    // Wait for DOM to be fully loaded before adding any event listeners
-    document.addEventListener('DOMContentLoaded', function() {
-      // Smooth scrolling for navigation links
-      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-          e.preventDefault();
-          
-          const target = document.querySelector(this.getAttribute('href'));
-          if (target) {
-            target.scrollIntoView({
-              behavior: 'smooth'
-            });
-          }
-        });
-      });
-      
-      // Add hover effect for product cards
-      document.querySelectorAll('.product-card').forEach(card => {
-        card.addEventListener('mouseenter', function() {
-          const overlay = this.querySelector('.product-overlay');
-          const details = this.querySelector('.product-details');
-          if (overlay) overlay.style.opacity = '1';
-          if (details) {
-            details.style.transform = 'translateY(0)';
-            details.style.opacity = '1';
-          }
-        });
-        
-        card.addEventListener('mouseleave', function() {
-          const overlay = this.querySelector('.product-overlay');
-          const details = this.querySelector('.product-details');
-          if (overlay) overlay.style.opacity = '1';
-          if (details) {
-            details.style.transform = 'translateY(0)';
-            details.style.opacity = '1';
-          }
-        });
-        
-        card.addEventListener('mouseleave', function() {
-          const overlay = this.querySelector('.product-overlay');
-          const details = this.querySelector('.product-details');
-          if (overlay) overlay.style.opacity = '0';
-          if (details) {
-            details.style.transform = 'translateY(20px)';
-            details.style.opacity = '0';
-          }
-        });
-      });
-      
-      // Debug image loading with console messages only
-      console.log('Checking images...');
-      
-      const logoImg = document.querySelector('.logo');
-      if (logoImg) {
-        console.log('Logo image path:', logoImg.src);
-        logoImg.addEventListener('error', function() {
-          console.error('Logo image failed to load:', this.src);
-        }, { once: true });
-      }
-      
-      const footerImg = document.querySelector('.footer-logo');
-      if (footerImg) {
-        console.log('Footer image path:', footerImg.src);
-        footerImg.addEventListener('error', function() {
-          console.error('Footer image failed to load:', this.src);
-        }, { once: true });
-      }
-    });
-  </script>
+ <script>
+   // Wait for DOM to be fully loaded before adding any event listeners
+   document.addEventListener('DOMContentLoaded', function() {
+     // Smooth scrolling for navigation links
+     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+       anchor.addEventListener('click', function (e) {
+         e.preventDefault();
+         
+         const target = document.querySelector(this.getAttribute('href'));
+         if (target) {
+           target.scrollIntoView({
+             behavior: 'smooth'
+           });
+         }
+       });
+     });
+     
+     // Add hover effect for product cards
+     document.querySelectorAll('.product-card').forEach(card => {
+       card.addEventListener('mouseenter', function() {
+         const overlay = this.querySelector('.product-overlay');
+         const details = this.querySelector('.product-details');
+         if (overlay) overlay.style.opacity = '1';
+         if (details) {
+           details.style.transform = 'translateY(0)';
+           details.style.opacity = '1';
+         }
+       });
+       
+       card.addEventListener('mouseleave', function() {
+         const overlay = this.querySelector('.product-overlay');
+         const details = this.querySelector('.product-details');
+         if (overlay) overlay.style.opacity = '0';
+         if (details) {
+           details.style.transform = 'translateY(20px)';
+           details.style.opacity = '0';
+         }
+       });
+     });
+
+     // Log loading status of key images for debugging
+     const logoImg = document.querySelector('.logo');
+     if (logoImg) {
+       logoImg.addEventListener('load', function() {
+         console.log('Header logo loaded successfully');
+       });
+       
+       logoImg.addEventListener('error', function() {
+         console.error('Header logo failed to load:', this.src);
+       }, { once: true });
+     }
+     
+     const footerLogo = document.querySelector('.footer-logo');
+     if (footerLogo) {
+       footerLogo.addEventListener('load', function() {
+         console.log('Footer logo loaded successfully');
+       });
+       
+       footerLogo.addEventListener('error', function() {
+         console.error('Footer logo failed to load:', this.src);
+       }, { once: true });
+     }
+     
+     const footerDivider = document.querySelector('.footer-divider');
+     if (footerDivider) {
+       footerDivider.addEventListener('load', function() {
+         console.log('Footer divider loaded successfully');
+       });
+       
+       footerDivider.addEventListener('error', function() {
+         console.error('Footer divider failed to load:', this.src);
+       }, { once: true });
+     }
+   });
+ </script>
 </body>
 </html>
