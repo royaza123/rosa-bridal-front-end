@@ -52,7 +52,7 @@ title: All Wedding Dresses - Roza Bridal
              alt="Custom Lace Mermaid Wedding Dress V-Neck" 
              class="product-image"
              loading="lazy"
-             onerror="this.src='{{ site.baseurl }}/assets/images/custom-lace-mermaid-wedding-dress-v-neck/main.webp'; this.onerror=function(){this.src='{{ site.baseurl }}/assets/images/custom-lace-mermaid-wedding-dress-v-neck/picture1.avif'; this.onerror=null;};">
+             onerror="this.src='{{ site.baseurl }}/assets/images/custom-lace-mermaid-wedding-dress-v-neck/main.webp'; this.onerror=function(){this.src='{{ site.baseurl }}/assets/images/custom-lace-mermaid-wedding-dress-v-neck/photo 1.avif'; this.onerror=null;};">
         <div class="product-overlay"></div>
         <div class="product-details">
           <h3>Custom Lace Mermaid Wedding Dress V-Neck</h3>
@@ -171,7 +171,7 @@ title: All Wedding Dresses - Roza Bridal
              alt="Sexy Sequin Mermaid Wedding Dress" 
              class="product-image"
              loading="lazy"
-             onerror="this.src='{{ site.baseurl }}/assets/images/sexy-sequin-mermaid-wedding-dress/main.webp'; this.onerror=function(){this.src='{{ site.baseurl }}/assets/images/sexy-sequin-mermaid-wedding-dress/picture1.avif'; this.onerror=null;};">
+             onerror="this.src='{{ site.baseurl }}/assets/images/sexy-sequin-mermaid-wedding-dress/main.webp'; this.onerror=function(){this.src='{{ site.baseurl }}/assets/images/sexy-sequin-mermaid-wedding-dress/picute 1.avif'; this.onerror=null;};">
         <div class="product-overlay"></div>
         <div class="product-details">
           <h3>Sexy Sequin Mermaid Wedding Dress</h3>
@@ -199,3 +199,30 @@ title: All Wedding Dresses - Roza Bridal
     </div>
   </div>
 </section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Add hover effect for product cards
+    document.querySelectorAll('.product-card').forEach(card => {
+      card.addEventListener('mouseenter', function() {
+        const overlay = this.querySelector('.product-overlay');
+        const details = this.querySelector('.product-details');
+        if (overlay) overlay.style.opacity = '1';
+        if (details) {
+          details.style.transform = 'translateY(0)';
+          details.style.opacity = '1';
+        }
+      });
+      
+      card.addEventListener('mouseleave', function() {
+        const overlay = this.querySelector('.product-overlay');
+        const details = this.querySelector('.product-details');
+        if (overlay) overlay.style.opacity = '0';
+        if (details) {
+          details.style.transform = 'translateY(20px)';
+          details.style.opacity = '0';
+        }
+      });
+    });
+  });
+</script>
