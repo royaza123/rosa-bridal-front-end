@@ -3,3 +3,5 @@ description: Elegant Wedding Dresses
 baseurl: /rosa-bridal-front-end
 url: https://royaza123.github.io
 permalink: pretty
+include:
+  - products
