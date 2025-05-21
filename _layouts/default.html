@@ -174,7 +174,7 @@
       margin: 0 auto;
     }
     
-    /* Collection Grid Styles */
+    /* Collection Grid Styles - Fixed for correct image display */
 .collection {
   padding: 5rem 0;
   max-width: 1200px;
@@ -185,116 +185,110 @@
 
 .product-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 2rem;
   margin-top: 2rem;
 }
 
-/* ... more product card styles ... */
-    
-    .product-card {
-      background-color: white;
-      border-radius: 4px;
-      overflow: hidden;
-      box-shadow: var(--shadow);
-      transition: var(--transition);
-      height: auto;
-      display: flex;
-      flex-direction: column;
-    }
-    
-    .product-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-    }
-    
-    .product-card a {
-      display: block;
-      height: 100%;
-    }
-    
-    .product-image-container {
-      position: relative;
-      height: 0;
-      padding-bottom: 133.33%; /* 4:3 aspect ratio (800/600 = 1.3333) */
-      overflow: hidden;
-    }
-    
-    .product-image {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: var(--transition);
-    }
-    
-    .product-card:hover .product-image {
-      transform: scale(1.03);
-    }
-    
-    .product-overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(to bottom, transparent 60%, rgba(0,0,0,0.7));
-      opacity: 0;
-      transition: var(--transition);
-    }
-    
-    .product-card:hover .product-overlay {
-      opacity: 1;
-    }
-    
-    .product-details {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      padding: 1.5rem;
-      color: white;
-      transform: translateY(20px);
-      opacity: 0;
-      transition: var(--transition);
-      z-index: 5;
-    }
-    
-    .product-card:hover .product-details {
-      transform: translateY(0);
-      opacity: 1;
-    }
-    
-    .product-details h3 {
-      font-size: 1.5rem;
-      margin-bottom: 0.5rem;
-    }
-    
-    .product-details p {
-      font-size: 0.9rem;
-      margin-bottom: 1rem;
-      opacity: 0.9;
-    }
-    
-    .view-button {
-      display: inline-block;
-      background-color: transparent;
-      color: white;
-      padding: 0.5rem 1.5rem;
-      border: 1px solid white;
-      border-radius: 2px;
-      font-size: 0.8rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      transition: var(--transition);
-    }
-    
-    .view-button:hover {
-      background-color: white;
-      color: var(--text-color);
-    }
+.product-card {
+  background-color: white;
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  transition: var(--transition);
+  height: auto;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}
+
+.product-card a {
+  display: block;
+  text-decoration: none;
+}
+
+.product-image-container {
+  width: 100%;
+  height: 400px; /* Fixed height for consistency */
+  position: relative;
+  overflow: hidden;
+}
+
+.product-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* This ensures the image covers the container */
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.product-card:hover .product-image {
+  transform: scale(1.05);
+}
+
+.product-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(to bottom, transparent 60%, rgba(0,0,0,0.8));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.product-card:hover .product-overlay {
+  opacity: 1;
+}
+
+.product-details {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 1.5rem;
+  color: white;
+  z-index: 2;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.3s ease;
+}
+
+.product-card:hover .product-details {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.product-details h3 {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.product-details p {
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+  opacity: 0.9;
+}
+
+.view-button {
+  display: inline-block;
+  background-color: transparent;
+  color: white;
+  padding: 0.5rem 1.5rem;
+  border: 1px solid white;
+  border-radius: 2px;
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: var(--transition);
+}
+
+.view-button:hover {
+  background-color: white;
+  color: var(--text-color);
+}
     
     /* About Section */
     .about {
