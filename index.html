@@ -221,14 +221,11 @@ title: Elegant Wedding Dresses
       <p>We offer diverse styles from bohemian beach gowns to sophisticated mermaid silhouettes, each created with premium fabrics and meticulous attention to detail. Our collection is designed for brides who appreciate quality craftsmanship and romantic design elements that will be cherished in wedding photos for generations to come.</p>
     </div>
     <div class="about-image">
-      <picture>
-        <source srcset="{{ site.baseurl }}/assets/images/about/bride-window-portrait.avif" type="image/avif">
-        <source srcset="{{ site.baseurl }}/assets/images/about/bride-window-portrait.webp" type="image/webp">
-        <img src="{{ site.baseurl }}/assets/images/about/bride-window-portrait.jpg" 
-             alt="Bride in a beautiful wedding dress by window" 
-             class="about-portrait"
-             loading="lazy">
-      </picture>
+      <img src="{{ site.baseurl }}/assets/images/about/bride-window-portrait.webp" 
+           alt="Bride in a beautiful wedding dress by window" 
+           class="about-portrait"
+           loading="lazy"
+           onError="this.onerror=null; this.src='{{ site.baseurl }}/assets/images/about/bride-window-portrait.jpg';">
     </div>
   </div>
 </section>
