@@ -2,6 +2,6 @@ title: Roza Bridal
 description: Elegant Wedding Dresses
 baseurl: /rosa-bridal-front-end
 url: https://royaza123.github.io
-permalink: pretty
+permalink: /:categories/:title.html
 include:
   - products
