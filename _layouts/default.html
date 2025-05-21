@@ -463,58 +463,53 @@
       padding: 2rem 1.25rem;
     }
     
-    /* Gallery Styles for Product Pages */
-    .gallery {
-      position: relative;
-      overflow: hidden;
-      border-radius: 4px;
-      box-shadow: var(--shadow);
-      background-color: white;
-      width: 100%;
-      max-width: 600px;
-      margin: 0 auto;
-      aspect-ratio: 3/4; /* Force 3:4 aspect ratio for 600x800 images */
-    }
-    
-    .gallery-image-container {
-      position: relative;
-      width: 100%;
-      height: 100%;
-    }
-    
-    .gallery-image {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: contain; /* Use contain to ensure full image is shown */
-      opacity: 0;
-      transition: opacity 0.5s ease;
-    }
-    
-    .gallery-image.active {
-      opacity: 1;
-    }
-    
-    .gallery-controls {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 5;
-    }
-    
-    .gallery-nav {
-      position: absolute;
-      bottom: 1.5rem;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      gap: 0.625rem;
-      z-index: 10;
-    }
+   /* Gallery Styles for Product Pages - Adjusted to remove excess frame */
+.gallery {
+  position: relative;
+  overflow: hidden;
+  border-radius: 4px;
+  box-shadow: var(--shadow);
+  background-color: white;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  aspect-ratio: 3/4; /* Force 3:4 aspect ratio for 600x800 images */
+  padding: 0; /* Remove any padding */
+}
+
+.gallery-image-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex; /* Use flex to center the image */
+  align-items: center;
+  justify-content: center;
+}
+
+.gallery-image {
+  position: absolute;
+  width: 100%; /* Fill the container width */
+  height: 100%; /* Fill the container height */
+  object-fit: cover; /* Change to 'cover' to ensure it fills the container */
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  margin: 0; /* Remove any margin */
+}
+
+.gallery-image.active {
+  opacity: 1;
+}
+
+/* Update the navigation dots positioning */
+.gallery-nav {
+  position: absolute;
+  bottom: 0.75rem; /* Move up slightly */
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 0.625rem;
+  z-index: 10;
+}
     
     .gallery-dot {
       width: 0.625rem;
