@@ -4,60 +4,114 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{% if page.title %}{{ page.title }} - {% endif %}Roza Bridal</title>
-  <meta name="baseurl" content="{{ site.baseurl }}">
+  <meta name="description" content="{% if page.description %}{{ page.description }}{% else %}Elegant wedding dresses and bridal gowns - from bohemian beach styles to sophisticated mermaid silhouettes{% endif %}">
+  
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Styles -->
   <link rel="stylesheet" href="{{ site.baseurl }}/assets/css/styles.css">
   <link rel="stylesheet" href="{{ site.baseurl }}/assets/css/e-commerce.css">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="{{ site.baseurl }}/favicon.ico">
+  
+  <!-- Meta for social sharing -->
+  <meta property="og:title" content="{% if page.title %}{{ page.title }} - {% endif %}Roza Bridal">
+  <meta property="og:description" content="{% if page.description %}{{ page.description }}{% else %}Elegant wedding dresses and bridal gowns{% endif %}">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="{{ site.url }}{{ site.baseurl }}{{ page.url }}">
+  
+  <!-- Base URL for JavaScript -->
+  <meta name="base-url" content="{{ site.baseurl }}">
 </head>
 <body>
+  <!-- Header -->
   <header>
     <div class="header-container">
       <div class="logo-container">
-        <a href="{{ site.baseurl }}/">
+        <a href="{{ site.baseurl }}/" aria-label="Roza Bridal Home">
           <picture>
             <source srcset="{{ site.baseurl }}/assets/images/logos/logo.webp" type="image/webp">
-            <img src="{{ site.baseurl }}/assets/images/logos/logo.webp" alt="Roza Bridal Dresses Logo" class="logo">
+            <img src="{{ site.baseurl }}/assets/images/logos/logo.png" alt="Roza Bridal" class="logo" width="200" height="50">
           </picture>
         </a>
       </div>
-      <nav>
+      
+      <nav role="navigation" aria-label="Main navigation">
         <ul>
           <li><a href="{{ site.baseurl }}/#collection">Collection</a></li>
+          <li><a href="{{ site.baseurl }}/products/">All Dresses</a></li>
           <li><a href="{{ site.baseurl }}/#about">About</a></li>
           <li><a href="{{ site.baseurl }}/#contact">Contact</a></li>
         </ul>
       </nav>
+      
       <div class="header-controls">
-        <!-- Auth and cart icons will be automatically added by JavaScript -->
+        <!-- Account and cart icons will be added by JavaScript -->
       </div>
     </div>
   </header>
   
-  <main>
+  <!-- Main Content -->
+  <main role="main">
     {{ content }}
   </main>
   
-  <!-- Footer divider -->
-  <img src="{{ site.baseurl }}/assets/images/logos/footer-1.png" alt="Roza Bridal Divider" class="footer-divider" loading="lazy">
+  <!-- Footer Divider -->
+  {% if site.baseurl %}
+    <img src="{{ site.baseurl }}/assets/images/logos/footer-1.png" alt="" class="footer-divider" loading="lazy" role="presentation">
+  {% endif %}
   
-  <footer>
+  <!-- Footer -->
+  <footer role="contentinfo">
     <div class="footer-content">
-      <picture>
-        <source srcset="{{ site.baseurl }}/assets/images/logos/logo.webp" type="image/webp">
-        <img src="{{ site.baseurl }}/assets/images/logos/logo.webp" alt="Roza Bridal Logo" class="footer-logo" loading="lazy">
-      </picture>
-      <div class="footer-links">
+      <div class="footer-logo-container">
+        <picture>
+          <source srcset="{{ site.baseurl }}/assets/images/logos/logo.webp" type="image/webp">
+          <img src="{{ site.baseurl }}/assets/images/logos/logo.png" alt="Roza Bridal" class="footer-logo" width="200" height="60">
+        </picture>
+      </div>
+      
+      <nav class="footer-links" role="navigation" aria-label="Footer navigation">
         <a href="{{ site.baseurl }}/#collection">Collection</a>
+        <a href="{{ site.baseurl }}/products/">All Dresses</a>
         <a href="{{ site.baseurl }}/#about">About</a>
         <a href="{{ site.baseurl }}/#contact">Contact</a>
+        <a href="{{ site.baseurl }}/privacy/">Privacy Policy</a>
+      </nav>
+      
+      <div class="social-links">
+        <a href="https://www.instagram.com/rozabridal" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Instagram">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+          </svg>
+        </a>
+        <a href="mailto:aetophis@aetophis.com" aria-label="Email us">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+            <polyline points="22,6 12,13 2,6"></polyline>
+          </svg>
+        </a>
       </div>
+      
       <p class="copyright">&copy; 2025 Roza Bridal. All rights reserved.</p>
     </div>
   </footer>
 
-  <!-- Main E-commerce Script - Replaces cart.js, auth.js, and ecommerce.js -->
+  <!-- JavaScript -->
   <script src="{{ site.baseurl }}/assets/js/main-ecommerce.js"></script>
+  
+  <!-- Loading animation -->
+  <script>
+    // Simple loading state management
+    document.addEventListener('DOMContentLoaded', () => {
+      document.body.classList.add('loaded');
+    });
+  </script>
 </body>
 </html>
