@@ -1,6 +1,40 @@
 title: Roza Bridal
-description: Elegant Wedding Dresses
+description: Elegant Wedding Dresses & Bridal Gowns
 baseurl: /rosa-bridal-front-end
 url: https://royaza123.github.io
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
+
+# Collections
+collections:
+  products:
+    output: true
+    permalink: /:collection/:name/
+
+# Include products folder
 include:
   - products
+
+# Exclude from processing
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
+
+# Plugins
+plugins:
+  - jekyll-sitemap
+  - jekyll-seo-tag
+
+# SEO settings
+author: Roza Bridal
+social:
+  name: Roza Bridal
+  links:
+    - https://www.instagram.com/rozabridal
