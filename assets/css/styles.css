@@ -329,17 +329,16 @@ section {
 
 .product-image-container {
   position: relative;
-  aspect-ratio: 3/4; /* This ensures 600x800 images fit perfectly */
+  aspect-ratio: 3/4; /* Perfect for 600x800 images */
   overflow: hidden;
   width: 100%;
-  height: 400px; /* Fixed height for consistency */
 }
 
 .product-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center top;
+  object-position: center;
   transition: var(--transition);
 }
 
@@ -427,23 +426,22 @@ section {
   border-radius: 12px;
   overflow: hidden;
   box-shadow: var(--shadow-md);
-  max-width: 600px; /* Max width to match your image dimensions */
-  margin: 0 auto;
 }
 
 .gallery-image-container {
   position: relative;
-  aspect-ratio: 3/4; /* This matches 600x800 ratio */
+  aspect-ratio: 3/4; /* Perfect for 600x800 images */
   background: var(--secondary-color);
   width: 100%;
-  height: 600px; /* Fixed height based on your 600x800 images */
+  max-width: 600px;
+  height: auto;
 }
 
 .gallery-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center top;
+  object-position: center;
   opacity: 0;
   transition: opacity 0.5s ease;
   position: absolute;
