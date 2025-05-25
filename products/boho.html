@@ -1,18 +1,103 @@
 ---
 layout: default
-title: Boho Wedding Dress Test
+title: Boho Wedding Dress Elegant
 ---
 
-<div style="background: red; color: white; padding: 50px; margin: 50px; text-align: center;">
-  <h1>BOHO TEST PAGE</h1>
-  <p>If you can see this red box, Jekyll is working!</p>
+<div style="max-width: 1200px; margin: 2rem auto; padding: 0 2rem;">
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start;">
+    
+    <!-- Image Gallery -->
+    <div style="position: relative; border-radius: 12px; overflow: hidden; box-shadow: 0 8px 32px rgba(0,0,0,0.1);">
+      <div style="position: relative; background: #f8f9fa;">
+        <img id="main-image" 
+             src="{{ site.baseurl }}/assets/images/boho-wedding-dress-elegant/main.webp" 
+             alt="Boho Wedding Dress Elegant - Main View"
+             style="width: 100%; height: 500px; object-fit: cover; object-position: center top;">
+      </div>
+      
+      <!-- Thumbnail Images -->
+      <div style="display: flex; gap: 0.5rem; margin-top: 1rem; overflow-x: auto;">
+        <img onclick="changeImage('{{ site.baseurl }}/assets/images/boho-wedding-dress-elegant/main.webp')"
+             src="{{ site.baseurl }}/assets/images/boho-wedding-dress-elegant/main.webp" 
+             style="width: 80px; height: 80px; object-fit: cover; border-radius: 6px; cursor: pointer; border: 2px solid #c9a96e;">
+        
+        <img onclick="changeImage('{{ site.baseurl }}/assets/images/boho-wedding-dress-elegant/picture1.webp')"
+             src="{{ site.baseurl }}/assets/images/boho-wedding-dress-elegant/picture1.webp" 
+             style="width: 80px; height: 80px; object-fit: cover; border-radius: 6px; cursor: pointer; border: 2px solid transparent;">
+        
+        <img onclick="changeImage('{{ site.baseurl }}/assets/images/boho-wedding-dress-elegant/picture2.webp')"
+             src="{{ site.baseurl }}/assets/images/boho-wedding-dress-elegant/picture2.webp" 
+             style="width: 80px; height: 80px; object-fit: cover; border-radius: 6px; cursor: pointer; border: 2px solid transparent;">
+        
+        <img onclick="changeImage('{{ site.baseurl }}/assets/images/boho-wedding-dress-elegant/detail.webp')"
+             src="{{ site.baseurl }}/assets/images/boho-wedding-dress-elegant/detail.webp" 
+             style="width: 80px; height: 80px; object-fit: cover; border-radius: 6px; cursor: pointer; border: 2px solid transparent;">
+      </div>
+    </div>
+
+    <!-- Product Details -->
+    <div style="padding: 1rem 0;">
+      <h1 style="font-family: 'Cormorant Garamond', serif; font-size: 2.5rem; color: #1a1a1a; margin-bottom: 2rem; font-weight: 400; line-height: 1.2;">
+        Boho Wedding Dress Elegant
+      </h1>
+      
+      <!-- Features List -->
+      <div style="margin: 2rem 0; padding: 2rem; background: #f8f9fa; border-radius: 12px;">
+        <div style="padding: 0.75rem 0; border-bottom: 1px solid #e0e0e0; position: relative; padding-left: 2rem; font-size: 1.05rem;">
+          <span style="position: absolute; left: 0; color: #c9a96e; font-weight: 600; font-size: 1.1rem;">✓</span>
+          Ethereal Free-Spirited Design
+        </div>
+        <div style="padding: 0.75rem 0; border-bottom: 1px solid #e0e0e0; position: relative; padding-left: 2rem; font-size: 1.05rem;">
+          <span style="position: absolute; left: 0; color: #c9a96e; font-weight: 600; font-size: 1.1rem;">✓</span>
+          Delicate Lace Details
+        </div>
+        <div style="padding: 0.75rem 0; border-bottom: 1px solid #e0e0e0; position: relative; padding-left: 2rem; font-size: 1.05rem;">
+          <span style="position: absolute; left: 0; color: #c9a96e; font-weight: 600; font-size: 1.1rem;">✓</span>
+          Flowing Silhouette
+        </div>
+        <div style="padding: 0.75rem 0; border-bottom: 1px solid #e0e0e0; position: relative; padding-left: 2rem; font-size: 1.05rem;">
+          <span style="position: absolute; left: 0; color: #c9a96e; font-weight: 600; font-size: 1.1rem;">✓</span>
+          Perfect for Outdoor Weddings
+        </div>
+        <div style="padding: 0.75rem 0; position: relative; padding-left: 2rem; font-size: 1.05rem;">
+          <span style="position: absolute; left: 0; color: #c9a96e; font-weight: 600; font-size: 1.1rem;">✓</span>
+          Comfortable & Lightweight Fabric
+        </div>
+      </div>
+      
+      <!-- Description -->
+      <p style="font-size: 1.1rem; line-height: 1.8; color: #666; margin: 2rem 0;">
+        This ethereal boho wedding dress embodies free-spirited elegance with its delicate lace details and flowing silhouette. Perfect for the bride seeking a romantic, relaxed look for garden ceremonies, beach celebrations, or rustic countryside weddings. The lightweight design ensures comfort throughout your special day while creating a dreamy, effortless appearance.
+      </p>
+      
+      <!-- Customize Button -->
+      <a href="#" onclick="openCustomizeModal()" 
+         style="display: inline-block; padding: 1.25rem 3rem; background: linear-gradient(135deg, #c9a96e 0%, #d4b875 100%); color: white; text-decoration: none; font-weight: 600; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 1px; border-radius: 50px; margin-top: 2rem; border: none; cursor: pointer; box-shadow: 0 4px 20px rgba(201, 169, 110, 0.3); transition: all 0.3s;">
+        Customize for You
+      </a>
+    </div>
+  </div>
 </div>
 
-<div class="product-page">
-  <h1>Boho Wedding Dress Elegant</h1>
-  <p>Simple test paragraph</p>
+<script>
+function changeImage(src) {
+  document.getElementById('main-image').src = src;
   
-  <img src="{{ site.baseurl }}/assets/images/boho-wedding-dress-elegant/main.webp" 
-       alt="Test Image" 
-       style="width: 300px; height: 300px; border: 5px solid blue;">
-</div>
+  // Update thumbnail borders
+  const thumbnails = document.querySelectorAll('img[onclick]');
+  thumbnails.forEach(thumb => {
+    thumb.style.border = '2px solid transparent';
+  });
+  event.target.style.border = '2px solid #c9a96e';
+}
+
+function openCustomizeModal() {
+  alert('Customize Modal Coming Soon! This will open a beautiful customization form.\n\nFor now, contact us at aetophis@aetophis.com for custom orders.');
+  
+  // Open email
+  const subject = encodeURIComponent('Custom Order Request - Boho Wedding Dress Elegant');
+  const body = encodeURIComponent('Hello Roza Bridal,\n\nI am interested in customizing the Boho Wedding Dress Elegant.\n\nPlease provide information about:\n- Available sizes\n- Customization options\n- Pricing\n- Timeline\n\nThank you!');
+  
+  window.open(`mailto:aetophis@aetophis.com?subject=${subject}&body=${body}`, '_blank');
+}
+</script>
