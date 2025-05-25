@@ -1,9 +1,9 @@
-// main-ecommerce.js - Complete E-commerce Integration for Roza Bridal
+// main-ecommerce.js - Enhanced E-commerce Integration for Roza Bridal with Custom Products
 
 // Site Base URL
 const siteBaseUrl = document.querySelector('meta[name="base-url"]')?.content || '';
 
-// Shopping Cart Class
+// Shopping Cart Class - Enhanced for Custom Products
 class ShoppingCart {
   constructor() {
     this.items = [];
@@ -25,20 +25,25 @@ class ShoppingCart {
   
   // Add item to cart
   addItem(product) {
-    // Check if item already exists with same size
-    const existingItem = this.items.find(item => 
-      item.id === product.id && item.size === product.size
-    );
-    
-    if (existingItem) {
-      existingItem.quantity += product.quantity;
-    } else {
+    // For custom products, always add as new item (don't combine)
+    if (product.isCustom) {
       this.items.push(product);
+    } else {
+      // Check if regular item already exists with same size
+      const existingItem = this.items.find(item => 
+        item.id === product.id && item.size === product.size && !item.isCustom
+      );
+      
+      if (existingItem) {
+        existingItem.quantity += product.quantity;
+      } else {
+        this.items.push(product);
+      }
     }
     
     this.saveToLocalStorage();
     this.updateCartIcon();
-    this.showNotification(product.name);
+    this.showNotification(product.name, product.isCustom);
   }
   
   // Remove item from cart
@@ -107,13 +112,17 @@ class ShoppingCart {
     }
   }
   
-  // Show added to cart notification
-  showNotification(productName) {
+  // Show added to cart notification - Enhanced for custom products
+  showNotification(productName, isCustom = false) {
     // Remove existing notification if present
     const existingNotification = document.querySelector('.cart-notification');
     if (existingNotification) {
       existingNotification.remove();
     }
+    
+    const message = isCustom ? 
+      `Your custom ${productName} has been added to cart! 🎨` : 
+      `${productName} added to your cart`;
     
     // Create notification
     const notification = document.createElement('div');
@@ -124,7 +133,7 @@ class ShoppingCart {
           <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
           <polyline points="22 4 12 14.01 9 11.01"></polyline>
         </svg>
-        <span>${productName} added to your cart</span>
+        <span>${message}</span>
       </div>
       <div class="notification-actions">
         <button class="continue-shopping">Continue Shopping</button>
@@ -204,7 +213,7 @@ class ShoppingCart {
     }
   }
   
-  // Update cart drawer content
+  // Update cart drawer content - Enhanced for custom products
   updateCartDrawer() {
     const cartDrawer = document.querySelector('.cart-drawer');
     if (!cartDrawer) return;
@@ -218,24 +227,7 @@ class ShoppingCart {
       <div class="cart-items">
         ${this.items.length === 0 ? 
           '<div class="cart-empty">Your cart is empty</div>' : 
-          this.items.map((item, index) => `
-            <div class="cart-item">
-              <img src="${item.image}" alt="${item.name}" class="cart-item-image">
-              <div class="cart-item-details">
-                <h4>${item.name}</h4>
-                <p class="cart-item-size">Size: ${item.size}</p>
-                <p class="cart-item-price">$${item.price.toFixed(2)}</p>
-                <div class="cart-item-actions">
-                  <div class="quantity-selector">
-                    <button class="quantity-btn minus" data-index="${index}">-</button>
-                    <input type="number" value="${item.quantity}" min="1" class="item-quantity" data-index="${index}">
-                    <button class="quantity-btn plus" data-index="${index}">+</button>
-                  </div>
-                  <button class="remove-item" data-index="${index}">Remove</button>
-                </div>
-              </div>
-            </div>
-          `).join('')
+          this.items.map((item, index) => this.renderCartItem(item, index)).join('')
         }
       </div>
       
@@ -328,6 +320,39 @@ class ShoppingCart {
     }
   }
   
+  // Render individual cart item - Enhanced for custom products
+  renderCartItem(item, index) {
+    const customizationDetails = item.isCustom && item.customizations ? 
+      `<div class="cart-item-customizations">
+        <small style="color: #c9a96e; font-weight: 600;">✨ Custom Design:</small><br>
+        <small style="color: #666;">
+          ${item.customizations.style} • ${item.customizations.neckline} • ${item.customizations.color}<br>
+          ${item.customizations.fabric} • ${item.customizations.train}
+          ${item.customizations.specialRequests ? '<br>Special: ' + item.customizations.specialRequests.substring(0, 50) + '...' : ''}
+        </small>
+      </div>` : '';
+    
+    return `
+      <div class="cart-item">
+        <img src="${item.image}" alt="${item.name}" class="cart-item-image">
+        <div class="cart-item-details">
+          <h4>${item.name}</h4>
+          <p class="cart-item-size">Size: ${item.size}</p>
+          <p class="cart-item-price">$${item.price.toFixed(2)}</p>
+          ${customizationDetails}
+          <div class="cart-item-actions">
+            <div class="quantity-selector">
+              <button class="quantity-btn minus" data-index="${index}">-</button>
+              <input type="number" value="${item.quantity}" min="1" class="item-quantity" data-index="${index}">
+              <button class="quantity-btn plus" data-index="${index}">+</button>
+            </div>
+            <button class="remove-item" data-index="${index}">Remove</button>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+  
   // Clear cart
   clearCart() {
     this.items = [];
@@ -336,7 +361,7 @@ class ShoppingCart {
   }
 }
 
-// Authentication Class
+// Authentication Class (unchanged)
 class Authentication {
   constructor() {
     this.currentUser = null;
@@ -764,178 +789,10 @@ function initializeProductPage() {
   // Only run on product pages
   if (!document.querySelector('.product-page')) return;
   
-  // Add sample product to cart functionality for demo
+  // Remove the old customize button functionality since we now have the enhanced modal
   const customizeButtons = document.querySelectorAll('.customize-button');
   customizeButtons.forEach(button => {
-    if (button.onclick) return; // Skip if already has onclick handler
-    
-    button.addEventListener('click', function(e) {
-      e.preventDefault();
-      
-      // Get product details from the page
-      const productName = document.querySelector('.product-details h1')?.textContent || 'Wedding Dress';
-      const productImage = document.querySelector('.gallery-image.active')?.src || '';
-      const productId = window.location.pathname.split('/').pop().replace('.html', '');
-      
-      // For demo purposes, show customize options
-      showCustomizeModal(productName, productImage, productId);
-    });
+    // The button now uses the enhanced customization modal
+    // which is handled by customization-modal.js
   });
-}
-
-// Show customize modal (placeholder for future payment integration)
-function showCustomizeModal(productName, productImage, productId) {
-  // Remove existing modal
-  const existingModal = document.querySelector('.customize-modal');
-  if (existingModal) existingModal.remove();
-  
-  // Create customize modal
-  const modal = document.createElement('div');
-  modal.className = 'auth-modal customize-modal';
-  
-  modal.innerHTML = `
-    <div class="auth-modal-content">
-      <div class="auth-modal-header">
-        <h2>Customize Your Dress</h2>
-        <button class="close-modal">&times;</button>
-      </div>
-      <div class="auth-modal-body">
-        <div style="text-align: center; margin-bottom: 2rem;">
-          <img src="${productImage}" alt="${productName}" style="width: 200px; height: 250px; object-fit: cover; border-radius: 8px; margin-bottom: 1rem;">
-          <h3>${productName}</h3>
-        </div>
-        
-        <form class="customize-form" id="customize-form">
-          <div class="form-group">
-            <label for="dress-size">Size</label>
-            <select id="dress-size" required>
-              <option value="">Select Size</option>
-              <option value="XS">XS</option>
-              <option value="S">S</option>
-              <option value="M">M</option>
-              <option value="L">L</option>
-              <option value="XL">XL</option>
-              <option value="XXL">XXL</option>
-              <option value="Custom">Custom Measurements</option>
-            </select>
-          </div>
-          
-          <div class="form-group">
-            <label for="dress-color">Color Preference</label>
-            <select id="dress-color" required>
-              <option value="">Select Color</option>
-              <option value="Ivory">Ivory</option>
-              <option value="White">Pure White</option>
-              <option value="Champagne">Champagne</option>
-              <option value="Blush">Blush</option>
-              <option value="Custom">Custom Color</option>
-            </select>
-          </div>
-          
-          <div class="form-group">
-            <label for="special-requests">Special Requests</label>
-            <textarea id="special-requests" rows="3" placeholder="Any special modifications or requests..."></textarea>
-          </div>
-          
-          <div class="form-group">
-            <label for="budget">Budget Range</label>
-            <select id="budget" required>
-              <option value="">Select Budget</option>
-              <option value="500-1000">$500 - $1,000</option>
-              <option value="1000-2000">$1,000 - $2,000</option>
-              <option value="2000-3000">$2,000 - $3,000</option>
-              <option value="3000+">$3,000+</option>
-            </select>
-          </div>
-          
-          <div class="form-group">
-            <button type="submit" class="submit-button">Request Quote</button>
-          </div>
-          
-          <div class="auth-modal-footer">
-            <p><small>We'll contact you within 24 hours with a custom quote and timeline.</small></p>
-          </div>
-        </form>
-      </div>
-    </div>
-  `;
-  
-  document.body.appendChild(modal);
-  
-  // Create overlay
-  const overlay = document.createElement('div');
-  overlay.className = 'modal-overlay';
-  document.body.appendChild(overlay);
-  
-  // Show modal
-  setTimeout(() => {
-    modal.classList.add('visible');
-  }, 10);
-  
-  // Add event listeners
-  const closeBtn = modal.querySelector('.close-modal');
-  closeBtn.addEventListener('click', () => {
-    closeCustomizeModal(modal, overlay);
-  });
-  
-  overlay.addEventListener('click', () => {
-    closeCustomizeModal(modal, overlay);
-  });
-  
-  // Handle form submission
-  const form = modal.querySelector('#customize-form');
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
-    
-    const formData = {
-      product: productName,
-      productId: productId,
-      size: document.getElementById('dress-size').value,
-      color: document.getElementById('dress-color').value,
-      requests: document.getElementById('special-requests').value,
-      budget: document.getElementById('budget').value,
-      timestamp: new Date().toISOString()
-    };
-    
-    // Save to localStorage for demo
-    const customizations = JSON.parse(localStorage.getItem('rozaBridalCustomizations') || '[]');
-    customizations.push(formData);
-    localStorage.setItem('rozaBridalCustomizations', JSON.stringify(customizations));
-    
-    // Show success message
-    alert('Thank you! Your customization request has been submitted. We\'ll contact you within 24 hours with a quote.');
-    
-    // Prepare email
-    const subject = encodeURIComponent(`Custom Order Request - ${productName}`);
-    const body = encodeURIComponent(`Hello Roza Bridal,
-
-I would like to customize the following dress:
-
-Product: ${productName}
-Size: ${formData.size}
-Color: ${formData.color}
-Budget: ${formData.budget}
-
-Special Requests:
-${formData.requests}
-
-Please provide a quote and timeline for this custom order.
-
-Thank you!`);
-    
-    // Open email client
-    window.open(`mailto:aetophis@aetophis.com?subject=${subject}&body=${body}`, '_blank');
-    
-    closeCustomizeModal(modal, overlay);
-  });
-}
-
-// Close customize modal
-function closeCustomizeModal(modal, overlay) {
-  modal.classList.remove('visible');
-  
-  setTimeout(() => {
-    modal.remove();
-    overlay.remove();
-  }, 300);
 }
