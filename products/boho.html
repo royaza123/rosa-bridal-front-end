@@ -114,12 +114,12 @@ title: Boho Wedding Dress Elegant
       </p>
       
       <!-- Customize Button -->
-      <a href="#" onclick="openCustomizeModal()" 
+      <button onclick="openCustomizationModal('Boho Wedding Dress Elegant')" 
          style="display: inline-block; padding: 1.25rem 3rem; background: linear-gradient(135deg, #c9a96e 0%, #d4b875 100%); color: white; text-decoration: none; font-weight: 600; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 1px; border-radius: 50px; margin-top: 2rem; border: none; cursor: pointer; box-shadow: 0 4px 20px rgba(201, 169, 110, 0.3); transition: all 0.3s; position: relative; overflow: hidden;"
          onmouseover="this.style.transform='translateY(-3px) scale(1.02)'; this.style.boxShadow='0 8px 30px rgba(201, 169, 110, 0.4)'"
          onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='0 4px 20px rgba(201, 169, 110, 0.3)'">
         Customize for You
-      </a>
+      </button>
     </div>
   </div>
 </div>
@@ -177,17 +177,6 @@ function prevImage() {
 function goToImage(index) {
   currentImageIndex = index;
   updateGallery();
-}
-
-function openCustomizeModal() {
-  openCustomizationModal('Boho Wedding Dress Elegant'); // Change name for each dress
-}
-  
-  // Open email
-  const subject = encodeURIComponent('Custom Order Request - Boho Wedding Dress Elegant');
-  const body = encodeURIComponent('Hello Roza Bridal,\n\nI am interested in customizing the Boho Wedding Dress Elegant.\n\nPlease provide information about:\n- Available sizes\n- Customization options\n- Pricing\n- Timeline\n\nThank you!');
-  
-  window.open(`mailto:aetophis@aetophis.com?subject=${subject}&body=${body}`, '_blank');
 }
 
 // Auto-rotate images every 5 seconds
