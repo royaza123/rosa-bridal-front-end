@@ -67,23 +67,26 @@ title: Checkout - Roza Bridal
     
     <div class="checkout-section">
       <h3>Payment Method</h3>
-      <div class="form-group">
-        <label for="card-number">Card Number</label>
-        <input type="text" id="card-number" placeholder="1234 5678 9012 3456" required>
-      </div>
-      <div class="form-row">
-        <div>
-          <label for="card-expiry">Expiration Date</label>
-          <input type="text" id="card-expiry" placeholder="MM/YY" required>
-        </div>
-        <div>
-          <label for="card-cvc">CVC</label>
-          <input type="text" id="card-cvc" placeholder="123" required>
-        </div>
+      <div class="payment-notice" style="background: #fff3cd; border: 1px solid #ffeaa7; padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem;">
+        <p style="margin: 0; color: #856404; font-size: 0.95rem;">
+          <strong>📧 Email Order Processing</strong><br>
+          After reviewing your order, we'll send you a secure payment link and finalize all details via email. 
+          This ensures perfect customization and secure payment processing.
+        </p>
       </div>
       <div class="form-group">
-        <label for="card-name">Name on Card</label>
-        <input type="text" id="card-name" required>
+        <label for="preferred-payment">Preferred Payment Method</label>
+        <select id="preferred-payment" required>
+          <option value="">Select Payment Method</option>
+          <option value="credit-card">Credit Card</option>
+          <option value="paypal">PayPal</option>
+          <option value="bank-transfer">Bank Transfer</option>
+          <option value="installments">Payment Plan</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="order-notes">Order Notes (Optional)</label>
+        <textarea id="order-notes" rows="3" placeholder="Any special instructions or timeline requirements..."></textarea>
       </div>
     </div>
   </div>
@@ -91,22 +94,30 @@ title: Checkout - Roza Bridal
   <div class="checkout-summary">
     <h2>Order Summary</h2>
     
+    <!-- Empty cart message -->
+    <div class="empty-cart-notice" id="empty-cart-notice" style="text-align: center; padding: 3rem 1rem; color: #666; display: none;">
+      <div style="font-size: 3rem; margin-bottom: 1rem;">🛍️</div>
+      <h3 style="margin-bottom: 1rem; color: #333;">Your cart is empty</h3>
+      <p style="margin-bottom: 2rem;">Add some beautiful dresses to your cart before checkout.</p>
+      <a href="{{ site.baseurl }}/products/" style="display: inline-block; padding: 1rem 2rem; background: #c9a96e; color: white; text-decoration: none; border-radius: 50px; font-weight: 600;">Browse Dresses</a>
+    </div>
+    
     <div class="checkout-items" id="checkout-items">
       <!-- Items will be populated by JavaScript -->
     </div>
     
-    <div class="checkout-totals">
+    <div class="checkout-totals" id="checkout-totals">
       <div class="checkout-total-row">
         <span>Subtotal</span>
         <span id="checkout-subtotal">$0.00</span>
       </div>
       <div class="checkout-total-row">
         <span>Shipping</span>
-        <span id="checkout-shipping">$0.00</span>
+        <span id="checkout-shipping">FREE</span>
       </div>
       <div class="checkout-total-row">
         <span>Tax</span>
-        <span id="checkout-tax">$0.00</span>
+        <span id="checkout-tax">Calculated separately</span>
       </div>
       <div class="checkout-total-row final">
         <span>Total</span>
@@ -114,8 +125,360 @@ title: Checkout - Roza Bridal
       </div>
     </div>
     
-    <button class="place-order-button" id="place-order-button">Place Order</button>
+    <button class="place-order-button" id="place-order-button" disabled>
+      Place Order
+    </button>
+    
+    <div class="checkout-security" style="text-align: center; margin-top: 1.5rem; padding: 1rem; background: #f8f9fa; border-radius: 8px;">
+      <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">🔒</div>
+      <p style="margin: 0; font-size: 0.9rem; color: #666;">
+        Your information is secure and protected. We'll email you to confirm details and process payment.
+      </p>
+    </div>
   </div>
 </div>
 
-<!-- Checkout functionality is handled by main-ecommerce.js -->
+<style>
+/* Additional checkout-specific styles */
+.empty-cart-notice h3 {
+  font-family: 'Cormorant Garamond', serif;
+}
+
+.checkout-item {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  padding: 1.5rem;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  border: 1px solid #f0f0f0;
+}
+
+.checkout-item-image {
+  width: 80px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 8px;
+  flex-shrink: 0;
+}
+
+.checkout-item-details {
+  flex: 1;
+  min-width: 0;
+}
+
+.checkout-item-details h4 {
+  margin: 0 0 0.5rem;
+  font-size: 1.1rem;
+  color: #333;
+  line-height: 1.3;
+}
+
+.checkout-item-price {
+  font-weight: 600;
+  font-size: 1.2rem;
+  color: #c9a96e;
+  margin: 0.5rem 0;
+}
+
+.checkout-item-meta {
+  font-size: 0.9rem;
+  color: #666;
+  margin: 0.25rem 0;
+}
+
+.checkout-item-customizations {
+  margin-top: 0.75rem;
+  padding: 0.75rem;
+  background: linear-gradient(135deg, #f8f9fa 0%, #f0f4f7 100%);
+  border-radius: 6px;
+  border-left: 3px solid #c9a96e;
+}
+
+.checkout-item-customizations h5 {
+  margin: 0 0 0.5rem;
+  font-size: 0.9rem;
+  color: #c9a96e;
+  font-weight: 600;
+}
+
+.checkout-item-customizations p {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #666;
+  line-height: 1.4;
+}
+
+.place-order-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+.payment-notice strong {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+</style>
+
+<script>
+// Checkout page functionality
+document.addEventListener('DOMContentLoaded', function() {
+  loadCheckoutData();
+  setupCheckoutForm();
+});
+
+function loadCheckoutData() {
+  // Get cart data from localStorage
+  const cartData = localStorage.getItem('rozaBridalCart');
+  const cartItems = cartData ? JSON.parse(cartData) : [];
+  
+  const checkoutItems = document.getElementById('checkout-items');
+  const emptyCartNotice = document.getElementById('empty-cart-notice');
+  const checkoutTotals = document.getElementById('checkout-totals');
+  const placeOrderButton = document.getElementById('place-order-button');
+  
+  if (cartItems.length === 0) {
+    // Show empty cart message
+    emptyCartNotice.style.display = 'block';
+    checkoutItems.style.display = 'none';
+    checkoutTotals.style.display = 'none';
+    placeOrderButton.style.display = 'none';
+    return;
+  }
+  
+  // Hide empty cart message
+  emptyCartNotice.style.display = 'none';
+  checkoutItems.style.display = 'block';
+  checkoutTotals.style.display = 'block';
+  placeOrderButton.style.display = 'block';
+  
+  // Populate checkout items
+  checkoutItems.innerHTML = cartItems.map(item => {
+    const customizationHtml = item.isCustom && item.customizations ? `
+      <div class="checkout-item-customizations">
+        <h5>✨ Custom Design Details:</h5>
+        <p>
+          <strong>Style:</strong> ${item.customizations.style}<br>
+          <strong>Neckline:</strong> ${item.customizations.neckline}<br>
+          <strong>Color:</strong> ${item.customizations.color}<br>
+          <strong>Fabric:</strong> ${item.customizations.fabric}<br>
+          <strong>Train:</strong> ${item.customizations.train}
+          ${item.customizations.specialRequests ? `<br><strong>Special Requests:</strong> ${item.customizations.specialRequests}` : ''}
+        </p>
+      </div>
+    ` : '';
+    
+    return `
+      <div class="checkout-item">
+        <img src="${item.image}" alt="${item.name}" class="checkout-item-image">
+        <div class="checkout-item-details">
+          <h4>${item.name}</h4>
+          <p class="checkout-item-meta">Size: ${item.size} • Quantity: ${item.quantity}</p>
+          <p class="checkout-item-price">$${(item.price * item.quantity).toFixed(2)}</p>
+          ${customizationHtml}
+        </div>
+      </div>
+    `;
+  }).join('');
+  
+  // Calculate totals
+  const subtotal = cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
+  const shipping = 0; // Free shipping
+  const tax = 0; // Calculated separately
+  const total = subtotal + shipping + tax;
+  
+  // Update totals
+  document.getElementById('checkout-subtotal').textContent = `$${subtotal.toFixed(2)}`;
+  document.getElementById('checkout-shipping').textContent = subtotal > 500 ? 'FREE' : '$50.00';
+  document.getElementById('checkout-tax').textContent = 'Calculated separately';
+  document.getElementById('checkout-total').textContent = `$${total.toFixed(2)}`;
+  
+  // Enable place order button
+  placeOrderButton.disabled = false;
+}
+
+function setupCheckoutForm() {
+  const placeOrderButton = document.getElementById('place-order-button');
+  
+  // Auto-fill user data if logged in
+  const userData = localStorage.getItem('rozaBridalUser');
+  if (userData) {
+    const user = JSON.parse(userData);
+    document.getElementById('checkout-email').value = user.email || '';
+    document.getElementById('checkout-name').value = `${user.firstName} ${user.lastName}` || '';
+  }
+  
+  placeOrderButton.addEventListener('click', function() {
+    if (validateCheckoutForm()) {
+      processOrder();
+    }
+  });
+}
+
+function validateCheckoutForm() {
+  const requiredFields = [
+    'checkout-email',
+    'checkout-phone', 
+    'checkout-name',
+    'checkout-address',
+    'checkout-city',
+    'checkout-state',
+    'checkout-postal',
+    'checkout-country',
+    'preferred-payment'
+  ];
+  
+  let isValid = true;
+  
+  requiredFields.forEach(fieldId => {
+    const field = document.getElementById(fieldId);
+    if (!field.value.trim()) {
+      field.style.borderColor = '#dc3545';
+      isValid = false;
+    } else {
+      field.style.borderColor = '#c9a96e';
+    }
+  });
+  
+  if (!isValid) {
+    alert('Please fill in all required fields.');
+    return false;
+  }
+  
+  return true;
+}
+
+function processOrder() {
+  // Get cart data
+  const cartData = localStorage.getItem('rozaBridalCart');
+  const cartItems = cartData ? JSON.parse(cartData) : [];
+  
+  if (cartItems.length === 0) {
+    alert('Your cart is empty!');
+    return;
+  }
+  
+  // Get form data
+  const orderData = {
+    contact: {
+      email: document.getElementById('checkout-email').value,
+      phone: document.getElementById('checkout-phone').value
+    },
+    shipping: {
+      name: document.getElementById('checkout-name').value,
+      address: document.getElementById('checkout-address').value,
+      apartment: document.getElementById('checkout-apartment').value,
+      city: document.getElementById('checkout-city').value,
+      state: document.getElementById('checkout-state').value,
+      postal: document.getElementById('checkout-postal').value,
+      country: document.getElementById('checkout-country').value
+    },
+    payment: {
+      preferredMethod: document.getElementById('preferred-payment').value
+    },
+    notes: document.getElementById('order-notes').value,
+    items: cartItems,
+    totals: {
+      subtotal: cartItems.reduce((total, item) => total + (item.price * item.quantity), 0),
+      shipping: 0,
+      tax: 0,
+      total: cartItems.reduce((total, item) => total + (item.price * item.quantity), 0)
+    },
+    orderDate: new Date().toISOString(),
+    orderId: 'RB-' + Date.now()
+  };
+  
+  // Save order to localStorage for tracking
+  const existingOrders = JSON.parse(localStorage.getItem('rozaBridalOrders') || '[]');
+  existingOrders.push(orderData);
+  localStorage.setItem('rozaBridalOrders', JSON.stringify(existingOrders));
+  
+  // Create email content
+  const emailSubject = encodeURIComponent(`New Order #${orderData.orderId} - Roza Bridal`);
+  const emailBody = createOrderEmailBody(orderData);
+  
+  // Show processing message
+  const placeOrderButton = document.getElementById('place-order-button');
+  placeOrderButton.innerHTML = 'Processing Order...';
+  placeOrderButton.disabled = true;
+  
+  // Open email client
+  window.open(`mailto:aetophis@aetophis.com?subject=${emailSubject}&body=${emailBody}`, '_blank');
+  
+  // Show success message
+  setTimeout(() => {
+    alert(`🎉 Order #${orderData.orderId} has been submitted!\n\nWe've sent your order details via email and will contact you within 24 hours to:\n\n• Confirm all customization details\n• Provide secure payment link\n• Discuss timeline and next steps\n\nThank you for choosing Roza Bridal! ✨`);
+    
+    // Clear cart
+    localStorage.removeItem('rozaBridalCart');
+    
+    // Redirect to thank you page or home
+    window.location.href = `${document.querySelector('meta[name="base-url"]')?.content || ''}/`;
+  }, 1000);
+}
+
+function createOrderEmailBody(orderData) {
+  const itemsList = orderData.items.map(item => {
+    const customDetails = item.isCustom && item.customizations ? `
+CUSTOM DETAILS:
+• Style: ${item.customizations.style}
+• Neckline: ${item.customizations.neckline}
+• Color: ${item.customizations.color}
+• Fabric: ${item.customizations.fabric}
+• Train: ${item.customizations.train}
+${item.customizations.specialRequests ? `• Special Requests: ${item.customizations.specialRequests}` : ''}
+` : '';
+    
+    return `
+ITEM: ${item.name}
+• Size: ${item.size}
+• Quantity: ${item.quantity}
+• Price: $${item.price.toFixed(2)} each
+• Total: $${(item.price * item.quantity).toFixed(2)}
+${customDetails}
+`;
+  }).join('\n');
+  
+  return encodeURIComponent(`NEW ORDER RECEIVED - #${orderData.orderId}
+
+📧 CUSTOMER CONTACT:
+Email: ${orderData.contact.email}
+Phone: ${orderData.contact.phone}
+
+📦 SHIPPING ADDRESS:
+${orderData.shipping.name}
+${orderData.shipping.address}
+${orderData.shipping.apartment ? orderData.shipping.apartment + '\n' : ''}${orderData.shipping.city}, ${orderData.shipping.state} ${orderData.shipping.postal}
+${orderData.shipping.country}
+
+💳 PAYMENT PREFERENCE:
+${orderData.payment.preferredMethod}
+
+🛍️ ORDER ITEMS:
+${itemsList}
+
+💰 ORDER TOTALS:
+Subtotal: $${orderData.totals.subtotal.toFixed(2)}
+Shipping: FREE
+Tax: Calculated separately
+TOTAL: $${orderData.totals.total.toFixed(2)}
+
+📝 ORDER NOTES:
+${orderData.notes || 'None'}
+
+⏰ ORDER DATE: ${new Date(orderData.orderDate).toLocaleString()}
+
+---
+NEXT STEPS:
+1. Confirm customization details with customer
+2. Send secure payment link
+3. Provide timeline and production schedule
+4. Begin dress creation process
+
+Customer is expecting contact within 24 hours.`);
+}
+</script>
