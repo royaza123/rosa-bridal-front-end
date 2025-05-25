@@ -15,6 +15,15 @@
   <link rel="stylesheet" href="{{ site.baseurl }}/assets/css/styles.css">
   <link rel="stylesheet" href="{{ site.baseurl }}/assets/css/e-commerce.css">
   
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="{{ site.baseurl }}/favicon.ico">
+  
+  <!-- Meta for social sharing -->
+  <meta property="og:title" content="{% if page.title %}{{ page.title }} - {% endif %}Roza Bridal">
+  <meta property="og:description" content="{% if page.description %}{{ page.description }}{% else %}Elegant wedding dresses and bridal gowns{% endif %}">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="{{ site.url }}{{ site.baseurl }}{{ page.url }}">
+  
   <!-- Base URL for JavaScript -->
   <meta name="base-url" content="{{ site.baseurl }}">
 </head>
@@ -24,7 +33,10 @@
     <div class="header-container">
       <div class="logo-container">
         <a href="{{ site.baseurl }}/" aria-label="Roza Bridal Home">
-          <img src="{{ site.baseurl }}/assets/images/logos/logo.png" alt="Roza Bridal" class="logo" width="200" height="50">
+          <picture>
+            <source srcset="{{ site.baseurl }}/assets/images/logos/logo.webp" type="image/webp">
+            <img src="{{ site.baseurl }}/assets/images/logos/logo.png" alt="Roza Bridal" class="logo" width="200" height="50">
+          </picture>
         </a>
       </div>
       
@@ -48,11 +60,19 @@
     {{ content }}
   </main>
   
+  <!-- Footer Divider -->
+  {% if site.baseurl %}
+    <img src="{{ site.baseurl }}/assets/images/logos/footer-1.png" alt="" class="footer-divider" loading="lazy" role="presentation">
+  {% endif %}
+  
   <!-- Footer -->
   <footer role="contentinfo">
     <div class="footer-content">
       <div class="footer-logo-container">
-        <img src="{{ site.baseurl }}/assets/images/logos/logo.png" alt="Roza Bridal" class="footer-logo" width="200" height="60">
+        <picture>
+          <source srcset="{{ site.baseurl }}/assets/images/logos/logo.webp" type="image/webp">
+          <img src="{{ site.baseurl }}/assets/images/logos/logo.png" alt="Roza Bridal" class="footer-logo" width="200" height="60">
+        </picture>
       </div>
       
       <nav class="footer-links" role="navigation" aria-label="Footer navigation">
@@ -60,6 +80,7 @@
         <a href="{{ site.baseurl }}/products/">All Dresses</a>
         <a href="{{ site.baseurl }}/#about">About</a>
         <a href="{{ site.baseurl }}/#contact">Contact</a>
+        <a href="{{ site.baseurl }}/privacy/">Privacy Policy</a>
       </nav>
       
       <div class="social-links">
@@ -84,5 +105,13 @@
 
   <!-- JavaScript -->
   <script src="{{ site.baseurl }}/assets/js/main-ecommerce.js"></script>
+  
+  <!-- Loading animation -->
+  <script>
+    // Simple loading state management
+    document.addEventListener('DOMContentLoaded', () => {
+      document.body.classList.add('loaded');
+    });
+  </script>
 </body>
 </html>
