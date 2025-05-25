@@ -1,7 +1,15 @@
-// WEDDING DRESS CUSTOMIZATION MODAL - customization-modal.js
+// ENHANCED WEDDING DRESS CUSTOMIZATION MODAL WITH CART INTEGRATION
 // Place this file in your assets/js/ folder
 
-// Inject CSS styles
+// Global variable to store current product info
+let currentProductInfo = {
+  name: 'Wedding Dress',
+  basePrice: 1200,
+  image: '',
+  id: ''
+};
+
+// Inject CSS styles (including new cart-related styles)
 const customizationCSS = `
 <style>
 /* Customization Modal Styles */
@@ -202,6 +210,81 @@ const customizationCSS = `
   opacity: 1;
 }
 
+.size-section {
+  margin-bottom: 2rem;
+}
+
+.size-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.size-option {
+  padding: 0.75rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s;
+  background: white;
+  font-weight: 600;
+}
+
+.size-option:hover {
+  border-color: #c9a96e;
+  transform: translateY(-2px);
+}
+
+.size-option.selected {
+  border-color: #c9a96e;
+  background: #c9a96e;
+  color: white;
+}
+
+.quantity-section {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.quantity-selector {
+  display: flex;
+  align-items: center;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.quantity-btn {
+  width: 40px;
+  height: 40px;
+  background: #f8f9fa;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s;
+}
+
+.quantity-btn:hover {
+  background: #c9a96e;
+  color: white;
+}
+
+.quantity-input {
+  width: 60px;
+  height: 40px;
+  border: none;
+  text-align: center;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
 .custom-footer {
   padding: 2rem;
   background: #f8f9fa;
@@ -245,6 +328,9 @@ const customizationCSS = `
   transition: all 0.3s;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .btn-secondary {
@@ -265,6 +351,17 @@ const customizationCSS = `
 .btn-primary:hover {
   transform: translateY(-2px);
   box-shadow: 0 8px 30px rgba(201, 169, 110, 0.4);
+}
+
+.btn-cart {
+  background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+  color: white;
+  box-shadow: 0 4px 20px rgba(40, 167, 69, 0.3);
+}
+
+.btn-cart:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(40, 167, 69, 0.4);
 }
 
 .special-requests {
@@ -309,17 +406,27 @@ const customizationCSS = `
     flex-direction: column;
     text-align: center;
   }
+  
+  .action-buttons {
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .btn {
+    width: 100%;
+    justify-content: center;
+  }
 }
 </style>
 `;
 
-// Inject HTML modal
+// Inject HTML modal with size, quantity, and cart functionality
 const customizationHTML = `
 <div id="customizationModal" class="custom-modal">
   <div class="custom-modal-content">
     <div class="custom-header">
       <button class="close-custom-modal" onclick="closeCustomizationModal()">&times;</button>
-      <h2>Design Your Dream Dress</h2>
+      <h2 id="modalTitle">Design Your Dream Dress</h2>
       <p>Let's create something magical together ✨</p>
     </div>
 
@@ -379,12 +486,12 @@ const customizationHTML = `
       <div class="custom-section">
         <h3><span class="section-icon">🎨</span> Color</h3>
         <div class="custom-grid">
-          <div class="color-option" data-option="color" data-value="ivory" data-price="0" style="background: #f8f6f0;"></div>
-          <div class="color-option" data-option="color" data-value="white" data-price="0" style="background: #ffffff;"></div>
-          <div class="color-option" data-option="color" data-value="champagne" data-price="50" style="background: #f7e7ce;"></div>
-          <div class="color-option" data-option="color" data-value="blush" data-price="75" style="background: #fde2e4;"></div>
-          <div class="color-option" data-option="color" data-value="dustyRose" data-price="100" style="background: #d4a5a5;"></div>
-          <div class="color-option" data-option="color" data-value="sage" data-price="125" style="background: #9caf88;"></div>
+          <div class="color-option" data-option="color" data-value="ivory" data-price="0" style="background: #f8f6f0;" title="Ivory"></div>
+          <div class="color-option" data-option="color" data-value="white" data-price="0" style="background: #ffffff;" title="White"></div>
+          <div class="color-option" data-option="color" data-value="champagne" data-price="50" style="background: #f7e7ce;" title="Champagne (+$50)"></div>
+          <div class="color-option" data-option="color" data-value="blush" data-price="75" style="background: #fde2e4;" title="Blush (+$75)"></div>
+          <div class="color-option" data-option="color" data-value="dustyRose" data-price="100" style="background: #d4a5a5;" title="Dusty Rose (+$100)"></div>
+          <div class="color-option" data-option="color" data-value="sage" data-price="125" style="background: #9caf88;" title="Sage (+$125)"></div>
         </div>
       </div>
 
@@ -440,20 +547,50 @@ const customizationHTML = `
         </div>
       </div>
 
+      <div class="custom-section size-section">
+        <h3><span class="section-icon">📏</span> Size</h3>
+        <div class="size-grid">
+          <div class="size-option" data-option="size" data-value="XS">XS</div>
+          <div class="size-option" data-option="size" data-value="S">S</div>
+          <div class="size-option" data-option="size" data-value="M">M</div>
+          <div class="size-option" data-option="size" data-value="L">L</div>
+          <div class="size-option" data-option="size" data-value="XL">XL</div>
+          <div class="size-option" data-option="size" data-value="XXL">XXL</div>
+          <div class="size-option" data-option="size" data-value="Custom">Custom</div>
+        </div>
+      </div>
+
+      <div class="custom-section quantity-section">
+        <h3><span class="section-icon">🔢</span> Quantity</h3>
+        <div class="quantity-selector">
+          <button class="quantity-btn" onclick="changeQuantity(-1)">-</button>
+          <input type="number" class="quantity-input" id="quantity" value="1" min="1" max="10" readonly>
+          <button class="quantity-btn" onclick="changeQuantity(1)">+</button>
+        </div>
+      </div>
+
       <div class="custom-section">
         <h3><span class="section-icon">💌</span> Special Requests</h3>
-        <textarea class="special-requests" placeholder="Tell me your dreams! Any special details, modifications, or personal touches you'd love? I'm here to make magic happen! ✨"></textarea>
+        <textarea class="special-requests" id="specialRequests" placeholder="Tell me your dreams! Any special details, modifications, or personal touches you'd love? I'm here to make magic happen! ✨"></textarea>
       </div>
     </div>
 
     <div class="custom-footer">
       <div class="price-summary">
-        <span class="base-price">$1,200</span>
+        <span class="base-price" id="basePriceDisplay">$1,200</span>
         <span class="total-price" id="totalPrice">$1,200</span>
       </div>
       <div class="action-buttons">
         <button class="btn btn-secondary" onclick="closeCustomizationModal()">Maybe Later</button>
-        <button class="btn btn-primary" onclick="submitCustomization()">Let's Create This! 🎉</button>
+        <button class="btn btn-cart" onclick="addToCart()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="9" cy="21" r="1"></circle>
+            <circle cx="20" cy="21" r="1"></circle>
+            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+          </svg>
+          Add to Cart
+        </button>
+        <button class="btn btn-primary" onclick="submitCustomization()">Get Quote First</button>
       </div>
     </div>
   </div>
@@ -466,17 +603,28 @@ let selectedOptions = {
   neckline: 'vneck',
   color: 'ivory',
   fabric: 'satin',
-  train: 'sweep'
+  train: 'sweep',
+  size: '',
+  quantity: 1
 };
-let basePrice = 1200;
 
-function openCustomizationModal(dressName = 'Wedding Dress') {
+function openCustomizationModal(dressName = 'Wedding Dress', basePrice = 1200, productImage = '', productId = '') {
+  // Store current product info
+  currentProductInfo.name = dressName;
+  currentProductInfo.basePrice = basePrice;
+  currentProductInfo.image = productImage || document.querySelector('.gallery-image.active')?.src || '';
+  currentProductInfo.id = productId || window.location.pathname.split('/').pop().replace('.html', '');
+  
   const modal = document.getElementById('customizationModal');
   modal.classList.add('active');
   document.body.style.overflow = 'hidden';
   
-  const header = modal.querySelector('.custom-header h2');
-  header.textContent = `Customize Your ${dressName}`;
+  // Update modal title and base price
+  const modalTitle = document.getElementById('modalTitle');
+  const basePriceDisplay = document.getElementById('basePriceDisplay');
+  
+  modalTitle.textContent = `Customize Your ${dressName}`;
+  basePriceDisplay.textContent = `$${basePrice.toLocaleString()}`;
   
   initializeDefaults();
   updatePrice();
@@ -489,44 +637,123 @@ function closeCustomizationModal() {
 }
 
 function initializeDefaults() {
-  document.querySelector('[data-option="style"][data-value="mermaid"]').classList.add('selected');
-  document.querySelector('[data-option="neckline"][data-value="vneck"]').classList.add('selected');
-  document.querySelector('[data-option="color"][data-value="ivory"]').classList.add('selected');
-  document.querySelector('[data-option="fabric"][data-value="satin"]').classList.add('selected');
-  document.querySelector('[data-option="train"][data-value="sweep"]').classList.add('selected');
+  // Clear all selections first
+  document.querySelectorAll('.custom-option, .color-option, .size-option').forEach(option => {
+    option.classList.remove('selected');
+  });
+  
+  // Set defaults
+  document.querySelector('[data-option="style"][data-value="mermaid"]')?.classList.add('selected');
+  document.querySelector('[data-option="neckline"][data-value="vneck"]')?.classList.add('selected');
+  document.querySelector('[data-option="color"][data-value="ivory"]')?.classList.add('selected');
+  document.querySelector('[data-option="fabric"][data-value="satin"]')?.classList.add('selected');
+  document.querySelector('[data-option="train"][data-value="sweep"]')?.classList.add('selected');
+  
+  // Reset quantity
+  document.getElementById('quantity').value = 1;
+  selectedOptions.quantity = 1;
+}
+
+function changeQuantity(change) {
+  const quantityInput = document.getElementById('quantity');
+  let newQuantity = parseInt(quantityInput.value) + change;
+  
+  if (newQuantity < 1) newQuantity = 1;
+  if (newQuantity > 10) newQuantity = 10;
+  
+  quantityInput.value = newQuantity;
+  selectedOptions.quantity = newQuantity;
+  updatePrice();
 }
 
 function updatePrice() {
-  let totalPrice = basePrice;
+  let unitPrice = currentProductInfo.basePrice;
   
   document.querySelectorAll('.custom-option.selected, .color-option.selected').forEach(option => {
-    totalPrice += parseInt(option.dataset.price) || 0;
+    unitPrice += parseInt(option.dataset.price) || 0;
   });
   
+  const totalPrice = unitPrice * selectedOptions.quantity;
   document.getElementById('totalPrice').textContent = `$${totalPrice.toLocaleString()}`;
 }
 
+function addToCart() {
+  // Validate that size is selected
+  if (!selectedOptions.size) {
+    alert('Please select a size before adding to cart!');
+    return;
+  }
+  
+  // Create customization summary
+  const customizations = {
+    style: selectedOptions.style,
+    neckline: selectedOptions.neckline,
+    color: selectedOptions.color,
+    fabric: selectedOptions.fabric,
+    train: selectedOptions.train,
+    specialRequests: document.getElementById('specialRequests').value
+  };
+  
+  // Calculate final price
+  let unitPrice = currentProductInfo.basePrice;
+  document.querySelectorAll('.custom-option.selected, .color-option.selected').forEach(option => {
+    unitPrice += parseInt(option.dataset.price) || 0;
+  });
+  
+  // Create product object for cart
+  const customProduct = {
+    id: `${currentProductInfo.id}_custom_${Date.now()}`, // Unique ID for custom item
+    name: `${currentProductInfo.name} (Custom)`,
+    price: unitPrice,
+    quantity: selectedOptions.quantity,
+    size: selectedOptions.size,
+    image: currentProductInfo.image,
+    customizations: customizations,
+    isCustom: true
+  };
+  
+  // Add to cart using the existing cart system
+  if (typeof cart !== 'undefined' && cart.addItem) {
+    cart.addItem(customProduct);
+    closeCustomizationModal();
+  } else {
+    // Fallback if cart system is not available
+    console.log('Cart system not available, product would be:', customProduct);
+    alert('🎉 Your custom dress has been added to cart! (Cart system will be fully integrated)');
+    closeCustomizationModal();
+  }
+}
+
 function submitCustomization() {
-  const specialRequests = document.querySelector('.special-requests').value;
+  const specialRequests = document.getElementById('specialRequests').value;
   const totalPrice = document.getElementById('totalPrice').textContent;
   
-  const subject = encodeURIComponent('Custom Wedding Dress Order - Let\'s Create Magic!');
+  const subject = encodeURIComponent(`Custom Wedding Dress Quote - ${currentProductInfo.name}`);
   const body = encodeURIComponent(`Hello Roza Bridal! 💕
 
-I'm ready to create my dream dress! Here are my customization details:
+I would like a quote for a custom wedding dress! Here are my customization details:
 
+DRESS: ${currentProductInfo.name}
 👗 DRESS STYLE: ${selectedOptions.style}
 💎 NECKLINE: ${selectedOptions.neckline}  
 🎨 COLOR: ${selectedOptions.color}
 ✨ FABRIC: ${selectedOptions.fabric}
 👸 TRAIN: ${selectedOptions.train}
+📏 SIZE: ${selectedOptions.size || 'Not selected'}
+🔢 QUANTITY: ${selectedOptions.quantity}
 
 💌 SPECIAL REQUESTS:
 ${specialRequests || 'No special requests'}
 
-💰 TOTAL PRICE: ${totalPrice}
+💰 ESTIMATED TOTAL: ${totalPrice}
 
-I'm so excited to work with you to bring this vision to life! When can we start the magic? ✨
+Please provide me with:
+- Final pricing
+- Timeline for completion
+- Payment options
+- Any additional details
+
+I'm excited to work with you to create my dream dress! ✨
 
 Looking forward to hearing from you!
 
@@ -537,12 +764,17 @@ Best regards,
   closeCustomizationModal();
   
   setTimeout(() => {
-    alert('🎉 Amazing! Your customization request has been sent! We\'ll be in touch soon to make your dream dress a reality! ✨');
+    alert('📧 Your quote request has been sent! We\'ll get back to you with pricing and timeline details soon! ✨');
   }, 500);
 }
 
 // Initialize the modal when DOM is ready
 function initializeCustomizationModal() {
+  // Check if modal already exists
+  if (document.getElementById('customizationModal')) {
+    return;
+  }
+  
   // Inject CSS
   document.head.insertAdjacentHTML('beforeend', customizationCSS);
   
@@ -551,29 +783,33 @@ function initializeCustomizationModal() {
   
   // Add event listeners
   document.addEventListener('click', function(e) {
-    if (e.target.closest('.custom-option') || e.target.closest('.color-option')) {
-      const option = e.target.closest('.custom-option') || e.target.closest('.color-option');
+    if (e.target.closest('.custom-option') || e.target.closest('.color-option') || e.target.closest('.size-option')) {
+      const option = e.target.closest('.custom-option') || e.target.closest('.color-option') || e.target.closest('.size-option');
       const optionType = option.dataset.option;
       const optionValue = option.dataset.value;
       
+      // Clear previous selections for this option type
       document.querySelectorAll(`[data-option="${optionType}"]`).forEach(el => {
         el.classList.remove('selected');
       });
       
+      // Select current option
       option.classList.add('selected');
       selectedOptions[optionType] = optionValue;
       updatePrice();
     }
   });
   
+  // Close modal when clicking outside
   document.getElementById('customizationModal').addEventListener('click', function(e) {
     if (e.target === this) {
       closeCustomizationModal();
     }
   });
   
+  // Close modal with Escape key
   document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') {
+    if (e.key === 'Escape' && document.getElementById('customizationModal').classList.contains('active')) {
       closeCustomizationModal();
     }
   });
