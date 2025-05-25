@@ -7,13 +7,7 @@ url: https://royaza123.github.io
 markdown: kramdown
 highlighter: rouge
 
-# Collections
-collections:
-  products:
-    output: true
-    permalink: /:collection/:name/
-
-# Include products folder
+# Include products folder - this makes regular HTML files work
 include:
   - products
 
