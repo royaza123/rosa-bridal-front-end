@@ -119,5 +119,88 @@
       document.body.classList.add('loaded');
     });
   </script>
+  <div id="cookie-notice" class="cookie-notice" style="display: none;">
+  <div class="cookie-content">
+    <p>🍪 We use cookies to improve your experience. By using our site, you agree to our use of cookies.</p>
+    <button id="accept-cookies" class="cookie-accept-btn">Got it!</button>
+  </div>
+</div>
+
+<style>
+.cookie-notice {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  background: rgba(26, 26, 26, 0.95);
+  color: white;
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  max-width: 400px;
+  z-index: 1000;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.cookie-content {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.cookie-content p {
+  margin: 0;
+  font-size: 0.9rem;
+  flex: 1;
+}
+
+.cookie-accept-btn {
+  background: #8b7355;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+.cookie-accept-btn:hover {
+  background: #6d5a44;
+}
+
+@media (max-width: 768px) {
+  .cookie-notice {
+    left: 10px;
+    right: 10px;
+    max-width: none;
+  }
+  
+  .cookie-content {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .cookie-accept-btn {
+    width: 100%;
+  }
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Simple cookie notice - no complex EU compliance needed
+  if (!localStorage.getItem('cookies-accepted')) {
+    setTimeout(() => {
+      document.getElementById('cookie-notice').style.display = 'block';
+    }, 3000);
+  }
+  
+  document.getElementById('accept-cookies').addEventListener('click', function() {
+    localStorage.setItem('cookies-accepted', 'true');
+    document.getElementById('cookie-notice').style.display = 'none';
+  });
+});
+</script>
+
+---
 </body>
 </html>
