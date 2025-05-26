@@ -608,75 +608,109 @@ let selectedOptions = {
   quantity: 1
 };
 
-function openCustomizationModal(dressName = 'Wedding Dress', basePrice = 1200, productImage = '', productId = '') {
-  // Store current product info
+// SMART DYNAMIC CUSTOMIZATION MODAL - Works for ALL products automatically
+
+// Global variable to store current product info
+let currentProductInfo = {
+  name: 'Wedding Dress',
+  basePrice: 300,
+  image: '',
+  id: ''
+};
+
+// SMART function that automatically detects product info
+function openCustomizationModal(dressName = null, basePrice = null, productImage = '', productId = '') {
+  // AUTO-DETECT product info if not provided
+  if (!dressName || !basePrice) {
+    const autoDetected = autoDetectProductInfo();
+    dressName = dressName || autoDetected.name;
+    basePrice = basePrice || autoDetected.price;
+    productImage = productImage || autoDetected.image;
+    productId = productId || autoDetected.id;
+  }
+  
+  // Store current product info with proper pricing
   currentProductInfo.name = dressName;
-  currentProductInfo.basePrice = basePrice;
+  currentProductInfo.basePrice = Math.round(basePrice);
   currentProductInfo.image = productImage || document.querySelector('.gallery-image.active')?.src || '';
-  currentProductInfo.id = productId || window.location.pathname.split('/').pop().replace('.html', '');
+  currentProductInfo.id = productId || getCurrentProductId();
+  
+  console.log('Opening customization for:', currentProductInfo); // Debug log
   
   const modal = document.getElementById('customizationModal');
+  if (!modal) {
+    console.error('Customization modal not found. Initializing...');
+    initializeCustomizationModal();
+    return;
+  }
+  
   modal.classList.add('active');
   document.body.style.overflow = 'hidden';
   
-  // Update modal title and base price
+  // Update modal title and base price with luxury formatting
   const modalTitle = document.getElementById('modalTitle');
   const basePriceDisplay = document.getElementById('basePriceDisplay');
   
-  modalTitle.textContent = `Customize Your ${dressName}`;
-  basePriceDisplay.textContent = `$${basePrice.toLocaleString()}`;
+  if (modalTitle) modalTitle.textContent = `Design Your ${dressName}`;
+  if (basePriceDisplay) basePriceDisplay.textContent = `$${Math.round(basePrice)}`;
   
   initializeDefaults();
   updatePrice();
 }
 
-function closeCustomizationModal() {
-  const modal = document.getElementById('customizationModal');
-  modal.classList.remove('active');
-  document.body.style.overflow = 'auto';
+// AUTO-DETECTION function - reads product info from page
+function autoDetectProductInfo() {
+  // Method 1: Try to get from global PRODUCTS database
+  const currentId = getCurrentProductId();
+  if (window.PRODUCTS && window.PRODUCTS[currentId]) {
+    const product = window.PRODUCTS[currentId];
+    return {
+      name: product.name,
+      price: product.price,
+      image: `${getSiteBaseUrl()}/assets/images/${product.image}`,
+      id: product.id
+    };
+  }
+  
+  // Method 2: Try to read from page elements
+  const titleElement = document.querySelector('h1') || document.querySelector('.product-title');
+  const priceElement = document.querySelector('#product-price') || 
+                      document.querySelector('.current-price') || 
+                      document.querySelector('[id*="price"]');
+  const imageElement = document.querySelector('.gallery-image.active') || 
+                      document.querySelector('.product-image');
+  
+  // Extract price from text (handles $298, $298.43, etc.)
+  let price = 300; // Default fallback
+  if (priceElement) {
+    const priceText = priceElement.textContent || priceElement.innerText;
+    const priceMatch = priceText.match(/\$(\d+(?:\.\d+)?)/);
+    if (priceMatch) {
+      price = parseFloat(priceMatch[1]);
+    }
+  }
+  
+  return {
+    name: titleElement ? titleElement.textContent.trim() : 'Wedding Dress',
+    price: price,
+    image: imageElement ? imageElement.src : '',
+    id: currentId
+  };
 }
 
-function initializeDefaults() {
-  // Clear all selections first
-  document.querySelectorAll('.custom-option, .color-option, .size-option').forEach(option => {
-    option.classList.remove('selected');
-  });
-  
-  // Set defaults
-  document.querySelector('[data-option="style"][data-value="mermaid"]')?.classList.add('selected');
-  document.querySelector('[data-option="neckline"][data-value="vneck"]')?.classList.add('selected');
-  document.querySelector('[data-option="color"][data-value="ivory"]')?.classList.add('selected');
-  document.querySelector('[data-option="fabric"][data-value="satin"]')?.classList.add('selected');
-  document.querySelector('[data-option="train"][data-value="sweep"]')?.classList.add('selected');
-  
-  // Reset quantity
-  document.getElementById('quantity').value = 1;
-  selectedOptions.quantity = 1;
+// Helper function to get current product ID from URL
+function getCurrentProductId() {
+  const pathname = window.location.pathname;
+  const filename = pathname.split('/').pop().replace('.html', '');
+  return filename || 'unknown';
 }
 
-function changeQuantity(change) {
-  const quantityInput = document.getElementById('quantity');
-  let newQuantity = parseInt(quantityInput.value) + change;
-  
-  if (newQuantity < 1) newQuantity = 1;
-  if (newQuantity > 10) newQuantity = 10;
-  
-  quantityInput.value = newQuantity;
-  selectedOptions.quantity = newQuantity;
-  updatePrice();
+// Helper function to get site base URL
+function getSiteBaseUrl() {
+  return document.querySelector('meta[name="base-url"]')?.content || '';
 }
 
-function updatePrice() {
-  let unitPrice = currentProductInfo.basePrice;
-  
-  document.querySelectorAll('.custom-option.selected, .color-option.selected').forEach(option => {
-    unitPrice += parseInt(option.dataset.price) || 0;
-  });
-  
-  const totalPrice = unitPrice * selectedOptions.quantity;
-  document.getElementById('totalPrice').textContent = `$${totalPrice.toLocaleString()}`;
-}
-
+// SMART addToCart function with automatic product detection
 function addToCart() {
   // Validate that size is selected
   if (!selectedOptions.size) {
@@ -691,7 +725,7 @@ function addToCart() {
     color: selectedOptions.color,
     fabric: selectedOptions.fabric,
     train: selectedOptions.train,
-    specialRequests: document.getElementById('specialRequests').value
+    specialRequests: document.getElementById('specialRequests')?.value || ''
   };
   
   // Calculate final price
@@ -702,7 +736,7 @@ function addToCart() {
   
   // Create product object for cart
   const customProduct = {
-    id: `${currentProductInfo.id}_custom_${Date.now()}`, // Unique ID for custom item
+    id: `${currentProductInfo.id}_custom_${Date.now()}`,
     name: `${currentProductInfo.name} (Custom)`,
     price: unitPrice,
     quantity: selectedOptions.quantity,
@@ -712,17 +746,213 @@ function addToCart() {
     isCustom: true
   };
   
-  // Add to cart using the existing cart system
-  if (typeof cart !== 'undefined' && cart.addItem) {
-    cart.addItem(customProduct);
+  console.log('Adding custom product to cart:', customProduct); // Debug log
+  
+  // Add to cart using the main cart system
+  if (typeof window.cart !== 'undefined' && window.cart.addItem) {
+    window.cart.addItem(customProduct);
     closeCustomizationModal();
   } else {
-    // Fallback if cart system is not available
-    console.log('Cart system not available, product would be:', customProduct);
-    alert('🎉 Your custom dress has been added to cart! (Cart system will be fully integrated)');
-    closeCustomizationModal();
+    // Fallback - try to add to cart after a short delay (for loading)
+    setTimeout(() => {
+      if (typeof window.cart !== 'undefined' && window.cart.addItem) {
+        window.cart.addItem(customProduct);
+        closeCustomizationModal();
+      } else {
+        console.log('Cart system not available, custom product ready:', customProduct);
+        alert('🎉 Your custom dress design is ready! Please refresh the page and try again if the cart doesn\'t update.');
+        closeCustomizationModal();
+      }
+    }, 500);
   }
 }
+
+// SMART email quote function with dynamic product info
+function submitCustomization() {
+  const specialRequests = document.getElementById('specialRequests')?.value || 'No special requests';
+  const totalPrice = document.getElementById('totalPrice')?.textContent || 'Not calculated';
+  
+  const subject = encodeURIComponent(`Custom Wedding Dress Quote - ${currentProductInfo.name}`);
+  const body = encodeURIComponent(`Hello Roza Bridal! 💕
+
+I would like a quote for a custom wedding dress! Here are my customization details:
+
+DRESS: ${currentProductInfo.name}
+👗 DRESS STYLE: ${selectedOptions.style}
+💎 NECKLINE: ${selectedOptions.neckline}  
+🎨 COLOR: ${selectedOptions.color}
+✨ FABRIC: ${selectedOptions.fabric}
+👸 TRAIN: ${selectedOptions.train}
+📏 SIZE: ${selectedOptions.size || 'Not selected'}
+🔢 QUANTITY: ${selectedOptions.quantity}
+
+💌 SPECIAL REQUESTS:
+${specialRequests}
+
+💰 ESTIMATED TOTAL: ${totalPrice}
+
+Please provide me with:
+- Final pricing
+- Timeline for completion
+- Payment options
+- Any additional details
+
+I'm excited to work with you to create my dream dress! ✨
+
+Looking forward to hearing from you!
+
+Best regards,
+[Your Future Bride] 💍`);
+  
+  window.open(`mailto:aetophis@aetophis.com?subject=${subject}&body=${body}`, '_blank');
+  closeCustomizationModal();
+  
+  setTimeout(() => {
+    alert('📧 Your quote request has been sent! We\'ll get back to you with pricing and timeline details soon! ✨');
+  }, 500);
+}
+
+// Update price calculation
+function updatePrice() {
+  let unitPrice = currentProductInfo.basePrice;
+  
+  document.querySelectorAll('.custom-option.selected, .color-option.selected').forEach(option => {
+    unitPrice += parseInt(option.dataset.price) || 0;
+  });
+  
+  const totalPrice = unitPrice * (selectedOptions.quantity || 1);
+  const totalPriceElement = document.getElementById('totalPrice');
+  if (totalPriceElement) {
+    totalPriceElement.textContent = `$${totalPrice.toLocaleString()}`;
+  }
+}
+
+// Initialize defaults
+function initializeDefaults() {
+  // Clear all selections first
+  document.querySelectorAll('.custom-option, .color-option, .size-option').forEach(option => {
+    option.classList.remove('selected');
+  });
+  
+  // Set defaults
+  document.querySelector('[data-option="style"][data-value="mermaid"]')?.classList.add('selected');
+  document.querySelector('[data-option="neckline"][data-value="vneck"]')?.classList.add('selected');
+  document.querySelector('[data-option="color"][data-value="ivory"]')?.classList.add('selected');
+  document.querySelector('[data-option="fabric"][data-value="satin"]')?.classList.add('selected');
+  document.querySelector('[data-option="train"][data-value="sweep"]')?.classList.add('selected');
+  
+  // Reset quantity
+  const quantityInput = document.getElementById('quantity');
+  if (quantityInput) {
+    quantityInput.value = 1;
+    selectedOptions.quantity = 1;
+  }
+  
+  // Reset selected options
+  selectedOptions = {
+    style: 'mermaid',
+    neckline: 'vneck',
+    color: 'ivory',
+    fabric: 'satin',
+    train: 'sweep',
+    size: '',
+    quantity: 1
+  };
+}
+
+// Quantity change function
+function changeQuantity(change) {
+  const quantityInput = document.getElementById('quantity');
+  if (!quantityInput) return;
+  
+  let newQuantity = parseInt(quantityInput.value) + change;
+  
+  if (newQuantity < 1) newQuantity = 1;
+  if (newQuantity > 10) newQuantity = 10;
+  
+  quantityInput.value = newQuantity;
+  selectedOptions.quantity = newQuantity;
+  updatePrice();
+}
+
+// Close modal function
+function closeCustomizationModal() {
+  const modal = document.getElementById('customizationModal');
+  if (modal) {
+    modal.classList.remove('active');
+  }
+  document.body.style.overflow = 'auto';
+}
+
+// UNIVERSAL INITIALIZATION - Works on any page
+function initializeCustomizationModal() {
+  // Check if modal already exists
+  if (document.getElementById('customizationModal')) {
+    return;
+  }
+  
+  // Check if CSS and HTML are defined (from your original file)
+  if (typeof customizationCSS === 'undefined' || typeof customizationHTML === 'undefined') {
+    console.warn('Customization modal CSS/HTML not loaded. Please ensure customization-modal.js is properly loaded.');
+    return;
+  }
+  
+  // Inject CSS
+  document.head.insertAdjacentHTML('beforeend', customizationCSS);
+  
+  // Inject HTML
+  document.body.insertAdjacentHTML('beforeend', customizationHTML);
+  
+  // Add event listeners
+  document.addEventListener('click', function(e) {
+    if (e.target.closest('.custom-option') || e.target.closest('.color-option') || e.target.closest('.size-option')) {
+      const option = e.target.closest('.custom-option') || e.target.closest('.color-option') || e.target.closest('.size-option');
+      const optionType = option.dataset.option;
+      const optionValue = option.dataset.value;
+      
+      // Clear previous selections for this option type
+      document.querySelectorAll(`[data-option="${optionType}"]`).forEach(el => {
+        el.classList.remove('selected');
+      });
+      
+      // Select current option
+      option.classList.add('selected');
+      selectedOptions[optionType] = optionValue;
+      updatePrice();
+    }
+  });
+  
+  // Close modal when clicking outside
+  const modal = document.getElementById('customizationModal');
+  if (modal) {
+    modal.addEventListener('click', function(e) {
+      if (e.target === this) {
+        closeCustomizationModal();
+      }
+    });
+  }
+  
+  // Close modal with Escape key
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && modal && modal.classList.contains('active')) {
+      closeCustomizationModal();
+    }
+  });
+}
+
+// Auto-initialize when DOM is ready
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initializeCustomizationModal);
+} else {
+  initializeCustomizationModal();
+}
+
+// Make functions globally available
+window.openCustomizationModal = openCustomizationModal;
+window.closeCustomizationModal = closeCustomizationModal;
+window.addToCart = addToCart;
+window.submitCustomization = submitCustomization;
+window.changeQuantity = changeQuantity;
 
 function submitCustomization() {
   const specialRequests = document.getElementById('specialRequests').value;
