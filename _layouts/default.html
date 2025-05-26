@@ -65,44 +65,49 @@
     <img src="{{ site.baseurl }}/assets/images/logos/footer-1.png" alt="" class="footer-divider" loading="lazy" role="presentation">
   {% endif %}
   
-  <!-- Footer -->
-  <footer role="contentinfo">
-    <div class="footer-content">
-      <div class="footer-logo-container">
-        <picture>
-          <source srcset="{{ site.baseurl }}/assets/images/logos/logo.webp" type="image/webp">
-          <img src="{{ site.baseurl }}/assets/images/logos/logo.png" alt="Roza Bridal" class="footer-logo" width="200" height="60">
-        </picture>
-      </div>
-      
-      <nav class="footer-links" role="navigation" aria-label="Footer navigation">
-        <a href="{{ site.baseurl }}/#collection">Collection</a>
-        <a href="{{ site.baseurl }}/products/">All Dresses</a>
-        <a href="{{ site.baseurl }}/#about">About</a>
-        <a href="{{ site.baseurl }}/#contact">Contact</a>
-        <a href="{{ site.baseurl }}/privacy/">Privacy Policy</a>
-      </nav>
-      
-      <div class="social-links">
-        <a href="https://www.instagram.com/rozabridal" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Instagram">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
-          </svg>
-        </a>
-        <a href="mailto:aetophis@aetophis.com" aria-label="Email us">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-            <polyline points="22,6 12,13 2,6"></polyline>
-          </svg>
-        </a>
-      </div>
-      
-      <p class="copyright">&copy; 2025 Roza Bridal. All rights reserved.</p>
-    </div>
-  </footer>
+  <!-- 4. SIMPLIFIED FOOTER (Replace footer in default.html) -->
 
+<footer role="contentinfo">
+  <div class="footer-content">
+    <div class="footer-logo-container">
+      <picture>
+        <source srcset="{{ site.baseurl }}/assets/images/logos/logo.webp" type="image/webp">
+        <img src="{{ site.baseurl }}/assets/images/logos/logo.png" alt="Roza Bridal" class="footer-logo">
+      </picture>
+    </div>
+    
+    <nav class="footer-links" role="navigation" aria-label="Footer navigation">
+      <a href="{{ site.baseurl }}/#collection">Collection</a>
+      <a href="{{ site.baseurl }}/products/">All Dresses</a>
+      <a href="{{ site.baseurl }}/#about">About</a>
+      <a href="{{ site.baseurl }}/#contact">Contact</a>
+      
+      <!-- SIMPLIFIED Legal Links (US-focused) -->
+      <a href="{{ site.baseurl }}/privacy-policy.html">Privacy Policy</a>
+      <a href="{{ site.baseurl }}/terms-of-service.html">Terms of Service</a>
+      <a href="{{ site.baseurl }}/shipping-returns.html">Shipping & Returns</a>
+      <a href="{{ site.baseurl }}/accessibility.html">Accessibility</a>
+    </nav>
+    
+    <div class="social-links">
+      <a href="https://www.instagram.com/rozabridal" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Instagram">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+          <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+          <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+        </svg>
+      </a>
+      <a href="mailto:aetophis@aetophis.com" aria-label="Email us">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+          <polyline points="22,6 12,13 2,6"></polyline>
+        </svg>
+      </a>
+    </div>
+    
+    <p class="copyright">&copy; 2025 Roza Bridal. All rights reserved. Made in the USA 🇺🇸</p>
+  </div>
+</footer>
   <!-- JavaScript -->
   <script src="{{ site.baseurl }}/assets/js/main-ecommerce.js"></script>
   
