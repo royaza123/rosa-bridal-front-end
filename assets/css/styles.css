@@ -745,3 +745,210 @@ footer {
     font-size: 1rem;
   }
 }
+/* Enhanced Product Pricing Styles */
+.product-price {
+  margin: 2rem 0;
+  padding: 2rem;
+  background: linear-gradient(135deg, #f8f9fa 0%, #f0f4f7 100%);
+  border-radius: 16px;
+  text-align: center;
+  border: 1px solid #e0e0e0;
+  position: relative;
+  overflow: hidden;
+}
+
+.product-price::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(201, 169, 110, 0.1), transparent);
+  transition: left 0.8s ease;
+}
+
+.product-price:hover::before {
+  left: 100%;
+}
+
+.price-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, #c9a96e 0%, #d4b875 100%);
+  color: white;
+  padding: 0.5rem 1.5rem;
+  border-radius: 25px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 1rem;
+}
+
+.price-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+.original-price {
+  font-size: 1.2rem;
+  color: #999;
+  text-decoration: line-through;
+  font-weight: 400;
+}
+
+.current-price {
+  font-size: 3rem;
+  font-weight: 700;
+  color: #c9a96e;
+  font-family: 'Cormorant Garamond', serif;
+  line-height: 1;
+}
+
+.price-note {
+  font-size: 0.9rem;
+  color: #666;
+  margin-top: 0.5rem;
+  font-style: italic;
+}
+
+.savings-badge {
+  background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-top: 1rem;
+  display: inline-block;
+}
+
+/* Product Cards Pricing */
+.product-card .card-price-container {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.card-price {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #c9a96e;
+  font-family: 'Cormorant Garamond', serif;
+  margin: 0;
+}
+
+.card-original-price {
+  font-size: 0.85rem;
+  color: #999;
+  text-decoration: line-through;
+  display: block;
+  line-height: 1;
+}
+
+/* Add to Cart Button */
+.add-to-cart-btn {
+  display: block;
+  width: 100%;
+  padding: 1rem 2rem;
+  background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+  color: white;
+  border: none;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: all 0.3s;
+  margin: 1rem 0;
+  box-shadow: 0 4px 20px rgba(40, 167, 69, 0.3);
+}
+
+.add-to-cart-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(40, 167, 69, 0.4);
+}
+
+/* Price Comparison Table */
+.price-comparison {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  margin: 2rem 0;
+}
+
+.price-comparison-header {
+  background: linear-gradient(135deg, #c9a96e 0%, #d4b875 100%);
+  color: white;
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.price-comparison-header h3 {
+  margin: 0;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.5rem;
+}
+
+.price-comparison-body {
+  padding: 1.5rem;
+}
+
+.price-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.price-row:last-child {
+  border-bottom: none;
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #c9a96e;
+}
+
+/* Responsive Pricing */
+@media (max-width: 768px) {
+  .current-price {
+    font-size: 2.5rem;
+  }
+  
+  .price-container {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .product-price {
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+  }
+  
+  .card-price-container {
+    position: static;
+    margin: 1rem 0;
+    width: 100%;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .current-price {
+    font-size: 2rem;
+  }
+  
+  .product-price {
+    padding: 1rem;
+  }
+}
