@@ -3,6 +3,102 @@
 // Site Base URL
 const siteBaseUrl = document.querySelector('meta[name="base-url"]')?.content || '';
 
+// Complete Product Database
+const PRODUCTS = {
+  'minimalist-off-shoulder-satin-dress': {
+    name: 'Minimalist Off Shoulder Satin Wedding Dress',
+    price: 295.47,
+    originalPrice: 350.00,
+    id: 'minimalist-off-shoulder-satin-dress',
+    image: 'minimalist-off-shoulder-satin-wedding-dress/main.webp'
+  },
+  'sexy-sequin-mermaid-wedding-dress': {
+    name: 'Sexy Sequin Mermaid Wedding Dress',
+    price: 111.78,
+    originalPrice: 150.00,
+    id: 'sexy-sequin-mermaid-wedding-dress',
+    image: 'sexy-sequin-mermaid-wedding-dress/main.webp'
+  },
+  'boho-beach-wedding-dress': {
+    name: 'Boho Beach Wedding Dress',
+    price: 121.56,
+    originalPrice: 160.00,
+    id: 'boho-beach-wedding-dress',
+    image: 'boho-beach-wedding-dress/main.webp'
+  },
+  'boho': {
+    name: 'Boho Wedding Dress Elegant',
+    price: 298.43,
+    originalPrice: 380.00,
+    id: 'boho',
+    image: 'boho-wedding-dress-elegant/main.webp'
+  },
+  'modest-satin-wedding-dress': {
+    name: 'Modest Satin Wedding Dress',
+    price: 184.65,
+    originalPrice: 230.00,
+    id: 'modest-satin-wedding-dress',
+    image: 'modest-satin-wedding-dress/main.webp'
+  },
+  'sexy-fishtail-bridal-gown': {
+    name: 'Sexy Fishtail Bridal Gown',
+    price: 279.83,
+    originalPrice: 340.00,
+    id: 'sexy-fishtail-bridal-gown',
+    image: 'sexy-fishtail-bridal-gown/main.webp'
+  },
+  'floral-bridal-dress': {
+    name: 'Floral Bridal Dress',
+    price: 149.64,
+    originalPrice: 190.00,
+    id: 'floral-bridal-dress',
+    image: 'floral-bridal-dress-ladies-wedding-gown/main.webp'
+  },
+  'custom-lace-mermaid-wedding-dress': {
+    name: 'Custom Lace Mermaid Wedding Dress',
+    price: 175.32,
+    originalPrice: 220.00,
+    id: 'custom-lace-mermaid-wedding-dress',
+    image: 'custom-lace-mermaid-wedding-dress/main.webp'
+  },
+  'custom-lace-mermaid-wedding-dress-v-neck': {
+    name: 'Custom Lace Mermaid Wedding Dress V-Neck',
+    price: 222.61,
+    originalPrice: 280.00,
+    id: 'custom-lace-mermaid-wedding-dress-v-neck',
+    image: 'custom-lace-mermaid-wedding-dress-v-neck/picture 1.webp'
+  },
+  'gorgeous-ivory-mermaid-wedding-gown': {
+    name: 'Gorgeous Ivory Mermaid Wedding Gown',
+    price: 197.52,
+    originalPrice: 250.00,
+    id: 'gorgeous-ivory-mermaid-wedding-gown',
+    image: 'gorgeous-ivory-mermaid-wedding-gown/main.webp'
+  },
+  'elegant-ivory-satin-bridal-gown': {
+    name: 'Elegant Ivory Satin Bridal Gown',
+    price: 198.42,
+    originalPrice: 250.00,
+    id: 'elegant-ivory-satin-bridal-gown',
+    image: 'elegant-ivory-satin-bridal-gown/main.webp'
+  }
+};
+
+// Make products globally available
+window.PRODUCTS = PRODUCTS;
+
+// Get product info by ID
+function getProductInfo(productId) {
+  return PRODUCTS[productId] || null;
+}
+
+// Get current product ID from URL
+function getCurrentProductId() {
+  const pathname = window.location.pathname;
+  const filename = pathname.split('/').pop().replace('.html', '');
+  return filename;
+}
+
 // Shopping Cart Class - Enhanced for Custom Products
 class ShoppingCart {
   constructor() {
@@ -334,7 +430,7 @@ class ShoppingCart {
     
     return `
       <div class="cart-item">
-        <img src="${item.image}" alt="${item.name}" class="cart-item-image">
+        <img src="${siteBaseUrl}/assets/images/${item.image || 'placeholder.jpg'}" alt="${item.name}" class="cart-item-image">
         <div class="cart-item-details">
           <h4>${item.name}</h4>
           <p class="cart-item-size">Size: ${item.size}</p>
@@ -776,23 +872,168 @@ const auth = new Authentication();
 
 // Initialize on page load
 document.addEventListener('DOMContentLoaded', function() {
-  // Setup header icons
-  cart.setupCartIcon();
-  auth.setupUserIcon();
-  
-  // Initialize product page functionality if exists
-  initializeProductPage();
+ // Setup header icons
+ cart.setupCartIcon();
+ auth.setupUserIcon();
+ 
+ // Initialize product page functionality
+ initializeProductPage();
+ 
+ // Load and display product prices
+ loadProductPrices();
 });
+
+// Load product prices on current page
+function loadProductPrices() {
+ const currentProductId = getCurrentProductId();
+ const productInfo = getProductInfo(currentProductId);
+ 
+ if (productInfo) {
+   // Update product price display
+   const priceElement = document.getElementById('product-price');
+   const originalPriceElement = document.getElementById('original-price');
+   
+   if (priceElement) {
+     priceElement.textContent = `$${productInfo.price.toFixed(2)}`;
+   }
+   
+   if (originalPriceElement && productInfo.originalPrice) {
+     originalPriceElement.textContent = `$${productInfo.originalPrice.toFixed(2)}`;
+   }
+   
+   // Update customize button with correct price
+   const customizeButtons = document.querySelectorAll('.customize-button, [onclick*="openCustomizationModal"]');
+   customizeButtons.forEach(button => {
+     button.onclick = () => {
+       if (typeof openCustomizationModal === 'function') {
+         openCustomizationModal(productInfo.name, productInfo.price, `${siteBaseUrl}/assets/images/${productInfo.image}`, productInfo.id);
+       }
+     };
+   });
+ }
+}
 
 // Initialize product page functionality
 function initializeProductPage() {
-  // Only run on product pages
-  if (!document.querySelector('.product-page')) return;
-  
-  // Remove the old customize button functionality since we now have the enhanced modal
-  const customizeButtons = document.querySelectorAll('.customize-button');
-  customizeButtons.forEach(button => {
-    // The button now uses the enhanced customization modal
-    // which is handled by customization-modal.js
-  });
+ // Only run on product pages
+ if (!document.querySelector('.product-page')) return;
+ 
+ // Setup Add to Cart buttons for regular products
+ const addToCartButtons = document.querySelectorAll('.add-to-cart-btn');
+ addToCartButtons.forEach(button => {
+   button.addEventListener('click', function() {
+     const productId = getCurrentProductId();
+     const productInfo = getProductInfo(productId);
+     
+     if (productInfo) {
+       // Show size selection modal or add directly
+       showSizeSelectionModal(productInfo);
+     }
+   });
+ });
+}
+
+// Show size selection modal for regular add to cart
+function showSizeSelectionModal(productInfo) {
+ const modal = document.createElement('div');
+ modal.className = 'size-modal';
+ modal.innerHTML = `
+   <div class="size-modal-content">
+     <div class="size-modal-header">
+       <h3>Select Size</h3>
+       <button class="close-size-modal">&times;</button>
+     </div>
+     <div class="size-modal-body">
+       <p>Choose your size for <strong>${productInfo.name}</strong></p>
+       <div class="size-options">
+         <button class="size-btn" data-size="XS">XS</button>
+         <button class="size-btn" data-size="S">S</button>
+         <button class="size-btn" data-size="M">M</button>
+         <button class="size-btn" data-size="L">L</button>
+         <button class="size-btn" data-size="XL">XL</button>
+         <button class="size-btn" data-size="XXL">XXL</button>
+       </div>
+       <div class="quantity-section">
+         <label>Quantity:</label>
+         <div class="quantity-selector">
+           <button class="qty-btn minus">-</button>
+           <input type="number" class="qty-input" value="1" min="1" max="10">
+           <button class="qty-btn plus">+</button>
+         </div>
+       </div>
+       <button class="add-to-cart-final" disabled>Add to Cart - $${productInfo.price.toFixed(2)}</button>
+     </div>
+   </div>
+ `;
+ 
+ document.body.appendChild(modal);
+ 
+ // Add event listeners
+ let selectedSize = '';
+ let quantity = 1;
+ 
+ // Size selection
+ modal.querySelectorAll('.size-btn').forEach(btn => {
+   btn.addEventListener('click', function() {
+     modal.querySelectorAll('.size-btn').forEach(b => b.classList.remove('selected'));
+     this.classList.add('selected');
+     selectedSize = this.dataset.size;
+     modal.querySelector('.add-to-cart-final').disabled = false;
+   });
+ });
+ 
+ // Quantity controls
+ const qtyInput = modal.querySelector('.qty-input');
+ modal.querySelector('.qty-btn.minus').addEventListener('click', () => {
+   if (quantity > 1) {
+     quantity--;
+     qtyInput.value = quantity;
+     updateFinalPrice();
+   }
+ });
+ 
+ modal.querySelector('.qty-btn.plus').addEventListener('click', () => {
+   if (quantity < 10) {
+     quantity++;
+     qtyInput.value = quantity;
+     updateFinalPrice();
+   }
+ });
+ 
+ qtyInput.addEventListener('input', () => {
+   quantity = Math.max(1, Math.min(10, parseInt(qtyInput.value) || 1));
+   qtyInput.value = quantity;
+   updateFinalPrice();
+ });
+ 
+ function updateFinalPrice() {
+   const finalBtn = modal.querySelector('.add-to-cart-final');
+   finalBtn.textContent = `Add to Cart - $${(productInfo.price * quantity).toFixed(2)}`;
+ }
+ 
+ // Close modal
+ modal.querySelector('.close-size-modal').addEventListener('click', () => {
+   modal.remove();
+ });
+ 
+ // Add to cart
+ modal.querySelector('.add-to-cart-final').addEventListener('click', () => {
+   if (selectedSize) {
+     const cartItem = {
+       id: productInfo.id,
+       name: productInfo.name,
+       price: productInfo.price,
+       quantity: quantity,
+       size: selectedSize,
+       image: productInfo.image,
+       isCustom: false
+     };
+     
+     cart.addItem(cartItem);
+     modal.remove();
+   }
+ });
+ 
+ // Show modal
+ setTimeout(() => modal.classList.add('visible'), 10);
 }
