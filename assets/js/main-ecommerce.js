@@ -1,10 +1,17 @@
-// main-ecommerce.js - Enhanced E-commerce Integration for Roza Bridal with Custom Products
+// main-ecommerce.js - Enhanced E-commerce Integration for Roza Bridal with Luxury Updates
 
 // Site Base URL
 const siteBaseUrl = document.querySelector('meta[name="base-url"]')?.content || '';
 
-// Complete Product Database
+// Complete Product Database - UPDATED PRICES FOR LUXURY POSITIONING
 const PRODUCTS = {
+  'boho': {
+    name: 'Boho Wedding Dress Elegant',
+    price: 298.43,
+    originalPrice: 380.00,
+    id: 'boho',
+    image: 'boho-wedding-dress-elegant/main.webp'
+  },
   'minimalist-off-shoulder-satin-dress': {
     name: 'Minimalist Off Shoulder Satin Wedding Dress',
     price: 295.47,
@@ -14,71 +21,64 @@ const PRODUCTS = {
   },
   'sexy-sequin-mermaid-wedding-dress': {
     name: 'Sexy Sequin Mermaid Wedding Dress',
-    price: 111.78,
-    originalPrice: 150.00,
+    price: 211.78,
+    originalPrice: 280.00,
     id: 'sexy-sequin-mermaid-wedding-dress',
     image: 'sexy-sequin-mermaid-wedding-dress/main.webp'
   },
   'boho-beach-wedding-dress': {
     name: 'Boho Beach Wedding Dress',
-    price: 121.56,
-    originalPrice: 160.00,
+    price: 221.56,
+    originalPrice: 290.00,
     id: 'boho-beach-wedding-dress',
     image: 'boho-beach-wedding-dress/main.webp'
   },
-  'boho': {
-    name: 'Boho Wedding Dress Elegant',
-    price: 298.43,
-    originalPrice: 380.00,
-    id: 'boho',
-    image: 'boho-wedding-dress-elegant/main.webp'
-  },
   'modest-satin-wedding-dress': {
     name: 'Modest Satin Wedding Dress',
-    price: 184.65,
-    originalPrice: 230.00,
+    price: 284.65,
+    originalPrice: 340.00,
     id: 'modest-satin-wedding-dress',
     image: 'modest-satin-wedding-dress/main.webp'
   },
   'sexy-fishtail-bridal-gown': {
     name: 'Sexy Fishtail Bridal Gown',
-    price: 279.83,
-    originalPrice: 340.00,
+    price: 379.83,
+    originalPrice: 450.00,
     id: 'sexy-fishtail-bridal-gown',
     image: 'sexy-fishtail-bridal-gown/main.webp'
   },
   'floral-bridal-dress': {
     name: 'Floral Bridal Dress',
-    price: 149.64,
-    originalPrice: 190.00,
+    price: 249.64,
+    originalPrice: 310.00,
     id: 'floral-bridal-dress',
     image: 'floral-bridal-dress-ladies-wedding-gown/main.webp'
   },
   'custom-lace-mermaid-wedding-dress': {
     name: 'Custom Lace Mermaid Wedding Dress',
-    price: 175.32,
-    originalPrice: 220.00,
+    price: 275.32,
+    originalPrice: 340.00,
     id: 'custom-lace-mermaid-wedding-dress',
     image: 'custom-lace-mermaid-wedding-dress/main.webp'
   },
   'custom-lace-mermaid-wedding-dress-v-neck': {
     name: 'Custom Lace Mermaid Wedding Dress V-Neck',
-    price: 222.61,
-    originalPrice: 280.00,
+    price: 322.61,
+    originalPrice: 390.00,
     id: 'custom-lace-mermaid-wedding-dress-v-neck',
     image: 'custom-lace-mermaid-wedding-dress-v-neck/picture 1.webp'
   },
   'gorgeous-ivory-mermaid-wedding-gown': {
     name: 'Gorgeous Ivory Mermaid Wedding Gown',
-    price: 197.52,
-    originalPrice: 250.00,
+    price: 297.52,
+    originalPrice: 360.00,
     id: 'gorgeous-ivory-mermaid-wedding-gown',
     image: 'gorgeous-ivory-mermaid-wedding-gown/main.webp'
   },
   'elegant-ivory-satin-bridal-gown': {
     name: 'Elegant Ivory Satin Bridal Gown',
-    price: 198.42,
-    originalPrice: 250.00,
+    price: 298.42,
+    originalPrice: 370.00,
     id: 'elegant-ivory-satin-bridal-gown',
     image: 'elegant-ivory-satin-bridal-gown/main.webp'
   }
@@ -331,7 +331,7 @@ class ShoppingCart {
         <div class="cart-summary">
           <div class="summary-row">
             <span>Subtotal</span>
-            <span>$${this.calculateTotal().toFixed(2)}</span>
+            <span>${this.calculateTotal().toFixed(2)}</span>
           </div>
           <div class="summary-row">
             <span>Shipping</span>
@@ -339,7 +339,7 @@ class ShoppingCart {
           </div>
           <div class="summary-row total">
             <span>Total</span>
-            <span>$${this.calculateTotal().toFixed(2)}</span>
+            <span>${this.calculateTotal().toFixed(2)}</span>
           </div>
         </div>
         
@@ -420,7 +420,7 @@ class ShoppingCart {
   renderCartItem(item, index) {
     const customizationDetails = item.isCustom && item.customizations ? 
       `<div class="cart-item-customizations">
-        <small style="color: #c9a96e; font-weight: 600;">✨ Custom Design:</small><br>
+        <small style="color: #8b7355; font-weight: 600;">✨ Custom Design:</small><br>
         <small style="color: #666;">
           ${item.customizations.style} • ${item.customizations.neckline} • ${item.customizations.color}<br>
           ${item.customizations.fabric} • ${item.customizations.train}
@@ -434,7 +434,7 @@ class ShoppingCart {
         <div class="cart-item-details">
           <h4>${item.name}</h4>
           <p class="cart-item-size">Size: ${item.size}</p>
-          <p class="cart-item-price">$${item.price.toFixed(2)}</p>
+          <p class="cart-item-price">${item.price.toFixed(2)}</p>
           ${customizationDetails}
           <div class="cart-item-actions">
             <div class="quantity-selector">
@@ -457,7 +457,7 @@ class ShoppingCart {
   }
 }
 
-// Authentication Class (unchanged)
+// Authentication Class (unchanged but optimized)
 class Authentication {
   constructor() {
     this.currentUser = null;
@@ -872,168 +872,335 @@ const auth = new Authentication();
 
 // Initialize on page load
 document.addEventListener('DOMContentLoaded', function() {
- // Setup header icons
- cart.setupCartIcon();
- auth.setupUserIcon();
- 
- // Initialize product page functionality
- initializeProductPage();
- 
- // Load and display product prices
- loadProductPrices();
+  // Setup header icons
+  cart.setupCartIcon();
+  auth.setupUserIcon();
+  
+  // Initialize product page functionality
+  initializeProductPage();
+  
+  // Load and display product prices
+  loadProductPrices();
 });
 
-// Load product prices on current page
+// Load product prices on current page - ENHANCED FOR LUXURY DISPLAY
 function loadProductPrices() {
- const currentProductId = getCurrentProductId();
- const productInfo = getProductInfo(currentProductId);
- 
- if (productInfo) {
-   // Update product price display
-   const priceElement = document.getElementById('product-price');
-   const originalPriceElement = document.getElementById('original-price');
-   
-   if (priceElement) {
-     priceElement.textContent = `$${productInfo.price.toFixed(2)}`;
-   }
-   
-   if (originalPriceElement && productInfo.originalPrice) {
-     originalPriceElement.textContent = `$${productInfo.originalPrice.toFixed(2)}`;
-   }
-   
-   // Update customize button with correct price
-   const customizeButtons = document.querySelectorAll('.customize-button, [onclick*="openCustomizationModal"]');
-   customizeButtons.forEach(button => {
-     button.onclick = () => {
-       if (typeof openCustomizationModal === 'function') {
-         openCustomizationModal(productInfo.name, productInfo.price, `${siteBaseUrl}/assets/images/${productInfo.image}`, productInfo.id);
-       }
-     };
-   });
- }
+  const currentProductId = getCurrentProductId();
+  const productInfo = getProductInfo(currentProductId);
+  
+  if (productInfo) {
+    // Update product price display with luxury formatting
+    const priceElement = document.getElementById('product-price');
+    const originalPriceElement = document.getElementById('original-price');
+    
+    if (priceElement) {
+      priceElement.textContent = `${productInfo.price.toFixed(0)}`;
+    }
+    
+    if (originalPriceElement && productInfo.originalPrice) {
+      originalPriceElement.textContent = `${productInfo.originalPrice.toFixed(0)}`;
+    }
+    
+    // Update customize button with correct price and product info
+    const customizeButtons = document.querySelectorAll('.customize-button, [onclick*="openCustomizationModal"]');
+    customizeButtons.forEach(button => {
+      button.onclick = () => {
+        if (typeof openCustomizationModal === 'function') {
+          openCustomizationModal(
+            productInfo.name, 
+            productInfo.price, 
+            `${siteBaseUrl}/assets/images/${productInfo.image}`, 
+            productInfo.id
+          );
+        }
+      };
+    });
+  }
 }
 
 // Initialize product page functionality
 function initializeProductPage() {
- // Only run on product pages
- if (!document.querySelector('.product-page')) return;
- 
- // Setup Add to Cart buttons for regular products
- const addToCartButtons = document.querySelectorAll('.add-to-cart-btn');
- addToCartButtons.forEach(button => {
-   button.addEventListener('click', function() {
-     const productId = getCurrentProductId();
-     const productInfo = getProductInfo(productId);
-     
-     if (productInfo) {
-       // Show size selection modal or add directly
-       showSizeSelectionModal(productInfo);
-     }
-   });
- });
+  // Only run on product pages
+  if (!document.querySelector('.product-page')) return;
+  
+  // Setup Add to Cart buttons for regular products (if any remain)
+  const addToCartButtons = document.querySelectorAll('.add-to-cart-btn');
+  addToCartButtons.forEach(button => {
+    button.addEventListener('click', function() {
+      const productId = getCurrentProductId();
+      const productInfo = getProductInfo(productId);
+      
+      if (productInfo) {
+        // Show size selection modal or add directly
+        showSizeSelectionModal(productInfo);
+      }
+    });
+  });
 }
 
-// Show size selection modal for regular add to cart
+// Show size selection modal for regular add to cart - ENHANCED FOR LUXURY
 function showSizeSelectionModal(productInfo) {
- const modal = document.createElement('div');
- modal.className = 'size-modal';
- modal.innerHTML = `
-   <div class="size-modal-content">
-     <div class="size-modal-header">
-       <h3>Select Size</h3>
-       <button class="close-size-modal">&times;</button>
-     </div>
-     <div class="size-modal-body">
-       <p>Choose your size for <strong>${productInfo.name}</strong></p>
-       <div class="size-options">
-         <button class="size-btn" data-size="XS">XS</button>
-         <button class="size-btn" data-size="S">S</button>
-         <button class="size-btn" data-size="M">M</button>
-         <button class="size-btn" data-size="L">L</button>
-         <button class="size-btn" data-size="XL">XL</button>
-         <button class="size-btn" data-size="XXL">XXL</button>
-       </div>
-       <div class="quantity-section">
-         <label>Quantity:</label>
-         <div class="quantity-selector">
-           <button class="qty-btn minus">-</button>
-           <input type="number" class="qty-input" value="1" min="1" max="10">
-           <button class="qty-btn plus">+</button>
-         </div>
-       </div>
-       <button class="add-to-cart-final" disabled>Add to Cart - $${productInfo.price.toFixed(2)}</button>
-     </div>
-   </div>
- `;
- 
- document.body.appendChild(modal);
- 
- // Add event listeners
- let selectedSize = '';
- let quantity = 1;
- 
- // Size selection
- modal.querySelectorAll('.size-btn').forEach(btn => {
-   btn.addEventListener('click', function() {
-     modal.querySelectorAll('.size-btn').forEach(b => b.classList.remove('selected'));
-     this.classList.add('selected');
-     selectedSize = this.dataset.size;
-     modal.querySelector('.add-to-cart-final').disabled = false;
-   });
- });
- 
- // Quantity controls
- const qtyInput = modal.querySelector('.qty-input');
- modal.querySelector('.qty-btn.minus').addEventListener('click', () => {
-   if (quantity > 1) {
-     quantity--;
-     qtyInput.value = quantity;
-     updateFinalPrice();
-   }
- });
- 
- modal.querySelector('.qty-btn.plus').addEventListener('click', () => {
-   if (quantity < 10) {
-     quantity++;
-     qtyInput.value = quantity;
-     updateFinalPrice();
-   }
- });
- 
- qtyInput.addEventListener('input', () => {
-   quantity = Math.max(1, Math.min(10, parseInt(qtyInput.value) || 1));
-   qtyInput.value = quantity;
-   updateFinalPrice();
- });
- 
- function updateFinalPrice() {
-   const finalBtn = modal.querySelector('.add-to-cart-final');
-   finalBtn.textContent = `Add to Cart - $${(productInfo.price * quantity).toFixed(2)}`;
- }
- 
- // Close modal
- modal.querySelector('.close-size-modal').addEventListener('click', () => {
-   modal.remove();
- });
- 
- // Add to cart
- modal.querySelector('.add-to-cart-final').addEventListener('click', () => {
-   if (selectedSize) {
-     const cartItem = {
-       id: productInfo.id,
-       name: productInfo.name,
-       price: productInfo.price,
-       quantity: quantity,
-       size: selectedSize,
-       image: productInfo.image,
-       isCustom: false
-     };
-     
-     cart.addItem(cartItem);
-     modal.remove();
-   }
- });
- 
- // Show modal
- setTimeout(() => modal.classList.add('visible'), 10);
+  const modal = document.createElement('div');
+  modal.className = 'size-modal';
+  modal.style.cssText = `
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(4px);
+    z-index: 1002;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: all 0.3s ease;
+  `;
+  
+  modal.innerHTML = `
+    <div class="size-modal-content" style="
+      background: white;
+      border-radius: 12px;
+      padding: 2.5rem;
+      max-width: 500px;
+      width: 90%;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+      transform: translateY(20px);
+      transition: all 0.3s ease;
+    ">
+      <div class="size-modal-header" style="margin-bottom: 2rem; text-align: center;">
+        <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; color: #1a1a1a; margin-bottom: 0.5rem;">Select Your Size</h3>
+        <p style="color: #666; margin: 0;">Choose your size for <strong>${productInfo.name}</strong></p>
+        <button class="close-size-modal" style="
+          position: absolute;
+          top: 1rem;
+          right: 1rem;
+          background: none;
+          border: none;
+          font-size: 1.5rem;
+          cursor: pointer;
+          color: #999;
+          width: 30px;
+          height: 30px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        ">&times;</button>
+      </div>
+      <div class="size-modal-body">
+        <div class="size-options" style="
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+          gap: 0.75rem;
+          margin-bottom: 2rem;
+        ">
+          <button class="size-btn" data-size="XS" style="
+            padding: 1rem;
+            border: 2px solid #e0e0e0;
+            background: white;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            border-radius: 6px;
+          ">XS</button>
+          <button class="size-btn" data-size="S" style="
+            padding: 1rem;
+            border: 2px solid #e0e0e0;
+            background: white;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            border-radius: 6px;
+          ">S</button>
+          <button class="size-btn" data-size="M" style="
+            padding: 1rem;
+            border: 2px solid #e0e0e0;
+            background: white;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            border-radius: 6px;
+          ">M</button>
+          <button class="size-btn" data-size="L" style="
+            padding: 1rem;
+            border: 2px solid #e0e0e0;
+            background: white;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            border-radius: 6px;
+          ">L</button>
+          <button class="size-btn" data-size="XL" style="
+            padding: 1rem;
+            border: 2px solid #e0e0e0;
+            background: white;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            border-radius: 6px;
+          ">XL</button>
+          <button class="size-btn" data-size="XXL" style="
+            padding: 1rem;
+            border: 2px solid #e0e0e0;
+            background: white;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            border-radius: 6px;
+          ">XXL</button>
+        </div>
+        <div class="quantity-section" style="
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+          margin-bottom: 2rem;
+        ">
+          <label style="font-weight: 500; color: #333;">Quantity:</label>
+          <div class="quantity-selector" style="
+            display: flex;
+            align-items: center;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            overflow: hidden;
+          ">
+            <button class="qty-btn minus" style="
+              width: 40px;
+              height: 40px;
+              background: #f5f5f5;
+              border: none;
+              cursor: pointer;
+              font-size: 1.2rem;
+            ">-</button>
+            <input type="number" class="qty-input" value="1" min="1" max="10" style="
+              width: 60px;
+              height: 40px;
+              border: none;
+              text-align: center;
+              font-weight: 600;
+            ">
+            <button class="qty-btn plus" style="
+              width: 40px;
+              height: 40px;
+              background: #f5f5f5;
+              border: none;
+              cursor: pointer;
+              font-size: 1.2rem;
+            ">+</button>
+          </div>
+        </div>
+        <button class="add-to-cart-final" disabled style="
+          width: 100%;
+          padding: 1.2rem;
+          background: #8b7355;
+          color: white;
+          border: none;
+          font-weight: 600;
+          font-size: 1rem;
+          text-transform: uppercase;
+          letter-spacing: 1px;
+          cursor: pointer;
+          transition: all 0.3s;
+          border-radius: 6px;
+          opacity: 0.5;
+        ">Add to Cart - ${productInfo.price.toFixed(2)}</button>
+      </div>
+    </div>
+  `;
+  
+  document.body.appendChild(modal);
+  
+  // Add event listeners
+  let selectedSize = '';
+  let quantity = 1;
+  
+  // Size selection
+  modal.querySelectorAll('.size-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+      modal.querySelectorAll('.size-btn').forEach(b => {
+        b.style.borderColor = '#e0e0e0';
+        b.style.background = 'white';
+        b.style.color = '#333';
+      });
+      this.style.borderColor = '#8b7355';
+      this.style.background = '#8b7355';
+      this.style.color = 'white';
+      selectedSize = this.dataset.size;
+      const finalBtn = modal.querySelector('.add-to-cart-final');
+      finalBtn.disabled = false;
+      finalBtn.style.opacity = '1';
+    });
+  });
+  
+  // Quantity controls
+  const qtyInput = modal.querySelector('.qty-input');
+  modal.querySelector('.qty-btn.minus').addEventListener('click', () => {
+    if (quantity > 1) {
+      quantity--;
+      qtyInput.value = quantity;
+      updateFinalPrice();
+    }
+  });
+  
+  modal.querySelector('.qty-btn.plus').addEventListener('click', () => {
+    if (quantity < 10) {
+      quantity++;
+      qtyInput.value = quantity;
+      updateFinalPrice();
+    }
+  });
+  
+  qtyInput.addEventListener('input', () => {
+    quantity = Math.max(1, Math.min(10, parseInt(qtyInput.value) || 1));
+    qtyInput.value = quantity;
+    updateFinalPrice();
+  });
+  
+  function updateFinalPrice() {
+    const finalBtn = modal.querySelector('.add-to-cart-final');
+    finalBtn.textContent = `Add to Cart - ${(productInfo.price * quantity).toFixed(2)}`;
+  }
+  
+  // Close modal
+  modal.querySelector('.close-size-modal').addEventListener('click', () => {
+    modal.style.opacity = '0';
+    setTimeout(() => modal.remove(), 300);
+  });
+  
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) {
+      modal.style.opacity = '0';
+      setTimeout(() => modal.remove(), 300);
+    }
+  });
+  
+  // Add to cart
+  modal.querySelector('.add-to-cart-final').addEventListener('click', () => {
+    if (selectedSize) {
+      const cartItem = {
+        id: productInfo.id,
+        name: productInfo.name,
+        price: productInfo.price,
+        quantity: quantity,
+        size: selectedSize,
+        image: productInfo.image,
+        isCustom: false
+      };
+      
+      cart.addItem(cartItem);
+      modal.style.opacity = '0';
+      setTimeout(() => modal.remove(), 300);
+    }
+  });
+  
+  // Show modal
+  setTimeout(() => {
+    modal.style.opacity = '1';
+    modal.querySelector('.size-modal-content').style.transform = 'translateY(0)';
+  }, 10);
 }
+
+// Make cart and auth globally available for other scripts
+window.cart = cart;
+window.auth = auth;
+window.showSizeSelectionModal = showSizeSelectionModal;
