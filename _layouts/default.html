@@ -65,147 +65,157 @@
     <img src="{{ site.baseurl }}/assets/images/logos/footer-1.png" alt="" class="footer-divider" loading="lazy" role="presentation">
   {% endif %}
   
-  <!-- 4. SIMPLIFIED FOOTER (Replace footer in default.html) -->
-
-<footer role="contentinfo">
-  <div class="footer-content">
-    <div class="footer-logo-container">
-      <picture>
-        <source srcset="{{ site.baseurl }}/assets/images/logos/logo.webp" type="image/webp">
-        <img src="{{ site.baseurl }}/assets/images/logos/logo.png" alt="Roza Bridal" class="footer-logo">
-      </picture>
-    </div>
-    
-    <nav class="footer-links" role="navigation" aria-label="Footer navigation">
-      <a href="{{ site.baseurl }}/#collection">Collection</a>
-      <a href="{{ site.baseurl }}/products/">All Dresses</a>
-      <a href="{{ site.baseurl }}/#about">About</a>
-      <a href="{{ site.baseurl }}/#contact">Contact</a>
+  <!-- Footer -->
+  <footer role="contentinfo">
+    <div class="footer-content">
+      <div class="footer-logo-container">
+        <picture>
+          <source srcset="{{ site.baseurl }}/assets/images/logos/logo.webp" type="image/webp">
+          <img src="{{ site.baseurl }}/assets/images/logos/logo.png" alt="Roza Bridal" class="footer-logo">
+        </picture>
+      </div>
       
-      <!-- SIMPLIFIED Legal Links (US-focused) -->
-      <a href="{{ site.baseurl }}/privacy-policy.html">Privacy Policy</a>
-      <a href="{{ site.baseurl }}/terms-of-service.html">Terms of Service</a>
-      <a href="{{ site.baseurl }}/shipping-returns.html">Shipping & Returns</a>
-      <a href="{{ site.baseurl }}/accessibility.html">Accessibility</a>
-    </nav>
-    
-    <div class="social-links">
-      <a href="https://www.instagram.com/rozabridal" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Instagram">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-          <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-          <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
-        </svg>
-      </a>
-      <a href="mailto:aetophis@aetophis.com" aria-label="Email us">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-          <polyline points="22,6 12,13 2,6"></polyline>
-        </svg>
-      </a>
+      <nav class="footer-links" role="navigation" aria-label="Footer navigation">
+        <a href="{{ site.baseurl }}/#collection">Collection</a>
+        <a href="{{ site.baseurl }}/products/">All Dresses</a>
+        <a href="{{ site.baseurl }}/#about">About</a>
+        <a href="{{ site.baseurl }}/#contact">Contact</a>
+        
+        <!-- Legal Links -->
+        <a href="{{ site.baseurl }}/privacy-policy.html">Privacy Policy</a>
+        <a href="{{ site.baseurl }}/terms-of-service.html">Terms of Service</a>
+        <a href="{{ site.baseurl }}/shipping-returns.html">Shipping & Returns</a>
+        <a href="{{ site.baseurl }}/accessibility.html">Accessibility</a>
+      </nav>
+      
+      <div class="social-links">
+        <a href="https://www.instagram.com/rozabridal" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Instagram">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+          </svg>
+        </a>
+        <a href="mailto:aetophis@aetophis.com" aria-label="Email us">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+            <polyline points="22,6 12,13 2,6"></polyline>
+          </svg>
+        </a>
+      </div>
+      
+      <p class="copyright">&copy; 2025 Roza Bridal. All rights reserved. Made in the USA 🇺🇸</p>
     </div>
-    
-    <p class="copyright">&copy; 2025 Roza Bridal. All rights reserved. Made in the USA 🇺🇸</p>
-  </div>
-</footer>
-  <!-- JavaScript -->
+  </footer>
+
+  <!-- JavaScript - CORRECTED LOADING ORDER -->
   <script src="{{ site.baseurl }}/assets/js/main-ecommerce.js"></script>
-  
-  <!-- Customization Modal -->
   <script src="{{ site.baseurl }}/assets/js/customization-modal.js"></script>
   
-  <!-- Checkout Integration (loads only on checkout page) -->
-  <script src="{{ site.baseurl }}/assets/js/checkout-integration.js"></script>
+  <!-- Checkout Integration - ONLY LOADS ON CHECKOUT PAGE -->
+  {% if page.url contains 'checkout' %}
+    <script src="{{ site.baseurl }}/assets/js/checkout-integration.js"></script>
+  {% endif %}
   
   <!-- Loading animation -->
   <script>
     // Simple loading state management
     document.addEventListener('DOMContentLoaded', () => {
       document.body.classList.add('loaded');
+      
+      // Debug: Check if customization modal is loaded
+      setTimeout(() => {
+        if (typeof openCustomizationModal === 'function') {
+          console.log('✅ Customization modal loaded successfully');
+        } else {
+          console.error('❌ Customization modal failed to load');
+        }
+      }, 1000);
     });
   </script>
+
+  <!-- Cookie Notice -->
   <div id="cookie-notice" class="cookie-notice" style="display: none;">
-  <div class="cookie-content">
-    <p>🍪 We use cookies to improve your experience. By using our site, you agree to our use of cookies.</p>
-    <button id="accept-cookies" class="cookie-accept-btn">Got it!</button>
+    <div class="cookie-content">
+      <p>🍪 We use cookies to improve your experience. By using our site, you agree to our use of cookies.</p>
+      <button id="accept-cookies" class="cookie-accept-btn">Got it!</button>
+    </div>
   </div>
-</div>
 
-<style>
-.cookie-notice {
-  position: fixed;
-  bottom: 20px;
-  left: 20px;
-  background: rgba(26, 26, 26, 0.95);
-  color: white;
-  padding: 1rem 1.5rem;
-  border-radius: 8px;
-  max-width: 400px;
-  z-index: 1000;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-}
-
-.cookie-content {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
-.cookie-content p {
-  margin: 0;
-  font-size: 0.9rem;
-  flex: 1;
-}
-
-.cookie-accept-btn {
-  background: #8b7355;
-  color: white;
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 0.9rem;
-  white-space: nowrap;
-}
-
-.cookie-accept-btn:hover {
-  background: #6d5a44;
-}
-
-@media (max-width: 768px) {
+  <style>
   .cookie-notice {
-    left: 10px;
-    right: 10px;
-    max-width: none;
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    background: rgba(26, 26, 26, 0.95);
+    color: white;
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+    max-width: 400px;
+    z-index: 1000;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
   }
-  
+
   .cookie-content {
-    flex-direction: column;
-    text-align: center;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
   }
-  
+
+  .cookie-content p {
+    margin: 0;
+    font-size: 0.9rem;
+    flex: 1;
+  }
+
   .cookie-accept-btn {
-    width: 100%;
+    background: #8b7355;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    white-space: nowrap;
   }
-}
-</style>
 
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  // Simple cookie notice - no complex EU compliance needed
-  if (!localStorage.getItem('cookies-accepted')) {
-    setTimeout(() => {
-      document.getElementById('cookie-notice').style.display = 'block';
-    }, 3000);
+  .cookie-accept-btn:hover {
+    background: #6d5a44;
   }
-  
-  document.getElementById('accept-cookies').addEventListener('click', function() {
-    localStorage.setItem('cookies-accepted', 'true');
-    document.getElementById('cookie-notice').style.display = 'none';
+
+  @media (max-width: 768px) {
+    .cookie-notice {
+      left: 10px;
+      right: 10px;
+      max-width: none;
+    }
+    
+    .cookie-content {
+      flex-direction: column;
+      text-align: center;
+    }
+    
+    .cookie-accept-btn {
+      width: 100%;
+    }
+  }
+  </style>
+
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Simple cookie notice - no complex EU compliance needed
+    if (!localStorage.getItem('cookies-accepted')) {
+      setTimeout(() => {
+        document.getElementById('cookie-notice').style.display = 'block';
+      }, 3000);
+    }
+    
+    document.getElementById('accept-cookies').addEventListener('click', function() {
+      localStorage.setItem('cookies-accepted', 'true');
+      document.getElementById('cookie-notice').style.display = 'none';
+    });
   });
-});
-</script>
+  </script>
 
----
 </body>
 </html>
