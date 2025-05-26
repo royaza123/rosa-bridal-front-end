@@ -137,7 +137,7 @@ title: Boho Wedding Dress Elegant
 
       <!-- SINGLE, ELEGANT CALL-TO-ACTION -->
       <div style="margin: 3rem 0; text-align: center;">
-        <button onclick="openCustomizationModal()" 
+        <button id="customize-btn" 
                 style="display: inline-block; padding: 1.4rem 3.5rem; background: linear-gradient(135deg, #8b7355 0%, #a08968 100%); color: white; border: none; font-weight: 500; font-size: 1rem; text-transform: uppercase; letter-spacing: 1.5px; border-radius: 6px; cursor: pointer; transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); box-shadow: 0 6px 25px rgba(139, 115, 85, 0.25); position: relative; overflow: hidden;"
                 onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 12px 40px rgba(139, 115, 85, 0.35)'"
                 onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 6px 25px rgba(139, 115, 85, 0.25)'">
@@ -252,4 +252,48 @@ document.addEventListener('keydown', (e) => {
 
 // Initialize gallery
 updateGallery();
+
+// CUSTOMIZATION MODAL FUNCTIONALITY
+document.addEventListener('DOMContentLoaded', function() {
+  // Wait for all scripts to load
+  setTimeout(function() {
+    const customizeBtn = document.getElementById('customize-btn');
+    
+    if (customizeBtn) {
+      customizeBtn.addEventListener('click', function() {
+        console.log('Customize button clicked');
+        
+        // Check if customization modal function exists
+        if (typeof openCustomizationModal === 'function') {
+          console.log('Opening customization modal...');
+          openCustomizationModal(
+            'Boho Wedding Dress Elegant', 
+            298.43, 
+            '{{ site.baseurl }}/assets/images/boho-wedding-dress-elegant/main.webp', 
+            'boho'
+          );
+        } else {
+          console.error('Customization modal not available');
+          // Fallback - open email directly
+          const subject = encodeURIComponent('Custom Boho Wedding Dress Inquiry');
+          const body = encodeURIComponent(`Hello Roza Bridal!
+
+I'm interested in customizing the Boho Wedding Dress Elegant.
+
+Please provide information about:
+- Customization options
+- Sizing and measurements
+- Pricing details
+- Timeline for completion
+
+Looking forward to creating my dream dress!
+
+Best regards`);
+          
+          window.open(`mailto:aetophis@aetophis.com?subject=${subject}&body=${body}`, '_blank');
+        }
+      });
+    }
+  }, 500); // Small delay to ensure all scripts are loaded
+});
 </script>
