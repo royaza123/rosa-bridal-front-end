@@ -1,0 +1,921 @@
+---
+layout: default
+title: My Orders - Roza Bridal
+---
+
+<div style="max-width: 1200px; margin: 3rem auto; padding: 0 2rem;">
+  <!-- Page Header -->
+  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 3rem; flex-wrap: wrap; gap: 1rem;">
+    <div>
+      <h1 style="font-family: 'Cormorant Garamond', serif; font-size: 2.5rem; color: #1a1a1a; margin-bottom: 0.5rem;">My Orders</h1>
+      <p id="orders-summary" style="color: #666; margin: 0;">Loading your orders...</p>
+    </div>
+    <div style="display: flex; gap: 1rem;">
+      <a href="{{ site.baseurl }}/account.html" style="padding: 0.75rem 1.5rem; background: #c9a96e; color: white; text-decoration: none; border-radius: 6px; font-weight: 500; transition: all 0.3s;">
+        Back to Account
+      </a>
+      <a href="{{ site.baseurl }}/products/" style="padding: 0.75rem 1.5rem; background: linear-gradient(135deg, #c9a96e 0%, #d4b875 100%); color: white; text-decoration: none; border-radius: 6px; font-weight: 500; transition: all 0.3s;">
+        Browse Dresses
+      </a>
+    </div>
+  </div>
+
+  <!-- Order Filters & Search -->
+  <div style="background: white; border-radius: 12px; padding: 1.5rem; box-shadow: 0 4px 20px rgba(0,0,0,0.04); margin-bottom: 2rem;">
+    <div style="display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;">
+      <label style="font-weight: 500; color: #333;">Filter:</label>
+      <select id="order-filter" style="padding: 0.5rem 1rem; border: 1px solid #e0e0e0; border-radius: 6px; font-size: 0.9rem;">
+        <option value="all">All Orders</option>
+        <option value="recent">Last 30 Days</option>
+        <option value="custom">Custom Orders Only</option>
+        <option value="pending">Pending Orders</option>
+        <option value="processing">In Production</option>
+        <option value="completed">Completed Orders</option>
+      </select>
+      <input type="text" id="search-orders" placeholder="Search by order ID or dress name..." style="padding: 0.5rem 1rem; border: 1px solid #e0e0e0; border-radius: 6px; min-width: 250px; font-size: 0.9rem;">
+      <button onclick="clearFilters()" style="padding: 0.5rem 1rem; background: #f8f9fa; color: #666; border: 1px solid #e0e0e0; border-radius: 6px; cursor: pointer; font-size: 0.9rem;">
+        Clear Filters
+      </button>
+    </div>
+  </div>
+
+  <!-- Orders List -->
+  <div id="orders-container">
+    <!-- Orders will be populated here -->
+  </div>
+
+  <!-- Empty State -->
+  <div id="empty-orders" style="text-align: center; padding: 4rem 2rem; background: white; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.04); display: none;">
+    <div style="font-size: 4rem; margin-bottom: 1rem;">👗</div>
+    <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; color: #1a1a1a; margin-bottom: 1rem;">No Orders Found</h3>
+    <p style="color: #666; margin-bottom: 2rem;" id="empty-message">Ready to find your dream dress? Browse our beautiful collection!</p>
+    <a href="{{ site.baseurl }}/products/" style="display: inline-block; padding: 1rem 2rem; background: linear-gradient(135deg, #c9a96e 0%, #d4b875 100%); color: white; text-decoration: none; border-radius: 50px; font-weight: 600; transition: all 0.3s;">
+      Browse Wedding Dresses
+    </a>
+  </div>
+
+  <!-- Order Statistics -->
+  <div id="order-stats" style="display: none; margin-top: 3rem; background: linear-gradient(135deg, #f8f9fa 0%, #f0f4f7 100%); border-radius: 12px; padding: 2rem;">
+    <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; color: #1a1a1a; margin-bottom: 1.5rem; text-align: center;">Your Order History</h3>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1.5rem; text-align: center;">
+      <div>
+        <div style="font-size: 2rem; color: #c9a96e; font-weight: 600;" id="total-orders">0</div>
+        <div style="color: #666; font-size: 0.9rem;">Total Orders</div>
+      </div>
+      <div>
+        <div style="font-size: 2rem; color: #c9a96e; font-weight: 600;" id="custom-orders">0</div>
+        <div style="color: #666; font-size: 0.9rem;">Custom Designs</div>
+      </div>
+      <div>
+        <div style="font-size: 2rem; color: #c9a96e; font-weight: 600;" id="total-spent">$0</div>
+        <div style="color: #666; font-size: 0.9rem;">Total Invested</div>
+      </div>
+      <div>
+        <div style="font-size: 2rem; color: #c9a96e; font-weight: 600;" id="avg-order">$0</div>
+        <div style="color: #666; font-size: 0.9rem;">Average Order</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.order-card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+  margin-bottom: 1.5rem;
+  overflow: hidden;
+  transition: all 0.3s;
+  border: 1px solid #f0f0f0;
+}
+
+.order-card:hover {
+  box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+  transform: translateY(-2px);
+  border-color: #c9a96e;
+}
+
+.order-header {
+  background: linear-gradient(135deg, #f8f9fa 0%, #f0f4f7 100%);
+  padding: 1.5rem;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.order-body {
+  padding: 1.5rem;
+}
+
+.order-status {
+  display: inline-block;
+  padding: 0.4rem 1rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border: 2px solid transparent;
+}
+
+.status-pending {
+  background: linear-gradient(135deg, #fff3cd 0%, #fef3c7 100%);
+  color: #92400e;
+  border-color: #fbbf24;
+}
+
+.status-processing {
+  background: linear-gradient(135deg, #d4edda 0%, #dcfce7 100%);
+  color: #166534;
+  border-color: #16a34a;
+}
+
+.status-completed {
+  background: linear-gradient(135deg, #d1ecf1 0%, #dbeafe 100%);
+  color: #1e40af;
+  border-color: #3b82f6;
+}
+
+.status-cancelled {
+  background: linear-gradient(135deg, #f8d7da 0%, #fee2e2 100%);
+  color: #dc2626;
+  border-color: #ef4444;
+}
+
+.order-item {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid #f0f0f0;
+  transition: all 0.3s;
+}
+
+.order-item:last-child {
+  border-bottom: none;
+}
+
+.order-item:hover {
+  background: rgba(201, 169, 110, 0.02);
+  border-radius: 8px;
+  padding: 1rem;
+  margin: 0 -1rem;
+}
+
+.order-item-image {
+  width: 80px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 8px;
+  flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.order-item-details {
+  flex: 1;
+  min-width: 0;
+}
+
+.custom-details {
+  background: linear-gradient(135deg, rgba(201, 169, 110, 0.05) 0%, rgba(212, 184, 117, 0.05) 100%);
+  border-left: 3px solid #c9a96e;
+  padding: 0.75rem;
+  margin-top: 0.75rem;
+  border-radius: 0 8px 8px 0;
+  box-shadow: 0 2px 8px rgba(201, 169, 110, 0.1);
+}
+
+.action-button {
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: all 0.3s;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #c9a96e 0%, #d4b875 100%);
+  color: white;
+  box-shadow: 0 2px 8px rgba(201, 169, 110, 0.3);
+}
+
+.btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(201, 169, 110, 0.4);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: #c9a96e;
+  border: 1px solid #c9a96e;
+}
+
+.btn-secondary:hover {
+  background: #c9a96e;
+  color: white;
+  transform: translateY(-1px);
+}
+
+.order-timeline {
+  margin-top: 1rem;
+  padding: 1rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border-left: 3px solid #c9a96e;
+}
+
+@media (max-width: 768px) {
+  .order-header {
+    padding: 1rem;
+  }
+  
+  .order-body {
+    padding: 1rem;
+  }
+  
+  .order-item {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  
+  .order-item-image {
+    width: 100%;
+    height: 200px;
+    align-self: center;
+    max-width: 200px;
+  }
+  
+  .action-buttons {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .action-button {
+    width: 100%;
+  }
+  
+  #order-filter, #search-orders {
+    width: 100%;
+    min-width: auto;
+  }
+}
+
+.loading-spinner {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #f3f3f3;
+  border-top: 2px solid #c9a96e;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+</style>
+
+<script>
+// Orders Management System with Enhanced Features
+let allUserOrders = [];
+let filteredOrders = [];
+let currentUser = null;
+
+document.addEventListener('DOMContentLoaded', function() {
+  // Check if user is logged in
+  if (!isUserLoggedIn()) {
+    window.location.href = '{{ site.baseurl }}/';
+    return;
+  }
+  
+  loadUserOrders();
+  setupOrderFilters();
+  setupSearch();
+});
+
+function isUserLoggedIn() {
+  const userData = localStorage.getItem('rozaBridalUser');
+  if (userData) {
+    currentUser = JSON.parse(userData);
+    return true;
+  }
+  return false;
+}
+
+function loadUserOrders() {
+  const allOrders = JSON.parse(localStorage.getItem('rozaBridalOrders') || '[]');
+  
+  // Filter orders for current user by email
+  allUserOrders = allOrders.filter(order => 
+    order.contact && order.contact.email === currentUser.email
+  );
+  
+  // Sort orders by date (newest first)
+  allUserOrders.sort((a, b) => new Date(b.orderDate) - new Date(a.orderDate));
+  
+  // Set initial filtered orders
+  filteredOrders = [...allUserOrders];
+  
+  // Update summary and render
+  updateOrdersSummary();
+  renderOrders();
+  updateOrderStatistics();
+  
+  // Send user activity to MailerLite
+  trackUserActivity();
+}
+
+function updateOrdersSummary() {
+  const summaryElement = document.getElementById('orders-summary');
+  const totalOrders = allUserOrders.length;
+  
+  if (totalOrders === 0) {
+    summaryElement.textContent = 'You haven\'t placed any orders yet.';
+  } else {
+    const customOrders = allUserOrders.filter(order => order.items.some(item => item.isCustom)).length;
+    const totalSpent = allUserOrders.reduce((sum, order) => sum + order.totals.total, 0);
+    
+    summaryElement.innerHTML = `
+      You have <strong>${totalOrders}</strong> order${totalOrders > 1 ? 's' : ''}
+      ${customOrders > 0 ? ` (<strong>${customOrders}</strong> custom design${customOrders > 1 ? 's' : ''})` : ''}
+      • Total invested: <strong style="color: #c9a96e;">$${totalSpent.toFixed(2)}</strong>
+    `;
+  }
+}
+
+function updateOrderStatistics() {
+  if (allUserOrders.length === 0) {
+    document.getElementById('order-stats').style.display = 'none';
+    return;
+  }
+  
+  document.getElementById('order-stats').style.display = 'block';
+  
+  const totalOrders = allUserOrders.length;
+  const customOrders = allUserOrders.filter(order => order.items.some(item => item.isCustom)).length;
+  const totalSpent = allUserOrders.reduce((sum, order) => sum + order.totals.total, 0);
+  const avgOrder = totalSpent / totalOrders;
+  
+  document.getElementById('total-orders').textContent = totalOrders;
+  document.getElementById('custom-orders').textContent = customOrders;
+  document.getElementById('total-spent').textContent = `$${totalSpent.toFixed(2)}`;
+  document.getElementById('avg-order').textContent = `$${avgOrder.toFixed(2)}`;
+}
+
+function renderOrders() {
+  const container = document.getElementById('orders-container');
+  const emptyState = document.getElementById('empty-orders');
+  const emptyMessage = document.getElementById('empty-message');
+  
+  if (filteredOrders.length === 0) {
+    container.innerHTML = '';
+    emptyState.style.display = 'block';
+    
+    // Update empty message based on filters
+    const filterValue = document.getElementById('order-filter').value;
+    const searchValue = document.getElementById('search-orders').value;
+    
+    if (allUserOrders.length === 0) {
+      emptyMessage.textContent = 'Ready to find your dream dress? Browse our beautiful collection!';
+    } else if (searchValue) {
+      emptyMessage.textContent = `No orders found matching "${searchValue}". Try a different search term.`;
+    } else if (filterValue !== 'all') {
+      emptyMessage.textContent = `No ${filterValue} orders found. Try changing your filter.`;
+    }
+    return;
+  }
+  
+  emptyState.style.display = 'none';
+  container.innerHTML = filteredOrders.map(order => createOrderCard(order)).join('');
+}
+
+function createOrderCard(order) {
+  const orderDate = new Date(order.orderDate).toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit'
+  });
+  
+  const status = getOrderStatus(order);
+  const statusClass = getStatusClass(status);
+  const orderItems = order.items.map(item => createOrderItem(item)).join('');
+  const hasCustomItems = order.items.some(item => item.isCustom);
+  
+  return `
+    <div class="order-card">
+      <div class="order-header">
+        <div style="display: flex; justify-content: space-between; align-items: start; flex-wrap: wrap; gap: 1rem;">
+          <div>
+            <h3 style="margin: 0 0 0.5rem; color: #1a1a1a; font-size: 1.3rem; font-family: 'Cormorant Garamond', serif;">
+              Order #${order.orderId}
+              ${hasCustomItems ? '<span style="color: #c9a96e; font-size: 0.8rem; margin-left: 0.5rem;">✨ CUSTOM</span>' : ''}
+            </h3>
+            <p style="margin: 0; color: #666; font-size: 0.9rem;">
+              <strong>Placed:</strong> ${orderDate}<br>
+              <strong>Items:</strong> ${order.items.length} dress${order.items.length > 1 ? 'es' : ''}
+            </p>
+          </div>
+          <div style="text-align: right;">
+            <span class="order-status ${statusClass}">${status}</span>
+            <p style="margin: 0.5rem 0 0; font-weight: 600; font-size: 1.4rem; color: #c9a96e; font-family: 'Cormorant Garamond', serif;">
+              $${order.totals.total.toFixed(2)}
+            </p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="order-body">
+        <div style="margin-bottom: 1.5rem;">
+          <h4 style="margin: 0 0 1rem; color: #1a1a1a; font-size: 1.1rem; display: flex; align-items: center; gap: 0.5rem;">
+            <span>👗</span> Your Dresses
+          </h4>
+          ${orderItems}
+        </div>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; font-size: 0.9rem; color: #666; margin: 1.5rem 0;">
+          <div style="background: #f8f9fa; padding: 1rem; border-radius: 8px;">
+            <strong style="color: #1a1a1a;">📦 Shipping Address:</strong><br>
+            ${order.shipping.name}<br>
+            ${order.shipping.address}${order.shipping.apartment ? ', ' + order.shipping.apartment : ''}<br>
+            ${order.shipping.city}, ${order.shipping.state} ${order.shipping.postal}<br>
+            ${order.shipping.country}
+          </div>
+          <div style="background: #f8f9fa; padding: 1rem; border-radius: 8px;">
+            <strong style="color: #1a1a1a;">💳 Payment & Contact:</strong><br>
+            <strong>Method:</strong> ${getPaymentMethodName(order.payment.preferredMethod)}<br>
+            <strong>Email:</strong> ${order.contact.email}<br>
+            <strong>Phone:</strong> ${order.contact.phone}
+          </div>
+        </div>
+        
+        ${order.notes ? `
+          <div style="margin: 1rem 0; padding: 1rem; background: linear-gradient(135deg, #f8f9fa 0%, #f0f4f7 100%); border-radius: 8px; border-left: 3px solid #c9a96e;">
+            <strong style="color: #1a1a1a;">💌 Your Special Notes:</strong><br>
+            <span style="color: #666; font-style: italic;">"${order.notes}"</span>
+          </div>
+        ` : ''}
+        
+        ${createOrderTimeline(order)}
+        
+        <div class="action-buttons" style="margin-top: 1.5rem; display: flex; gap: 1rem; flex-wrap: wrap;">
+          <button onclick="trackOrder('${order.orderId}')" class="action-button btn-primary">
+            📍 Track Order
+          </button>
+          <button onclick="reorderItems('${order.orderId}')" class="action-button btn-secondary">
+            🔄 Reorder
+          </button>
+          <button onclick="contactSupport('${order.orderId}')" class="action-button btn-secondary">
+            💬 Contact Support
+          </button>
+          ${hasCustomItems ? `<button onclick="viewCustomDetails('${order.orderId}')" class="action-button btn-secondary">✨ View Custom Details</button>` : ''}
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function createOrderItem(item) {
+  const customDetails = item.isCustom && item.customizations ? `
+    <div class="custom-details">
+      <strong style="color: #c9a96e; font-size: 0.9rem; display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+        <span>✨</span> Custom Design Details
+      </strong>
+      <div style="font-size: 0.85rem; color: #666; line-height: 1.4;">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 0.5rem;">
+          <div><strong>Style:</strong> ${item.customizations.style}</div>
+          <div><strong>Neckline:</strong> ${item.customizations.neckline}</div>
+          <div><strong>Color:</strong> ${item.customizations.color}</div>
+          <div><strong>Fabric:</strong> ${item.customizations.fabric}</div>
+          <div><strong>Train:</strong> ${item.customizations.train}</div>
+        </div>
+        ${item.customizations.specialRequests ? `
+          <div style="margin-top: 0.5rem; padding-top: 0.5rem; border-top: 1px solid rgba(201, 169, 110, 0.2);">
+            <strong>Special Requests:</strong><br>
+            <em>"${item.customizations.specialRequests.length > 150 ? item.customizations.specialRequests.substring(0, 150) + '...' : item.customizations.specialRequests}"</em>
+          </div>
+        ` : ''}
+      </div>
+    </div>
+  ` : '';
+  
+  return `
+    <div class="order-item">
+      <img src="${item.image || '/assets/images/placeholder-dress.jpg'}" alt="${item.name}" class="order-item-image" onerror="this.src='/assets/images/placeholder-dress.jpg'">
+      <div class="order-item-details">
+        <h5 style="margin: 0 0 0.5rem; color: #1a1a1a; font-size: 1.1rem; font-family: 'Cormorant Garamond', serif;">
+          ${item.name} ${item.isCustom ? '<span style="color: #c9a96e; font-size: 0.8rem;">✨ CUSTOM</span>' : ''}
+        </h5>
+        <div style="display: flex; flex-wrap: wrap; gap: 1rem; font-size: 0.9rem; color: #666; margin-bottom: 0.5rem;">
+          <span><strong>Size:</strong> ${item.size}</span>
+          <span><strong>Quantity:</strong> ${item.quantity}</span>
+          <span><strong>Unit Price:</strong> $${item.price.toFixed(2)}</span>
+          <span style="color: #c9a96e; font-weight: 600;"><strong>Total:</strong> $${(item.price * item.quantity).toFixed(2)}</span>
+        </div>
+        ${customDetails}
+      </div>
+    </div>
+  `;
+}
+
+function createOrderTimeline(order) {
+  const daysSince = Math.floor((new Date() - new Date(order.orderDate)) / (1000 * 60 * 60 * 24));
+  const status = getOrderStatus(order);
+  
+  let timelineSteps = [
+    { step: 'Order Placed', completed: true, date: new Date(order.orderDate).toLocaleDateString() },
+    { step: 'Order Confirmed', completed: daysSince >= 1, date: daysSince >= 1 ? 'Within 24 hours' : 'Pending' },
+    { step: 'In Production', completed: daysSince >= 7, date: daysSince >= 7 ? `Day ${Math.min(daysSince, 30)}` : 'Waiting' },
+    { step: 'Quality Check', completed: daysSince >= 28, date: daysSince >= 28 ? 'Completed' : 'Pending' },
+    { step: 'Shipped', completed: daysSince >= 35, date: daysSince >= 35 ? 'Shipped' : 'Processing' }
+  ];
+  
+  return `
+    <div class="order-timeline">
+      <strong style="color: #1a1a1a; display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem;">
+        <span>📅</span> Order Progress
+      </strong>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 1rem;">
+        ${timelineSteps.map(step => `
+          <div style="text-align: center; opacity: ${step.completed ? '1' : '0.5'};">
+            <div style="width: 30px; height: 30px; border-radius: 50%; background: ${step.completed ? '#c9a96e' : '#e0e0e0'}; margin: 0 auto 0.5rem; display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; font-size: 0.8rem;">
+              ${step.completed ? '✓' : '○'}
+            </div>
+            <div style="font-size: 0.8rem; font-weight: 500; color: ${step.completed ? '#1a1a1a' : '#999'};">${step.step}</div>
+            <div style="font-size: 0.7rem; color: #666;">${step.date}</div>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  `;
+}
+
+function getOrderStatus(order) {
+  const daysSince = Math.floor((new Date() - new Date(order.orderDate)) / (1000 * 60 * 60 * 24));
+  
+  // Simple status logic based on days since order
+  if (daysSince < 1) return 'Pending';
+  if (daysSince < 7) return 'Confirmed';
+  if (daysSince < 35) return 'In Production';
+  if (daysSince < 42) return 'Shipped';
+  return 'Delivered';
+}
+
+function getStatusClass(status) {
+  const statusMap = {
+    'Pending': 'status-pending',
+    'Confirmed': 'status-processing',
+    'In Production': 'status-processing',
+    'Shipped': 'status-processing',
+    'Delivered': 'status-completed',
+    'Cancelled': 'status-cancelled'
+  };
+  return statusMap[status] || 'status-pending';
+}
+
+function getPaymentMethodName(method) {
+  const methods = {
+    'credit-card': 'Credit Card',
+    'paypal': 'PayPal',
+    'bank-transfer': 'Bank Transfer',
+    'installments': 'Payment Plan'
+  };
+  return methods[method] || method;
+}
+
+function setupOrderFilters() {
+  const filterSelect = document.getElementById('order-filter');
+  
+  filterSelect.addEventListener('change', function() {
+    applyFilters();
+  });
+}
+
+function setupSearch() {
+  const searchInput = document.getElementById('search-orders');
+  
+  searchInput.addEventListener('input', function() {
+    applyFilters();
+  });
+}
+
+function applyFilters() {
+  const filterValue = document.getElementById('order-filter').value;
+  const searchValue = document.getElementById('search-orders').value.toLowerCase();
+  
+  filteredOrders = allUserOrders.filter(order => {
+    // Apply search filter
+    const matchesSearch = !searchValue || 
+      order.orderId.toLowerCase().includes(searchValue) ||
+      order.items.some(item => item.name.toLowerCase().includes(searchValue));
+    
+    if (!matchesSearch) return false;
+    
+    // Apply status filter
+    switch(filterValue) {
+      case 'recent':
+        const thirtyDaysAgo = new Date();
+        thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+        return new Date(order.orderDate) >= thirtyDaysAgo;
+      
+      case 'custom':
+        return order.items.some(item => item.isCustom);
+      
+      case 'pending':
+        return getOrderStatus(order) === 'Pending';
+      
+      case 'processing':
+        const status = getOrderStatus(order);
+        return status === 'Confirmed' || status === 'In Production' || status === 'Shipped';
+      
+      case 'completed':
+        return getOrderStatus(order) === 'Delivered';
+      
+      default:
+        return true;
+    }
+  });
+  
+  renderOrders();
+}
+
+function clearFilters() {
+  document.getElementById('order-filter').value = 'all';
+  document.getElementById('search-orders').value = '';
+  applyFilters();
+}
+
+// Order Action Functions
+function trackOrder(orderId) {
+  const order = allUserOrders.find(o => o.orderId === orderId);
+  if (!order) return;
+  
+  const status = getOrderStatus(order);
+  const daysSince = Math.floor((new Date() - new Date(order.orderDate)) / (1000 * 60 * 60 * 24));
+  
+  let trackingMessage = `📦 Order #${orderId} Status: ${status}\n\n`;
+  
+  switch(status) {
+    case 'Pending':
+      trackingMessage += `⏳ Your order was just placed and is being reviewed by our team.\n\nNext Steps:\n• Order confirmation within 24 hours\n• Custom design consultation (if applicable)\n• Production timeline confirmation`;
+      break;
+    case 'Confirmed':
+      trackingMessage += `✅ Your order has been confirmed!\n\nNext Steps:\n• Production begins within 3-5 days\n• Custom fittings scheduled (if needed)\n• Expected completion: ${Math.max(0, 35 - daysSince)} days`;
+      break;
+    case 'In Production':
+      trackingMessage += `🎨 Your dress is being crafted with love!\n\nProgress:\n• Production Day ${daysSince - 6} of ~28\n• Quality checks in progress\n• Estimated completion: ${Math.max(0, 35 - daysSince)} days`;
+      break;
+    case 'Shipped':
+      trackingMessage += `🚚 Your dress is on its way to you!\n\nShipping Details:\n• Shipped ${daysSince - 35} days ago\n• Estimated delivery: 2-5 business days\n• You'll receive tracking details via email`;
+      break;
+    case 'Delivered':
+      trackingMessage += `🎉 Your dress has been delivered!\n\nEnjoy your beautiful gown! We hope it's everything you dreamed of.\n\nNeed alterations or have questions? Contact our support team.`;
+      break;
+  }
+  
+  alert(trackingMessage);
+  
+  // Track activity in MailerLite
+  if (typeof ml !== 'undefined') {
+    ml('track', 'order_tracking', {
+      order_id: orderId,
+      order_status: status,
+      days_since_order: daysSince
+    });
+  }
+}
+
+function reorderItems(orderId) {
+  const order = allUserOrders.find(o => o.orderId === orderId);
+  if (!order) return;
+  
+  if (confirm(`Would you like to reorder the items from Order #${orderId}?\n\nThis will add the same dresses to your cart.`)) {
+    // Add items to cart
+    if (window.cart && window.cart.addItem) {
+      order.items.forEach(item => {
+        const reorderItem = {
+          ...item,
+          id: item.id + '_reorder_' + Date.now(),
+          quantity: 1 // Reset quantity to 1 for reorder
+        };
+        window.cart.addItem(reorderItem);
+      });
+      
+      alert(`✅ ${order.items.length} item${order.items.length > 1 ? 's' : ''} added to your cart!`);
+      
+      // Track reorder in MailerLite
+      if (typeof ml !== 'undefined') {
+        ml('track', 'reorder', {
+          original_order_id: orderId,
+          items_count: order.items.length,
+          total_value: order.totals.total
+        });
+      }
+    } else {
+      alert('Cart system not available. Please try again or contact support.');
+    }
+  }
+}
+
+function contactSupport(orderId) {
+  const order = allUserOrders.find(o => o.orderId === orderId);
+  if (!order) return;
+  
+  const subject = encodeURIComponent(`Support Request - Order #${orderId}`);
+  const body = encodeURIComponent(`Hello Roza Bridal Support Team,
+
+I need assistance with my order:
+
+ORDER DETAILS:
+• Order ID: ${orderId}
+• Order Date: ${new Date(order.orderDate).toLocaleDateString()}
+• Total: ${order.totals.total.toFixed(2)}
+• Status: ${getOrderStatus(order)}
+
+CUSTOMER INFO:
+• Name: ${order.shipping.name}
+• Email: ${order.contact.email}
+• Phone: ${order.contact.phone}
+
+MY QUESTION/CONCERN:
+[Please describe your question or concern here]
+
+Thank you for your assistance!
+
+Best regards,
+${order.shipping.name}`);
+  
+  window.open(`mailto:aetophis@aetophis.com?subject=${subject}&body=${body}`, '_blank');
+  
+  // Track support contact in MailerLite
+  if (typeof ml !== 'undefined') {
+    ml('track', 'support_contact', {
+      order_id: orderId,
+      contact_reason: 'general_inquiry'
+    });
+  }
+}
+
+function viewCustomDetails(orderId) {
+  const order = allUserOrders.find(o => o.orderId === orderId);
+  if (!order) return;
+  
+  const customItems = order.items.filter(item => item.isCustom);
+  
+  let detailsHtml = `
+    <div style="max-width: 600px; margin: 0 auto; padding: 2rem; background: white; border-radius: 12px; box-shadow: 0 8px 30px rgba(0,0,0,0.15);">
+      <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; color: #1a1a1a; margin-bottom: 1.5rem; text-align: center;">
+        ✨ Custom Design Details - Order #${orderId}
+      </h3>
+  `;
+  
+  customItems.forEach((item, index) => {
+    detailsHtml += `
+      <div style="background: linear-gradient(135deg, #f8f9fa 0%, #f0f4f7 100%); padding: 1.5rem; border-radius: 8px; margin-bottom: 1rem; border-left: 3px solid #c9a96e;">
+        <h4 style="margin: 0 0 1rem; color: #1a1a1a; font-size: 1.2rem;">${item.name}</h4>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 1rem; font-size: 0.9rem;">
+          <div><strong>Style:</strong><br>${item.customizations.style}</div>
+          <div><strong>Neckline:</strong><br>${item.customizations.neckline}</div>
+          <div><strong>Color:</strong><br>${item.customizations.color}</div>
+          <div><strong>Fabric:</strong><br>${item.customizations.fabric}</div>
+          <div><strong>Train:</strong><br>${item.customizations.train}</div>
+          <div><strong>Size:</strong><br>${item.size}</div>
+        </div>
+        ${item.customizations.specialRequests ? `
+          <div style="margin-top: 1rem; padding: 1rem; background: rgba(255,255,255,0.7); border-radius: 6px;">
+            <strong>Special Requests:</strong><br>
+            <em style="color: #666;">"${item.customizations.specialRequests}"</em>
+          </div>
+        ` : ''}
+      </div>
+    `;
+  });
+  
+  detailsHtml += `
+      <div style="text-align: center; margin-top: 1.5rem;">
+        <button onclick="closeCustomDetailsModal()" style="padding: 0.75rem 2rem; background: #c9a96e; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 500;">
+          Close
+        </button>
+      </div>
+    </div>
+  `;
+  
+  // Create modal
+  const modal = document.createElement('div');
+  modal.id = 'custom-details-modal';
+  modal.style.cssText = `
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.8);
+    backdrop-filter: blur(4px);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  `;
+  
+  modal.innerHTML = detailsHtml;
+  document.body.appendChild(modal);
+  
+  // Show modal with animation
+  setTimeout(() => {
+    modal.style.opacity = '1';
+  }, 10);
+  
+  // Close on outside click
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) {
+      closeCustomDetailsModal();
+    }
+  });
+}
+
+function closeCustomDetailsModal() {
+  const modal = document.getElementById('custom-details-modal');
+  if (modal) {
+    modal.style.opacity = '0';
+    setTimeout(() => {
+      modal.remove();
+    }, 300);
+  }
+}
+
+// MailerLite Integration for User Activity Tracking
+function trackUserActivity() {
+  if (typeof ml === 'undefined') {
+    console.log('MailerLite not loaded, skipping user tracking');
+    return;
+  }
+  
+  const totalOrders = allUserOrders.length;
+  const customOrders = allUserOrders.filter(order => order.items.some(item => item.isCustom)).length;
+  const totalSpent = allUserOrders.reduce((sum, order) => sum + order.totals.total, 0);
+  const lastOrderDate = allUserOrders.length > 0 ? allUserOrders[0].orderDate : null;
+  
+  // Update user profile with order statistics
+  ml('identify', {
+    email: currentUser.email,
+    fields: {
+      name: `${currentUser.firstName} ${currentUser.lastName}`,
+      first_name: currentUser.firstName,
+      last_name: currentUser.lastName,
+      total_orders: totalOrders,
+      custom_orders: customOrders,
+      total_spent: totalSpent,
+      avg_order_value: totalOrders > 0 ? (totalSpent / totalOrders) : 0,
+      last_order_date: lastOrderDate,
+      last_login: new Date().toISOString(),
+      orders_page_visit: new Date().toISOString()
+    }
+  });
+  
+  // Track page visit
+  ml('track', 'orders_page_visit', {
+    total_orders: totalOrders,
+    total_spent: totalSpent,
+    has_custom_orders: customOrders > 0
+  });
+}
+
+// Initialize MailerLite
+document.addEventListener('DOMContentLoaded', function() {
+  // Load MailerLite script
+  if (!window.ml) {
+    (function(w,d,e,u,f,l,n){w[f]=w[f]||function(){(w[f].q=w[f].q||[])
+    .push(arguments);},l=d.createElement(e),l.async=1,l.src=u,
+    n=d.getElementsByTagName(e)[0],n.parentNode.insertBefore(l,n);})
+    (window,document,'script','https://assets.mailerlite.com/js/universal.js','ml');
+    ml('account', '1551678');
+  }
+});
+
+// Keyboard shortcuts
+document.addEventListener('keydown', function(e) {
+  // Escape key to close modals
+  if (e.key === 'Escape') {
+    closeCustomDetailsModal();
+  }
+  
+  // Ctrl/Cmd + F to focus search
+  if ((e.ctrlKey || e.metaKey) && e.key === 'f') {
+    e.preventDefault();
+    document.getElementById('search-orders').focus();
+  }
+});
+
+// Auto-refresh orders every 5 minutes to check for updates
+setInterval(() => {
+  if (document.visibilityState === 'visible') {
+    loadUserOrders();
+  }
+}, 5 * 60 * 1000);
+</script>
