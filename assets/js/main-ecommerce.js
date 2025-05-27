@@ -904,21 +904,23 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Load product prices on current page - ENHANCED FOR LUXURY DISPLAY
 // Load product prices on current page - FIXED FOR DECIMAL DISPLAY
+// Load product prices on current page - FIXED FOR DECIMAL DISPLAY
 function loadProductPrices() {
   const currentProductId = getCurrentProductId();
   const productInfo = getProductInfo(currentProductId);
   
   if (productInfo) {
-    // Update product price display with FULL decimals - FIXED!
+    // ONLY update if the element doesn't already have the correct price (prevent overwriting HTML)
     const priceElement = document.getElementById('product-price');
     const originalPriceElement = document.getElementById('original-price');
     
-    if (priceElement) {
-      priceElement.textContent = `$${productInfo.price.toFixed(2)}`; // CHANGED FROM .toFixed(0) to .toFixed(2)
+    if (priceElement && !priceElement.textContent.includes('.')) {
+      // Only update if it doesn't have decimals (meaning it was rounded)
+      priceElement.textContent = `${productInfo.price.toFixed(2)}`;
     }
     
-    if (originalPriceElement && productInfo.originalPrice) {
-      originalPriceElement.textContent = `$${productInfo.originalPrice.toFixed(2)}`; // CHANGED FROM .toFixed(0) to .toFixed(2)
+    if (originalPriceElement && productInfo.originalPrice && !originalPriceElement.textContent.includes('.')) {
+      originalPriceElement.textContent = `${productInfo.originalPrice.toFixed(2)}`;
     }
     
     // Update customize button with correct price and product info
