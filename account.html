@@ -259,9 +259,466 @@ function showAccountDetails() {
   document.getElementById('account-details-section').scrollIntoView({ behavior: 'smooth' });
 }
 
-function showPreferences() {
-  showNotification('Preferences panel coming soon! 🎨', 'info');
+// REPLACE the existing showPreferences() function in account.html with this complete system:
+
+// User Preferences Structure
+const defaultPreferences = {
+  emailNotifications: {
+    orderUpdates: true,
+    promotions: true,
+    newCollections: true,
+    personalizedOffers: true,
+    weddingTips: false,
+    newsletter: true
+  },
+  shopping: {
+    preferredStyle: '',
+    preferredSizes: [],
+    priceRange: 'any',
+    favoriteColors: [],
+    bodyType: '',
+    weddingStyle: '',
+    budgetRange: ''
+  },
+  display: {
+    currency: 'USD',
+    measurementUnit: 'US',
+    language: 'en',
+    theme: 'light',
+    showPricesInclTax: false
+  },
+  privacy: {
+    shareDataForPersonalization: true,
+    allowAnalytics: true,
+    showInTestimonials: false,
+    publicWishlist: false
+  },
+  wedding: {
+    date: '',
+    venue: '',
+    style: '',
+    season: '',
+    timeOfDay: '',
+    guestCount: '',
+    budget: ''
+  }
+};
+
+// Load user preferences from localStorage
+function loadUserPreferences() {
+  const saved = localStorage.getItem('rozaBridalPreferences');
+  return saved ? { ...defaultPreferences, ...JSON.parse(saved) } : defaultPreferences;
 }
+
+// Save user preferences to localStorage
+function saveUserPreferences(preferences) {
+  localStorage.setItem('rozaBridalPreferences', JSON.stringify(preferences));
+  
+  // Update MailerLite with preferences
+  if (typeof ml !== 'undefined') {
+    const currentUser = JSON.parse(localStorage.getItem('rozaBridalUser'));
+    ml('identify', {
+      email: currentUser.email,
+      fields: {
+        preferred_style: preferences.shopping.preferredStyle,
+        preferred_sizes: preferences.shopping.preferredSizes.join(','),
+        price_range: preferences.shopping.priceRange,
+        favorite_colors: preferences.shopping.favoriteColors.join(','),
+        wedding_date: preferences.wedding.date,
+        wedding_venue: preferences.wedding.venue,
+        wedding_style: preferences.wedding.style,
+        wedding_season: preferences.wedding.season,
+        budget_range: preferences.wedding.budget,
+        email_promotions: preferences.emailNotifications.promotions,
+        email_newsletter: preferences.emailNotifications.newsletter,
+        preferences_updated: new Date().toISOString()
+      }
+    });
+  }
+}
+
+// Enhanced showPreferences function - REPLACES THE OLD ONE
+function showPreferences() {
+  const preferences = loadUserPreferences();
+  
+  // Create preferences modal
+  const modal = document.createElement('div');
+  modal.id = 'preferences-modal';
+  modal.style.cssText = `
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.8);
+    backdrop-filter: blur(4px);
+    z-index: 1001;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    overflow-y: auto;
+  `;
+  
+  modal.innerHTML = createPreferencesHTML(preferences);
+  document.body.appendChild(modal);
+  
+  // Show modal with animation
+  setTimeout(() => {
+    modal.style.opacity = '1';
+  }, 10);
+  
+  // Setup event listeners
+  setupPreferencesEventListeners(modal, preferences);
+  
+  // Close on outside click
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) {
+      closePreferencesModal();
+    }
+  });
+}
+
+function createPreferencesHTML(preferences) {
+  return `
+    <div style="max-width: 800px; width: 100%; background: white; border-radius: 12px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); max-height: 90vh; overflow-y: auto;">
+      
+      <!-- Header -->
+      <div style="background: linear-gradient(135deg, #c9a96e 0%, #d4b875 100%); color: white; padding: 2rem; border-radius: 12px 12px 0 0; position: sticky; top: 0; z-index: 10;">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <div>
+            <h2 style="font-family: 'Cormorant Garamond', serif; font-size: 2rem; margin: 0 0 0.5rem;">⚙️ My Preferences</h2>
+            <p style="margin: 0; opacity: 0.9;">Customize your Roza Bridal experience</p>
+          </div>
+          <button onclick="closePreferencesModal()" style="background: rgba(255,255,255,0.2); border: none; color: white; width: 40px; height: 40px; border-radius: 50%; font-size: 1.5rem; cursor: pointer; transition: all 0.3s;">&times;</button>
+        </div>
+      </div>
+      
+      <!-- Preferences Content -->
+      <div style="padding: 2rem;">
+        
+        <!-- Email Notifications -->
+        <div class="pref-section" style="margin-bottom: 2.5rem; padding: 1.5rem; background: #f8f9fa; border-radius: 8px;">
+          <h3 style="margin: 0 0 1.5rem; color: #1a1a1a; display: flex; align-items: center; gap: 0.5rem;">
+            <span>📧</span> Email Notifications
+          </h3>
+          <div style="display: grid; gap: 1rem;">
+            ${createToggleOption('orderUpdates', 'Order Updates', 'Get notified about your order status', preferences.emailNotifications.orderUpdates)}
+            ${createToggleOption('promotions', 'Promotions & Sales', 'Receive exclusive discounts and sale notifications', preferences.emailNotifications.promotions)}
+            ${createToggleOption('newCollections', 'New Collections', 'Be the first to see our latest designs', preferences.emailNotifications.newCollections)}
+            ${createToggleOption('personalizedOffers', 'Personalized Offers', 'Get offers tailored to your style preferences', preferences.emailNotifications.personalizedOffers)}
+            ${createToggleOption('weddingTips', 'Wedding Tips & Inspiration', 'Helpful wedding planning content', preferences.emailNotifications.weddingTips)}
+            ${createToggleOption('newsletter', 'Monthly Newsletter', 'Our monthly style guide and updates', preferences.emailNotifications.newsletter)}
+          </div>
+        </div>
+        
+        <!-- Shopping Preferences -->
+        <div class="pref-section" style="margin-bottom: 2.5rem; padding: 1.5rem; background: #f8f9fa; border-radius: 8px;">
+          <h3 style="margin: 0 0 1.5rem; color: #1a1a1a; display: flex; align-items: center; gap: 0.5rem;">
+            <span>🛍️</span> Shopping Preferences
+          </h3>
+          <div style="display: grid; gap: 1.5rem;">
+            
+            <!-- Preferred Style -->
+            <div>
+              <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Preferred Dress Style</label>
+              <select id="pref-style" style="width: 100%; padding: 0.75rem; border: 1px solid #e0e0e0; border-radius: 6px;">
+                <option value="">No preference</option>
+                <option value="boho" ${preferences.shopping.preferredStyle === 'boho' ? 'selected' : ''}>Bohemian</option>
+                <option value="classic" ${preferences.shopping.preferredStyle === 'classic' ? 'selected' : ''}>Classic</option>
+                <option value="modern" ${preferences.shopping.preferredStyle === 'modern' ? 'selected' : ''}>Modern</option>
+                <option value="vintage" ${preferences.shopping.preferredStyle === 'vintage' ? 'selected' : ''}>Vintage</option>
+                <option value="romantic" ${preferences.shopping.preferredStyle === 'romantic' ? 'selected' : ''}>Romantic</option>
+                <option value="minimalist" ${preferences.shopping.preferredStyle === 'minimalist' ? 'selected' : ''}>Minimalist</option>
+              </select>
+            </div>
+            
+            <!-- Preferred Sizes -->
+            <div>
+              <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Sizes You Shop For</label>
+              <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;" id="size-checkboxes">
+                ${['XS', 'S', 'M', 'L', 'XL', 'XXL'].map(size => 
+                  `<label style="display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem; background: white; border: 1px solid #e0e0e0; border-radius: 4px; cursor: pointer;">
+                    <input type="checkbox" value="${size}" ${preferences.shopping.preferredSizes.includes(size) ? 'checked' : ''} style="margin: 0;">
+                    <span>${size}</span>
+                  </label>`
+                ).join('')}
+              </div>
+            </div>
+            
+            <!-- Price Range -->
+            <div>
+              <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Preferred Price Range</label>
+              <select id="pref-price-range" style="width: 100%; padding: 0.75rem; border: 1px solid #e0e0e0; border-radius: 6px;">
+                <option value="any" ${preferences.shopping.priceRange === 'any' ? 'selected' : ''}>Any price range</option>
+                <option value="under-300" ${preferences.shopping.priceRange === 'under-300' ? 'selected' : ''}>Under $300</option>
+                <option value="300-500" ${preferences.shopping.priceRange === '300-500' ? 'selected' : ''}>$300 - $500</option>
+                <option value="500-800" ${preferences.shopping.priceRange === '500-800' ? 'selected' : ''}>$500 - $800</option>
+                <option value="800-1200" ${preferences.shopping.priceRange === '800-1200' ? 'selected' : ''}>$800 - $1,200</option>
+                <option value="over-1200" ${preferences.shopping.priceRange === 'over-1200' ? 'selected' : ''}>Over $1,200</option>
+              </select>
+            </div>
+            
+            <!-- Favorite Colors -->
+            <div>
+              <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Favorite Colors</label>
+              <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;" id="color-checkboxes">
+                ${[
+                  {name: 'Ivory', value: 'ivory', color: '#f8f6f0'},
+                  {name: 'White', value: 'white', color: '#ffffff'},
+                  {name: 'Champagne', value: 'champagne', color: '#f7e7ce'},
+                  {name: 'Blush', value: 'blush', color: '#fde2e4'},
+                  {name: 'Dusty Rose', value: 'dustyRose', color: '#d4a5a5'},
+                  {name: 'Sage', value: 'sage', color: '#9caf88'}
+                ].map(color => 
+                  `<label style="display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem; background: white; border: 1px solid #e0e0e0; border-radius: 4px; cursor: pointer;">
+                    <input type="checkbox" value="${color.value}" ${preferences.shopping.favoriteColors.includes(color.value) ? 'checked' : ''} style="margin: 0;">
+                    <div style="width: 20px; height: 20px; border-radius: 50%; background: ${color.color}; border: 1px solid #ccc;"></div>
+                    <span>${color.name}</span>
+                  </label>`
+                ).join('')}
+              </div>
+            </div>
+            
+          </div>
+        </div>
+        
+        <!-- Wedding Details -->
+        <div class="pref-section" style="margin-bottom: 2.5rem; padding: 1.5rem; background: #f8f9fa; border-radius: 8px;">
+          <h3 style="margin: 0 0 1.5rem; color: #1a1a1a; display: flex; align-items: center; gap: 0.5rem;">
+            <span>💍</span> Wedding Details <span style="font-size: 0.8rem; color: #666; font-weight: normal;">(for personalized recommendations)</span>
+          </h3>
+          <div style="display: grid; gap: 1.5rem;">
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+              <div>
+                <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Wedding Date</label>
+                <input type="date" id="pref-wedding-date" value="${preferences.wedding.date}" style="width: 100%; padding: 0.75rem; border: 1px solid #e0e0e0; border-radius: 6px;">
+              </div>
+              <div>
+                <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Wedding Season</label>
+                <select id="pref-wedding-season" style="width: 100%; padding: 0.75rem; border: 1px solid #e0e0e0; border-radius: 6px;">
+                  <option value="">Select season</option>
+                  <option value="spring" ${preferences.wedding.season === 'spring' ? 'selected' : ''}>Spring</option>
+                  <option value="summer" ${preferences.wedding.season === 'summer' ? 'selected' : ''}>Summer</option>
+                  <option value="fall" ${preferences.wedding.season === 'fall' ? 'selected' : ''}>Fall</option>
+                  <option value="winter" ${preferences.wedding.season === 'winter' ? 'selected' : ''}>Winter</option>
+                </select>
+              </div>
+            </div>
+            
+            <div>
+              <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Wedding Venue/Style</label>
+              <select id="pref-wedding-venue" style="width: 100%; padding: 0.75rem; border: 1px solid #e0e0e0; border-radius: 6px;">
+                <option value="">Select venue type</option>
+                <option value="beach" ${preferences.wedding.venue === 'beach' ? 'selected' : ''}>Beach</option>
+                <option value="garden" ${preferences.wedding.venue === 'garden' ? 'selected' : ''}>Garden/Outdoor</option>
+                <option value="church" ${preferences.wedding.venue === 'church' ? 'selected' : ''}>Church</option>
+                <option value="ballroom" ${preferences.wedding.venue === 'ballroom' ? 'selected' : ''}>Ballroom</option>
+                <option value="rustic" ${preferences.wedding.venue === 'rustic' ? 'selected' : ''}>Rustic/Barn</option>
+                <option value="destination" ${preferences.wedding.venue === 'destination' ? 'selected' : ''}>Destination</option>
+                <option value="courthouse" ${preferences.wedding.venue === 'courthouse' ? 'selected' : ''}>Courthouse/City Hall</option>
+              </select>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+              <div>
+                <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Time of Day</label>
+                <select id="pref-wedding-time" style="width: 100%; padding: 0.75rem; border: 1px solid #e0e0e0; border-radius: 6px;">
+                  <option value="">Select time</option>
+                  <option value="morning" ${preferences.wedding.timeOfDay === 'morning' ? 'selected' : ''}>Morning</option>
+                  <option value="afternoon" ${preferences.wedding.timeOfDay === 'afternoon' ? 'selected' : ''}>Afternoon</option>
+                  <option value="evening" ${preferences.wedding.timeOfDay === 'evening' ? 'selected' : ''}>Evening</option>
+                </select>
+              </div>
+              <div>
+                <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Guest Count</label>
+                <select id="pref-guest-count" style="width: 100%; padding: 0.75rem; border: 1px solid #e0e0e0; border-radius: 6px;">
+                  <option value="">Select size</option>
+                  <option value="intimate" ${preferences.wedding.guestCount === 'intimate' ? 'selected' : ''}>Intimate (Under 50)</option>
+                  <option value="medium" ${preferences.wedding.guestCount === 'medium' ? 'selected' : ''}>Medium (50-150)</option>
+                  <option value="large" ${preferences.wedding.guestCount === 'large' ? 'selected' : ''}>Large (150+)</option>
+                </select>
+              </div>
+            </div>
+            
+            <div>
+              <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Dress Budget Range</label>
+              <select id="pref-wedding-budget" style="width: 100%; padding: 0.75rem; border: 1px solid #e0e0e0; border-radius: 6px;">
+                <option value="">Prefer not to say</option>
+                <option value="under-500" ${preferences.wedding.budget === 'under-500' ? 'selected' : ''}>Under $500</option>
+                <option value="500-1000" ${preferences.wedding.budget === '500-1000' ? 'selected' : ''}>$500 - $1,000</option>
+                <option value="1000-2000" ${preferences.wedding.budget === '1000-2000' ? 'selected' : ''}>$1,000 - $2,000</option>
+                <option value="2000-5000" ${preferences.wedding.budget === '2000-5000' ? 'selected' : ''}>$2,000 - $5,000</option>
+                <option value="over-5000" ${preferences.wedding.budget === 'over-5000' ? 'selected' : ''}>Over $5,000</option>
+              </select>
+            </div>
+            
+          </div>
+        </div>
+        
+        <!-- Privacy Settings -->
+        <div class="pref-section" style="margin-bottom: 2.5rem; padding: 1.5rem; background: #f8f9fa; border-radius: 8px;">
+          <h3 style="margin: 0 0 1.5rem; color: #1a1a1a; display: flex; align-items: center; gap: 0.5rem;">
+            <span>🔒</span> Privacy & Data
+          </h3>
+          <div style="display: grid; gap: 1rem;">
+            ${createToggleOption('shareDataForPersonalization', 'Personalization', 'Use my data to show personalized recommendations', preferences.privacy.shareDataForPersonalization)}
+            ${createToggleOption('allowAnalytics', 'Analytics', 'Help improve our website with anonymous usage data', preferences.privacy.allowAnalytics)}
+            ${createToggleOption('showInTestimonials', 'Testimonials', 'Allow my reviews to be featured (anonymously)', preferences.privacy.showInTestimonials)}
+          </div>
+        </div>
+        
+        <!-- Action Buttons -->
+        <div style="display: flex; gap: 1rem; justify-content: center; margin-top: 2rem; flex-wrap: wrap;">
+          <button onclick="savePreferences()" style="padding: 1rem 2rem; background: linear-gradient(135deg, #c9a96e 0%, #d4b875 100%); color: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; transition: all 0.3s;">
+            💾 Save Preferences
+          </button>
+          <button onclick="resetPreferences()" style="padding: 1rem 2rem; background: #6c757d; color: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; transition: all 0.3s;">
+            🔄 Reset to Defaults
+          </button>
+          <button onclick="closePreferencesModal()" style="padding: 1rem 2rem; background: transparent; color: #6c757d; border: 1px solid #6c757d; border-radius: 6px; font-weight: 600; cursor: pointer; transition: all 0.3s;">
+            Cancel
+          </button>
+        </div>
+        
+      </div>
+    </div>
+  `;
+}
+
+function createToggleOption(id, title, description, checked) {
+  return `
+    <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: white; border-radius: 6px; border: 1px solid #e0e0e0;">
+      <div style="flex: 1;">
+        <div style="font-weight: 500; color: #1a1a1a; margin-bottom: 0.25rem;">${title}</div>
+        <div style="font-size: 0.9rem; color: #666;">${description}</div>
+      </div>
+      <label class="toggle-switch" style="position: relative; display: inline-block; width: 50px; height: 24px; margin-left: 1rem;">
+        <input type="checkbox" id="pref-${id}" ${checked ? 'checked' : ''} style="opacity: 0; width: 0; height: 0;">
+        <span style="position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: ${checked ? '#c9a96e' : '#ccc'}; transition: .4s; border-radius: 24px;">
+          <span style="position: absolute; content: ''; height: 18px; width: 18px; left: ${checked ? '29px' : '3px'}; bottom: 3px; background-color: white; transition: .4s; border-radius: 50%;"></span>
+        </span>
+      </label>
+    </div>
+  `;
+}
+
+function setupPreferencesEventListeners(modal, preferences) {
+  // Toggle switches
+  modal.querySelectorAll('.toggle-switch input').forEach(toggle => {
+    toggle.addEventListener('change', function() {
+      const slider = this.nextElementSibling;
+      const innerSpan = slider.querySelector('span');
+      
+      if (this.checked) {
+        slider.style.backgroundColor = '#c9a96e';
+        innerSpan.style.left = '29px';
+      } else {
+        slider.style.backgroundColor = '#ccc';
+        innerSpan.style.left = '3px';
+      }
+    });
+  });
+  
+  // Auto-set wedding season based on date
+  const dateInput = modal.querySelector('#pref-wedding-date');
+  const seasonSelect = modal.querySelector('#pref-wedding-season');
+  
+  if (dateInput && seasonSelect) {
+    dateInput.addEventListener('change', function() {
+      if (this.value) {
+        const date = new Date(this.value);
+        const month = date.getMonth() + 1;
+        
+        let season = '';
+        if (month >= 3 && month <= 5) season = 'spring';
+        else if (month >= 6 && month <= 8) season = 'summer';
+        else if (month >= 9 && month <= 11) season = 'fall';
+        else season = 'winter';
+        
+        seasonSelect.value = season;
+      }
+    });
+  }
+}
+
+function savePreferences() {
+  const modal = document.getElementById('preferences-modal');
+  if (!modal) return;
+  
+  const preferences = loadUserPreferences();
+  
+  // Email notifications
+  preferences.emailNotifications.orderUpdates = modal.querySelector('#pref-orderUpdates').checked;
+  preferences.emailNotifications.promotions = modal.querySelector('#pref-promotions').checked;
+  preferences.emailNotifications.newCollections = modal.querySelector('#pref-newCollections').checked;
+  preferences.emailNotifications.personalizedOffers = modal.querySelector('#pref-personalizedOffers').checked;
+  preferences.emailNotifications.weddingTips = modal.querySelector('#pref-weddingTips').checked;
+  preferences.emailNotifications.newsletter = modal.querySelector('#pref-newsletter').checked;
+  
+  // Shopping preferences
+  preferences.shopping.preferredStyle = modal.querySelector('#pref-style').value;
+  preferences.shopping.priceRange = modal.querySelector('#pref-price-range').value;
+  
+  // Preferred sizes
+  preferences.shopping.preferredSizes = Array.from(modal.querySelectorAll('#size-checkboxes input:checked')).map(cb => cb.value);
+  
+  // Favorite colors
+  preferences.shopping.favoriteColors = Array.from(modal.querySelectorAll('#color-checkboxes input:checked')).map(cb => cb.value);
+  
+  // Wedding details
+  preferences.wedding.date = modal.querySelector('#pref-wedding-date').value;
+  preferences.wedding.season = modal.querySelector('#pref-wedding-season').value;
+  preferences.wedding.venue = modal.querySelector('#pref-wedding-venue').value;
+  preferences.wedding.timeOfDay = modal.querySelector('#pref-wedding-time').value;
+  preferences.wedding.guestCount = modal.querySelector('#pref-guest-count').value;
+  preferences.wedding.budget = modal.querySelector('#pref-wedding-budget').value;
+  
+  // Privacy settings
+  preferences.privacy.shareDataForPersonalization = modal.querySelector('#pref-shareDataForPersonalization').checked;
+  preferences.privacy.allowAnalytics = modal.querySelector('#pref-allowAnalytics').checked;
+  preferences.privacy.showInTestimonials = modal.querySelector('#pref-showInTestimonials').checked;
+  
+  // Save to localStorage and MailerLite
+  saveUserPreferences(preferences);
+  
+  // Show success message
+  showNotification('✅ Preferences saved successfully! Your shopping experience will be personalized based on your choices.', 'success');
+  
+  // Close modal
+  closePreferencesModal();
+}
+
+function resetPreferences() {
+  if (confirm('Are you sure you want to reset all preferences to default values?')) {
+    localStorage.removeItem('rozaBridalPreferences');
+    showNotification('🔄 Preferences reset to defaults.', 'info');
+    closePreferencesModal();
+  }
+}
+
+function closePreferencesModal() {
+  const modal = document.getElementById('preferences-modal');
+  if (modal) {
+    modal.style.opacity = '0';
+    setTimeout(() => {
+      modal.remove();
+    }, 300);
+  }
+}
+
+// Export functions for global use
+window.getUserPreferences = function() {
+  return loadUserPreferences();
+};
+
+window.shouldPersonalize = function() {
+  const prefs = loadUserPreferences();
+  return prefs.privacy.shareDataForPersonalization;
+};
 
 function signOut() {
   if (confirm('Are you sure you want to sign out?')) {
