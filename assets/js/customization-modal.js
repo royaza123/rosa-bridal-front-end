@@ -4,7 +4,7 @@
 // Global variable to store current product info
 let currentProductInfo = {
   name: 'Wedding Dress',
-  basePrice: 1200,
+  basePrice: 300,
   image: '',
   id: ''
 };
@@ -577,8 +577,8 @@ const customizationHTML = `
 
     <div class="custom-footer">
       <div class="price-summary">
-        <span class="base-price" id="basePriceDisplay">$1,200</span>
-        <span class="total-price" id="totalPrice">$1,200</span>
+        <span class="base-price" id="basePriceDisplay">$300</span>
+        <span class="total-price" id="totalPrice">$300</span>
       </div>
       <div class="action-buttons">
         <button class="btn btn-secondary" onclick="closeCustomizationModal()">Maybe Later</button>
@@ -606,16 +606,6 @@ let selectedOptions = {
   train: 'sweep',
   size: '',
   quantity: 1
-};
-
-// SMART DYNAMIC CUSTOMIZATION MODAL - Works for ALL products automatically
-
-// Global variable to store current product info
-let currentProductInfo = {
-  name: 'Wedding Dress',
-  basePrice: 300,
-  image: '',
-  id: ''
 };
 
 // SMART function that automatically detects product info
@@ -823,7 +813,7 @@ function updatePrice() {
   const totalPrice = unitPrice * (selectedOptions.quantity || 1);
   const totalPriceElement = document.getElementById('totalPrice');
   if (totalPriceElement) {
-    totalPriceElement.textContent = `$${totalPrice.toLocaleString()}`;
+    totalPriceElement.textContent = `${totalPrice.toLocaleString()}`;
   }
 }
 
@@ -891,12 +881,6 @@ function initializeCustomizationModal() {
     return;
   }
   
-  // Check if CSS and HTML are defined (from your original file)
-  if (typeof customizationCSS === 'undefined' || typeof customizationHTML === 'undefined') {
-    console.warn('Customization modal CSS/HTML not loaded. Please ensure customization-modal.js is properly loaded.');
-    return;
-  }
-  
   // Inject CSS
   document.head.insertAdjacentHTML('beforeend', customizationCSS);
   
@@ -954,100 +938,4 @@ window.addToCart = addToCart;
 window.submitCustomization = submitCustomization;
 window.changeQuantity = changeQuantity;
 
-function submitCustomization() {
-  const specialRequests = document.getElementById('specialRequests').value;
-  const totalPrice = document.getElementById('totalPrice').textContent;
-  
-  const subject = encodeURIComponent(`Custom Wedding Dress Quote - ${currentProductInfo.name}`);
-  const body = encodeURIComponent(`Hello Roza Bridal! 💕
-
-I would like a quote for a custom wedding dress! Here are my customization details:
-
-DRESS: ${currentProductInfo.name}
-👗 DRESS STYLE: ${selectedOptions.style}
-💎 NECKLINE: ${selectedOptions.neckline}  
-🎨 COLOR: ${selectedOptions.color}
-✨ FABRIC: ${selectedOptions.fabric}
-👸 TRAIN: ${selectedOptions.train}
-📏 SIZE: ${selectedOptions.size || 'Not selected'}
-🔢 QUANTITY: ${selectedOptions.quantity}
-
-💌 SPECIAL REQUESTS:
-${specialRequests || 'No special requests'}
-
-💰 ESTIMATED TOTAL: ${totalPrice}
-
-Please provide me with:
-- Final pricing
-- Timeline for completion
-- Payment options
-- Any additional details
-
-I'm excited to work with you to create my dream dress! ✨
-
-Looking forward to hearing from you!
-
-Best regards,
-[Your Future Bride] 💍`);
-  
-  window.open(`mailto:aetophis@aetophis.com?subject=${subject}&body=${body}`, '_blank');
-  closeCustomizationModal();
-  
-  setTimeout(() => {
-    alert('📧 Your quote request has been sent! We\'ll get back to you with pricing and timeline details soon! ✨');
-  }, 500);
-}
-
-// Initialize the modal when DOM is ready
-function initializeCustomizationModal() {
-  // Check if modal already exists
-  if (document.getElementById('customizationModal')) {
-    return;
-  }
-  
-  // Inject CSS
-  document.head.insertAdjacentHTML('beforeend', customizationCSS);
-  
-  // Inject HTML
-  document.body.insertAdjacentHTML('beforeend', customizationHTML);
-  
-  // Add event listeners
-  document.addEventListener('click', function(e) {
-    if (e.target.closest('.custom-option') || e.target.closest('.color-option') || e.target.closest('.size-option')) {
-      const option = e.target.closest('.custom-option') || e.target.closest('.color-option') || e.target.closest('.size-option');
-      const optionType = option.dataset.option;
-      const optionValue = option.dataset.value;
-      
-      // Clear previous selections for this option type
-      document.querySelectorAll(`[data-option="${optionType}"]`).forEach(el => {
-        el.classList.remove('selected');
-      });
-      
-      // Select current option
-      option.classList.add('selected');
-      selectedOptions[optionType] = optionValue;
-      updatePrice();
-    }
-  });
-  
-  // Close modal when clicking outside
-  document.getElementById('customizationModal').addEventListener('click', function(e) {
-    if (e.target === this) {
-      closeCustomizationModal();
-    }
-  });
-  
-  // Close modal with Escape key
-  document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape' && document.getElementById('customizationModal').classList.contains('active')) {
-      closeCustomizationModal();
-    }
-  });
-}
-
-// Auto-initialize when DOM is ready
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initializeCustomizationModal);
-} else {
-  initializeCustomizationModal();
-}
+console.log('✅ Customization modal loaded successfully!');
