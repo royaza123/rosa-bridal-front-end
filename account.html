@@ -1,0 +1,296 @@
+---
+layout: default
+title: My Account - Roza Bridal
+---
+
+<div style="max-width: 1000px; margin: 3rem auto; padding: 0 2rem;">
+  <!-- Account Header -->
+  <div style="text-align: center; margin-bottom: 3rem; padding: 2rem; background: linear-gradient(135deg, #f9f7f4 0%, #f0f4f7 100%); border-radius: 12px;">
+    <div id="account-avatar" style="width: 80px; height: 80px; border-radius: 50%; background: linear-gradient(135deg, #c9a96e 0%, #d4b875 100%); margin: 0 auto 1rem; display: flex; align-items: center; justify-content: center; color: white; font-size: 2rem; font-weight: 600;"></div>
+    <h1 style="font-family: 'Cormorant Garamond', serif; font-size: 2.5rem; color: #1a1a1a; margin-bottom: 0.5rem;">Welcome Back!</h1>
+    <p id="account-welcome" style="font-size: 1.1rem; color: #666; margin: 0;">Loading your account...</p>
+  </div>
+
+  <!-- Account Navigation -->
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-bottom: 3rem;">
+    <div class="account-nav-card" onclick="showAccountDetails()" style="padding: 1.5rem; background: white; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.04); cursor: pointer; transition: all 0.3s; text-align: center;">
+      <div style="font-size: 2rem; margin-bottom: 0.5rem;">👤</div>
+      <h3 style="margin: 0 0 0.5rem; color: #1a1a1a;">Account Details</h3>
+      <p style="margin: 0; color: #666; font-size: 0.9rem;">View and edit your profile</p>
+    </div>
+    
+    <div class="account-nav-card" onclick="window.location.href='orders.html'" style="padding: 1.5rem; background: white; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.04); cursor: pointer; transition: all 0.3s; text-align: center;">
+      <div style="font-size: 2rem; margin-bottom: 0.5rem;">📦</div>
+      <h3 style="margin: 0 0 0.5rem; color: #1a1a1a;">My Orders</h3>
+      <p style="margin: 0; color: #666; font-size: 0.9rem;" id="orders-count">View your order history</p>
+    </div>
+    
+    <div class="account-nav-card" onclick="showPreferences()" style="padding: 1.5rem; background: white; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.04); cursor: pointer; transition: all 0.3s; text-align: center;">
+      <div style="font-size: 2rem; margin-bottom: 0.5rem;">⚙️</div>
+      <h3 style="margin: 0 0 0.5rem; color: #1a1a1a;">Preferences</h3>
+      <p style="margin: 0; color: #666; font-size: 0.9rem;">Customize your experience</p>
+    </div>
+  </div>
+
+  <!-- Account Details Section -->
+  <div id="account-details-section" style="background: white; border-radius: 12px; padding: 2rem; box-shadow: 0 4px 20px rgba(0,0,0,0.04); margin-bottom: 2rem;">
+    <h2 style="font-family: 'Cormorant Garamond', serif; font-size: 2rem; color: #1a1a1a; margin-bottom: 2rem;">Account Details</h2>
+    
+    <form id="account-form" style="display: grid; gap: 1.5rem;">
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+        <div>
+          <label style="display: block; margin-bottom: 0.5rem; font-weight: 500; color: #333;">First Name</label>
+          <input type="text" id="firstName" style="width: 100%; padding: 0.75rem; border: 1px solid #e0e0e0; border-radius: 6px; font-size: 1rem;">
+        </div>
+        <div>
+          <label style="display: block; margin-bottom: 0.5rem; font-weight: 500; color: #333;">Last Name</label>
+          <input type="text" id="lastName" style="width: 100%; padding: 0.75rem; border: 1px solid #e0e0e0; border-radius: 6px; font-size: 1rem;">
+        </div>
+      </div>
+      
+      <div>
+        <label style="display: block; margin-bottom: 0.5rem; font-weight: 500; color: #333;">Email</label>
+        <input type="email" id="email" readonly style="width: 100%; padding: 0.75rem; border: 1px solid #e0e0e0; border-radius: 6px; font-size: 1rem; background: #f8f9fa;">
+      </div>
+      
+      <div>
+        <label style="display: block; margin-bottom: 0.5rem; font-weight: 500; color: #333;">Phone</label>
+        <input type="tel" id="phone" style="width: 100%; padding: 0.75rem; border: 1px solid #e0e0e0; border-radius: 6px; font-size: 1rem;">
+      </div>
+      
+      <div>
+        <label style="display: block; margin-bottom: 0.5rem; font-weight: 500; color: #333;">Wedding Date (Optional)</label>
+        <input type="date" id="weddingDate" style="width: 100%; padding: 0.75rem; border: 1px solid #e0e0e0; border-radius: 6px; font-size: 1rem;">
+      </div>
+      
+      <div>
+        <label style="display: block; margin-bottom: 0.5rem; font-weight: 500; color: #333;">Preferred Style</label>
+        <select id="preferredStyle" style="width: 100%; padding: 0.75rem; border: 1px solid #e0e0e0; border-radius: 6px; font-size: 1rem;">
+          <option value="">Select your style preference</option>
+          <option value="boho">Bohemian</option>
+          <option value="classic">Classic</option>
+          <option value="modern">Modern</option>
+          <option value="vintage">Vintage</option>
+          <option value="romantic">Romantic</option>
+        </select>
+      </div>
+      
+      <div style="display: flex; gap: 1rem; margin-top: 1rem;">
+        <button type="submit" style="flex: 1; padding: 1rem 2rem; background: linear-gradient(135deg, #c9a96e 0%, #d4b875 100%); color: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; transition: all 0.3s;">
+          Save Changes
+        </button>
+        <button type="button" onclick="signOut()" style="padding: 1rem 2rem; background: #dc3545; color: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; transition: all 0.3s;">
+          Sign Out
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Newsletter Subscription -->
+  <div style="background: linear-gradient(135deg, #f8f9fa 0%, #f0f4f7 100%); border-radius: 12px; padding: 2rem; text-align: center;">
+    <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; color: #1a1a1a; margin-bottom: 1rem;">Stay Connected</h3>
+    <p style="color: #666; margin-bottom: 2rem;">Get exclusive updates on new collections, special offers, and wedding inspiration!</p>
+    
+    <!-- MailerLite Universal -->
+    <script>
+        (function(w,d,e,u,f,l,n){w[f]=w[f]||function(){(w[f].q=w[f].q||[])
+        .push(arguments);},l=d.createElement(e),l.async=1,l.src=u,
+        n=d.getElementsByTagName(e)[0],n.parentNode.insertBefore(l,n);})
+        (window,document,'script','https://assets.mailerlite.com/js/universal.js','ml');
+        ml('account', '1551678');
+    </script>
+    <!-- End MailerLite Universal -->
+    
+    <div class="ml-embedded" data-form="CXUCJJ"></div>
+  </div>
+</div>
+
+<style>
+.account-nav-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+}
+
+#account-form input:focus,
+#account-form select:focus {
+  outline: none;
+  border-color: #c9a96e;
+  box-shadow: 0 0 0 3px rgba(201, 169, 110, 0.1);
+}
+
+#account-form button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+@media (max-width: 768px) {
+  #account-form > div:first-child {
+    grid-template-columns: 1fr;
+  }
+  
+  #account-form > div:last-child {
+    flex-direction: column;
+  }
+}
+</style>
+
+<script>
+// Account Management System
+document.addEventListener('DOMContentLoaded', function() {
+  // Check if user is logged in
+  if (!isUserLoggedIn()) {
+    window.location.href = '{{ site.baseurl }}/';
+    return;
+  }
+  
+  loadAccountData();
+  setupAccountForm();
+  loadOrdersCount();
+});
+
+function isUserLoggedIn() {
+  return localStorage.getItem('rozaBridalUser') !== null;
+}
+
+function loadAccountData() {
+  const userData = JSON.parse(localStorage.getItem('rozaBridalUser'));
+  
+  if (userData) {
+    // Update welcome message and avatar
+    const welcomeMsg = document.getElementById('account-welcome');
+    const avatar = document.getElementById('account-avatar');
+    
+    welcomeMsg.textContent = `Hello, ${userData.firstName}! Manage your account and track your orders.`;
+    avatar.textContent = userData.firstName.charAt(0).toUpperCase();
+    
+    // Populate form fields
+    document.getElementById('firstName').value = userData.firstName || '';
+    document.getElementById('lastName').value = userData.lastName || '';
+    document.getElementById('email').value = userData.email || '';
+    document.getElementById('phone').value = userData.phone || '';
+    document.getElementById('weddingDate').value = userData.weddingDate || '';
+    document.getElementById('preferredStyle').value = userData.preferredStyle || '';
+    
+    // Send user data to MailerLite
+    if (typeof ml !== 'undefined') {
+      ml('identify', {
+        email: userData.email,
+        fields: {
+          name: `${userData.firstName} ${userData.lastName}`,
+          first_name: userData.firstName,
+          last_name: userData.lastName,
+          phone: userData.phone || '',
+          wedding_date: userData.weddingDate || '',
+          preferred_style: userData.preferredStyle || '',
+          last_login: new Date().toISOString()
+        }
+      });
+    }
+  }
+}
+
+function setupAccountForm() {
+  const form = document.getElementById('account-form');
+  
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const userData = JSON.parse(localStorage.getItem('rozaBridalUser'));
+    
+    // Update user data
+    const updatedData = {
+      ...userData,
+      firstName: document.getElementById('firstName').value,
+      lastName: document.getElementById('lastName').value,
+      phone: document.getElementById('phone').value,
+      weddingDate: document.getElementById('weddingDate').value,
+      preferredStyle: document.getElementById('preferredStyle').value,
+      updatedAt: new Date().toISOString()
+    };
+    
+    // Save to localStorage
+    localStorage.setItem('rozaBridalUser', JSON.stringify(updatedData));
+    
+    // Update MailerLite
+    if (typeof ml !== 'undefined') {
+      ml('identify', {
+        email: updatedData.email,
+        fields: {
+          name: `${updatedData.firstName} ${updatedData.lastName}`,
+          first_name: updatedData.firstName,
+          last_name: updatedData.lastName,
+          phone: updatedData.phone || '',
+          wedding_date: updatedData.weddingDate || '',
+          preferred_style: updatedData.preferredStyle || '',
+          profile_updated: new Date().toISOString()
+        }
+      });
+    }
+    
+    // Update avatar and welcome message
+    const avatar = document.getElementById('account-avatar');
+    const welcomeMsg = document.getElementById('account-welcome');
+    
+    avatar.textContent = updatedData.firstName.charAt(0).toUpperCase();
+    welcomeMsg.textContent = `Hello, ${updatedData.firstName}! Your account has been updated successfully.`;
+    
+    // Show success message
+    showNotification('Account updated successfully! ✨', 'success');
+  });
+}
+
+function loadOrdersCount() {
+  const orders = JSON.parse(localStorage.getItem('rozaBridalOrders') || '[]');
+  const userEmail = JSON.parse(localStorage.getItem('rozaBridalUser')).email;
+  
+  // Filter orders for current user
+  const userOrders = orders.filter(order => order.contact.email === userEmail);
+  
+  const ordersCountElement = document.getElementById('orders-count');
+  if (userOrders.length === 0) {
+    ordersCountElement.textContent = 'No orders yet';
+  } else {
+    ordersCountElement.textContent = `${userOrders.length} order${userOrders.length > 1 ? 's' : ''}`;
+  }
+}
+
+function showAccountDetails() {
+  // Already visible, maybe scroll to it
+  document.getElementById('account-details-section').scrollIntoView({ behavior: 'smooth' });
+}
+
+function showPreferences() {
+  showNotification('Preferences panel coming soon! 🎨', 'info');
+}
+
+function signOut() {
+  if (confirm('Are you sure you want to sign out?')) {
+    localStorage.removeItem('rozaBridalUser');
+    window.location.href = '{{ site.baseurl }}/';
+  }
+}
+
+function showNotification(message, type = 'info') {
+  const notification = document.createElement('div');
+  notification.style.cssText = `
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 1rem 1.5rem;
+    background: ${type === 'success' ? '#d4edda' : type === 'error' ? '#f8d7da' : '#d1ecf1'};
+    color: ${type === 'success' ? '#155724' : type === 'error' ? '#721c24' : '#0c5460'};
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    z-index: 1000;
+    font-weight: 500;
+    max-width: 300px;
+  `;
+  notification.textContent = message;
+  
+  document.body.appendChild(notification);
+  
+  setTimeout(() => {
+    notification.remove();
+  }, 3000);
+}
+</script>
