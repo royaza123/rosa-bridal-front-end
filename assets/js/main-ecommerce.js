@@ -417,37 +417,56 @@ class ShoppingCart {
   }
   
   // Render individual cart item - Enhanced for custom products
-  renderCartItem(item, index) {
-    const customizationDetails = item.isCustom && item.customizations ? 
-      `<div class="cart-item-customizations">
-        <small style="color: #8b7355; font-weight: 600;">✨ Custom Design:</small><br>
-        <small style="color: #666;">
-          ${item.customizations.style} • ${item.customizations.neckline} • ${item.customizations.color}<br>
-          ${item.customizations.fabric} • ${item.customizations.train}
-          ${item.customizations.specialRequests ? '<br>Special: ' + item.customizations.specialRequests.substring(0, 50) + '...' : ''}
-        </small>
-      </div>` : '';
-    
-    return `
-      <div class="cart-item">
-        <img src="${siteBaseUrl}/assets/images/${item.image || 'placeholder.jpg'}" alt="${item.name}" class="cart-item-image">
-        <div class="cart-item-details">
-          <h4>${item.name}</h4>
-          <p class="cart-item-size">Size: ${item.size}</p>
-          <p class="cart-item-price">${item.price.toFixed(2)}</p>
-          ${customizationDetails}
-          <div class="cart-item-actions">
-            <div class="quantity-selector">
-              <button class="quantity-btn minus" data-index="${index}">-</button>
-              <input type="number" value="${item.quantity}" min="1" class="item-quantity" data-index="${index}">
-              <button class="quantity-btn plus" data-index="${index}">+</button>
-            </div>
-            <button class="remove-item" data-index="${index}">Remove</button>
+  // Fix for the renderCartItem function in main-ecommerce.js
+// Replace the existing renderCartItem function with this updated version
+
+renderCartItem(item, index) {
+  // Fix image path - check if it's already a full path or needs baseurl
+  let imagePath;
+  if (item.image && item.image.startsWith('http')) {
+    // External image URL
+    imagePath = item.image;
+  } else if (item.image && item.image.includes('/assets/')) {
+    // Already includes full path from site baseurl
+    imagePath = item.image;
+  } else if (item.image) {
+    // Needs baseurl prefix
+    imagePath = `${siteBaseUrl}/assets/images/${item.image}`;
+  } else {
+    // Fallback placeholder
+    imagePath = `${siteBaseUrl}/assets/images/placeholder-dress.jpg`;
+  }
+
+  const customizationDetails = item.isCustom && item.customizations ? 
+    `<div class="cart-item-customizations">
+      <small style="color: #8b7355; font-weight: 600;">✨ Custom Design:</small><br>
+      <small style="color: #666;">
+        ${item.customizations.style} • ${item.customizations.neckline} • ${item.customizations.color}<br>
+        ${item.customizations.fabric} • ${item.customizations.train}
+        ${item.customizations.specialRequests ? '<br>Special: ' + item.customizations.specialRequests.substring(0, 50) + '...' : ''}
+      </small>
+    </div>` : '';
+  
+  return `
+    <div class="cart-item">
+      <img src="${imagePath}" alt="${item.name}" class="cart-item-image" onerror="this.src='${siteBaseUrl}/assets/images/placeholder-dress.jpg'">
+      <div class="cart-item-details">
+        <h4>${item.name}</h4>
+        <p class="cart-item-size">Size: ${item.size}</p>
+        <p class="cart-item-price">$${item.price.toFixed(2)}</p>
+        ${customizationDetails}
+        <div class="cart-item-actions">
+          <div class="quantity-selector">
+            <button class="quantity-btn minus" data-index="${index}">-</button>
+            <input type="number" value="${item.quantity}" min="1" class="item-quantity" data-index="${index}">
+            <button class="quantity-btn plus" data-index="${index}">+</button>
           </div>
+          <button class="remove-item" data-index="${index}">Remove</button>
         </div>
       </div>
-    `;
-  }
+    </div>
+  `;
+}
   
   // Clear cart
   clearCart() {
