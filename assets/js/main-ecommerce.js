@@ -482,7 +482,56 @@ class Authentication {
     this.currentUser = null;
     this.loadUserFromLocalStorage();
   }
+  // ADD this new function to the Authentication class in main-ecommerce.js:
+
+autoSignupToMailerLite(user) {
+  // Load MailerLite if not already loaded
+  if (!window.ml) {
+    (function(w,d,e,u,f,l,n){w[f]=w[f]||function(){(w[f].q=w[f].q||[])
+    .push(arguments);},l=d.createElement(e),l.async=1,l.src=u,
+    n=d.getElementsByTagName(e)[0],n.parentNode.insertBefore(l,n);})
+    (window,document,'script','https://assets.mailerlite.com/js/universal.js','ml');
+    ml('account', '1551678');
+  }
   
+  // Wait for MailerLite to load then auto-signup
+  setTimeout(() => {
+    if (typeof ml !== 'undefined') {
+      ml('identify', {
+        email: user.email,
+        fields: {
+          name: `${user.firstName} ${user.lastName}`,
+          first_name: user.firstName,
+          last_name: user.lastName,
+          signup_date: new Date().toISOString(),
+          signup_source: 'website_registration',
+          user_status: 'new_subscriber',
+          email_promotions: true,
+          email_newsletter: true
+        }
+      });
+      
+      // Subscribe to the form
+      ml('form', 'CXUCJJ', {
+        email: user.email,
+        fields: {
+          name: `${user.firstName} ${user.lastName}`,
+          first_name: user.firstName,
+          last_name: user.lastName
+        }
+      });
+      
+      // Track signup event
+      ml('track', 'user_signup', {
+        signup_method: 'website_form',
+        user_email: user.email,
+        user_name: `${user.firstName} ${user.lastName}`
+      });
+      
+      console.log('✅ User automatically added to MailerLite:', user.email);
+    }
+  }, 1000);
+}
   // Load user from localStorage
   loadUserFromLocalStorage() {
     const userData = localStorage.getItem('rozaBridalUser');
@@ -607,39 +656,42 @@ class Authentication {
   }
   
   // Sign up new user
-  signUp(userData) {
-    // Validate data
-    if (!userData.firstName || !userData.lastName || !userData.email || !userData.password) {
-      throw new Error('All fields are required');
-    }
-    
-    // Check if email already exists
-    const users = this.getAllUsers();
-    if (users.find(u => u.email === userData.email)) {
-      throw new Error('Email already in use');
-    }
-    
-    // Create user with ID
-    const newUser = {
-      ...userData,
-      id: 'user_' + Date.now(),
-      createdAt: new Date().toISOString()
-    };
-    
-    // Save to "database"
-    users.push(newUser);
-    localStorage.setItem('rozaBridalUsers', JSON.stringify(users));
-    
-    // Set as current user
-    this.currentUser = newUser;
-    this.saveUserToLocalStorage();
-    
-    // Update UI
-    this.updateUI();
-    
-    return newUser;
+signUp(userData) {
+  // Validate data
+  if (!userData.firstName || !userData.lastName || !userData.email || !userData.password) {
+    throw new Error('All fields are required');
   }
   
+  // Check if email already exists
+  const users = this.getAllUsers();
+  if (users.find(u => u.email === userData.email)) {
+    throw new Error('Email already in use');
+  }
+  
+  // Create user with ID
+  const newUser = {
+    ...userData,
+    id: 'user_' + Date.now(),
+    createdAt: new Date().toISOString()
+  };
+  
+  // Save to "database"
+  users.push(newUser);
+  localStorage.setItem('rozaBridalUsers', JSON.stringify(users));
+  
+  // Set as current user
+  this.currentUser = newUser;
+  this.saveUserToLocalStorage();
+  
+  // AUTO MAILERLITE SIGNUP - NEW CODE
+  this.autoSignupToMailerLite(newUser);
+  
+  // Update UI
+  this.updateUI();
+  
+  return newUser;
+}
+
   // Sign out user
   signOut() {
     this.currentUser = null;
