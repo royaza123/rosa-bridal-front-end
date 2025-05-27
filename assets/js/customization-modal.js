@@ -608,7 +608,10 @@ let selectedOptions = {
   quantity: 1
 };
 
-// SMART function that automatically detects product info
+// Fix for customization-modal.js
+// Update the openCustomizationModal function and price display
+
+// In the openCustomizationModal function, update the base price display:
 function openCustomizationModal(dressName = null, basePrice = null, productImage = '', productId = '') {
   // AUTO-DETECT product info if not provided
   if (!dressName || !basePrice) {
@@ -619,13 +622,13 @@ function openCustomizationModal(dressName = null, basePrice = null, productImage
     productId = productId || autoDetected.id;
   }
   
-  // Store current product info with proper pricing
+  // Store current product info with proper pricing (keep decimals)
   currentProductInfo.name = dressName;
-  currentProductInfo.basePrice = Math.round(basePrice);
+  currentProductInfo.basePrice = basePrice; // Don't round - keep 298.43
   currentProductInfo.image = productImage || document.querySelector('.gallery-image.active')?.src || '';
   currentProductInfo.id = productId || getCurrentProductId();
   
-  console.log('Opening customization for:', currentProductInfo); // Debug log
+  console.log('Opening customization for:', currentProductInfo);
   
   const modal = document.getElementById('customizationModal');
   if (!modal) {
@@ -637,15 +640,31 @@ function openCustomizationModal(dressName = null, basePrice = null, productImage
   modal.classList.add('active');
   document.body.style.overflow = 'hidden';
   
-  // Update modal title and base price with luxury formatting
+  // Update modal title and base price - show full price with decimals
   const modalTitle = document.getElementById('modalTitle');
   const basePriceDisplay = document.getElementById('basePriceDisplay');
   
   if (modalTitle) modalTitle.textContent = `Design Your ${dressName}`;
-  if (basePriceDisplay) basePriceDisplay.textContent = `$${Math.round(basePrice)}`;
+  if (basePriceDisplay) basePriceDisplay.textContent = `$${basePrice.toFixed(2)}`;
   
   initializeDefaults();
   updatePrice();
+}
+
+// Also update the price calculation to show full precision:
+function updatePrice() {
+  let unitPrice = currentProductInfo.basePrice;
+  
+  document.querySelectorAll('.custom-option.selected, .color-option.selected').forEach(option => {
+    unitPrice += parseInt(option.dataset.price) || 0;
+  });
+  
+  const totalPrice = unitPrice * (selectedOptions.quantity || 1);
+  const totalPriceElement = document.getElementById('totalPrice');
+  if (totalPriceElement) {
+    // Show full price with decimals for precision
+    totalPriceElement.textContent = `$${totalPrice.toFixed(2)}`;
+  }
 }
 
 // AUTO-DETECTION function - reads product info from page
