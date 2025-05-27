@@ -670,39 +670,24 @@ let selectedOptions = {
   quantity: 1
 };
 
-// SMART discount calculation based on product data
+// SMART discount calculation - Always 22% discount with proper formula
 function calculateSmartDiscount(currentPrice, productId) {
-  // Define realistic original prices based on current prices
-  const discountRatios = {
-    'boho': { originalPrice: 380.00, currentPrice: 298.43 },
-    'sexy-sequin-mermaid-wedding-dress': { originalPrice: 280.00, currentPrice: 211.78 },
-    'minimalist-off-shoulder-satin-dress': { originalPrice: 350.00, currentPrice: 295.47 },
-    'boho-beach-wedding-dress': { originalPrice: 290.00, currentPrice: 221.56 },
-    'modest-satin-wedding-dress': { originalPrice: 340.00, currentPrice: 284.65 },
-    'sexy-fishtail-bridal-gown': { originalPrice: 450.00, currentPrice: 379.83 },
-    'floral-bridal-dress': { originalPrice: 310.00, currentPrice: 249.64 },
-    'custom-lace-mermaid-wedding-dress': { originalPrice: 340.00, currentPrice: 275.32 },
-    'custom-lace-mermaid-wedding-dress-v-neck': { originalPrice: 390.00, currentPrice: 322.61 },
-    'gorgeous-ivory-mermaid-wedding-gown': { originalPrice: 360.00, currentPrice: 297.52 },
-    'elegant-ivory-satin-bridal-gown': { originalPrice: 370.00, currentPrice: 298.42 }
-  };
+  // FIXED: Use proper reverse calculation for original price
+  // Formula: Original Price = Current Price ÷ (1 - Discount%/100)
+  const discountPercent = 22;
+  const originalPrice = Math.round((currentPrice / (1 - discountPercent / 100)) * 100) / 100;
   
-  const productDiscount = discountRatios[productId];
-  if (productDiscount) {
-    const discountPercent = Math.round(((productDiscount.originalPrice - productDiscount.currentPrice) / productDiscount.originalPrice) * 100);
-    return {
-      originalPrice: productDiscount.originalPrice,
-      discountedPrice: productDiscount.currentPrice,
-      discountPercent: discountPercent
-    };
-  }
+  console.log(`Price calculation for ${productId}:`, {
+    currentPrice: currentPrice,
+    discountPercent: discountPercent,
+    calculatedOriginalPrice: originalPrice,
+    formula: `${currentPrice} ÷ (1 - ${discountPercent}/100) = ${currentPrice} ÷ 0.78 = ${originalPrice}`
+  });
   
-  // Fallback: calculate 22% discount
-  const originalPrice = Math.round(currentPrice / 0.78); // Reverse calculate original price
   return {
     originalPrice: originalPrice,
     discountedPrice: currentPrice,
-    discountPercent: 22
+    discountPercent: discountPercent
   };
 }
 
