@@ -1,15 +1,17 @@
-// ENHANCED WEDDING DRESS CUSTOMIZATION MODAL WITH CART INTEGRATION
-// Place this file in your assets/js/ folder
+// ENHANCED WEDDING DRESS CUSTOMIZATION MODAL WITH CART INTEGRATION AND AUTOMATIC DISCOUNTS
+// Complete rewrite with all features - Place this file in your assets/js/ folder
 
 // Global variable to store current product info
 let currentProductInfo = {
   name: 'Wedding Dress',
   basePrice: 300,
+  originalPrice: 380,
+  discountPercent: 22,
   image: '',
   id: ''
 };
 
-// Inject CSS styles (including new cart-related styles)
+// Inject CSS styles (including new cart-related styles and discount features)
 const customizationCSS = `
 <style>
 /* Customization Modal Styles */
@@ -303,14 +305,52 @@ const customizationCSS = `
 }
 
 .base-price {
-  color: #666;
+  color: #999;
   text-decoration: line-through;
-  margin-right: 0.5rem;
+  margin-right: 0.75rem;
+  font-size: 1.1rem;
 }
 
 .total-price {
   color: #c9a96e;
-  font-size: 1.5rem;
+  font-size: 1.8rem;
+  font-weight: 600;
+}
+
+.discount-badge {
+  background: linear-gradient(135deg, #e8f5e8 0%, #f1f8e9 100%);
+  color: #2e7d32;
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  border: 1px solid #c8e6c9;
+}
+
+.price-details {
+  text-align: center;
+}
+
+.price-row {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  justify-content: center;
+  margin-bottom: 0.5rem;
+}
+
+.discount-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.price-note {
+  color: #666;
+  font-size: 0.8rem;
+  font-style: italic;
+  margin: 0;
 }
 
 .action-buttons {
@@ -416,11 +456,24 @@ const customizationCSS = `
     width: 100%;
     justify-content: center;
   }
+  
+  .price-row {
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+  
+  .total-price {
+    font-size: 1.5rem;
+  }
+  
+  .base-price {
+    font-size: 1rem;
+  }
 }
 </style>
 `;
 
-// Inject HTML modal with size, quantity, and cart functionality
+// Inject HTML modal with enhanced discount display
 const customizationHTML = `
 <div id="customizationModal" class="custom-modal">
   <div class="custom-modal-content">
@@ -575,44 +628,38 @@ const customizationHTML = `
       </div>
     </div>
 
-  <!-- Replace the modal footer in customization-modal.js with this: -->
-
-<div class="custom-footer">
-  <div class="price-summary">
-    <div style="display: flex; align-items: center; justify-content: center; gap: 1rem; margin-bottom: 0.75rem;">
-      <div style="text-align: center;">
-        <div style="display: flex; align-items: baseline; gap: 0.75rem; justify-content: center; margin-bottom: 0.25rem;">
-          <span class="base-price" id="basePriceDisplay" style="color: #999; text-decoration: line-through; font-size: 1.1rem;">$380.00</span>
-          <span class="total-price" id="totalPrice" style="color: #c9a96e; font-size: 1.8rem; font-weight: 600;">$298.43</span>
-        </div>
-        <div style="display: inline-flex; align-items: center; gap: 0.5rem;">
-          <span style="background: linear-gradient(135deg, #e8f5e8 0%, #f1f8e9 100%); color: #2e7d32; padding: 0.25rem 0.75rem; border-radius: 12px; font-size: 0.8rem; font-weight: 600; border: 1px solid #c8e6c9;">22% OFF</span>
-          <span style="color: #666; font-size: 0.8rem; font-style: italic;">Limited time</span>
+    <div class="custom-footer">
+      <div class="price-summary">
+        <div class="price-details">
+          <div class="price-row">
+            <span class="base-price" id="basePriceDisplay">$380.00</span>
+            <span class="total-price" id="totalPrice">$298.43</span>
+          </div>
+          <div class="discount-row">
+            <span class="discount-badge" id="discountBadge">22% OFF</span>
+            <span style="color: #666; font-size: 0.8rem; font-style: italic;">Limited time</span>
+          </div>
+          <p class="price-note">✨ Custom design & expert tailoring included</p>
         </div>
       </div>
+      <div class="action-buttons">
+        <button class="btn btn-secondary" onclick="closeCustomizationModal()">Maybe Later</button>
+        <button class="btn btn-cart" onclick="addToCart()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="9" cy="21" r="1"></circle>
+            <circle cx="20" cy="21" r="1"></circle>
+            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+          </svg>
+          Add to Cart
+        </button>
+        <button class="btn btn-primary" onclick="submitCustomization()">Get Quote First</button>
+      </div>
     </div>
-    <div style="text-align: center; margin-top: 0.5rem;">
-      <small style="color: #666; font-style: italic;">✨ Custom design & expert tailoring included</small>
-    </div>
-  </div>
-  <div class="action-buttons">
-    <button class="btn btn-secondary" onclick="closeCustomizationModal()">Maybe Later</button>
-    <button class="btn btn-cart" onclick="addToCart()">
-      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <circle cx="9" cy="21" r="1"></circle>
-        <circle cx="20" cy="21" r="1"></circle>
-        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
-      </svg>
-      Add to Cart
-    </button>
-    <button class="btn btn-primary" onclick="submitCustomization()">Get Quote First</button>
-  </div>
-</div>
   </div>
 </div>
 `;
 
-// Modal functionality
+// Modal functionality with selected options
 let selectedOptions = {
   style: 'mermaid',
   neckline: 'vneck',
@@ -623,10 +670,43 @@ let selectedOptions = {
   quantity: 1
 };
 
-// Fix for customization-modal.js
-// Update the openCustomizationModal function and price display
+// SMART discount calculation based on product data
+function calculateSmartDiscount(currentPrice, productId) {
+  // Define realistic original prices based on current prices
+  const discountRatios = {
+    'boho': { originalPrice: 380.00, currentPrice: 298.43 },
+    'sexy-sequin-mermaid-wedding-dress': { originalPrice: 280.00, currentPrice: 211.78 },
+    'minimalist-off-shoulder-satin-dress': { originalPrice: 350.00, currentPrice: 295.47 },
+    'boho-beach-wedding-dress': { originalPrice: 290.00, currentPrice: 221.56 },
+    'modest-satin-wedding-dress': { originalPrice: 340.00, currentPrice: 284.65 },
+    'sexy-fishtail-bridal-gown': { originalPrice: 450.00, currentPrice: 379.83 },
+    'floral-bridal-dress': { originalPrice: 310.00, currentPrice: 249.64 },
+    'custom-lace-mermaid-wedding-dress': { originalPrice: 340.00, currentPrice: 275.32 },
+    'custom-lace-mermaid-wedding-dress-v-neck': { originalPrice: 390.00, currentPrice: 322.61 },
+    'gorgeous-ivory-mermaid-wedding-gown': { originalPrice: 360.00, currentPrice: 297.52 },
+    'elegant-ivory-satin-bridal-gown': { originalPrice: 370.00, currentPrice: 298.42 }
+  };
+  
+  const productDiscount = discountRatios[productId];
+  if (productDiscount) {
+    const discountPercent = Math.round(((productDiscount.originalPrice - productDiscount.currentPrice) / productDiscount.originalPrice) * 100);
+    return {
+      originalPrice: productDiscount.originalPrice,
+      discountedPrice: productDiscount.currentPrice,
+      discountPercent: discountPercent
+    };
+  }
+  
+  // Fallback: calculate 22% discount
+  const originalPrice = Math.round(currentPrice / 0.78); // Reverse calculate original price
+  return {
+    originalPrice: originalPrice,
+    discountedPrice: currentPrice,
+    discountPercent: 22
+  };
+}
 
-// In the openCustomizationModal function, update the base price display:
+// SMART function that automatically detects product info
 function openCustomizationModal(dressName = null, basePrice = null, productImage = '', productId = '') {
   // AUTO-DETECT product info if not provided
   if (!dressName || !basePrice) {
@@ -637,13 +717,18 @@ function openCustomizationModal(dressName = null, basePrice = null, productImage
     productId = productId || autoDetected.id;
   }
   
-  // Store current product info with proper pricing (keep decimals)
+  // Calculate smart discount for this product
+  const discountInfo = calculateSmartDiscount(basePrice, productId);
+  
+  // Store current product info with discount data
   currentProductInfo.name = dressName;
-  currentProductInfo.basePrice = basePrice; // Don't round - keep 298.43
+  currentProductInfo.basePrice = basePrice;
+  currentProductInfo.originalPrice = discountInfo.originalPrice;
+  currentProductInfo.discountPercent = discountInfo.discountPercent;
   currentProductInfo.image = productImage || document.querySelector('.gallery-image.active')?.src || '';
   currentProductInfo.id = productId || getCurrentProductId();
   
-  console.log('Opening customization for:', currentProductInfo);
+  console.log('Opening customization with discount:', currentProductInfo);
   
   const modal = document.getElementById('customizationModal');
   if (!modal) {
@@ -655,31 +740,12 @@ function openCustomizationModal(dressName = null, basePrice = null, productImage
   modal.classList.add('active');
   document.body.style.overflow = 'hidden';
   
-  // Update modal title and base price - show full price with decimals
+  // Update modal title
   const modalTitle = document.getElementById('modalTitle');
-  const basePriceDisplay = document.getElementById('basePriceDisplay');
-  
   if (modalTitle) modalTitle.textContent = `Design Your ${dressName}`;
-  if (basePriceDisplay) basePriceDisplay.textContent = `$${basePrice.toFixed(2)}`;
   
   initializeDefaults();
-  updatePrice();
-}
-
-// Also update the price calculation to show full precision:
-function updatePrice() {
-  let unitPrice = currentProductInfo.basePrice;
-  
-  document.querySelectorAll('.custom-option.selected, .color-option.selected').forEach(option => {
-    unitPrice += parseInt(option.dataset.price) || 0;
-  });
-  
-  const totalPrice = unitPrice * (selectedOptions.quantity || 1);
-  const totalPriceElement = document.getElementById('totalPrice');
-  if (totalPriceElement) {
-    // Show full price with decimals for precision
-    totalPriceElement.textContent = `$${totalPrice.toFixed(2)}`;
-  }
+  updatePrice(); // This will now calculate the discount automatically
 }
 
 // AUTO-DETECTION function - reads product info from page
@@ -752,7 +818,7 @@ function addToCart() {
     specialRequests: document.getElementById('specialRequests')?.value || ''
   };
   
-  // Calculate final price
+  // Calculate final price with customizations
   let unitPrice = currentProductInfo.basePrice;
   document.querySelectorAll('.custom-option.selected, .color-option.selected').forEach(option => {
     unitPrice += parseInt(option.dataset.price) || 0;
@@ -770,7 +836,7 @@ function addToCart() {
     isCustom: true
   };
   
-  console.log('Adding custom product to cart:', customProduct); // Debug log
+  console.log('Adding custom product to cart:', customProduct);
   
   // Add to cart using the main cart system
   if (typeof window.cart !== 'undefined' && window.cart.addItem) {
@@ -795,6 +861,8 @@ function addToCart() {
 function submitCustomization() {
   const specialRequests = document.getElementById('specialRequests')?.value || 'No special requests';
   const totalPrice = document.getElementById('totalPrice')?.textContent || 'Not calculated';
+  const originalPrice = document.getElementById('basePriceDisplay')?.textContent || '';
+  const discountBadge = document.getElementById('discountBadge')?.textContent || '';
   
   const subject = encodeURIComponent(`Custom Wedding Dress Quote - ${currentProductInfo.name}`);
   const body = encodeURIComponent(`Hello Roza Bridal! 💕
@@ -813,10 +881,12 @@ DRESS: ${currentProductInfo.name}
 💌 SPECIAL REQUESTS:
 ${specialRequests}
 
-💰 ESTIMATED TOTAL: ${totalPrice}
+💰 PRICING ESTIMATE:
+Original Price: ${originalPrice}
+Your Price: ${totalPrice} (${discountBadge})
 
 Please provide me with:
-- Final pricing
+- Final pricing confirmation
 - Timeline for completion
 - Payment options
 - Any additional details
@@ -836,18 +906,35 @@ Best regards,
   }, 500);
 }
 
-// Update price calculation
+// Enhanced price calculation with discounts
 function updatePrice() {
   let unitPrice = currentProductInfo.basePrice;
   
+  // Add customization costs
   document.querySelectorAll('.custom-option.selected, .color-option.selected').forEach(option => {
     unitPrice += parseInt(option.dataset.price) || 0;
   });
   
   const totalPrice = unitPrice * (selectedOptions.quantity || 1);
+  
+  // Calculate what the "original" price would be (before discount)
+  const originalTotalPrice = Math.round(totalPrice / (1 - currentProductInfo.discountPercent / 100));
+  
+  // Update price display elements
   const totalPriceElement = document.getElementById('totalPrice');
+  const basePriceElement = document.getElementById('basePriceDisplay');
+  const discountBadgeElement = document.getElementById('discountBadge');
+  
   if (totalPriceElement) {
-    totalPriceElement.textContent = `${totalPrice.toLocaleString()}`;
+    totalPriceElement.textContent = `${totalPrice.toFixed(2)}`;
+  }
+  
+  if (basePriceElement) {
+    basePriceElement.textContent = `${originalTotalPrice.toFixed(2)}`;
+  }
+  
+  if (discountBadgeElement) {
+    discountBadgeElement.textContent = `${currentProductInfo.discountPercent}% OFF`;
   }
 }
 
@@ -908,6 +995,25 @@ function closeCustomizationModal() {
   document.body.style.overflow = 'auto';
 }
 
+// Enhanced event handling for options
+function handleOptionSelection(target) {
+  const option = target.closest('.custom-option') || target.closest('.color-option') || target.closest('.size-option');
+  if (!option) return;
+  
+  const optionType = option.dataset.option;
+  const optionValue = option.dataset.value;
+  
+  // Clear previous selections for this option type
+  document.querySelectorAll(`[data-option="${optionType}"]`).forEach(el => {
+    el.classList.remove('selected');
+  });
+  
+  // Select current option
+  option.classList.add('selected');
+  selectedOptions[optionType] = optionValue;
+  updatePrice();
+}
+
 // UNIVERSAL INITIALIZATION - Works on any page
 function initializeCustomizationModal() {
   // Check if modal already exists
@@ -923,20 +1029,9 @@ function initializeCustomizationModal() {
   
   // Add event listeners
   document.addEventListener('click', function(e) {
+    // Handle option selections
     if (e.target.closest('.custom-option') || e.target.closest('.color-option') || e.target.closest('.size-option')) {
-      const option = e.target.closest('.custom-option') || e.target.closest('.color-option') || e.target.closest('.size-option');
-      const optionType = option.dataset.option;
-      const optionValue = option.dataset.value;
-      
-      // Clear previous selections for this option type
-      document.querySelectorAll(`[data-option="${optionType}"]`).forEach(el => {
-        el.classList.remove('selected');
-      });
-      
-      // Select current option
-      option.classList.add('selected');
-      selectedOptions[optionType] = optionValue;
-      updatePrice();
+      handleOptionSelection(e.target);
     }
   });
   
@@ -956,6 +1051,19 @@ function initializeCustomizationModal() {
       closeCustomizationModal();
     }
   });
+  
+  // Add quantity input event listener
+  const quantityInput = document.getElementById('quantity');
+  if (quantityInput) {
+    quantityInput.addEventListener('input', function() {
+      let newQuantity = parseInt(this.value) || 1;
+      if (newQuantity < 1) newQuantity = 1;
+      if (newQuantity > 10) newQuantity = 10;
+      this.value = newQuantity;
+      selectedOptions.quantity = newQuantity;
+      updatePrice();
+    });
+  }
 }
 
 // Auto-initialize when DOM is ready
@@ -972,4 +1080,4 @@ window.addToCart = addToCart;
 window.submitCustomization = submitCustomization;
 window.changeQuantity = changeQuantity;
 
-console.log('✅ Customization modal loaded successfully!');
+console.log('✅ Enhanced Customization modal with discount system loaded successfully!');
