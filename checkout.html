@@ -119,7 +119,7 @@ title: Checkout - Roza Bridal
     <option value="KM">Comoros</option>
     <option value="CG">Congo – Brazzaville</option>
     <option value="CD">Congo – Kinshasa</option>
-    <option value="CI">Côte d’Ivoire</option>
+    <option value="CI">Côte d'Ivoire</option>
     <option value="DJ">Djibouti</option>
     <option value="EG">Egypt</option>
     <option value="GQ">Equatorial Guinea</option>
@@ -293,11 +293,7 @@ title: Checkout - Roza Bridal
       </div>
       <div class="checkout-total-row">
         <span>Shipping</span>
-        <span id="checkout-shipping">FREE</span>
-      </div>
-      <div class="checkout-total-row">
-        <span>Tax</span>
-        <span id="checkout-tax">Calculated separately</span>
+        <span id="checkout-shipping" style="color: #28a745; font-weight: 600;">FREE SHIPPING</span>
       </div>
       <div class="checkout-total-row final">
         <span>Total</span>
@@ -465,16 +461,15 @@ function loadCheckoutData() {
     `;
   }).join('');
   
-  // Calculate totals
+  // Calculate totals - NO SHIPPING, NO TAX
   const subtotal = cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
-  const shipping = 0; // Free shipping
-  const tax = 0; // Calculated separately
-  const total = subtotal + shipping + tax;
+  const shipping = 0; // Always free shipping
+  const tax = 0; // No tax
+  const total = subtotal; // Total equals subtotal since shipping and tax are 0
   
   // Update totals
   document.getElementById('checkout-subtotal').textContent = `$${subtotal.toFixed(2)}`;
-  document.getElementById('checkout-shipping').textContent = subtotal > 500 ? 'FREE' : '$50.00';
-  document.getElementById('checkout-tax').textContent = 'Calculated separately';
+  document.getElementById('checkout-shipping').textContent = 'FREE SHIPPING';
   document.getElementById('checkout-total').textContent = `$${total.toFixed(2)}`;
   
   // Enable place order button
@@ -564,8 +559,8 @@ function processOrder() {
     items: cartItems,
     totals: {
       subtotal: cartItems.reduce((total, item) => total + (item.price * item.quantity), 0),
-      shipping: 0,
-      tax: 0,
+      shipping: 0, // FREE SHIPPING
+      tax: 0, // NO TAX
       total: cartItems.reduce((total, item) => total + (item.price * item.quantity), 0)
     },
     orderDate: new Date().toISOString(),
@@ -643,8 +638,8 @@ ${itemsList}
 
 💰 ORDER TOTALS:
 Subtotal: $${orderData.totals.subtotal.toFixed(2)}
-Shipping: FREE
-Tax: Calculated separately
+Shipping: FREE SHIPPING ✨
+Tax: Not applicable
 TOTAL: $${orderData.totals.total.toFixed(2)}
 
 📝 ORDER NOTES:
