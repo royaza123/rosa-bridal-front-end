@@ -575,24 +575,39 @@ const customizationHTML = `
       </div>
     </div>
 
-    <div class="custom-footer">
-      <div class="price-summary">
-        <span class="base-price" id="basePriceDisplay">$300</span>
-        <span class="total-price" id="totalPrice">$300</span>
-      </div>
-      <div class="action-buttons">
-        <button class="btn btn-secondary" onclick="closeCustomizationModal()">Maybe Later</button>
-        <button class="btn btn-cart" onclick="addToCart()">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="9" cy="21" r="1"></circle>
-            <circle cx="20" cy="21" r="1"></circle>
-            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
-          </svg>
-          Add to Cart
-        </button>
-        <button class="btn btn-primary" onclick="submitCustomization()">Get Quote First</button>
+  <!-- Replace the modal footer in customization-modal.js with this: -->
+
+<div class="custom-footer">
+  <div class="price-summary">
+    <div style="display: flex; align-items: center; justify-content: center; gap: 1rem; margin-bottom: 0.75rem;">
+      <div style="text-align: center;">
+        <div style="display: flex; align-items: baseline; gap: 0.75rem; justify-content: center; margin-bottom: 0.25rem;">
+          <span class="base-price" id="basePriceDisplay" style="color: #999; text-decoration: line-through; font-size: 1.1rem;">$380.00</span>
+          <span class="total-price" id="totalPrice" style="color: #c9a96e; font-size: 1.8rem; font-weight: 600;">$298.43</span>
+        </div>
+        <div style="display: inline-flex; align-items: center; gap: 0.5rem;">
+          <span style="background: linear-gradient(135deg, #e8f5e8 0%, #f1f8e9 100%); color: #2e7d32; padding: 0.25rem 0.75rem; border-radius: 12px; font-size: 0.8rem; font-weight: 600; border: 1px solid #c8e6c9;">22% OFF</span>
+          <span style="color: #666; font-size: 0.8rem; font-style: italic;">Limited time</span>
+        </div>
       </div>
     </div>
+    <div style="text-align: center; margin-top: 0.5rem;">
+      <small style="color: #666; font-style: italic;">✨ Custom design & expert tailoring included</small>
+    </div>
+  </div>
+  <div class="action-buttons">
+    <button class="btn btn-secondary" onclick="closeCustomizationModal()">Maybe Later</button>
+    <button class="btn btn-cart" onclick="addToCart()">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="9" cy="21" r="1"></circle>
+        <circle cx="20" cy="21" r="1"></circle>
+        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+      </svg>
+      Add to Cart
+    </button>
+    <button class="btn btn-primary" onclick="submitCustomization()">Get Quote First</button>
+  </div>
+</div>
   </div>
 </div>
 `;
