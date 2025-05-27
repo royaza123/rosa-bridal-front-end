@@ -3,123 +3,248 @@ layout: default
 title: Floral Bridal Dress
 ---
 
-<div style="max-width: 1200px; margin: 2rem auto; padding: 0 2rem;">
-  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start;">
+<div style="max-width: 1200px; margin: 3rem auto; padding: 0 2rem;">
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start;">
     
-    <!-- Enhanced Image Gallery -->
-    <div style="position: relative; border-radius: 12px; overflow: hidden; box-shadow: 0 8px 32px rgba(0,0,0,0.1);">
-      <div id="gallery-container" style="position: relative; background: #f8f9fa; height: 500px; overflow: hidden;">
-        <!-- Images -->
+    <!-- LUXURY IMAGE GALLERY -->
+    <div style="position: relative; border-radius: 12px; overflow: hidden; box-shadow: 0 12px 40px rgba(0,0,0,0.08);">
+      <div id="gallery-container" style="position: relative; background: #fafafa; height: 650px; overflow: hidden;">
+        <!-- Main Images -->
         <img class="gallery-image active" 
              src="{{ site.baseurl }}/assets/images/floral-bridal-dress-ladies-wedding-gown/main.webp" 
              alt="Floral Bridal Dress - Main View"
-             style="width: 100%; height: 100%; object-fit: contain; object-position: center center; position: absolute; top: 0; left: 0; opacity: 1; transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1); background: white;">
+             style="width: 100%; height: 100%; object-fit: cover; object-position: center top; position: absolute; top: 0; left: 0; opacity: 1; transition: all 0.6s ease;">
         
         <img class="gallery-image" 
              src="{{ site.baseurl }}/assets/images/floral-bridal-dress-ladies-wedding-gown/picture 1.webp" 
              alt="Floral Bridal Dress - Front View"
-             style="width: 100%; height: 100%; object-fit: contain; object-position: center center; position: absolute; top: 0; left: 0; opacity: 0; transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1); background: white;">
+             style="width: 100%; height: 100%; object-fit: cover; object-position: center top; position: absolute; top: 0; left: 0; opacity: 0; transition: all 0.6s ease;">
         
         <img class="gallery-image" 
              src="{{ site.baseurl }}/assets/images/floral-bridal-dress-ladies-wedding-gown/picture 2.webp" 
              alt="Floral Bridal Dress - Back View"
-             style="width: 100%; height: 100%; object-fit: contain; object-position: center center; position: absolute; top: 0; left: 0; opacity: 0; transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1); background: white;">
+             style="width: 100%; height: 100%; object-fit: cover; object-position: center top; position: absolute; top: 0; left: 0; opacity: 0; transition: all 0.6s ease;">
         
         <img class="gallery-image" 
              src="{{ site.baseurl }}/assets/images/floral-bridal-dress-ladies-wedding-gown/detail.webp" 
              alt="Floral Bridal Dress - Detail View"
-             style="width: 100%; height: 100%; object-fit: contain; object-position: center center; position: absolute; top: 0; left: 0; opacity: 0; transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1); background: white;">
+             style="width: 100%; height: 100%; object-fit: contain; object-position: center center; position: absolute; top: 0; left: 0; opacity: 0; transition: all 0.6s ease; background: white; padding: 20px;">
         
-        <!-- Navigation Arrows -->
+        <!-- Elegant Navigation Arrows -->
         <button onclick="prevImage()" 
-                style="position: absolute; left: 20px; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.7); color: white; border: none; width: 50px; height: 50px; border-radius: 50%; cursor: pointer; font-size: 20px; transition: all 0.3s; backdrop-filter: blur(10px); z-index: 10;"
-                onmouseover="this.style.background='rgba(201, 169, 110, 0.9)'; this.style.transform='translateY(-50%) scale(1.1)'"
-                onmouseout="this.style.background='rgba(0,0,0,0.7)'; this.style.transform='translateY(-50%) scale(1)'">
+                style="position: absolute; left: 15px; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.9); color: #8b7355; border: none; width: 45px; height: 45px; border-radius: 50%; cursor: pointer; font-size: 16px; transition: all 0.3s; backdrop-filter: blur(10px); z-index: 10; box-shadow: 0 4px 12px rgba(0,0,0,0.1);"
+                onmouseover="this.style.background='rgba(139, 115, 85, 0.95)'; this.style.color='white'; this.style.transform='translateY(-50%) scale(1.05)'"
+                onmouseout="this.style.background='rgba(255,255,255,0.9)'; this.style.color='#8b7355'; this.style.transform='translateY(-50%) scale(1)'">
           ❮
         </button>
         
         <button onclick="nextImage()" 
-                style="position: absolute; right: 20px; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.7); color: white; border: none; width: 50px; height: 50px; border-radius: 50%; cursor: pointer; font-size: 20px; transition: all 0.3s; backdrop-filter: blur(10px); z-index: 10;"
-                onmouseover="this.style.background='rgba(201, 169, 110, 0.9)'; this.style.transform='translateY(-50%) scale(1.1)'"
-                onmouseout="this.style.background='rgba(0,0,0,0.7)'; this.style.transform='translateY(-50%) scale(1)'">
+                style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.9); color: #8b7355; border: none; width: 45px; height: 45px; border-radius: 50%; cursor: pointer; font-size: 16px; transition: all 0.3s; backdrop-filter: blur(10px); z-index: 10; box-shadow: 0 4px 12px rgba(0,0,0,0.1);"
+                onmouseover="this.style.background='rgba(139, 115, 85, 0.95)'; this.style.color='white'; this.style.transform='translateY(-50%) scale(1.05)'"
+                onmouseout="this.style.background='rgba(255,255,255,0.9)'; this.style.color='#8b7355'; this.style.transform='translateY(-50%) scale(1)'">
           ❯
         </button>
         
-        <!-- Dots Navigation -->
-        <div style="position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); display: flex; gap: 10px; background: rgba(0,0,0,0.7); padding: 10px 20px; border-radius: 25px; backdrop-filter: blur(10px);">
+        <!-- Minimalist Dots -->
+        <div style="position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); display: flex; gap: 8px; background: rgba(255,255,255,0.9); padding: 12px 18px; border-radius: 20px; backdrop-filter: blur(10px); box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
           <div class="gallery-dot active" onclick="goToImage(0)" 
-               style="width: 12px; height: 12px; border-radius: 50%; background: white; cursor: pointer; transition: all 0.3s; opacity: 1;"></div>
+               style="width: 8px; height: 8px; border-radius: 50%; background: #8b7355; cursor: pointer; transition: all 0.3s; opacity: 1;"></div>
           <div class="gallery-dot" onclick="goToImage(1)" 
-               style="width: 12px; height: 12px; border-radius: 50%; background: rgba(255,255,255,0.5); cursor: pointer; transition: all 0.3s; opacity: 0.7;"></div>
+               style="width: 8px; height: 8px; border-radius: 50%; background: rgba(139, 115, 85, 0.3); cursor: pointer; transition: all 0.3s; opacity: 0.7;"></div>
           <div class="gallery-dot" onclick="goToImage(2)" 
-               style="width: 12px; height: 12px; border-radius: 50%; background: rgba(255,255,255,0.5); cursor: pointer; transition: all 0.3s; opacity: 0.7;"></div>
+               style="width: 8px; height: 8px; border-radius: 50%; background: rgba(139, 115, 85, 0.3); cursor: pointer; transition: all 0.3s; opacity: 0.7;"></div>
           <div class="gallery-dot" onclick="goToImage(3)" 
-               style="width: 12px; height: 12px; border-radius: 50%; background: rgba(255,255,255,0.5); cursor: pointer; transition: all 0.3s; opacity: 0.7;"></div>
+               style="width: 8px; height: 8px; border-radius: 50%; background: rgba(139, 115, 85, 0.3); cursor: pointer; transition: all 0.3s; opacity: 0.7;"></div>
         </div>
       </div>
       
-      <!-- Thumbnail Images -->
-      <div style="display: flex; gap: 0.5rem; margin-top: 1rem; overflow-x: auto; padding: 0.5rem;">
+      <!-- Elegant Thumbnails -->
+      <div style="display: flex; gap: 8px; margin-top: 1.5rem; justify-content: center;">
         <img onclick="goToImage(0)" id="thumb-0"
              src="{{ site.baseurl }}/assets/images/floral-bridal-dress-ladies-wedding-gown/main.webp" 
-             style="width: 80px; height: 80px; object-fit: cover; border-radius: 8px; cursor: pointer; border: 3px solid #c9a96e; transition: all 0.3s; filter: brightness(1);">
+             style="width: 65px; height: 85px; object-fit: cover; border-radius: 6px; cursor: pointer; border: 2px solid #8b7355; transition: all 0.3s; opacity: 1;">
         
         <img onclick="goToImage(1)" id="thumb-1"
              src="{{ site.baseurl }}/assets/images/floral-bridal-dress-ladies-wedding-gown/picture 1.webp" 
-             style="width: 80px; height: 80px; object-fit: cover; border-radius: 8px; cursor: pointer; border: 3px solid transparent; transition: all 0.3s; filter: brightness(0.7);">
+             style="width: 65px; height: 85px; object-fit: cover; border-radius: 6px; cursor: pointer; border: 2px solid transparent; transition: all 0.3s; opacity: 0.6;">
         
         <img onclick="goToImage(2)" id="thumb-2"
              src="{{ site.baseurl }}/assets/images/floral-bridal-dress-ladies-wedding-gown/picture 2.webp" 
-             style="width: 80px; height: 80px; object-fit: cover; border-radius: 8px; cursor: pointer; border: 3px solid transparent; transition: all 0.3s; filter: brightness(0.7);">
+             style="width: 65px; height: 85px; object-fit: cover; border-radius: 6px; cursor: pointer; border: 2px solid transparent; transition: all 0.3s; opacity: 0.6;">
         
         <img onclick="goToImage(3)" id="thumb-3"
              src="{{ site.baseurl }}/assets/images/floral-bridal-dress-ladies-wedding-gown/detail.webp" 
-             style="width: 80px; height: 80px; object-fit: cover; border-radius: 8px; cursor: pointer; border: 3px solid transparent; transition: all 0.3s; filter: brightness(0.7);">
+             style="width: 65px; height: 85px; object-fit: cover; border-radius: 6px; cursor: pointer; border: 2px solid transparent; transition: all 0.3s; opacity: 0.6;">
       </div>
     </div>
 
-    <!-- Product Details -->
-    <div style="padding: 1rem 0;">
-      <h1 style="font-family: 'Cormorant Garamond', serif; font-size: 2.5rem; color: #1a1a1a; margin-bottom: 2rem; font-weight: 400; line-height: 1.2;">
+    <!-- LUXURY PRODUCT DETAILS -->
+    <div style="padding: 2rem 0;">
+      <!-- Elegant Title -->
+      <h1 style="font-family: 'Cormorant Garamond', serif; font-size: 2.75rem; color: #1a1a1a; margin-bottom: 1.5rem; font-weight: 300; line-height: 1.1; letter-spacing: -0.5px;">
         Floral Bridal Dress
       </h1>
       
-      <!-- Features List -->
-      <div style="margin: 2rem 0; padding: 2rem; background: linear-gradient(135deg, #f8f9fa 0%, #f0f4f7 100%); border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
-        <div style="padding: 0.75rem 0; border-bottom: 1px solid #e0e0e0; position: relative; padding-left: 2rem; font-size: 1.05rem;">
-          <span style="position: absolute; left: 0; color: #c9a96e; font-weight: 600; font-size: 1.1rem;">✓</span>
-          Romantic Floral Lace Pattern
+      <!-- Elegant Pricing Section -->
+      <div style="margin: 2.5rem 0; padding: 2.5rem; background: linear-gradient(135deg, #fefefe 0%, #f9f7f4 100%); border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.04); border-left: 3px solid #c9a96e;">
+        <div style="text-align: center; margin-bottom: 2rem;">
+          <div style="font-size: 0.8rem; color: #8b7355; font-weight: 500; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 1rem; opacity: 0.8;">
+            Investment
+          </div>
+          <div style="font-family: 'Cormorant Garamond', serif; font-size: 2.5rem; color: #1a1a1a; font-weight: 300; line-height: 1; margin-bottom: 0.5rem;" id="product-price">
+            $249.64
+          </div>
+          <div style="font-size: 0.9rem; color: #8b7355; font-weight: 500; margin-bottom: 1.5rem;">
+            Custom design & expert tailoring included
+          </div>
         </div>
-        <div style="padding: 0.75rem 0; border-bottom: 1px solid #e0e0e0; position: relative; padding-left: 2rem; font-size: 1.05rem;">
-          <span style="position: absolute; left: 0; color: #c9a96e; font-weight: 600; font-size: 1.1rem;">✓</span>
-          Elegant Deep V-Neck Design
+        
+        <div style="display: flex; justify-content: center; align-items: center; gap: 2rem; padding: 1.5rem; background: rgba(139, 115, 85, 0.05); border-radius: 8px; margin-top: 1rem;">
+          <div style="text-align: center; flex: 1;">
+            <div style="font-size: 1.2rem; margin-bottom: 0.25rem;">🌸</div>
+            <div style="font-size: 0.8rem; color: #666; font-weight: 500;">Floral Design</div>
+          </div>
+          <div style="text-align: center; flex: 1;">
+            <div style="font-size: 1.2rem; margin-bottom: 0.25rem;">📏</div>
+            <div style="font-size: 0.8rem; color: #666; font-weight: 500;">Perfect Fit</div>
+          </div>
+          <div style="text-align: center; flex: 1;">
+            <div style="font-size: 1.2rem; margin-bottom: 0.25rem;">✨</div>
+            <div style="font-size: 0.8rem; color: #666; font-weight: 500;">Premium Quality</div>
+          </div>
+          <div style="text-align: center; flex: 1;">
+            <div style="font-size: 1.2rem; margin-bottom: 0.25rem;">💝</div>
+            <div style="font-size: 0.8rem; color: #666; font-weight: 500;">White Glove Service</div>
+          </div>
         </div>
-        <div style="padding: 0.75rem 0; border-bottom: 1px solid #e0e0e0; position: relative; padding-left: 2rem; font-size: 1.05rem;">
-          <span style="position: absolute; left: 0; color: #c9a96e; font-weight: 600; font-size: 1.1rem;">✓</span>
-          Lightweight Mesh Fabric
+        
+        <div style="text-align: center; margin-top: 1.5rem;">
+          <p style="font-size: 0.85rem; color: #888; margin: 0; font-style: italic;">
+            Free consultation • Complimentary alterations • White-glove service
+          </p>
         </div>
-        <div style="padding: 0.75rem 0; border-bottom: 1px solid #e0e0e0; position: relative; padding-left: 2rem; font-size: 1.05rem;">
-          <span style="position: absolute; left: 0; color: #c9a96e; font-weight: 600; font-size: 1.1rem;">✓</span>
-          Easy Movement for Dancing
+      </div>
+
+      <!-- Material & Fit Details Section -->
+      <div style="margin: 3rem 0; padding: 2.5rem; background: linear-gradient(135deg, #f8f6f0 0%, #f5f3ee 100%); border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.04); border-left: 4px solid #c9a96e;">
+        <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; color: #1a1a1a; margin-bottom: 1.5rem; font-weight: 400; display: flex; align-items: center; gap: 0.5rem;">
+          <span style="font-size: 1.2rem;">📏</span>
+          Material & Fit Details
+        </h3>
+        
+        <div style="display: grid; gap: 1.25rem;">
+          <div style="display: flex; align-items: flex-start; gap: 1rem; padding: 0.75rem 0; border-bottom: 1px solid rgba(201, 169, 110, 0.15);">
+            <div style="width: 20px; height: 20px; background: rgba(139, 115, 85, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 0.1rem;">
+              <span style="font-size: 0.7rem; color: #8b7355;">🌸</span>
+            </div>
+            <div>
+              <strong style="color: #1a1a1a; font-size: 0.95rem;">Fabric:</strong>
+              <span style="color: #444; margin-left: 0.5rem;">Lightweight mesh with romantic floral lace pattern</span>
+            </div>
+          </div>
+          
+          <div style="display: flex; align-items: flex-start; gap: 1rem; padding: 0.75rem 0; border-bottom: 1px solid rgba(201, 169, 110, 0.15);">
+            <div style="width: 20px; height: 20px; background: rgba(139, 115, 85, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 0.1rem;">
+              <span style="font-size: 0.7rem; color: #8b7355;">📐</span>
+            </div>
+            <div>
+              <strong style="color: #1a1a1a; font-size: 0.95rem;">Fit:</strong>
+              <span style="color: #444; margin-left: 0.5rem;">Flowing silhouette perfect for garden weddings</span>
+            </div>
+          </div>
+          
+          <div style="display: flex; align-items: flex-start; gap: 1rem; padding: 0.75rem 0; border-bottom: 1px solid rgba(201, 169, 110, 0.15);">
+            <div style="width: 20px; height: 20px; background: rgba(139, 115, 85, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 0.1rem;">
+              <span style="font-size: 0.7rem; color: #8b7355;">V</span>
+            </div>
+            <div>
+              <strong style="color: #1a1a1a; font-size: 0.95rem;">Neckline:</strong>
+              <span style="color: #444; margin-left: 0.5rem;">Elegant deep V-neck design</span>
+            </div>
+          </div>
+          
+          <div style="display: flex; align-items: flex-start; gap: 1rem; padding: 0.75rem 0;">
+            <div style="width: 20px; height: 20px; background: rgba(139, 115, 85, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 0.1rem;">
+              <span style="font-size: 0.7rem; color: #8b7355;">💃</span>
+            </div>
+            <div>
+              <strong style="color: #1a1a1a; font-size: 0.95rem;">Movement:</strong>
+              <span style="color: #444; margin-left: 0.5rem;">Easy movement for dancing all night</span>
+            </div>
+          </div>
         </div>
-        <div style="padding: 0.75rem 0; position: relative; padding-left: 2rem; font-size: 1.05rem;">
-          <span style="position: absolute; left: 0; color: #c9a96e; font-weight: 600; font-size: 1.1rem;">✓</span>
-          Perfect for Garden Weddings
+      </div>
+
+      <!-- Elegant Features -->
+      <div style="margin: 3rem 0; padding: 2.5rem; background: linear-gradient(135deg, #fefefe 0%, #f9f7f4 100%); border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.04);">
+        <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; color: #1a1a1a; margin-bottom: 1.5rem; font-weight: 400;">What Makes This Dress Special</h3>
+        
+        <div style="display: grid; gap: 1rem;">
+          <div style="padding: 1rem 0; border-bottom: 1px solid rgba(139, 115, 85, 0.1); position: relative; padding-left: 2.5rem; font-size: 1rem; color: #2c2c2c;">
+            <span style="position: absolute; left: 0; color: #8b7355; font-weight: 600; font-size: 1.2rem;">✓</span>
+            <strong>Romantic Floral Lace Pattern</strong> - Bringing nature's beauty to your special day
+          </div>
+          <div style="padding: 1rem 0; border-bottom: 1px solid rgba(139, 115, 85, 0.1); position: relative; padding-left: 2.5rem; font-size: 1rem; color: #2c2c2c;">
+            <span style="position: absolute; left: 0; color: #8b7355; font-weight: 600; font-size: 1.2rem;">✓</span>
+            <strong>Elegant Deep V-Neck Design</strong> - Sophisticated yet graceful neckline
+          </div>
+          <div style="padding: 1rem 0; border-bottom: 1px solid rgba(139, 115, 85, 0.1); position: relative; padding-left: 2.5rem; font-size: 1rem; color: #2c2c2c;">
+            <span style="position: absolute; left: 0; color: #8b7355; font-weight: 600; font-size: 1.2rem;">✓</span>
+            <strong>Lightweight Mesh Fabric</strong> - Comfortable for all-day wear
+          </div>
+          <div style="padding: 1rem 0; border-bottom: 1px solid rgba(139, 115, 85, 0.1); position: relative; padding-left: 2.5rem; font-size: 1rem; color: #2c2c2c;">
+            <span style="position: absolute; left: 0; color: #8b7355; font-weight: 600; font-size: 1.2rem;">✓</span>
+            <strong>Easy Movement for Dancing</strong> - Dance the night away in comfort
+          </div>
+          <div style="padding: 1rem 0; position: relative; padding-left: 2.5rem; font-size: 1rem; color: #2c2c2c;">
+            <span style="position: absolute; left: 0; color: #8b7355; font-weight: 600; font-size: 1.2rem;">✓</span>
+            <strong>Perfect for Garden Weddings</strong> - Ideal for outdoor ceremonies
+          </div>
         </div>
       </div>
       
-      <!-- Description -->
-      <p style="font-size: 1.1rem; line-height: 1.8; color: #666; margin: 2rem 0;">
-        This enchanting floral bridal dress features a romantic lace pattern that brings a touch of nature to your special day. The elegant deep V-neck design beautifully frames your neckline while maintaining a balance of sensuality and sophistication. Crafted from lightweight mesh fabric, this gown allows for easy movement while dancing and celebrating. Ideal for garden weddings, spring ceremonies, or any bride who dreams of embodying floral elegance on her wedding day.
-      </p>
-      
-      <!-- Customize Button -->
-      <a href="#" onclick="openCustomizeModal()" 
-         style="display: inline-block; padding: 1.25rem 3rem; background: linear-gradient(135deg, #c9a96e 0%, #d4b875 100%); color: white; text-decoration: none; font-weight: 600; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 1px; border-radius: 50px; margin-top: 2rem; border: none; cursor: pointer; box-shadow: 0 4px 20px rgba(201, 169, 110, 0.3); transition: all 0.3s; position: relative; overflow: hidden;"
-         onmouseover="this.style.transform='translateY(-3px) scale(1.02)'; this.style.boxShadow='0 8px 30px rgba(201, 169, 110, 0.4)'"
-         onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='0 4px 20px rgba(201, 169, 110, 0.3)'">
-        Customize for You
-      </a>
+      <!-- Elegant Description -->
+      <div style="margin: 3rem 0; padding: 2rem; background: rgba(139, 115, 85, 0.03); border-radius: 12px; border-left: 3px solid #8b7355;">
+        <p style="font-size: 1.1rem; line-height: 1.8; color: #444; margin: 0; font-weight: 300;">
+          This enchanting floral bridal dress features a <strong>romantic lace pattern</strong> that brings a touch of nature to your special day. The elegant deep V-neck design beautifully frames your neckline while maintaining a balance of sensuality and sophistication. Crafted from lightweight mesh fabric, this gown allows for easy movement while dancing and celebrating. Ideal for garden weddings, spring ceremonies, or any bride who dreams of embodying floral elegance on her wedding day.
+        </p>
+      </div>
+
+      <!-- SINGLE, ELEGANT CALL-TO-ACTION -->
+      <div style="margin: 3rem 0; text-align: center;">
+        <button onclick="openCustomizationModal('Floral Bridal Dress', 249.64, '{{ site.baseurl }}/assets/images/floral-bridal-dress-ladies-wedding-gown/main.webp', 'floral-bridal-dress')" 
+                style="display: inline-block; padding: 1.4rem 3.5rem; background: linear-gradient(135deg, #8b7355 0%, #a08968 100%); color: white; border: none; font-weight: 500; font-size: 1rem; text-transform: uppercase; letter-spacing: 1.5px; border-radius: 6px; cursor: pointer; transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); box-shadow: 0 6px 25px rgba(139, 115, 85, 0.25); position: relative; overflow: hidden;"
+                onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 12px 40px rgba(139, 115, 85, 0.35)'"
+                onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 6px 25px rgba(139, 115, 85, 0.25)'">
+          Design Your Perfect Dress
+        </button>
+        
+        <p style="margin-top: 1.5rem; font-size: 0.9rem; color: #666; font-style: italic;">
+          🌸 Customize size, style, fabric, and floral details - all included in your design session
+        </p>
+      </div>
+
+      <!-- Trust Elements -->
+      <div style="margin: 3rem 0; padding: 2rem; background: linear-gradient(135deg, #f8f9fa 0%, #f0f4f7 100%); border-radius: 12px; text-align: center;">
+        <div style="display: flex; justify-content: space-around; align-items: center; flex-wrap: wrap; gap: 2rem;">
+          <div style="text-align: center;">
+            <div style="font-size: 1.8rem; margin-bottom: 0.5rem;">🌸</div>
+            <p style="font-size: 0.85rem; color: #666; margin: 0; font-weight: 500;">Floral Design</p>
+          </div>
+          <div style="text-align: center;">
+            <div style="font-size: 1.8rem; margin-bottom: 0.5rem;">📏</div>
+            <p style="font-size: 0.85rem; color: #666; margin: 0; font-weight: 500;">Perfect Fit</p>
+          </div>
+          <div style="text-align: center;">
+            <div style="font-size: 1.8rem; margin-bottom: 0.5rem;">✨</div>
+            <p style="font-size: 0.85rem; color: #666; margin: 0; font-weight: 500;">Premium Quality</p>
+          </div>
+          <div style="text-align: center;">
+            <div style="font-size: 1.8rem; margin-bottom: 0.5rem;">💝</div>
+            <p style="font-size: 0.85rem; color: #666; margin: 0; font-weight: 500;">White Glove Service</p>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -132,17 +257,22 @@ const thumbnails = document.querySelectorAll('img[id^="thumb-"]');
 
 function updateGallery() {
   images.forEach((img, index) => {
-    img.style.opacity = index === currentImageIndex ? '1' : '0';
-    img.style.transform = index === currentImageIndex ? 'scale(1)' : 'scale(1.05)';
+    if (index === currentImageIndex) {
+      img.style.opacity = '1';
+      img.style.transform = 'scale(1)';
+    } else {
+      img.style.opacity = '0';
+      img.style.transform = 'scale(1.02)';
+    }
   });
   
   dots.forEach((dot, index) => {
     if (index === currentImageIndex) {
-      dot.style.background = 'white';
+      dot.style.background = '#8b7355';
       dot.style.opacity = '1';
-      dot.style.transform = 'scale(1.2)';
+      dot.style.transform = 'scale(1.3)';
     } else {
-      dot.style.background = 'rgba(255,255,255,0.5)';
+      dot.style.background = 'rgba(139, 115, 85, 0.3)';
       dot.style.opacity = '0.7';
       dot.style.transform = 'scale(1)';
     }
@@ -150,12 +280,12 @@ function updateGallery() {
   
   thumbnails.forEach((thumb, index) => {
     if (index === currentImageIndex) {
-      thumb.style.border = '3px solid #c9a96e';
-      thumb.style.filter = 'brightness(1)';
+      thumb.style.border = '2px solid #8b7355';
+      thumb.style.opacity = '1';
       thumb.style.transform = 'scale(1.05)';
     } else {
-      thumb.style.border = '3px solid transparent';
-      thumb.style.filter = 'brightness(0.7)';
+      thumb.style.border = '2px solid transparent';
+      thumb.style.opacity = '0.6';
       thumb.style.transform = 'scale(1)';
     }
   });
@@ -176,27 +306,25 @@ function goToImage(index) {
   updateGallery();
 }
 
-function openCustomizeModal() {
-  alert('Customize Modal Coming Soon! This will open a beautiful customization form.\n\nFor now, contact us at aetophis@aetophis.com for custom orders.');
-  
-  const subject = encodeURIComponent('Custom Order Request - Floral Bridal Dress');
-  const body = encodeURIComponent('Hello Roza Bridal,\n\nI am interested in customizing the Floral Bridal Dress.\n\nPlease provide information about:\n- Available sizes\n- Customization options\n- Pricing\n- Timeline\n\nThank you!');
-  
-  window.open(`mailto:aetophis@aetophis.com?subject=${subject}&body=${body}`, '_blank');
-}
+// Elegant auto-rotate with longer intervals
+let autoRotate = setInterval(nextImage, 6000);
 
-let autoRotate = setInterval(nextImage, 5000);
-
+// Pause auto-rotate on hover
 document.getElementById('gallery-container').addEventListener('mouseenter', () => {
   clearInterval(autoRotate);
 });
 
+// Resume auto-rotate when not hovering
 document.getElementById('gallery-container').addEventListener('mouseleave', () => {
-  autoRotate = setInterval(nextImage, 5000);
+  autoRotate = setInterval(nextImage, 6000);
 });
 
+// Keyboard navigation
 document.addEventListener('keydown', (e) => {
   if (e.key === 'ArrowRight') nextImage();
   if (e.key === 'ArrowLeft') prevImage();
 });
+
+// Initialize gallery
+updateGallery();
 </script>
