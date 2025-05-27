@@ -903,21 +903,22 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // Load product prices on current page - ENHANCED FOR LUXURY DISPLAY
+// Load product prices on current page - FIXED FOR DECIMAL DISPLAY
 function loadProductPrices() {
   const currentProductId = getCurrentProductId();
   const productInfo = getProductInfo(currentProductId);
   
   if (productInfo) {
-    // Update product price display with luxury formatting
+    // Update product price display with FULL decimals - FIXED!
     const priceElement = document.getElementById('product-price');
     const originalPriceElement = document.getElementById('original-price');
     
     if (priceElement) {
-      priceElement.textContent = `${productInfo.price.toFixed(0)}`;
+      priceElement.textContent = `$${productInfo.price.toFixed(2)}`; // CHANGED FROM .toFixed(0) to .toFixed(2)
     }
     
     if (originalPriceElement && productInfo.originalPrice) {
-      originalPriceElement.textContent = `${productInfo.originalPrice.toFixed(0)}`;
+      originalPriceElement.textContent = `$${productInfo.originalPrice.toFixed(2)}`; // CHANGED FROM .toFixed(0) to .toFixed(2)
     }
     
     // Update customize button with correct price and product info
@@ -1122,7 +1123,7 @@ function showSizeSelectionModal(productInfo) {
           transition: all 0.3s;
           border-radius: 6px;
           opacity: 0.5;
-        ">Add to Cart - ${productInfo.price.toFixed(2)}</button>
+        ">Add to Cart - $${productInfo.price.toFixed(2)}</button>
       </div>
     </div>
   `;
@@ -1177,7 +1178,7 @@ function showSizeSelectionModal(productInfo) {
   
   function updateFinalPrice() {
     const finalBtn = modal.querySelector('.add-to-cart-final');
-    finalBtn.textContent = `Add to Cart - ${(productInfo.price * quantity).toFixed(2)}`;
+    finalBtn.textContent = `Add to Cart - $${(productInfo.price * quantity).toFixed(2)}`;
   }
   
   // Close modal
