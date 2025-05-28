@@ -40,6 +40,7 @@
         </a>
       </div>
       
+      <!-- Desktop Navigation -->
       <nav role="navigation" aria-label="Main navigation">
         <ul>
           <li><a href="{{ site.baseurl }}/#collection">Collection</a></li>
@@ -51,7 +52,25 @@
       
       <div class="header-controls">
         <!-- Account and cart icons will be added by JavaScript -->
+        
+        <!-- Mobile Menu Button -->
+        <button class="mobile-menu-button" aria-label="Toggle mobile menu" aria-expanded="false">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
       </div>
+    </div>
+    
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" role="navigation" aria-label="Mobile navigation">
+      <ul>
+        <li><a href="{{ site.baseurl }}/">Home</a></li>
+        <li><a href="{{ site.baseurl }}/#collection">Collection</a></li>
+        <li><a href="{{ site.baseurl }}/products/">All Dresses</a></li>
+        <li><a href="{{ site.baseurl }}/#about">About</a></li>
+        <li><a href="{{ site.baseurl }}/#contact">Contact</a></li>
+      </ul>
     </div>
   </header>
   
@@ -62,7 +81,7 @@
   
   <!-- Footer Divider -->
   {% if site.baseurl %}
-    <img src="{{ site.baseurl }}/assets/images/logos/footer-1.png" alt="" class="footer-divider" loading="lazy" role="presentation">
+    <img src="{{ site.baseurl }}/assets/images/logos/footer-1.png" alt="" class="footer-divider" loading="lazy" role="presentation" style="display: none;">
   {% endif %}
   
   <!-- Footer -->
@@ -108,7 +127,7 @@
     </div>
   </footer>
 
-  <!-- JavaScript - CORRECTED LOADING ORDER -->
+  <!-- JavaScript -->
   <script src="{{ site.baseurl }}/assets/js/main-ecommerce.js"></script>
   <script src="{{ site.baseurl }}/assets/js/customization-modal.js"></script>
   
@@ -116,6 +135,55 @@
   {% if page.url contains 'checkout' %}
     <script src="{{ site.baseurl }}/assets/js/checkout-integration.js"></script>
   {% endif %}
+  
+  <!-- Mobile Menu JavaScript -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const mobileMenuButton = document.querySelector('.mobile-menu-button');
+      const mobileMenu = document.querySelector('.mobile-menu');
+      
+      if (mobileMenuButton && mobileMenu) {
+        mobileMenuButton.addEventListener('click', function() {
+          const isOpen = mobileMenu.classList.contains('active');
+          
+          if (isOpen) {
+            mobileMenu.classList.remove('active');
+            mobileMenuButton.classList.remove('active');
+            mobileMenuButton.setAttribute('aria-expanded', 'false');
+            document.body.style.overflow = '';
+          } else {
+            mobileMenu.classList.add('active');
+            mobileMenuButton.classList.add('active');
+            mobileMenuButton.setAttribute('aria-expanded', 'true');
+            document.body.style.overflow = 'hidden';
+          }
+        });
+        
+        // Close mobile menu when clicking on a link
+        const mobileLinks = mobileMenu.querySelectorAll('a');
+        mobileLinks.forEach(link => {
+          link.addEventListener('click', function() {
+            mobileMenu.classList.remove('active');
+            mobileMenuButton.classList.remove('active');
+            mobileMenuButton.setAttribute('aria-expanded', 'false');
+            document.body.style.overflow = '';
+          });
+        });
+        
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(e) {
+          if (!mobileMenu.contains(e.target) && !mobileMenuButton.contains(e.target)) {
+            if (mobileMenu.classList.contains('active')) {
+              mobileMenu.classList.remove('active');
+              mobileMenuButton.classList.remove('active');
+              mobileMenuButton.setAttribute('aria-expanded', 'false');
+              document.body.style.overflow = '';
+            }
+          }
+        });
+      }
+    });
+  </script>
   
   <!-- Loading animation -->
   <script>
