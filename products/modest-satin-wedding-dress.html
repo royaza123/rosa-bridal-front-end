@@ -84,4 +84,244 @@ title: Modest Satin Wedding Dress
         
         <div class="pricing-features">
           <div class="feature-item">
-            <div class="feature-icon">🎨
+            <div class="feature-icon">🎨</div>
+            <div class="feature-text">Personal Design</div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-icon">📏</div>
+            <div class="feature-text">Perfect Fit</div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-icon">✨</div>
+            <div class="feature-text">Premium Quality</div>
+          </div>
+        </div>
+        
+        <div class="pricing-footer">
+          Free consultation • Complimentary alterations • White-glove service
+        </div>
+      </div>
+
+      <!-- MATERIAL & FIT DETAILS -->
+      <div class="material-details">
+        <h3 class="section-title">
+          <span class="section-icon">📏</span>
+          Material & Fit Details
+        </h3>
+        
+        <div class="details-grid">
+          <div class="detail-item">
+            <div class="detail-icon">✨</div>
+            <div class="detail-content">
+              <strong>Fabric:</strong>
+              <span>Premium satin with luxurious finish</span>
+            </div>
+          </div>
+          
+          <div class="detail-item">
+            <div class="detail-icon">📐</div>
+            <div class="detail-content">
+              <strong>Fit:</strong>
+              <span>Modest coverage with elegant lines</span>
+            </div>
+          </div>
+          
+          <div class="detail-item">
+            <div class="detail-icon">💎</div>
+            <div class="detail-content">
+              <strong>Sleeves:</strong>
+              <span>Elegant long sleeves</span>
+            </div>
+          </div>
+          
+          <div class="detail-item">
+            <div class="detail-icon">👗</div>
+            <div class="detail-content">
+              <strong>Train:</strong>
+              <span>Flowing train for dramatic effect</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FEATURES -->
+      <div class="product-features">
+        <h3 class="section-title">What Makes This Dress Special</h3>
+        
+        <div class="features-list">
+          <div class="feature-row">
+            <span class="feature-check">✓</span>
+            <div class="feature-description">
+              <strong>Elegant Long Sleeve Design</strong> - Perfect modest coverage with sophisticated style
+            </div>
+          </div>
+          <div class="feature-row">
+            <span class="feature-check">✓</span>
+            <div class="feature-description">
+              <strong>Premium Satin Finish</strong> - Luxurious fabric with beautiful drape and sheen
+            </div>
+          </div>
+          <div class="feature-row">
+            <span class="feature-check">✓</span>
+            <div class="feature-description">
+              <strong>Timeless Traditional Appeal</strong> - Classic design that never goes out of style
+            </div>
+          </div>
+          <div class="feature-row">
+            <span class="feature-check">✓</span>
+            <div class="feature-description">
+              <strong>Flowing Train</strong> - Creates dramatic elegance for your walk down the aisle
+            </div>
+          </div>
+          <div class="feature-row">
+            <span class="feature-check">✓</span>
+            <div class="feature-description">
+              <strong>Perfect for Traditional Ceremonies</strong> - Ideal for religious and formal weddings
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- DESCRIPTION -->
+      <div class="product-description">
+        <p>
+          This modest satin wedding dress embodies <strong>timeless elegance</strong> with its sophisticated long sleeve design and luxurious fabric. The premium satin finish provides a subtle sheen that catches the light beautifully, while the modest coverage offers both comfort and traditional appeal. Perfect for religious ceremonies, winter weddings, or any bride seeking refined, understated elegance that will be treasured for generations.
+        </p>
+      </div>
+
+      <!-- CALL-TO-ACTION -->
+      <div class="product-cta">
+        <button onclick="openCustomizationModal('Modest Satin Wedding Dress', 284.65, '{{ site.baseurl }}/assets/images/modest-satin-wedding-dress/main.webp', 'modest-satin-wedding-dress')" 
+                class="customize-button">
+          Design Your Perfect Dress
+        </button>
+        
+        <p class="cta-note">
+          🎨 Customize size, style, fabric, and personal touches - all included in your design session
+        </p>
+      </div>
+
+      <!-- TRUST ELEMENTS -->
+      <div class="trust-elements">
+        <div class="trust-item">
+          <div class="trust-icon">🎨</div>
+          <p class="trust-text">Custom Design</p>
+        </div>
+        <div class="trust-item">
+          <div class="trust-icon">📏</div>
+          <p class="trust-text">Perfect Fit</p>
+        </div>
+        <div class="trust-item">
+          <div class="trust-icon">✨</div>
+          <p class="trust-text">Premium Quality</p>
+        </div>
+        <div class="trust-item">
+          <div class="trust-icon">💝</div>
+          <p class="trust-text">White Glove Service</p>
+        </div>
+      </div>
+
+      <!-- LEGAL ACCESSIBILITY STATEMENT -->
+      <div style="background: #f8f9fa; padding: 1rem; margin: 2rem 0; border-radius: 8px; font-size: 0.85rem; color: #666; text-align: center;">
+        <p><strong>Accessibility:</strong> Need assistance with this product? Contact us at <a href="mailto:aetophis@aetophis.com?subject=Product%20Accessibility%20Assistance" style="color: #8b7355;">aetophis@aetophis.com</a> or call for personalized support.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+let currentImageIndex = 0;
+const images = document.querySelectorAll('.gallery-image');
+const dots = document.querySelectorAll('.gallery-dot');
+const thumbnails = document.querySelectorAll('.thumbnail');
+
+function updateGallery() {
+  images.forEach((img, index) => {
+    img.classList.toggle('active', index === currentImageIndex);
+  });
+  
+  dots.forEach((dot, index) => {
+    dot.classList.toggle('active', index === currentImageIndex);
+  });
+  
+  thumbnails.forEach((thumb, index) => {
+    thumb.classList.toggle('active', index === currentImageIndex);
+  });
+}
+
+function nextImage() {
+  currentImageIndex = (currentImageIndex + 1) % images.length;
+  updateGallery();
+}
+
+function prevImage() {
+  currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
+  updateGallery();
+}
+
+function goToImage(index) {
+  currentImageIndex = index;
+  updateGallery();
+}
+
+// Touch/swipe support for mobile
+let touchStartX = 0;
+let touchEndX = 0;
+
+const galleryContainer = document.getElementById('gallery-container');
+
+galleryContainer.addEventListener('touchstart', function(e) {
+  touchStartX = e.changedTouches[0].screenX;
+});
+
+galleryContainer.addEventListener('touchend', function(e) {
+  touchEndX = e.changedTouches[0].screenX;
+  handleSwipe();
+});
+
+function handleSwipe() {
+  const swipeThreshold = 50;
+  const diff = touchStartX - touchEndX;
+  
+  if (Math.abs(diff) > swipeThreshold) {
+    if (diff > 0) {
+      nextImage();
+    } else {
+      prevImage();
+    }
+  }
+}
+
+// LEGAL KEYBOARD NAVIGATION
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'ArrowRight') {
+    e.preventDefault();
+    nextImage();
+  }
+  if (e.key === 'ArrowLeft') {
+    e.preventDefault();
+    prevImage();
+  }
+  
+  // Enter and Space for gallery dots
+  if ((e.key === 'Enter' || e.key === ' ') && e.target.classList.contains('gallery-dot')) {
+    e.preventDefault();
+    const index = Array.from(dots).indexOf(e.target);
+    goToImage(index);
+  }
+});
+
+// Auto-rotate
+let autoRotate = setInterval(nextImage, 6000);
+
+galleryContainer.addEventListener('mouseenter', () => {
+  clearInterval(autoRotate);
+});
+
+galleryContainer.addEventListener('mouseleave', () => {
+  autoRotate = setInterval(nextImage, 6000);
+});
+
+// Initialize
+updateGallery();
+</script>
