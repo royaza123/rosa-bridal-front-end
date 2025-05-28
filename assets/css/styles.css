@@ -777,6 +777,25 @@ footer {
   }
 }
 
+/* LEGALLY REQUIRED - Screen reader text */
+.sr-only {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+/* LEGALLY REQUIRED - Focus indicators */
+*:focus {
+  outline: 2px solid #8b7355 !important;
+  outline-offset: 2px !important;
+}
+
 /* UTILITY CLASSES */
 .sr-only {
   position: absolute;
