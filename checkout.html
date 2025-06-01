@@ -120,16 +120,16 @@ title: Checkout - Roza Bridal
 <!-- STRIPE PAYMENT LINKS CONFIGURATION -->
 <script>
 const STRIPE_PAYMENT_LINKS = {
-  'boho-wedding-dress-elegant': 'https://buy.stripe.com/4gM3cv3TA7sRc093EN1B600',
-  'boho-beach-wedding-dress': 'https://buy.stripe.com/7sY6oHdua7sR6FP0sB1B601',
-  'custom-lace-mermaid-wedding-dress': 'https://buy.stripe.com/5kQ00jcq614t4xH2AJ1B602',
-  'elegant-ivory-satin-bridal-gown': 'https://buy.stripe.com/3cI4gz2Pw8wV7JT6QZ1B604',
-  'floral-bridal-dress': 'https://buy.stripe.com/cNi3cv9dUfZnggpcbj1B605',
-  'gorgeous-ivory-mermaid-wedding-gown': 'https://buy.stripe.com/7sYaEX75MdRf0hrgrz1B606',
-  'minimalist-off-shoulder-satin-dress': 'https://buy.stripe.com/28E9ATgGm9AZ7JTdfn1B607',
-  'sexy-sequin-mermaid-wedding-dress': 'https://buy.stripe.com/7sY00jeye28xe8h7V31B60a',
-  'sexy-fishtail-bridal-gown': 'https://buy.stripe.com/eVqdR9bm2fZn4xHcbj1B609',
-  'modest-satin-wedding-dress': 'https://buy.stripe.com/4gM3cvcq6cNbc09dfn1B608'
+  'Boho Wedding Dress Elegant': 'https://buy.stripe.com/4gM3cv3TA7sRc093EN1B600',
+  'Boho Beach Wedding Dress': 'https://buy.stripe.com/7sY6oHdua7sR6FP0sB1B601',
+  'Custom Lace Mermaid Wedding Dress': 'https://buy.stripe.com/5kQ00jcq614t4xH2AJ1B602',
+  'Elegant Ivory Satin Bridal Gown': 'https://buy.stripe.com/3cI4gz2Pw8wV7JT6QZ1B604',
+  'Floral Bridal Dress': 'https://buy.stripe.com/cNi3cv9dUfZnggpcbj1B605',
+  'Gorgeous Ivory Mermaid Wedding Gown': 'https://buy.stripe.com/7sYaEX75MdRf0hrgrz1B606',
+  'Minimalist Off Shoulder Satin Wedding Dress': 'https://buy.stripe.com/28E9ATgGm9AZ7JTdfn1B607',
+  'Sexy Sequin Mermaid Wedding Dress': 'https://buy.stripe.com/7sY00jeye28xe8h7V31B60a',
+  'Sexy Fishtail Bridal Gown': 'https://buy.stripe.com/eVqdR9bm2fZn4xHcbj1B609',
+  'Modest Satin Wedding Dress': 'https://buy.stripe.com/4gM3cvcq6cNbc09dfn1B608'
 };
 
 // Enhanced checkout functionality - STRIPE ONLY
@@ -163,39 +163,59 @@ function processStripeCheckout() {
   button.innerHTML = '<div class="spinner"></div> Processing...';
   button.disabled = true;
   
+  // DEBUG: Log cart contents
+  console.log('Cart items:', cartItems);
+  console.log('Number of items:', cartItems.length);
+  
   // For single item, use direct Stripe link
   if (cartItems.length === 1) {
     const item = cartItems[0];
-    const productId = extractProductIdFromName(item.name);
-    const stripeLink = STRIPE_PAYMENT_LINKS[productId];
+    const productKey = extractProductIdFromName(item.name);
+    const stripeLink = STRIPE_PAYMENT_LINKS[productKey];
+    
+    console.log('Product name:', item.name);
+    console.log('Product key:', productKey);
+    console.log('Stripe link:', stripeLink);
     
     if (stripeLink) {
-      // Save order details for post-purchase processing
+      // Save order details for post-purchase processing (including custom details)
       const orderData = createOrderData();
       localStorage.setItem('pendingStripeOrder', JSON.stringify(orderData));
       
       // Track checkout
       if (typeof ml !== 'undefined') {
         ml('track', 'stripe_checkout_started', {
-          product_id: productId,
+          product_key: productKey,
           product_name: item.name,
           total_amount: calculateTotal(),
           has_customizations: item.isCustom || false
         });
       }
       
-      // Redirect to Stripe
-      window.location.href = stripeLink;
+      // Show custom design note if applicable
+      if (item.isCustom && item.customizations) {
+        alert('🎨 Custom Design Noted!\n\nYou\'ll be redirected to Stripe for secure payment. After purchase, we\'ll contact you within 24 hours to finalize your custom design details.\n\nYour customization preferences have been saved.');
+      }
+      
+      // Small delay to ensure localStorage is saved
+      setTimeout(() => {
+        window.location.href = stripeLink;
+      }, 500);
       return;
+    } else {
+      console.error('No Stripe link found for product:', productKey);
+      alert('❌ Stripe checkout not available for this product.\n\nOur team will contact you with a payment link within 24 hours.');
     }
+  } else {
+    console.log('Multiple items detected, using email processing');
   }
   
-  // For multiple items or items without direct Stripe links
-  // Show contact message instead of failing
+  // Reset button and handle non-direct checkout cases
   button.innerHTML = originalText;
   button.disabled = false;
   
-  alert('🔔 Multiple Items Detected\n\nFor orders with multiple items or custom designs, our team will contact you within 24 hours with a secure payment link.\n\nYour order details have been saved.');
+  // For multiple items or items without Stripe links - use email processing
+  alert('📧 Order Processing\n\nOur team will contact you within 24 hours with a secure payment link to complete your order.\n\nYour order details have been saved.');
   
   // Send order via email for manual processing
   const orderData = createOrderData();
@@ -203,25 +223,22 @@ function processStripeCheckout() {
   sendOrderEmail(orderData);
   
   // Clear cart and redirect
-  localStorage.removeItem('rozaBridalCart');
-  window.location.href = `${document.querySelector('meta[name="base-url"]')?.content || ''}/`;
+  setTimeout(() => {
+    localStorage.removeItem('rozaBridalCart');
+    window.location.href = `${document.querySelector('meta[name="base-url"]')?.content || ''}/`;
+  }, 1000);
 }
 
 function extractProductIdFromName(productName) {
-  const nameMap = {
-    'Boho Wedding Dress Elegant': 'boho-wedding-dress-elegant',
-    'Boho Beach Wedding Dress': 'boho-beach-wedding-dress',
-    'Custom Lace Mermaid Wedding Dress': 'custom-lace-mermaid-wedding-dress',
-    'Elegant Ivory Satin Bridal Gown': 'elegant-ivory-satin-bridal-gown',
-    'Floral Bridal Dress': 'floral-bridal-dress',
-    'Gorgeous Ivory Mermaid Wedding Gown': 'gorgeous-ivory-mermaid-wedding-gown',
-    'Minimalist Off Shoulder Satin Wedding Dress': 'minimalist-off-shoulder-satin-dress',
-    'Sexy Sequin Mermaid Wedding Dress': 'sexy-sequin-mermaid-wedding-dress',
-    'Sexy Fishtail Bridal Gown': 'sexy-fishtail-bridal-gown',
-    'Modest Satin Wedding Dress': 'modest-satin-wedding-dress'
-  };
+  // Clean up the product name (remove " (Custom)" suffix if present)
+  const cleanName = productName.replace(/\s*\(Custom\)$/, '');
   
-  return nameMap[productName] || null;
+  console.log('Original name:', productName);
+  console.log('Cleaned name:', cleanName);
+  console.log('Available Stripe links:', Object.keys(STRIPE_PAYMENT_LINKS));
+  console.log('Direct match found:', STRIPE_PAYMENT_LINKS[cleanName] ? 'YES' : 'NO');
+  
+  return cleanName; // Return the cleaned name directly since we're now using exact names as keys
 }
 
 function createOrderData() {
