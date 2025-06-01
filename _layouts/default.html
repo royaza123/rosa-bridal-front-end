@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="accessibility-compliance" content="WCAG 2.1 AA">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{% if page.title %}{{ page.title }} - {% endif %}Roza Bridal</title>
   <meta name="description" content="{% if page.description %}{{ page.description }}{% else %}Elegant wedding dresses and bridal gowns - from bohemian beach styles to sophisticated mermaid silhouettes{% endif %}">
@@ -41,7 +40,6 @@
         </a>
       </div>
       
-      <!-- Desktop Navigation -->
       <nav role="navigation" aria-label="Main navigation">
         <ul>
           <li><a href="{{ site.baseurl }}/#collection">Collection</a></li>
@@ -53,25 +51,7 @@
       
       <div class="header-controls">
         <!-- Account and cart icons will be added by JavaScript -->
-        
-        <!-- Mobile Menu Button -->
-        <button class="mobile-menu-button" aria-label="Toggle mobile menu" aria-expanded="false">
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
       </div>
-    </div>
-    
-    <!-- Mobile Menu -->
-    <div class="mobile-menu" role="navigation" aria-label="Mobile navigation">
-      <ul>
-        <li><a href="{{ site.baseurl }}/">Home</a></li>
-        <li><a href="{{ site.baseurl }}/#collection">Collection</a></li>
-        <li><a href="{{ site.baseurl }}/products/">All Dresses</a></li>
-        <li><a href="{{ site.baseurl }}/#about">About</a></li>
-        <li><a href="{{ site.baseurl }}/#contact">Contact</a></li>
-      </ul>
     </div>
   </header>
   
@@ -82,7 +62,7 @@
   
   <!-- Footer Divider -->
   {% if site.baseurl %}
-    <img src="{{ site.baseurl }}/assets/images/logos/footer-1.png" alt="" class="footer-divider" loading="lazy" role="presentation" style="display: none;">
+    <img src="{{ site.baseurl }}/assets/images/logos/footer-1.png" alt="" class="footer-divider" loading="lazy" role="presentation">
   {% endif %}
   
   <!-- Footer -->
@@ -100,11 +80,6 @@
         <a href="{{ site.baseurl }}/products/">All Dresses</a>
         <a href="{{ site.baseurl }}/#about">About</a>
         <a href="{{ site.baseurl }}/#contact">Contact</a>
-
-        <div class="business-info" style="margin: 2rem 0; color: #666; font-size: 0.85rem; text-align: center;">
-  <p><strong>Customer Service:</strong> <a href="mailto:aetophis@aetophis.com" style="color: #8b7355;">aetophis@aetophis.com</a></p>
-  <p><strong>Accessibility Support:</strong> <a href="mailto:aetophis@aetophis.com?subject=Accessibility%20Support" style="color: #8b7355;">Report Accessibility Issues</a></p>
-</div>
         
         <!-- Legal Links -->
         <a href="{{ site.baseurl }}/privacy-policy.html">Privacy Policy</a>
@@ -129,14 +104,103 @@
         </a>
       </div>
       
-      <p class="copyright">&copy; 2025 Roza Bridal. All rights reserved. Made in China 🇨🇳</p>
-      <div style="text-align: center; font-size: 0.8rem; color: #666; margin-top: 1rem;">
-  <p>By using this site, you agree to our <a href="{{ site.baseurl }}/privacy-policy.html" style="color: #8b7355;">Privacy Policy</a> and <a href="{{ site.baseurl }}/terms-of-service.html" style="color: #8b7355;">Terms of Service</a></p>
-</div>
+      <p class="copyright">&copy; 2025 Roza Bridal. All rights reserved. Made in the USA 🇺🇸</p>
     </div>
   </footer>
 
-  <!-- JavaScript -->
+  <!-- STRIPE PAYMENT LINKS CONFIGURATION -->
+  <script>
+    // Global Stripe payment links configuration
+    window.STRIPE_PAYMENT_LINKS = {
+      'boho-wedding-dress-elegant': 'https://buy.stripe.com/4gM3cv3TA7sRc093EN1B600',
+      'boho-beach-wedding-dress': 'https://buy.stripe.com/7sY6oHdua7sR6FP0sB1B601',
+      'custom-lace-mermaid-wedding-dress': 'https://buy.stripe.com/5kQ00jcq614t4xH2AJ1B602',
+      'elegant-ivory-satin-bridal-gown': 'https://buy.stripe.com/3cI4gz2Pw8wV7JT6QZ1B604',
+      'floral-bridal-dress': 'https://buy.stripe.com/cNi3cv9dUfZnggpcbj1B605',
+      'gorgeous-ivory-mermaid-wedding-gown': 'https://buy.stripe.com/7sYaEX75MdRf0hrgrz1B606',
+      'minimalist-off-shoulder-satin-dress': 'https://buy.stripe.com/28E9ATgGm9AZ7JTdfn1B607',
+      'sexy-sequin-mermaid-wedding-dress': 'https://buy.stripe.com/7sY00jeye28xe8h7V31B60a',
+      'sexy-fishtail-bridal-gown': 'https://buy.stripe.com/eVqdR9bm2fZn4xHcbj1B609',
+      'modest-satin-wedding-dress': 'https://buy.stripe.com/4gM3cvcq6cNbc09dfn1B608'
+    };
+
+    // Helper function to get product ID from URL or name
+    window.getProductIdFromPath = function(path) {
+      if (path.includes('/boho.html')) return 'boho-wedding-dress-elegant';
+      if (path.includes('/boho-beach-wedding-dress.html')) return 'boho-beach-wedding-dress';
+      if (path.includes('/custom-lace-mermaid-wedding-dress.html')) return 'custom-lace-mermaid-wedding-dress';
+      if (path.includes('/elegant-ivory-satin-bridal-gown.html')) return 'elegant-ivory-satin-bridal-gown';
+      if (path.includes('/floral-bridal-dress.html')) return 'floral-bridal-dress';
+      if (path.includes('/gorgeous-ivory-mermaid-wedding-gown.html')) return 'gorgeous-ivory-mermaid-wedding-gown';
+      if (path.includes('/minimalist-off-shoulder-satin-dress.html')) return 'minimalist-off-shoulder-satin-dress';
+      if (path.includes('/sexy-sequin-mermaid-wedding-dress.html')) return 'sexy-sequin-mermaid-wedding-dress';
+      if (path.includes('/sexy-fishtail-bridal-gown.html')) return 'sexy-fishtail-bridal-gown';
+      if (path.includes('/modest-satin-wedding-dress.html')) return 'modest-satin-wedding-dress';
+      return null;
+    };
+
+    window.getProductIdFromName = function(productName) {
+      const nameMap = {
+        'Boho Wedding Dress Elegant': 'boho-wedding-dress-elegant',
+        'Boho Beach Wedding Dress': 'boho-beach-wedding-dress',
+        'Custom Lace Mermaid Wedding Dress': 'custom-lace-mermaid-wedding-dress',
+        'Elegant Ivory Satin Bridal Gown': 'elegant-ivory-satin-bridal-gown',
+        'Floral Bridal Dress': 'floral-bridal-dress',
+        'Gorgeous Ivory Mermaid Wedding Gown': 'gorgeous-ivory-mermaid-wedding-gown',
+        'Minimalist Off Shoulder Satin Wedding Dress': 'minimalist-off-shoulder-satin-dress',
+        'Sexy Sequin Mermaid Wedding Dress': 'sexy-sequin-mermaid-wedding-dress',
+        'Sexy Fishtail Bridal Gown': 'sexy-fishtail-bridal-gown',
+        'Modest Satin Wedding Dress': 'modest-satin-wedding-dress'
+      };
+      return nameMap[productName] || null;
+    };
+
+    // Function to handle Stripe checkout
+    window.handleStripeCheckout = function(productId, productName, customizations = null) {
+      const stripeLink = window.STRIPE_PAYMENT_LINKS[productId];
+      
+      if (!stripeLink) {
+        console.error('No Stripe link found for product:', productId);
+        alert('Direct checkout not available for this product. Please add to cart and use our checkout process.');
+        return;
+      }
+      
+      // Track the purchase attempt
+      if (typeof ml !== 'undefined') {
+        ml('track', 'stripe_checkout_started', {
+          product_id: productId,
+          product_name: productName,
+          has_customizations: !!customizations,
+          checkout_method: 'direct_stripe'
+        });
+      }
+      
+      // For customized items, show warning
+      if (customizations) {
+        const proceed = confirm(
+          '⚠️ This will take you to direct checkout.\n\n' +
+          'Your customization details will not be automatically included. ' +
+          'After purchase, we\'ll contact you to confirm all customization details.\n\n' +
+          'Continue to checkout?'
+        );
+        
+        if (!proceed) return;
+        
+        // Save customization details for follow-up
+        localStorage.setItem('pendingCustomization', JSON.stringify({
+          productId,
+          productName,
+          customizations,
+          timestamp: new Date().toISOString()
+        }));
+      }
+      
+      // Open Stripe checkout
+      window.open(stripeLink, '_blank');
+    };
+  </script>
+
+  <!-- JavaScript - CORRECTED LOADING ORDER -->
   <script src="{{ site.baseurl }}/assets/js/main-ecommerce.js"></script>
   <script src="{{ site.baseurl }}/assets/js/customization-modal.js"></script>
   
@@ -145,60 +209,14 @@
     <script src="{{ site.baseurl }}/assets/js/checkout-integration.js"></script>
   {% endif %}
   
-  <!-- Mobile Menu JavaScript -->
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const mobileMenuButton = document.querySelector('.mobile-menu-button');
-      const mobileMenu = document.querySelector('.mobile-menu');
-      
-      if (mobileMenuButton && mobileMenu) {
-        mobileMenuButton.addEventListener('click', function() {
-          const isOpen = mobileMenu.classList.contains('active');
-          
-          if (isOpen) {
-            mobileMenu.classList.remove('active');
-            mobileMenuButton.classList.remove('active');
-            mobileMenuButton.setAttribute('aria-expanded', 'false');
-            document.body.style.overflow = '';
-          } else {
-            mobileMenu.classList.add('active');
-            mobileMenuButton.classList.add('active');
-            mobileMenuButton.setAttribute('aria-expanded', 'true');
-            document.body.style.overflow = 'hidden';
-          }
-        });
-        
-        // Close mobile menu when clicking on a link
-        const mobileLinks = mobileMenu.querySelectorAll('a');
-        mobileLinks.forEach(link => {
-          link.addEventListener('click', function() {
-            mobileMenu.classList.remove('active');
-            mobileMenuButton.classList.remove('active');
-            mobileMenuButton.setAttribute('aria-expanded', 'false');
-            document.body.style.overflow = '';
-          });
-        });
-        
-        // Close mobile menu when clicking outside
-        document.addEventListener('click', function(e) {
-          if (!mobileMenu.contains(e.target) && !mobileMenuButton.contains(e.target)) {
-            if (mobileMenu.classList.contains('active')) {
-              mobileMenu.classList.remove('active');
-              mobileMenuButton.classList.remove('active');
-              mobileMenuButton.setAttribute('aria-expanded', 'false');
-              document.body.style.overflow = '';
-            }
-          }
-        });
-      }
-    });
-  </script>
-  
   <!-- Loading animation -->
   <script>
     // Simple loading state management
     document.addEventListener('DOMContentLoaded', () => {
       document.body.classList.add('loaded');
+      
+      // Add Stripe buttons to product pages
+      addStripeButtonsToProductPages();
       
       // Debug: Check if customization modal is loaded
       setTimeout(() => {
@@ -207,22 +225,154 @@
         } else {
           console.error('❌ Customization modal failed to load');
         }
+        
+        if (window.STRIPE_PAYMENT_LINKS) {
+          console.log('✅ Stripe payment links loaded successfully');
+        } else {
+          console.error('❌ Stripe payment links failed to load');
+        }
       }, 1000);
     });
+
+    // Function to add Stripe buttons to product pages
+    function addStripeButtonsToProductPages() {
+      // Only run on product pages
+      if (!window.location.pathname.includes('/products/')) return;
+      
+      const productId = window.getProductIdFromPath(window.location.pathname);
+      if (!productId || !window.STRIPE_PAYMENT_LINKS[productId]) return;
+      
+      // Find product actions area
+      const productActions = document.querySelector('.product-actions');
+      const customizeButton = document.querySelector('button[onclick*="openCustomizationModal"]');
+      
+      if (productActions && customizeButton) {
+        // Create Stripe button
+        const stripeButton = document.createElement('button');
+        stripeButton.className = 'stripe-direct-button';
+        stripeButton.innerHTML = `
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+            <line x1="8" y1="21" x2="16" y2="21"/>
+            <line x1="12" y1="17" x2="12" y2="21"/>
+          </svg>
+          Buy Now - Quick Checkout
+        `;
+        
+        // Add click handler
+        stripeButton.addEventListener('click', function() {
+          const productName = document.querySelector('.product-details h1, h1')?.textContent || 'Wedding Dress';
+          window.handleStripeCheckout(productId, productName);
+        });
+        
+        // Insert the button
+        productActions.appendChild(stripeButton);
+        
+        // Add explanation
+        const explanation = document.createElement('div');
+        explanation.className = 'payment-options-explanation';
+        explanation.innerHTML = `
+          <div style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); padding: 1.5rem; border-radius: 8px; margin: 1.5rem 0; border-left: 4px solid #6772e5;">
+            <h4 style="margin: 0 0 1rem; color: #343a40; font-size: 1.1rem;">💳 Choose Your Payment Option</h4>
+            <div style="display: grid; gap: 1rem;">
+              <div style="display: flex; align-items: start; gap: 0.75rem;">
+                <span style="color: #6772e5; font-size: 1.2rem;">⚡</span>
+                <div>
+                  <strong style="color: #343a40;">Quick Checkout:</strong>
+                  <span style="color: #6c757d; margin-left: 0.5rem;">Buy standard size dress instantly with Stripe</span>
+                </div>
+              </div>
+              <div style="display: flex; align-items: start; gap: 0.75rem;">
+                <span style="color: #c9a96e; font-size: 1.2rem;">✨</span>
+                <div>
+                  <strong style="color: #343a40;">Custom Design:</strong>
+                  <span style="color: #6c757d; margin-left: 0.5rem;">Personalize your dress with our design consultation</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+        
+        productActions.appendChild(explanation);
+      }
+    }
   </script>
 
   <!-- Cookie Notice -->
   <div id="cookie-notice" class="cookie-notice" style="display: none;">
-  <div class="cookie-content">
-    <p><strong>🍪 Cookie Notice:</strong> This website uses cookies to improve your experience and for analytics. By continuing to use this site, you consent to our use of cookies as described in our <a href="/privacy-policy.html" style="color: #8b7355; text-decoration: underline;">Privacy Policy</a>.</p>
-    <div style="display: flex; gap: 1rem; margin-top: 1rem;">
-      <button id="accept-cookies" class="cookie-accept-btn">Accept All Cookies</button>
-      <button id="decline-cookies" class="cookie-decline-btn">Decline Non-Essential</button>
+    <div class="cookie-content">
+      <p>🍪 We use cookies to improve your experience. By using our site, you agree to our use of cookies.</p>
+      <button id="accept-cookies" class="cookie-accept-btn">Got it!</button>
     </div>
   </div>
-</div>
 
   <style>
+  /* Stripe Direct Button Styles */
+  .stripe-direct-button {
+    display: inline-block;
+    width: 100%;
+    padding: 1.2rem 2rem;
+    background: linear-gradient(135deg, #6772e5 0%, #5469d4 100%);
+    color: white;
+    border: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    box-shadow: 0 4px 20px rgba(103, 114, 229, 0.3);
+    margin-top: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .stripe-direct-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s;
+  }
+
+  .stripe-direct-button:hover::before {
+    left: 100%;
+  }
+
+  .stripe-direct-button:hover {
+    background: linear-gradient(135deg, #5469d4 0%, #4c63d2 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(103, 114, 229, 0.4);
+  }
+
+  .stripe-direct-button:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 20px rgba(103, 114, 229, 0.3);
+  }
+
+  .stripe-direct-button svg {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+  }
+
+  .payment-options-explanation {
+    margin: 2rem 0;
+  }
+
+  .payment-options-explanation h4 {
+    font-family: 'Cormorant Garamond', serif;
+  }
+
+  /* Cookie Notice Styles */
   .cookie-notice {
     position: fixed;
     bottom: 20px;
@@ -277,6 +427,11 @@
     
     .cookie-accept-btn {
       width: 100%;
+    }
+
+    .stripe-direct-button {
+      padding: 1rem 1.5rem;
+      font-size: 0.9rem;
     }
   }
   </style>
