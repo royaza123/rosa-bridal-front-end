@@ -120,9 +120,8 @@
   <script src="{{ site.baseurl }}/assets/js/auth.js"></script>
   <script src="{{ site.baseurl }}/assets/js/customization-modal.js"></script>
   
-  <!-- STRIPE PAYMENT LINKS CONFIGURATION -->
+  <!-- Stripe Payment Links -->
   <script>
-    // Stripe payment links for direct checkout
     const STRIPE_PAYMENT_LINKS = {
       'Boho Wedding Dress Elegant': 'https://buy.stripe.com/4gM3cv3TA7sRc093EN1B600',
       'Boho Beach Wedding Dress': 'https://buy.stripe.com/7sY6oHdua7sR6FP0sB1B601',
@@ -135,8 +134,10 @@
       'Sexy Fishtail Bridal Gown': 'https://buy.stripe.com/eVqdR9bm2fZn4xHcbj1B609',
       'Modest Satin Wedding Dress': 'https://buy.stripe.com/4gM3cvcq6cNbc09dfn1B608'
     };
-    
-    // Initialize systems
+  </script>
+  
+  <!-- Initialize Systems -->
+  <script>
     document.addEventListener('DOMContentLoaded', function() {
       // Initialize cart system
       if (typeof window.cart !== 'undefined') {
@@ -155,9 +156,6 @@
           page_url: window.location.href
         });
       }
-      
-      console.log('✅ Roza Bridal systems initialized');
-      console.log('✅ Stripe payment links loaded:', Object.keys(STRIPE_PAYMENT_LINKS).length, 'products');
     });
   </script>
 </body>
