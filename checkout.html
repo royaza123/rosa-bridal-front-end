@@ -9,6 +9,16 @@ title: Checkout - Roza Bridal
     
     <div class="checkout-section">
       <h3>Contact Information</h3>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+        <div class="form-group">
+          <label for="checkout-first-name">First Name</label>
+          <input type="text" id="checkout-first-name" required>
+        </div>
+        <div class="form-group">
+          <label for="checkout-last-name">Last Name</label>
+          <input type="text" id="checkout-last-name" required>
+        </div>
+      </div>
       <div class="form-group">
         <label for="checkout-email">Email</label>
         <input type="email" id="checkout-email" required>
@@ -16,6 +26,29 @@ title: Checkout - Roza Bridal
       <div class="form-group">
         <label for="checkout-phone">Phone</label>
         <input type="tel" id="checkout-phone" required>
+      </div>
+    </div>
+    
+    <div class="checkout-section">
+      <h3>Wedding Details (Optional)</h3>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+        <div class="form-group">
+          <label for="checkout-wedding-date">Wedding Date</label>
+          <input type="date" id="checkout-wedding-date">
+        </div>
+        <div class="form-group">
+          <label for="checkout-venue-style">Venue Style</label>
+          <select id="checkout-venue-style">
+            <option value="">Select venue style</option>
+            <option value="garden">Garden/Outdoor</option>
+            <option value="beach">Beach</option>
+            <option value="church">Church</option>
+            <option value="ballroom">Ballroom</option>
+            <option value="rustic">Rustic/Barn</option>
+            <option value="destination">Destination</option>
+            <option value="city-hall">City Hall</option>
+          </select>
+        </div>
       </div>
     </div>
     
@@ -247,8 +280,14 @@ function createOrderData() {
   
   return {
     contact: {
+      firstName: document.getElementById('checkout-first-name').value,
+      lastName: document.getElementById('checkout-last-name').value,
       email: document.getElementById('checkout-email').value,
       phone: document.getElementById('checkout-phone').value
+    },
+    wedding: {
+      date: document.getElementById('checkout-wedding-date').value,
+      venueStyle: document.getElementById('checkout-venue-style').value
     },
     notes: document.getElementById('order-notes').value,
     items: cartItems,
@@ -266,6 +305,8 @@ function createOrderData() {
 
 function validateCheckoutForm() {
   const requiredFields = [
+    'checkout-first-name',
+    'checkout-last-name',
     'checkout-email',
     'checkout-phone'
   ];
@@ -330,8 +371,13 @@ ${customDetails}
 ORDER ID: ${orderData.orderId}
 
 📧 CUSTOMER CONTACT:
+Name: ${orderData.contact.firstName} ${orderData.contact.lastName}
 Email: ${orderData.contact.email}
 Phone: ${orderData.contact.phone}
+
+💍 WEDDING DETAILS:
+Date: ${orderData.wedding.date || 'Not specified'}
+Venue Style: ${orderData.wedding.venueStyle || 'Not specified'}
 
 🛍️ ORDER ITEMS:
 ${itemsList}
@@ -385,7 +431,10 @@ function loadCheckoutData() {
   const userData = localStorage.getItem('rozaBridalUser');
   if (userData) {
     const user = JSON.parse(userData);
+    document.getElementById('checkout-first-name').value = user.firstName || '';
+    document.getElementById('checkout-last-name').value = user.lastName || '';
     document.getElementById('checkout-email').value = user.email || '';
+    if (user.weddingDate) document.getElementById('checkout-wedding-date').value = user.weddingDate;
   }
   
   // Populate checkout items
