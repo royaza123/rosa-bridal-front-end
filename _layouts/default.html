@@ -3,473 +3,144 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{% if page.title %}{{ page.title }} - {% endif %}Roza Bridal</title>
-  <meta name="description" content="{% if page.description %}{{ page.description }}{% else %}Elegant wedding dresses and bridal gowns - from bohemian beach styles to sophisticated mermaid silhouettes{% endif %}">
+  <meta name="base-url" content="{{ site.baseurl }}">
+  <title>{% if page.title %}{{ page.title }} | {% endif %}{{ site.title | default: "Roza Bridal" }}</title>
+  <meta name="description" content="{{ page.description | default: site.description | default: 'Elegant wedding dresses and bridal gowns' }}">
   
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
   
-  <!-- Styles -->
+  <!-- Stylesheets -->
   <link rel="stylesheet" href="{{ site.baseurl }}/assets/css/styles.css">
   <link rel="stylesheet" href="{{ site.baseurl }}/assets/css/e-commerce.css">
   
   <!-- Favicon -->
-  <link rel="icon" type="image/x-icon" href="{{ site.baseurl }}/favicon.ico">
+  <link rel="icon" type="image/x-icon" href="{{ site.baseurl }}/assets/images/favicon.ico">
   
-  <!-- Meta for social sharing -->
-  <meta property="og:title" content="{% if page.title %}{{ page.title }} - {% endif %}Roza Bridal">
-  <meta property="og:description" content="{% if page.description %}{{ page.description }}{% else %}Elegant wedding dresses and bridal gowns{% endif %}">
+  <!-- Meta tags for social sharing -->
+  <meta property="og:title" content="{% if page.title %}{{ page.title }} | {% endif %}{{ site.title | default: 'Roza Bridal' }}">
+  <meta property="og:description" content="{{ page.description | default: site.description | default: 'Elegant wedding dresses and bridal gowns' }}">
   <meta property="og:type" content="website">
   <meta property="og:url" content="{{ site.url }}{{ site.baseurl }}{{ page.url }}">
   
-  <!-- Base URL for JavaScript -->
-  <meta name="base-url" content="{{ site.baseurl }}">
+  <!-- MailerLite Integration -->
+  <script>
+    (function(w,d,e,u,f,l,n){w[f]=w[f]||function(){(w[f].q=w[f].q||[])
+    .push(arguments);},l=d.createElement(e),l.async=1,l.src=u,
+    n=d.getElementsByTagName(e)[0],n.parentNode.insertBefore(l,n);})
+    (window,document,'script','https://assets.mailerlite.com/js/universal.js','ml');
+    ml('account', '1551678');
+  </script>
 </head>
 <body>
   <!-- Header -->
   <header>
     <div class="header-container">
       <div class="logo-container">
-        <a href="{{ site.baseurl }}/" aria-label="Roza Bridal Home">
-          <picture>
-            <source srcset="{{ site.baseurl }}/assets/images/logos/logo.webp" type="image/webp">
-            <img src="{{ site.baseurl }}/assets/images/logos/logo.png" alt="Roza Bridal" class="logo" width="200" height="50">
-          </picture>
+        <a href="{{ site.baseurl }}/">
+          <img src="{{ site.baseurl }}/assets/images/logo.png" alt="Roza Bridal" class="logo">
         </a>
       </div>
       
-      <nav role="navigation" aria-label="Main navigation">
+      <nav>
         <ul>
-          <li><a href="{{ site.baseurl }}/#collection">Collection</a></li>
-          <li><a href="{{ site.baseurl }}/products/">All Dresses</a></li>
+          <li><a href="{{ site.baseurl }}/">Home</a></li>
+          <li><a href="{{ site.baseurl }}/products/">Dresses</a></li>
           <li><a href="{{ site.baseurl }}/#about">About</a></li>
           <li><a href="{{ site.baseurl }}/#contact">Contact</a></li>
         </ul>
       </nav>
       
       <div class="header-controls">
-        <!-- Account and cart icons will be added by JavaScript -->
+        <!-- User Account Icon -->
+        <div class="user-icon" id="user-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+        </div>
+        
+        <!-- Cart Icon -->
+        <div class="cart-icon" id="cart-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="9" cy="21" r="1"></circle>
+            <circle cx="20" cy="21" r="1"></circle>
+            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+          </svg>
+          <span class="cart-count" id="cart-count">0</span>
+        </div>
       </div>
     </div>
   </header>
-  
+
   <!-- Main Content -->
-  <main role="main">
+  <main>
     {{ content }}
   </main>
-  
-  <!-- Footer Divider -->
-  {% if site.baseurl %}
-    <img src="{{ site.baseurl }}/assets/images/logos/footer-1.png" alt="" class="footer-divider" loading="lazy" role="presentation">
-  {% endif %}
-  
+
   <!-- Footer -->
-  <footer role="contentinfo">
+  <footer>
     <div class="footer-content">
       <div class="footer-logo-container">
-        <picture>
-          <source srcset="{{ site.baseurl }}/assets/images/logos/logo.webp" type="image/webp">
-          <img src="{{ site.baseurl }}/assets/images/logos/logo.png" alt="Roza Bridal" class="footer-logo">
-        </picture>
+        <img src="{{ site.baseurl }}/assets/images/logo.png" alt="Roza Bridal" class="footer-logo">
       </div>
       
-      <nav class="footer-links" role="navigation" aria-label="Footer navigation">
-        <a href="{{ site.baseurl }}/#collection">Collection</a>
-        <a href="{{ site.baseurl }}/products/">All Dresses</a>
-        <a href="{{ site.baseurl }}/#about">About</a>
-        <a href="{{ site.baseurl }}/#contact">Contact</a>
-        
-        <!-- Legal Links -->
+      <div class="footer-links">
+        <a href="{{ site.baseurl }}/shipping-returns.html">Shipping & Returns</a>
         <a href="{{ site.baseurl }}/privacy-policy.html">Privacy Policy</a>
         <a href="{{ site.baseurl }}/terms-of-service.html">Terms of Service</a>
-        <a href="{{ site.baseurl }}/shipping-returns.html">Shipping & Returns</a>
         <a href="{{ site.baseurl }}/accessibility.html">Accessibility</a>
-      </nav>
+      </div>
       
       <div class="social-links">
-        <a href="https://www.instagram.com/rozabridal" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Instagram">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <a href="https://www.instagram.com/rozabridal" target="_blank" rel="noopener noreferrer">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
             <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
             <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
           </svg>
         </a>
-        <a href="mailto:aetophis@aetophis.com" aria-label="Email us">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-            <polyline points="22,6 12,13 2,6"></polyline>
-          </svg>
-        </a>
       </div>
       
-      <p class="copyright">&copy; 2025 Roza Bridal. All rights reserved. Made in the USA 🇺🇸</p>
+      <div class="business-info">
+        <p>Email: <a href="mailto:aetophis@aetophis.com">aetophis@aetophis.com</a></p>
+        <p>Custom wedding dresses designed with love</p>
+      </div>
+      
+      <div class="copyright">
+        <p>&copy; {{ 'now' | date: "%Y" }} Roza Bridal. All rights reserved.</p>
+      </div>
     </div>
   </footer>
 
-  <!-- STRIPE PAYMENT LINKS CONFIGURATION -->
-  <script>
-    // Global Stripe payment links configuration
-    window.STRIPE_PAYMENT_LINKS = {
-      'boho-wedding-dress-elegant': 'https://buy.stripe.com/4gM3cv3TA7sRc093EN1B600',
-      'boho-beach-wedding-dress': 'https://buy.stripe.com/7sY6oHdua7sR6FP0sB1B601',
-      'custom-lace-mermaid-wedding-dress': 'https://buy.stripe.com/5kQ00jcq614t4xH2AJ1B602',
-      'elegant-ivory-satin-bridal-gown': 'https://buy.stripe.com/3cI4gz2Pw8wV7JT6QZ1B604',
-      'floral-bridal-dress': 'https://buy.stripe.com/cNi3cv9dUfZnggpcbj1B605',
-      'gorgeous-ivory-mermaid-wedding-gown': 'https://buy.stripe.com/7sYaEX75MdRf0hrgrz1B606',
-      'minimalist-off-shoulder-satin-dress': 'https://buy.stripe.com/28E9ATgGm9AZ7JTdfn1B607',
-      'sexy-sequin-mermaid-wedding-dress': 'https://buy.stripe.com/7sY00jeye28xe8h7V31B60a',
-      'sexy-fishtail-bridal-gown': 'https://buy.stripe.com/eVqdR9bm2fZn4xHcbj1B609',
-      'modest-satin-wedding-dress': 'https://buy.stripe.com/4gM3cvcq6cNbc09dfn1B608'
-    };
-
-    // Helper function to get product ID from URL or name
-    window.getProductIdFromPath = function(path) {
-      if (path.includes('/boho.html')) return 'boho-wedding-dress-elegant';
-      if (path.includes('/boho-beach-wedding-dress.html')) return 'boho-beach-wedding-dress';
-      if (path.includes('/custom-lace-mermaid-wedding-dress.html')) return 'custom-lace-mermaid-wedding-dress';
-      if (path.includes('/elegant-ivory-satin-bridal-gown.html')) return 'elegant-ivory-satin-bridal-gown';
-      if (path.includes('/floral-bridal-dress.html')) return 'floral-bridal-dress';
-      if (path.includes('/gorgeous-ivory-mermaid-wedding-gown.html')) return 'gorgeous-ivory-mermaid-wedding-gown';
-      if (path.includes('/minimalist-off-shoulder-satin-dress.html')) return 'minimalist-off-shoulder-satin-dress';
-      if (path.includes('/sexy-sequin-mermaid-wedding-dress.html')) return 'sexy-sequin-mermaid-wedding-dress';
-      if (path.includes('/sexy-fishtail-bridal-gown.html')) return 'sexy-fishtail-bridal-gown';
-      if (path.includes('/modest-satin-wedding-dress.html')) return 'modest-satin-wedding-dress';
-      return null;
-    };
-
-    window.getProductIdFromName = function(productName) {
-      const nameMap = {
-        'Boho Wedding Dress Elegant': 'boho-wedding-dress-elegant',
-        'Boho Beach Wedding Dress': 'boho-beach-wedding-dress',
-        'Custom Lace Mermaid Wedding Dress': 'custom-lace-mermaid-wedding-dress',
-        'Elegant Ivory Satin Bridal Gown': 'elegant-ivory-satin-bridal-gown',
-        'Floral Bridal Dress': 'floral-bridal-dress',
-        'Gorgeous Ivory Mermaid Wedding Gown': 'gorgeous-ivory-mermaid-wedding-gown',
-        'Minimalist Off Shoulder Satin Wedding Dress': 'minimalist-off-shoulder-satin-dress',
-        'Sexy Sequin Mermaid Wedding Dress': 'sexy-sequin-mermaid-wedding-dress',
-        'Sexy Fishtail Bridal Gown': 'sexy-fishtail-bridal-gown',
-        'Modest Satin Wedding Dress': 'modest-satin-wedding-dress'
-      };
-      return nameMap[productName] || null;
-    };
-
-    // Function to handle Stripe checkout
-    window.handleStripeCheckout = function(productId, productName, customizations = null) {
-      const stripeLink = window.STRIPE_PAYMENT_LINKS[productId];
-      
-      if (!stripeLink) {
-        console.error('No Stripe link found for product:', productId);
-        alert('Direct checkout not available for this product. Please add to cart and use our checkout process.');
-        return;
-      }
-      
-      // Track the purchase attempt
-      if (typeof ml !== 'undefined') {
-        ml('track', 'stripe_checkout_started', {
-          product_id: productId,
-          product_name: productName,
-          has_customizations: !!customizations,
-          checkout_method: 'direct_stripe'
-        });
-      }
-      
-      // For customized items, show warning
-      if (customizations) {
-        const proceed = confirm(
-          '⚠️ This will take you to direct checkout.\n\n' +
-          'Your customization details will not be automatically included. ' +
-          'After purchase, we\'ll contact you to confirm all customization details.\n\n' +
-          'Continue to checkout?'
-        );
-        
-        if (!proceed) return;
-        
-        // Save customization details for follow-up
-        localStorage.setItem('pendingCustomization', JSON.stringify({
-          productId,
-          productName,
-          customizations,
-          timestamp: new Date().toISOString()
-        }));
-      }
-      
-      // Open Stripe checkout
-      window.open(stripeLink, '_blank');
-    };
-  </script>
-
-  <!-- JavaScript - CORRECTED LOADING ORDER -->
-  <script src="{{ site.baseurl }}/assets/js/main-ecommerce.js"></script>
+  <!-- JavaScript Files -->
+  <script src="{{ site.baseurl }}/assets/js/cart.js"></script>
+  <script src="{{ site.baseurl }}/assets/js/auth.js"></script>
   <script src="{{ site.baseurl }}/assets/js/customization-modal.js"></script>
   
-  <!-- Checkout Integration - ONLY LOADS ON CHECKOUT PAGE -->
-  {% if page.url contains 'checkout' %}
-    <script src="{{ site.baseurl }}/assets/js/checkout-integration.js"></script>
-  {% endif %}
-  
-  <!-- Loading animation -->
+  <!-- Initialize systems -->
   <script>
-    // Simple loading state management
-    document.addEventListener('DOMContentLoaded', () => {
-      document.body.classList.add('loaded');
-      
-      // Add Stripe buttons to product pages
-      addStripeButtonsToProductPages();
-      
-      // Debug: Check if customization modal is loaded
-      setTimeout(() => {
-        if (typeof openCustomizationModal === 'function') {
-          console.log('✅ Customization modal loaded successfully');
-          console.log('Modal function:', openCustomizationModal);
-        } else {
-          console.error('❌ Customization modal failed to load');
-          console.log('Available functions:', Object.keys(window).filter(key => key.includes('Modal') || key.includes('custom')));
-        }
-        
-        if (window.STRIPE_PAYMENT_LINKS) {
-          console.log('✅ Stripe payment links loaded successfully');
-        } else {
-          console.error('❌ Stripe payment links failed to load');
-        }
-      }, 1000);
-      
-      // Make sure modal functions are available globally
-      if (typeof openCustomizationModal !== 'undefined') {
-        window.openCustomizationModal = openCustomizationModal;
-        console.log('✅ Modal function attached to window');
+    document.addEventListener('DOMContentLoaded', function() {
+      // Initialize cart system
+      if (typeof window.cart !== 'undefined') {
+        window.cart.init();
       }
-    });
-
-    // Function to add Stripe buttons to product pages
-    function addStripeButtonsToProductPages() {
-      // Only run on product pages
-      if (!window.location.pathname.includes('/products/')) return;
       
-      const productId = window.getProductIdFromPath(window.location.pathname);
-      if (!productId || !window.STRIPE_PAYMENT_LINKS[productId]) return;
+      // Initialize auth system  
+      if (typeof window.auth !== 'undefined') {
+        window.auth.init();
+      }
       
-      // Find product actions area
-      const productActions = document.querySelector('.product-actions');
-      const customizeButton = document.querySelector('button[onclick*="openCustomizationModal"]');
-      
-      if (productActions && customizeButton) {
-        // Create Stripe button
-        const stripeButton = document.createElement('button');
-        stripeButton.className = 'stripe-direct-button';
-        stripeButton.innerHTML = `
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
-            <line x1="8" y1="21" x2="16" y2="21"/>
-            <line x1="12" y1="17" x2="12" y2="21"/>
-          </svg>
-          Buy Now - Quick Checkout
-        `;
-        
-        // Add click handler
-        stripeButton.addEventListener('click', function() {
-          const productName = document.querySelector('.product-details h1, h1')?.textContent || 'Wedding Dress';
-          window.handleStripeCheckout(productId, productName);
+      // Track page view
+      if (typeof ml !== 'undefined') {
+        ml('track', 'page_view', {
+          page_title: document.title,
+          page_url: window.location.href
         });
-        
-        // Insert the button
-        productActions.appendChild(stripeButton);
-        
-        // Add explanation
-        const explanation = document.createElement('div');
-        explanation.className = 'payment-options-explanation';
-        explanation.innerHTML = `
-          <div style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); padding: 1.5rem; border-radius: 8px; margin: 1.5rem 0; border-left: 4px solid #6772e5;">
-            <h4 style="margin: 0 0 1rem; color: #343a40; font-size: 1.1rem;">💳 Choose Your Payment Option</h4>
-            <div style="display: grid; gap: 1rem;">
-              <div style="display: flex; align-items: start; gap: 0.75rem;">
-                <span style="color: #6772e5; font-size: 1.2rem;">⚡</span>
-                <div>
-                  <strong style="color: #343a40;">Quick Checkout:</strong>
-                  <span style="color: #6c757d; margin-left: 0.5rem;">Buy standard size dress instantly with Stripe</span>
-                </div>
-              </div>
-              <div style="display: flex; align-items: start; gap: 0.75rem;">
-                <span style="color: #c9a96e; font-size: 1.2rem;">✨</span>
-                <div>
-                  <strong style="color: #343a40;">Custom Design:</strong>
-                  <span style="color: #6c757d; margin-left: 0.5rem;">Personalize your dress with our design consultation</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        `;
-        
-        productActions.appendChild(explanation);
       }
-    }
-    
-    // DEBUG: Test modal function availability
-    window.testModal = function() {
-      if (typeof openCustomizationModal === 'function') {
-        console.log('✅ Modal function is available');
-        openCustomizationModal('Test Dress', 299, '/test-image.jpg', 'test');
-      } else {
-        console.error('❌ Modal function not available');
-        console.log('Window keys:', Object.keys(window).filter(key => key.toLowerCase().includes('modal')));
-      }
-    };
-  </script>
-
-  <!-- Cookie Notice -->
-  <div id="cookie-notice" class="cookie-notice" style="display: none;">
-    <div class="cookie-content">
-      <p>🍪 We use cookies to improve your experience. By using our site, you agree to our use of cookies.</p>
-      <button id="accept-cookies" class="cookie-accept-btn">Got it!</button>
-    </div>
-  </div>
-
-  <style>
-  /* Stripe Direct Button Styles */
-  .stripe-direct-button {
-    display: inline-block;
-    width: 100%;
-    padding: 1.2rem 2rem;
-    background: linear-gradient(135deg, #6772e5 0%, #5469d4 100%);
-    color: white;
-    border: none;
-    font-weight: 600;
-    font-size: 0.95rem;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    box-shadow: 0 4px 20px rgba(103, 114, 229, 0.3);
-    margin-top: 1rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .stripe-direct-button::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-    transition: left 0.5s;
-  }
-
-  .stripe-direct-button:hover::before {
-    left: 100%;
-  }
-
-  .stripe-direct-button:hover {
-    background: linear-gradient(135deg, #5469d4 0%, #4c63d2 100%);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 30px rgba(103, 114, 229, 0.4);
-  }
-
-  .stripe-direct-button:active {
-    transform: translateY(0);
-    box-shadow: 0 4px 20px rgba(103, 114, 229, 0.3);
-  }
-
-  .stripe-direct-button svg {
-    width: 16px;
-    height: 16px;
-    flex-shrink: 0;
-  }
-
-  .payment-options-explanation {
-    margin: 2rem 0;
-  }
-
-  .payment-options-explanation h4 {
-    font-family: 'Cormorant Garamond', serif;
-  }
-
-  /* Cookie Notice Styles */
-  .cookie-notice {
-    position: fixed;
-    bottom: 20px;
-    left: 20px;
-    background: rgba(26, 26, 26, 0.95);
-    color: white;
-    padding: 1rem 1.5rem;
-    border-radius: 8px;
-    max-width: 400px;
-    z-index: 1000;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-  }
-
-  .cookie-content {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-  }
-
-  .cookie-content p {
-    margin: 0;
-    font-size: 0.9rem;
-    flex: 1;
-  }
-
-  .cookie-accept-btn {
-    background: #8b7355;
-    color: white;
-    border: none;
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 0.9rem;
-    white-space: nowrap;
-  }
-
-  .cookie-accept-btn:hover {
-    background: #6d5a44;
-  }
-
-  @media (max-width: 768px) {
-    .cookie-notice {
-      left: 10px;
-      right: 10px;
-      max-width: none;
-    }
-    
-    .cookie-content {
-      flex-direction: column;
-      text-align: center;
-    }
-    
-    .cookie-accept-btn {
-      width: 100%;
-    }
-
-    .stripe-direct-button {
-      padding: 1rem 1.5rem;
-      font-size: 0.9rem;
-    }
-  }
-  </style>
-
-  <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    // Simple cookie notice - no complex EU compliance needed
-    if (!localStorage.getItem('cookies-accepted')) {
-      setTimeout(() => {
-        document.getElementById('cookie-notice').style.display = 'block';
-      }, 3000);
-    }
-    
-    document.getElementById('accept-cookies').addEventListener('click', function() {
-      localStorage.setItem('cookies-accepted', 'true');
-      document.getElementById('cookie-notice').style.display = 'none';
     });
-  });
   </script>
-
 </body>
 </html>
