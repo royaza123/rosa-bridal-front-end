@@ -222,8 +222,10 @@
       setTimeout(() => {
         if (typeof openCustomizationModal === 'function') {
           console.log('✅ Customization modal loaded successfully');
+          console.log('Modal function:', openCustomizationModal);
         } else {
           console.error('❌ Customization modal failed to load');
+          console.log('Available functions:', Object.keys(window).filter(key => key.includes('Modal') || key.includes('custom')));
         }
         
         if (window.STRIPE_PAYMENT_LINKS) {
@@ -232,6 +234,12 @@
           console.error('❌ Stripe payment links failed to load');
         }
       }, 1000);
+      
+      // Make sure modal functions are available globally
+      if (typeof openCustomizationModal !== 'undefined') {
+        window.openCustomizationModal = openCustomizationModal;
+        console.log('✅ Modal function attached to window');
+      }
     });
 
     // Function to add Stripe buttons to product pages
@@ -296,6 +304,17 @@
         productActions.appendChild(explanation);
       }
     }
+    
+    // DEBUG: Test modal function availability
+    window.testModal = function() {
+      if (typeof openCustomizationModal === 'function') {
+        console.log('✅ Modal function is available');
+        openCustomizationModal('Test Dress', 299, '/test-image.jpg', 'test');
+      } else {
+        console.error('❌ Modal function not available');
+        console.log('Window keys:', Object.keys(window).filter(key => key.toLowerCase().includes('modal')));
+      }
+    };
   </script>
 
   <!-- Cookie Notice -->
