@@ -120,8 +120,23 @@
   <script src="{{ site.baseurl }}/assets/js/auth.js"></script>
   <script src="{{ site.baseurl }}/assets/js/customization-modal.js"></script>
   
-  <!-- Initialize systems -->
+  <!-- STRIPE PAYMENT LINKS CONFIGURATION -->
   <script>
+    // Stripe payment links for direct checkout
+    const STRIPE_PAYMENT_LINKS = {
+      'Boho Wedding Dress Elegant': 'https://buy.stripe.com/4gM3cv3TA7sRc093EN1B600',
+      'Boho Beach Wedding Dress': 'https://buy.stripe.com/7sY6oHdua7sR6FP0sB1B601',
+      'Custom Lace Mermaid Wedding Dress': 'https://buy.stripe.com/5kQ00jcq614t4xH2AJ1B602',
+      'Elegant Ivory Satin Bridal Gown': 'https://buy.stripe.com/3cI4gz2Pw8wV7JT6QZ1B604',
+      'Floral Bridal Dress': 'https://buy.stripe.com/cNi3cv9dUfZnggpcbj1B605',
+      'Gorgeous Ivory Mermaid Wedding Gown': 'https://buy.stripe.com/7sYaEX75MdRf0hrgrz1B606',
+      'Minimalist Off Shoulder Satin Wedding Dress': 'https://buy.stripe.com/28E9ATgGm9AZ7JTdfn1B607',
+      'Sexy Sequin Mermaid Wedding Dress': 'https://buy.stripe.com/7sY00jeye28xe8h7V31B60a',
+      'Sexy Fishtail Bridal Gown': 'https://buy.stripe.com/eVqdR9bm2fZn4xHcbj1B609',
+      'Modest Satin Wedding Dress': 'https://buy.stripe.com/4gM3cvcq6cNbc09dfn1B608'
+    };
+    
+    // Initialize systems
     document.addEventListener('DOMContentLoaded', function() {
       // Initialize cart system
       if (typeof window.cart !== 'undefined') {
@@ -140,6 +155,9 @@
           page_url: window.location.href
         });
       }
+      
+      console.log('✅ Roza Bridal systems initialized');
+      console.log('✅ Stripe payment links loaded:', Object.keys(STRIPE_PAYMENT_LINKS).length, 'products');
     });
   </script>
 </body>
