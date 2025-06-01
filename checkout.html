@@ -11,20 +11,20 @@ title: Checkout - Roza Bridal
       <h3>Contact Information</h3>
       <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
         <div class="form-group">
-          <label for="checkout-first-name">First Name</label>
+          <label for="checkout-first-name">First Name *</label>
           <input type="text" id="checkout-first-name" required>
         </div>
         <div class="form-group">
-          <label for="checkout-last-name">Last Name</label>
+          <label for="checkout-last-name">Last Name *</label>
           <input type="text" id="checkout-last-name" required>
         </div>
       </div>
       <div class="form-group">
-        <label for="checkout-email">Email</label>
+        <label for="checkout-email">Email *</label>
         <input type="email" id="checkout-email" required>
       </div>
       <div class="form-group">
-        <label for="checkout-phone">Phone</label>
+        <label for="checkout-phone">Phone *</label>
         <input type="tel" id="checkout-phone" required>
       </div>
     </div>
@@ -51,8 +51,6 @@ title: Checkout - Roza Bridal
         </div>
       </div>
     </div>
-    
-    <!-- REMOVED SHIPPING ADDRESS - STRIPE HANDLES THIS -->
     
     <div class="checkout-section">
       <h3>Order Notes</h3>
@@ -233,7 +231,7 @@ function processStripeCheckout() {
       // Small delay to ensure localStorage is saved
       setTimeout(() => {
         window.location.href = stripeLink;
-      }, 500);
+      }, 1000);
       return;
     } else {
       console.error('No Stripe link found for product:', productKey);
@@ -459,7 +457,7 @@ function loadCheckoutData() {
         <div class="checkout-item-details">
           <h4>${item.name}</h4>
           <p class="checkout-item-meta">Size: ${item.size} • Quantity: ${item.quantity}</p>
-          <p class="checkout-item-price">$${(item.price * item.quantity).toFixed(2)}</p>
+          <p class="checkout-item-price">${(item.price * item.quantity).toFixed(2)}</p>
           ${customizationHtml}
         </div>
       </div>
@@ -471,8 +469,8 @@ function loadCheckoutData() {
   const total = subtotal;
   
   // Update totals
-  document.getElementById('checkout-subtotal').textContent = `$${subtotal.toFixed(2)}`;
-  document.getElementById('checkout-total').textContent = `$${total.toFixed(2)}`;
+  document.getElementById('checkout-subtotal').textContent = `${subtotal.toFixed(2)}`;
+  document.getElementById('checkout-total').textContent = `${total.toFixed(2)}`;
 }
 </script>
 
@@ -551,6 +549,73 @@ function loadCheckoutData() {
   100% { transform: rotate(360deg); }
 }
 
+/* Enhanced checkout styles */
+.checkout-item {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  padding: 1.5rem;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  border: 1px solid #f0f0f0;
+}
+
+.checkout-item-image {
+  width: 80px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 8px;
+  flex-shrink: 0;
+}
+
+.checkout-item-details {
+  flex: 1;
+  min-width: 0;
+}
+
+.checkout-item-details h4 {
+  margin: 0 0 0.5rem;
+  font-size: 1.1rem;
+  color: #333;
+  line-height: 1.3;
+}
+
+.checkout-item-price {
+  font-weight: 600;
+  font-size: 1.2rem;
+  color: #c9a96e;
+  margin: 0.5rem 0;
+}
+
+.checkout-item-meta {
+  font-size: 0.9rem;
+  color: #666;
+  margin: 0.25rem 0;
+}
+
+.checkout-item-customizations {
+  margin-top: 0.75rem;
+  padding: 0.75rem;
+  background: linear-gradient(135deg, #f8f9fa 0%, #f0f4f7 100%);
+  border-radius: 6px;
+  border-left: 3px solid #c9a96e;
+}
+
+.checkout-item-customizations h5 {
+  margin: 0 0 0.5rem;
+  font-size: 0.9rem;
+  color: #c9a96e;
+  font-weight: 600;
+}
+
+.checkout-item-customizations p {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #666;
+  line-height: 1.4;
+}
+
 /* Enhanced Form Styling */
 #order-notes {
   font-family: inherit;
@@ -583,6 +648,18 @@ function loadCheckoutData() {
   
   #order-notes {
     min-height: 100px;
+  }
+  
+  .checkout-item {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  
+  .checkout-item-image {
+    width: 100%;
+    height: 200px;
+    align-self: center;
+    max-width: 200px;
   }
 }
 </style>
