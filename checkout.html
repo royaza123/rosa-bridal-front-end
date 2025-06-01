@@ -225,13 +225,15 @@ function processStripeCheckout() {
       
       // Show custom design note if applicable
       if (item.isCustom && item.customizations) {
-        alert('🎨 Custom Design Noted!\n\nYou\'ll be redirected to Stripe for secure payment. After purchase, we\'ll contact you within 24 hours to finalize your custom design details.\n\nYour customization preferences have been saved.');
+        // Show custom message with automatic redirect
+        showCustomDesignNotification(stripeLink);
+      } else {
+        // For regular items, redirect immediately with shorter message
+        alert('✨ Redirecting to secure Stripe checkout...');
+        setTimeout(() => {
+          window.location.href = stripeLink;
+        }, 800);
       }
-      
-      // Small delay to ensure localStorage is saved
-      setTimeout(() => {
-        window.location.href = stripeLink;
-      }, 1000);
       return;
     } else {
       console.error('No Stripe link found for product:', productKey);
