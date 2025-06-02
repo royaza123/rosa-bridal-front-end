@@ -334,29 +334,31 @@ description: Discover our collection of elegant wedding dresses - from bohemian 
   transition: all 0.3s ease;
 }
 
-/* Enhanced responsive grid - tighter layout */
+/* TIGHT responsive grid - NO excessive airways */
 .product-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1.5rem;
-  margin-top: 3rem;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1rem;
+  margin-top: 2rem;
 }
 
-/* Better image fitting */
+/* Perfect image fitting */
 .product-image-container {
   position: relative;
   width: 100%;
-  height: 350px;
+  height: 320px;
   overflow: hidden;
   border-radius: 12px 12px 0 0;
+  background: #f8f8f8;
 }
 
 .product-image {
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  object-position: center top;
+  object-fit: contain;
+  object-position: center;
   transition: transform 0.3s ease;
+  background: white;
 }
 
 .product-card {
@@ -373,34 +375,47 @@ description: Discover our collection of elegant wedding dresses - from bohemian 
 }
 
 .product-card:hover .product-image {
-  transform: scale(1.05);
+  transform: scale(1.03);
 }
 
+/* Container adjustments for tighter layout */
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* Responsive breakpoints - MUCH TIGHTER */
 @media (max-width: 1200px) {
+  .container {
+    padding: 0 0.75rem;
+  }
   .product-grid {
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 1.25rem;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 0.75rem;
+  }
+  .product-image-container {
+    height: 300px;
   }
 }
 
 @media (max-width: 768px) {
+  .container {
+    padding: 0 0.5rem;
+  }
   .product-grid {
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 1rem;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 0.5rem;
   }
-  
   .product-image-container {
-    height: 300px;
+    height: 250px;
   }
-  
   .current-price {
     font-size: 1.2rem;
   }
-  
   .original-price {
     font-size: 0.9rem;
   }
-  
   .product-name {
     font-size: 1rem;
   }
@@ -408,37 +423,34 @@ description: Discover our collection of elegant wedding dresses - from bohemian 
 
 @media (max-width: 576px) {
   .product-grid {
-    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-    gap: 0.75rem;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 0.25rem;
   }
-  
   .product-image-container {
-    height: 280px;
+    height: 220px;
+  }
+  .product-info {
+    padding: 0.75rem;
   }
 }
 
 @media (max-width: 480px) {
+  .container {
+    padding: 0 0.25rem;
+  }
   .product-grid {
-    grid-template-columns: 1fr 1fr;
-    gap: 0.5rem;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.25rem;
   }
-  
   .product-image-container {
-    height: 250px;
+    height: 200px;
   }
-  
-  .product-info {
-    padding: 0.75rem;
-  }
-  
   .product-name {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
   }
-  
   .current-price {
-    font-size: 1.1rem;
+    font-size: 1rem;
   }
-  
   .original-price {
     font-size: 0.8rem;
   }
