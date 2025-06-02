@@ -25,109 +25,109 @@ let currentProductInfo = {
   id: ''
 };
 
-// Enhanced customization options with pricing
+// Enhanced customization options - ALL FREE
 const CUSTOMIZATION_OPTIONS = {
   silhouette: {
     'aline': { name: 'A-Line', price: 0, emoji: '📐', desc: 'Classic flattering shape' },
-    'ballgown': { name: 'Ball Gown', price: 200, emoji: '👸', desc: 'Princess-style voluminous skirt' },
-    'mermaid': { name: 'Mermaid', price: 150, emoji: '🧜‍♀️', desc: 'Form-fitting with flared bottom' },
-    'trumpet': { name: 'Trumpet', price: 125, emoji: '🎺', desc: 'Similar to mermaid, flares at knee' },
-    'sheath': { name: 'Sheath', price: 100, emoji: '📏', desc: 'Straight, column-like silhouette' },
-    'empire': { name: 'Empire', price: 75, emoji: '🏛️', desc: 'High waistline under bust' },
-    'tealength': { name: 'Tea-Length', price: -50, emoji: '☕', desc: 'Mid-calf length, vintage style' }
+    'ballgown': { name: 'Ball Gown', price: 0, emoji: '👸', desc: 'Princess-style voluminous skirt' },
+    'mermaid': { name: 'Mermaid', price: 0, emoji: '🧜‍♀️', desc: 'Form-fitting with flared bottom' },
+    'trumpet': { name: 'Trumpet', price: 0, emoji: '🎺', desc: 'Similar to mermaid, flares at knee' },
+    'sheath': { name: 'Sheath', price: 0, emoji: '📏', desc: 'Straight, column-like silhouette' },
+    'empire': { name: 'Empire', price: 0, emoji: '🏛️', desc: 'High waistline under bust' },
+    'tealength': { name: 'Tea-Length', price: 0, emoji: '☕', desc: 'Mid-calf length, vintage style' }
   },
   
   neckline: {
-    'sweetheart': { name: 'Sweetheart', price: 75, emoji: '💕', desc: 'Heart-shaped, romantic' },
+    'sweetheart': { name: 'Sweetheart', price: 0, emoji: '💕', desc: 'Heart-shaped, romantic' },
     'vneck': { name: 'V-Neck', price: 0, emoji: 'V', desc: 'Classic V-shaped neckline' },
-    'highneck': { name: 'High Neck', price: 100, emoji: '⬆️', desc: 'Covers collarbone, elegant' },
-    'halter': { name: 'Halter', price: 85, emoji: '🎀', desc: 'Ties around neck' },
-    'scoop': { name: 'Scoop', price: 50, emoji: '🥄', desc: 'Round, modest neckline' },
-    'offshoulder': { name: 'Off-Shoulder', price: 100, emoji: '👫', desc: 'Exposes shoulders gracefully' },
-    'oneshoulder': { name: 'One-Shoulder', price: 125, emoji: '🔺', desc: 'Asymmetrical, modern' }
+    'highneck': { name: 'High Neck', price: 0, emoji: '⬆️', desc: 'Covers collarbone, elegant' },
+    'halter': { name: 'Halter', price: 0, emoji: '🎀', desc: 'Ties around neck' },
+    'scoop': { name: 'Scoop', price: 0, emoji: '🥄', desc: 'Round, modest neckline' },
+    'offshoulder': { name: 'Off-Shoulder', price: 0, emoji: '👫', desc: 'Exposes shoulders gracefully' },
+    'oneshoulder': { name: 'One-Shoulder', price: 0, emoji: '🔺', desc: 'Asymmetrical, modern' }
   },
   
   sleeves: {
     'sleeveless': { name: 'Sleeveless', price: 0, emoji: '🚫', desc: 'Clean, timeless look' },
-    'cap': { name: 'Cap Sleeve', price: 50, emoji: '🧢', desc: 'Short, delicate sleeves' },
-    'short': { name: 'Short Sleeve', price: 75, emoji: '👕', desc: 'Classic short sleeves' },
-    'long': { name: 'Long Sleeve', price: 150, emoji: '👔', desc: 'Full arm coverage' },
-    'illusion': { name: 'Illusion Sleeve', price: 200, emoji: '✨', desc: 'Sheer, ethereal effect' },
-    'bell': { name: 'Bell Sleeve', price: 175, emoji: '🔔', desc: 'Dramatic, flowing sleeves' }
+    'cap': { name: 'Cap Sleeve', price: 0, emoji: '🧢', desc: 'Short, delicate sleeves' },
+    'short': { name: 'Short Sleeve', price: 0, emoji: '👕', desc: 'Classic short sleeves' },
+    'long': { name: 'Long Sleeve', price: 0, emoji: '👔', desc: 'Full arm coverage' },
+    'illusion': { name: 'Illusion Sleeve', price: 0, emoji: '✨', desc: 'Sheer, ethereal effect' },
+    'bell': { name: 'Bell Sleeve', price: 0, emoji: '🔔', desc: 'Dramatic, flowing sleeves' }
   },
   
   back: {
     'zipper': { name: 'Zipper', price: 0, emoji: '🤐', desc: 'Classic, secure closure' },
-    'openback': { name: 'Open Back', price: 100, emoji: '💫', desc: 'Dramatic, show-stopping' },
-    'keyhole': { name: 'Keyhole', price: 75, emoji: '🔑', desc: 'Small opening, subtle detail' },
-    'vback': { name: 'V-Back', price: 85, emoji: '📐', desc: 'V-shaped back opening' },
-    'laceup': { name: 'Lace-Up', price: 125, emoji: '🎀', desc: 'Adjustable corset-style' },
-    'buttons': { name: 'Button-Up', price: 150, emoji: '🔘', desc: 'Vintage button detail' },
-    'illusion': { name: 'Illusion Back', price: 175, emoji: '✨', desc: 'Sheer back with details' }
+    'openback': { name: 'Open Back', price: 0, emoji: '💫', desc: 'Dramatic, show-stopping' },
+    'keyhole': { name: 'Keyhole', price: 0, emoji: '🔑', desc: 'Small opening, subtle detail' },
+    'vback': { name: 'V-Back', price: 0, emoji: '📐', desc: 'V-shaped back opening' },
+    'laceup': { name: 'Lace-Up', price: 0, emoji: '🎀', desc: 'Adjustable corset-style' },
+    'buttons': { name: 'Button-Up', price: 0, emoji: '🔘', desc: 'Vintage button detail' },
+    'illusion': { name: 'Illusion Back', price: 0, emoji: '✨', desc: 'Sheer back with details' }
   },
   
   train: {
-    'none': { name: 'No Train', price: -50, emoji: '🚫', desc: 'Clean hem, easy movement' },
+    'none': { name: 'No Train', price: 0, emoji: '🚫', desc: 'Clean hem, easy movement' },
     'sweep': { name: 'Sweep Train', price: 0, emoji: '🧹', desc: 'Just touches the floor' },
-    'chapel': { name: 'Chapel Train', price: 150, emoji: '⛪', desc: '3-4 feet behind dress' },
-    'cathedral': { name: 'Cathedral Train', price: 300, emoji: '🏰', desc: '6-7 feet, very dramatic' },
-    'royal': { name: 'Royal Train', price: 500, emoji: '👑', desc: '10+ feet, ultimate drama' }
+    'chapel': { name: 'Chapel Train', price: 0, emoji: '⛪', desc: '3-4 feet behind dress' },
+    'cathedral': { name: 'Cathedral Train', price: 0, emoji: '🏰', desc: '6-7 feet, very dramatic' },
+    'royal': { name: 'Royal Train', price: 0, emoji: '👑', desc: '10+ feet, ultimate drama' }
   },
   
   material: {
-    'lace': { name: 'Lace', price: 300, emoji: '🕸️', desc: 'Delicate, romantic texture' },
-    'tulle': { name: 'Tulle', price: 150, emoji: '☁️', desc: 'Soft, dreamy layers' },
+    'lace': { name: 'Lace', price: 0, emoji: '🕸️', desc: 'Delicate, romantic texture' },
+    'tulle': { name: 'Tulle', price: 0, emoji: '☁️', desc: 'Soft, dreamy layers' },
     'satin': { name: 'Satin', price: 0, emoji: '🌟', desc: 'Smooth, lustrous finish' },
-    'chiffon': { name: 'Chiffon', price: 200, emoji: '🌊', desc: 'Flowing, ethereal fabric' },
-    'organza': { name: 'Organza', price: 225, emoji: '💎', desc: 'Crisp, structured elegance' },
-    'mikado': { name: 'Mikado', price: 275, emoji: '🎌', desc: 'Luxurious silk blend' },
-    'crepe': { name: 'Crepe', price: 250, emoji: '🌙', desc: 'Smooth, sophisticated drape' }
+    'chiffon': { name: 'Chiffon', price: 0, emoji: '🌊', desc: 'Flowing, ethereal fabric' },
+    'organza': { name: 'Organza', price: 0, emoji: '💎', desc: 'Crisp, structured elegance' },
+    'mikado': { name: 'Mikado', price: 0, emoji: '🎌', desc: 'Luxurious silk blend' },
+    'crepe': { name: 'Crepe', price: 0, emoji: '🌙', desc: 'Smooth, sophisticated drape' }
   },
   
   waistline: {
     'natural': { name: 'Natural', price: 0, emoji: '➡️', desc: 'At natural waist' },
-    'empire': { name: 'Empire', price: 75, emoji: '🏛️', desc: 'High under bust' },
-    'drop': { name: 'Drop Waist', price: 100, emoji: '⬇️', desc: 'Lower on hips' },
-    'basque': { name: 'Basque', price: 125, emoji: '🔺', desc: 'Pointed waistline' },
-    'none': { name: 'No Defined', price: 50, emoji: '〰️', desc: 'Flowing, no waist' }
+    'empire': { name: 'Empire', price: 0, emoji: '🏛️', desc: 'High under bust' },
+    'drop': { name: 'Drop Waist', price: 0, emoji: '⬇️', desc: 'Lower on hips' },
+    'basque': { name: 'Basque', price: 0, emoji: '🔺', desc: 'Pointed waistline' },
+    'none': { name: 'No Defined', price: 0, emoji: '〰️', desc: 'Flowing, no waist' }
   },
   
   embellishments: {
     'none': { name: 'None', price: 0, emoji: '✨', desc: 'Clean, minimal design' },
-    'beading': { name: 'Beading', price: 400, emoji: '💎', desc: 'Hand-sewn beadwork' },
-    'applique': { name: 'Lace Appliqué', price: 350, emoji: '🌸', desc: 'Layered lace details' },
-    'embroidery': { name: 'Embroidery', price: 300, emoji: '🧵', desc: 'Intricate stitched patterns' },
-    'sequins': { name: 'Sequins', price: 450, emoji: '✨', desc: 'Sparkling sequin details' },
-    'pearls': { name: 'Pearls', price: 500, emoji: '🦪', desc: 'Elegant pearl accents' },
-    'floral': { name: 'Floral Details', price: 275, emoji: '🌺', desc: '3D floral elements' }
+    'beading': { name: 'Beading', price: 0, emoji: '💎', desc: 'Hand-sewn beadwork' },
+    'applique': { name: 'Lace Appliqué', price: 0, emoji: '🌸', desc: 'Layered lace details' },
+    'embroidery': { name: 'Embroidery', price: 0, emoji: '🧵', desc: 'Intricate stitched patterns' },
+    'sequins': { name: 'Sequins', price: 0, emoji: '✨', desc: 'Sparkling sequin details' },
+    'pearls': { name: 'Pearls', price: 0, emoji: '🦪', desc: 'Elegant pearl accents' },
+    'floral': { name: 'Floral Details', price: 0, emoji: '🌺', desc: '3D floral elements' }
   },
   
   bust: {
-    'builtin': { name: 'Built-in Bra', price: 75, emoji: '👙', desc: 'Structured support' },
+    'builtin': { name: 'Built-in Bra', price: 0, emoji: '👙', desc: 'Structured support' },
     'none': { name: 'No Bra', price: 0, emoji: '🚫', desc: 'Natural, unstructured' },
-    'padding': { name: 'Custom Padding', price: 100, emoji: '➕', desc: 'Enhanced shape support' }
+    'padding': { name: 'Custom Padding', price: 0, emoji: '➕', desc: 'Enhanced shape support' }
   },
   
   layers: {
     'single': { name: 'Single Layer', price: 0, emoji: '1️⃣', desc: 'Simple, elegant' },
-    'double': { name: 'Double Layer', price: 100, emoji: '2️⃣', desc: 'Added volume' },
-    'multi': { name: 'Multi-Layered', price: 200, emoji: '3️⃣', desc: 'Full, dramatic skirt' },
-    'crinoline': { name: 'With Crinoline', price: 150, emoji: '🎪', desc: 'Structured underskirt' }
+    'double': { name: 'Double Layer', price: 0, emoji: '2️⃣', desc: 'Added volume' },
+    'multi': { name: 'Multi-Layered', price: 0, emoji: '3️⃣', desc: 'Full, dramatic skirt' },
+    'crinoline': { name: 'With Crinoline', price: 0, emoji: '🎪', desc: 'Structured underskirt' }
   }
 };
 
-// Extended color palette with advanced options
+// Extended color palette - ALL FREE
 const COLOR_OPTIONS = {
   'ivory': { name: 'Ivory', price: 0, hex: '#f8f6f0', desc: 'Classic bridal' },
   'white': { name: 'White', price: 0, hex: '#ffffff', desc: 'Pure traditional' },
-  'champagne': { name: 'Champagne', price: 50, hex: '#f7e7ce', desc: 'Warm golden tone' },
-  'blush': { name: 'Blush', price: 75, hex: '#fde2e4', desc: 'Soft romantic pink' },
-  'nude': { name: 'Nude', price: 100, hex: '#e3c9a7', desc: 'Natural skin tone' },
-  'dustyrose': { name: 'Dusty Rose', price: 125, hex: '#d4a5a5', desc: 'Muted pink elegance' },
-  'sage': { name: 'Sage Green', price: 150, hex: '#9caf88', desc: 'Natural earth tone' },
-  'lavender': { name: 'Lavender', price: 150, hex: '#c8a8d8', desc: 'Soft purple hue' },
-  'dustyblue': { name: 'Dusty Blue', price: 150, hex: '#a8c5d1', desc: 'Muted blue elegance' },
-  'custom': { name: 'Custom Color', price: 200, hex: '#gradient', desc: 'Your perfect shade' }
+  'champagne': { name: 'Champagne', price: 0, hex: '#f7e7ce', desc: 'Warm golden tone' },
+  'blush': { name: 'Blush', price: 0, hex: '#fde2e4', desc: 'Soft romantic pink' },
+  'nude': { name: 'Nude', price: 0, hex: '#e3c9a7', desc: 'Natural skin tone' },
+  'dustyrose': { name: 'Dusty Rose', price: 0, hex: '#d4a5a5', desc: 'Muted pink elegance' },
+  'sage': { name: 'Sage Green', price: 0, hex: '#9caf88', desc: 'Natural earth tone' },
+  'lavender': { name: 'Lavender', price: 0, hex: '#c8a8d8', desc: 'Soft purple hue' },
+  'dustyblue': { name: 'Dusty Blue', price: 0, hex: '#a8c5d1', desc: 'Muted blue elegance' },
+  'custom': { name: 'Custom Color', price: 0, hex: '#gradient', desc: 'Your perfect shade' }
 };
 
 // Modal state tracking (maintains existing functionality)
@@ -1428,7 +1428,7 @@ function getSiteBaseUrl() {
   return document.querySelector('meta[name="base-url"]')?.content || '';
 }
 
-// Updated addToCart function - works with your existing cart system (unchanged)
+// Updated addToCart function - works with your existing cart system (unchanged functionality)
 function addToCart() {
   // Validate that size is selected
   if (!selectedOptions.size) {
@@ -1452,11 +1452,8 @@ function addToCart() {
     specialRequests: document.getElementById('specialRequests')?.value || ''
   };
   
-  // Calculate final price with customizations
+  // Price stays the same regardless of customizations - all options are free
   let unitPrice = currentProductInfo.basePrice;
-  document.querySelectorAll('.custom-option.selected, .color-option.selected').forEach(option => {
-    unitPrice += parseInt(option.dataset.price) || 0;
-  });
   
   // Create product object for cart
   const customProduct = {
