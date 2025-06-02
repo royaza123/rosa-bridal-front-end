@@ -3,169 +3,239 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="base-url" content="{{ site.baseurl }}">
-  <title>{% if page.title %}{{ page.title }} | {% endif %}{{ site.title | default: "Roza Bridal" }}</title>
-  <meta name="description" content="{{ page.description | default: site.description | default: 'Elegant wedding dresses and bridal gowns' }}">
+  <title>{% if page.title %}{{ page.title }} - {% endif %}Roza Bridal</title>
+  <meta name="description" content="{% if page.description %}{{ page.description }}{% else %}Elegant wedding dresses and bridal gowns - from bohemian beach styles to sophisticated mermaid silhouettes{% endif %}">
   
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   
-  <!-- Stylesheets -->
+  <!-- Styles -->
   <link rel="stylesheet" href="{{ site.baseurl }}/assets/css/styles.css">
   <link rel="stylesheet" href="{{ site.baseurl }}/assets/css/e-commerce.css">
   
   <!-- Favicon -->
-  <link rel="icon" type="image/x-icon" href="{{ site.baseurl }}/assets/images/favicon.ico">
+  <link rel="icon" type="image/x-icon" href="{{ site.baseurl }}/favicon.ico">
   
-  <!-- Meta tags for social sharing -->
-  <meta property="og:title" content="{% if page.title %}{{ page.title }} | {% endif %}{{ site.title | default: 'Roza Bridal' }}">
-  <meta property="og:description" content="{{ page.description | default: site.description | default: 'Elegant wedding dresses and bridal gowns' }}">
+  <!-- Meta for social sharing -->
+  <meta property="og:title" content="{% if page.title %}{{ page.title }} - {% endif %}Roza Bridal">
+  <meta property="og:description" content="{% if page.description %}{{ page.description }}{% else %}Elegant wedding dresses and bridal gowns{% endif %}">
   <meta property="og:type" content="website">
   <meta property="og:url" content="{{ site.url }}{{ site.baseurl }}{{ page.url }}">
   
-  <!-- MailerLite Integration -->
-  <script>
-    (function(w,d,e,u,f,l,n){w[f]=w[f]||function(){(w[f].q=w[f].q||[])
-    .push(arguments);},l=d.createElement(e),l.async=1,l.src=u,
-    n=d.getElementsByTagName(e)[0],n.parentNode.insertBefore(l,n);})
-    (window,document,'script','https://assets.mailerlite.com/js/universal.js','ml');
-    ml('account', '1551678');
-  </script>
+  <!-- Base URL for JavaScript -->
+  <meta name="base-url" content="{{ site.baseurl }}">
 </head>
 <body>
   <!-- Header -->
   <header>
     <div class="header-container">
       <div class="logo-container">
-        <a href="{{ site.baseurl }}/">
-          <img src="{{ site.baseurl }}/assets/images/logo.png" alt="Roza Bridal" class="logo">
+        <a href="{{ site.baseurl }}/" aria-label="Roza Bridal Home">
+          <picture>
+            <source srcset="{{ site.baseurl }}/assets/images/logos/logo.webp" type="image/webp">
+            <img src="{{ site.baseurl }}/assets/images/logos/logo.png" alt="Roza Bridal" class="logo" width="200" height="50">
+          </picture>
         </a>
       </div>
       
-      <nav>
+      <nav role="navigation" aria-label="Main navigation">
         <ul>
-          <li><a href="{{ site.baseurl }}/">Home</a></li>
-          <li><a href="{{ site.baseurl }}/products/">Dresses</a></li>
+          <li><a href="{{ site.baseurl }}/#collection">Collection</a></li>
+          <li><a href="{{ site.baseurl }}/products/">All Dresses</a></li>
           <li><a href="{{ site.baseurl }}/#about">About</a></li>
           <li><a href="{{ site.baseurl }}/#contact">Contact</a></li>
         </ul>
       </nav>
       
       <div class="header-controls">
-        <!-- User Account Icon -->
-        <div class="user-icon" id="user-icon">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-            <circle cx="12" cy="7" r="4"></circle>
-          </svg>
-        </div>
-        
-        <!-- Cart Icon -->
-        <div class="cart-icon" id="cart-icon">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="9" cy="21" r="1"></circle>
-            <circle cx="20" cy="21" r="1"></circle>
-            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
-          </svg>
-          <span class="cart-count" id="cart-count">0</span>
-        </div>
+        <!-- Account and cart icons will be added by JavaScript -->
       </div>
     </div>
   </header>
-
+  
   <!-- Main Content -->
-  <main>
+  <main role="main">
     {{ content }}
   </main>
-
+  
+  <!-- Footer Divider -->
+  {% if site.baseurl %}
+    <img src="{{ site.baseurl }}/assets/images/logos/footer-1.png" alt="" class="footer-divider" loading="lazy" role="presentation">
+  {% endif %}
+  
   <!-- Footer -->
-  <footer>
+  <footer role="contentinfo">
     <div class="footer-content">
       <div class="footer-logo-container">
-        <img src="{{ site.baseurl }}/assets/images/logo.png" alt="Roza Bridal" class="footer-logo">
+        <picture>
+          <source srcset="{{ site.baseurl }}/assets/images/logos/logo.webp" type="image/webp">
+          <img src="{{ site.baseurl }}/assets/images/logos/logo.png" alt="Roza Bridal" class="footer-logo">
+        </picture>
       </div>
       
-      <div class="footer-links">
-        <a href="{{ site.baseurl }}/shipping-returns.html">Shipping & Returns</a>
+      <nav class="footer-links" role="navigation" aria-label="Footer navigation">
+        <a href="{{ site.baseurl }}/#collection">Collection</a>
+        <a href="{{ site.baseurl }}/products/">All Dresses</a>
+        <a href="{{ site.baseurl }}/#about">About</a>
+        <a href="{{ site.baseurl }}/#contact">Contact</a>
+        
+        <!-- Legal Links -->
         <a href="{{ site.baseurl }}/privacy-policy.html">Privacy Policy</a>
         <a href="{{ site.baseurl }}/terms-of-service.html">Terms of Service</a>
+        <a href="{{ site.baseurl }}/shipping-returns.html">Shipping & Returns</a>
         <a href="{{ site.baseurl }}/accessibility.html">Accessibility</a>
-      </div>
+      </nav>
       
       <div class="social-links">
-        <a href="https://www.instagram.com/rozabridal" target="_blank" rel="noopener noreferrer">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <a href="https://www.instagram.com/rozabridal" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Instagram">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
             <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
             <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
           </svg>
         </a>
+        <a href="mailto:aetophis@aetophis.com" aria-label="Email us">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+            <polyline points="22,6 12,13 2,6"></polyline>
+          </svg>
+        </a>
       </div>
       
-      <div class="business-info">
-        <p>Email: <a href="mailto:aetophis@aetophis.com">aetophis@aetophis.com</a></p>
-        <p>Custom wedding dresses designed with love</p>
-      </div>
-      
-      <div class="copyright">
-        <p>&copy; {{ 'now' | date: "%Y" }} Roza Bridal. All rights reserved.</p>
-      </div>
+      <p class="copyright">&copy; 2025 Roza Bridal. All rights reserved. Made in the USA 🇺🇸</p>
     </div>
   </footer>
 
-  <!-- JavaScript Files -->
-  <script src="{{ site.baseurl }}/assets/js/cart.js"></script>
-  <script src="{{ site.baseurl }}/assets/js/auth.js"></script>
+  <!-- JavaScript - Clean loading order -->
+  <script src="{{ site.baseurl }}/assets/js/main-ecommerce.js"></script>
+  <script src="{{ site.baseurl }}/assets/js/stripe-integration.js"></script>
   <script src="{{ site.baseurl }}/assets/js/customization-modal.js"></script>
   
-  <!-- Stripe Payment Links Configuration -->
-  <script>
-    // Stripe payment links for all 11 products
-    const STRIPE_PAYMENT_LINKS = {
-      'Boho Wedding Dress Elegant': 'https://buy.stripe.com/4gM3cv3TA7sRc093EN1B600',
-      'Boho Beach Wedding Dress': 'https://buy.stripe.com/7sY6oHdua7sR6FP0sB1B601',
-      'Custom Lace Mermaid Wedding Dress': 'https://buy.stripe.com/5kQ00jcq614t4xH2AJ1B602',
-      'Custom Lace Mermaid Wedding Dress V-Neck': 'https://buy.stripe.com/5kQ00jcq614t4xH2AJ1B602',
-      'Elegant Ivory Satin Bridal Gown': 'https://buy.stripe.com/3cI4gz2Pw8wV7JT6QZ1B604',
-      'Floral Bridal Dress': 'https://buy.stripe.com/cNi3cv9dUfZnggpcbj1B605',
-      'Gorgeous Ivory Mermaid Wedding Gown': 'https://buy.stripe.com/7sYaEX75MdRf0hrgrz1B606',
-      'Minimalist Off Shoulder Satin Wedding Dress': 'https://buy.stripe.com/28E9ATgGm9AZ7JTdfn1B607',
-      'Sexy Sequin Mermaid Wedding Dress': 'https://buy.stripe.com/7sY00jeye28xe8h7V31B60a',
-      'Sexy Fishtail Bridal Gown': 'https://buy.stripe.com/eVqdR9bm2fZn4xHcbj1B609',
-      'Modest Satin Wedding Dress': 'https://buy.stripe.com/4gM3cvcq6cNbc09dfn1B608'
-    };
-    
-    // Make Stripe links globally available
-    window.STRIPE_PAYMENT_LINKS = STRIPE_PAYMENT_LINKS;
-  </script>
+  <!-- Checkout Integration - ONLY loads on checkout page -->
+  {% if page.url contains 'checkout' %}
+    <script src="{{ site.baseurl }}/assets/js/simplified-checkout.js"></script>
+  {% endif %}
   
-  <!-- Initialize Systems -->
+  <!-- Initialization -->
   <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      // Initialize cart system
-      if (typeof window.cart !== 'undefined') {
-        window.cart.init();
-      }
+    document.addEventListener('DOMContentLoaded', () => {
+      document.body.classList.add('loaded');
       
-      // Initialize auth system  
-      if (typeof window.auth !== 'undefined') {
-        window.auth.init();
-      }
-      
-      // Track page view
-      if (typeof ml !== 'undefined') {
-        ml('track', 'page_view', {
-          page_title: document.title,
-          page_url: window.location.href
-        });
-      }
-      
-      // Log successful initialization
-      console.log('✅ Roza Bridal initialized');
-      console.log('✅ Stripe links loaded:', Object.keys(STRIPE_PAYMENT_LINKS).length, 'products');
+      // Debug info
+      setTimeout(() => {
+        console.log('✅ Roza Bridal Site Ready');
+        console.log('💰 Stripe Integration:', typeof window.handleStripeCheckoutFromCart === 'function' ? 'ACTIVE' : 'INACTIVE');
+        console.log('🎨 Customization Modal:', typeof window.openCustomizationModal === 'function' ? 'ACTIVE' : 'INACTIVE');
+        console.log('🛒 E-commerce System:', typeof window.cart !== 'undefined' ? 'ACTIVE' : 'INACTIVE');
+        
+        if (window.STRIPE_PAYMENT_LINKS) {
+          console.log('💳 Payment Links Ready:', Object.keys(window.STRIPE_PAYMENT_LINKS).length + ' products');
+        }
+      }, 1000);
     });
   </script>
+
+  <!-- Cookie Notice -->
+  <div id="cookie-notice" class="cookie-notice" style="display: none;">
+    <div class="cookie-content">
+      <p>🍪 We use cookies to improve your experience. By using our site, you agree to our use of cookies.</p>
+      <button id="accept-cookies" class="cookie-accept-btn">Got it!</button>
+    </div>
+  </div>
+
+  <style>
+  /* Cookie Notice Styles */
+  .cookie-notice {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    background: rgba(26, 26, 26, 0.95);
+    color: white;
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+    max-width: 400px;
+    z-index: 1000;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  }
+
+  .cookie-content {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .cookie-content p {
+    margin: 0;
+    font-size: 0.9rem;
+    flex: 1;
+  }
+
+  .cookie-accept-btn {
+    background: #8b7355;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    white-space: nowrap;
+  }
+
+  .cookie-accept-btn:hover {
+    background: #6d5a44;
+  }
+
+  @media (max-width: 768px) {
+    .cookie-notice {
+      left: 10px;
+      right: 10px;
+      max-width: none;
+    }
+    
+    .cookie-content {
+      flex-direction: column;
+      text-align: center;
+    }
+    
+    .cookie-accept-btn {
+      width: 100%;
+    }
+  }
+
+  /* Loading spinner for buttons */
+  .spinner {
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgba(255,255,255,0.3);
+    border-top: 2px solid white;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    display: inline-block;
+  }
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  </style>
+
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Cookie notice
+    if (!localStorage.getItem('cookies-accepted')) {
+      setTimeout(() => {
+        document.getElementById('cookie-notice').style.display = 'block';
+      }, 3000);
+    }
+    
+    document.getElementById('accept-cookies').addEventListener('click', function() {
+      localStorage.setItem('cookies-accepted', 'true');
+      document.getElementById('cookie-notice').style.display = 'none';
+    });
+  });
+  </script>
+
 </body>
 </html>
