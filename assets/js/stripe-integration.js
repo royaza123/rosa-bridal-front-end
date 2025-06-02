@@ -66,7 +66,7 @@ function getProductIdFromName(productName) {
   return nameMap[productName] || null;
 }
 
-// CHECKOUT PAGE ONLY - Stripe checkout handler with PROPER BACK BUTTON HANDLING
+// CHECKOUT PAGE ONLY - Stripe checkout handler (BACK TO WORKING VERSION)
 function handleStripeCheckoutFromCart(cartItems, customerDetails) {
   console.log('💳 Processing cart checkout with Stripe:', {
     itemCount: cartItems.length,
@@ -90,9 +90,8 @@ function handleStripeCheckoutFromCart(cartItems, customerDetails) {
     });
     
     if (stripeLink) {
-      // SAVE EVERYTHING BEFORE STRIPE REDIRECT
+      // Save customer details and order info for follow-up
       saveOrderForStripeProcessing(item, customerDetails);
-      saveCheckoutState(cartItems, customerDetails);
       
       // Track checkout
       if (typeof ml !== 'undefined') {
@@ -105,12 +104,18 @@ function handleStripeCheckoutFromCart(cartItems, customerDetails) {
         });
       }
       
-      // MARK THAT WE'RE GOING TO STRIPE (don't clear cart yet)
-      localStorage.setItem('stripeRedirectInProgress', 'true');
-      localStorage.setItem('stripeRedirectTime', Date.now().toString());
+      // SAVE CHECKOUT STATE BEFORE OPENING STRIPE (for potential return)
+      saveCheckoutState(cartItems, customerDetails);
       
-      console.log('🚀 Redirecting to Stripe:', stripeLink);
-      window.location.href = stripeLink;
+      // OPEN STRIPE IN NEW TAB - Don't clear cart immediately
+      console.log('🚀 Opening Stripe in new tab:', stripeLink);
+      window.open(stripeLink, '_blank');
+      
+      // Show success message
+      setTimeout(() => {
+        alert('💳 Stripe checkout opened in new tab!\n\n✅ Complete your payment there\n🔄 You can return here to modify your order if needed\n\n💡 Tip: Keep this tab open until payment is complete');
+      }, 500);
+      
       return true;
     }
   }
