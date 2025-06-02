@@ -108,32 +108,45 @@
     </div>
   </footer>
 
-  <!-- JavaScript - Clean loading order -->
+  <!-- JavaScript - FIXED loading order for modal -->
   <script src="{{ site.baseurl }}/assets/js/main-ecommerce.js"></script>
-  <script src="{{ site.baseurl }}/assets/js/stripe-integration.js"></script>
   <script src="{{ site.baseurl }}/assets/js/customization-modal.js"></script>
+  <script src="{{ site.baseurl }}/assets/js/stripe-integration.js"></script>
   
   <!-- Checkout Integration - ONLY loads on checkout page -->
   {% if page.url contains 'checkout' %}
     <script src="{{ site.baseurl }}/assets/js/simplified-checkout.js"></script>
   {% endif %}
   
-  <!-- Initialization -->
+  <!-- MODAL INITIALIZATION FIX -->
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       document.body.classList.add('loaded');
+      
+      // FORCE MODAL INITIALIZATION
+      if (typeof initializeCustomizationModal === 'function') {
+        initializeCustomizationModal();
+        console.log('✅ Modal force-initialized');
+      }
       
       // Debug info
       setTimeout(() => {
         console.log('✅ Roza Bridal Site Ready');
         console.log('💰 Stripe Integration:', typeof window.handleStripeCheckoutFromCart === 'function' ? 'ACTIVE' : 'INACTIVE');
-        console.log('🎨 Customization Modal:', typeof window.openCustomizationModal === 'function' ? 'ACTIVE' : 'INACTIVE');
+        console.log('🎨 Customization Modal Available:', typeof window.openCustomizationModal === 'function' ? 'YES' : 'NO');
         console.log('🛒 E-commerce System:', typeof window.cart !== 'undefined' ? 'ACTIVE' : 'INACTIVE');
+        
+        // TEST MODAL FUNCTION
+        if (typeof window.openCustomizationModal !== 'function') {
+          console.error('❌ Modal function missing! Check customization-modal.js');
+        } else {
+          console.log('✅ Modal ready to open');
+        }
         
         if (window.STRIPE_PAYMENT_LINKS) {
           console.log('💳 Payment Links Ready:', Object.keys(window.STRIPE_PAYMENT_LINKS).length + ' products');
         }
-      }, 1000);
+      }, 1500);
     });
   </script>
 
