@@ -328,6 +328,30 @@ description: Browse our complete collection of elegant wedding dresses - from bo
   padding: 2rem 0.5rem !important;
 }
 
+/* FIX FOOTER OVERFLOW ISSUE */
+body {
+  overflow-x: hidden !important;
+}
+
+footer, 
+.footer-content,
+.footer-links,
+.business-info {
+  max-width: 100% !important;
+  overflow-x: hidden !important;
+  box-sizing: border-box !important;
+}
+
+.footer-links {
+  flex-wrap: wrap !important;
+  gap: 0.5rem !important;
+}
+
+.footer-links a {
+  font-size: 0.9rem !important;
+  white-space: nowrap !important;
+}
+
 .product-info {
   padding: 1rem;
   text-align: center;
@@ -445,6 +469,17 @@ description: Browse our complete collection of elegant wedding dresses - from bo
   }
   .product-info {
     padding: 0.5rem;
+  }
+  
+  /* MOBILE FOOTER FIX */
+  .footer-links {
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+  }
+  
+  .business-info p {
+    font-size: 0.8rem !important;
   }
 }
 
