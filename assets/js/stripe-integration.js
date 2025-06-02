@@ -66,7 +66,7 @@ function getProductIdFromName(productName) {
   return nameMap[productName] || null;
 }
 
-// CHECKOUT PAGE ONLY - Stripe checkout handler (NO confirmation popup)
+// CHECKOUT PAGE ONLY - Stripe checkout handler with PROPER BACK BUTTON HANDLING
 function handleStripeCheckoutFromCart(cartItems, customerDetails) {
   console.log('💳 Processing cart checkout with Stripe:', {
     itemCount: cartItems.length,
@@ -90,8 +90,9 @@ function handleStripeCheckoutFromCart(cartItems, customerDetails) {
     });
     
     if (stripeLink) {
-      // Save customer details and order info
+      // SAVE EVERYTHING BEFORE STRIPE REDIRECT
       saveOrderForStripeProcessing(item, customerDetails);
+      saveCheckoutState(cartItems, customerDetails);
       
       // Track checkout
       if (typeof ml !== 'undefined') {
@@ -104,9 +105,10 @@ function handleStripeCheckoutFromCart(cartItems, customerDetails) {
         });
       }
       
-      // DIRECT REDIRECT - NO CONFIRMATION POPUP
-      // Clear cart and redirect to Stripe immediately
-      localStorage.removeItem('rozaBridalCart');
+      // MARK THAT WE'RE GOING TO STRIPE (don't clear cart yet)
+      localStorage.setItem('stripeRedirectInProgress', 'true');
+      localStorage.setItem('stripeRedirectTime', Date.now().toString());
+      
       console.log('🚀 Redirecting to Stripe:', stripeLink);
       window.location.href = stripeLink;
       return true;
@@ -118,22 +120,102 @@ function handleStripeCheckoutFromCart(cartItems, customerDetails) {
   return false;
 }
 
-// Save order details for Stripe processing
-function saveOrderForStripeProcessing(item, customerDetails) {
-  const orderData = {
-    item: item,
+// Save checkout state before Stripe redirect
+function saveCheckoutState(cartItems, customerDetails) {
+  const checkoutState = {
+    cart: cartItems,
     customer: customerDetails,
-    timestamp: new Date().toISOString(),
-    orderId: 'RB-' + Date.now(),
-    status: 'pending_stripe_payment',
-    paymentMethod: 'stripe_direct'
+    timestamp: Date.now(),
+    status: 'stripe_redirect'
   };
   
-  // Save to localStorage for reference (use different key to avoid cart conflicts)
-  localStorage.setItem('stripeOrderPending', JSON.stringify(orderData));
+  localStorage.setItem('checkoutState', JSON.stringify(checkoutState));
+  localStorage.setItem('checkoutStateBackup', JSON.stringify(checkoutState));
+  sessionStorage.setItem('checkoutState', JSON.stringify(checkoutState));
   
-  console.log('💾 Order saved for Stripe processing:', orderData);
-  return orderData;
+  console.log('💾 Checkout state saved before Stripe redirect');
+}
+
+// Restore checkout state if user returns from Stripe
+function restoreCheckoutState() {
+  const checkoutState = localStorage.getItem('checkoutState') || 
+                       localStorage.getItem('checkoutStateBackup') ||
+                       sessionStorage.getItem('checkoutState');
+  
+  if (checkoutState) {
+    try {
+      const state = JSON.parse(checkoutState);
+      const timeDiff = Date.now() - state.timestamp;
+      
+      // If less than 30 minutes old, restore
+      if (timeDiff < 30 * 60 * 1000) {
+        localStorage.setItem('rozaBridalCart', JSON.stringify(state.cart));
+        console.log('🔄 Checkout state restored after Stripe redirect');
+        return state;
+      }
+    } catch (e) {
+      console.error('Error restoring checkout state:', e);
+    }
+  }
+  
+  return null;
+}
+
+// Clear checkout state after successful order
+function clearCheckoutState() {
+  localStorage.removeItem('checkoutState');
+  localStorage.removeItem('checkoutStateBackup');
+  sessionStorage.removeItem('checkoutState');
+  localStorage.removeItem('stripeRedirectInProgress');
+  localStorage.removeItem('stripeRedirectTime');
+}
+
+// Detect if user returned from Stripe and handle accordingly
+function handleStripeReturn() {
+  const stripeRedirectInProgress = localStorage.getItem('stripeRedirectInProgress');
+  const redirectTime = localStorage.getItem('stripeRedirectTime');
+  
+  if (stripeRedirectInProgress && redirectTime) {
+    const timeDiff = Date.now() - parseInt(redirectTime);
+    
+    // If less than 5 minutes, user likely came back from Stripe
+    if (timeDiff < 5 * 60 * 1000) {
+      console.log('🔄 User returned from Stripe redirect');
+      
+      // Restore checkout state
+      restoreCheckoutState();
+      
+      // Reset any loading buttons
+      resetCheckoutButtons();
+      
+      // Clean up redirect flags
+      localStorage.removeItem('stripeRedirectInProgress');
+      localStorage.removeItem('stripeRedirectTime');
+      
+      return true;
+    }
+  }
+  
+  return false;
+}
+
+// Reset checkout buttons to normal state
+function resetCheckoutButtons() {
+  const completeButton = document.getElementById('complete-order-button');
+  if (completeButton) {
+    completeButton.disabled = false;
+    completeButton.innerHTML = `
+      <div class="button-content">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+          <line x1="8" y1="21" x2="16" y2="21"/>
+          <line x1="12" y1="17" x2="12" y2="21"/>
+        </svg>
+        <span>Complete Order</span>
+      </div>
+    `;
+    console.log('🔄 Checkout button reset');
+  }
 }
 
 // PERSISTENT CART FUNCTIONS - Fix cart deletion on refresh
