@@ -390,11 +390,21 @@ title: Checkout - Roza Bridal
 </style>
 
 <script>
-// Simplified checkout functionality
+// Simplified checkout functionality with Stripe return handling
 document.addEventListener('DOMContentLoaded', function() {
+  // Check if user returned from Stripe and handle accordingly
+  if (typeof handleStripeReturn === 'function') {
+    handleStripeReturn();
+  }
+  
   loadCheckoutData();
   setupCheckoutForm();
   setupPaymentOptions();
+  
+  // Reset buttons if user came back from Stripe
+  if (typeof resetCheckoutButtons === 'function') {
+    resetCheckoutButtons();
+  }
 });
 
 let selectedPaymentMethod = '';
@@ -622,8 +632,11 @@ function processOrder() {
   // Show success message
   alert(`🎉 Order #${orderData.orderId} submitted!\n\nWe'll contact you within 24 hours with payment details and next steps.\n\nThank you for choosing Roza Bridal! ✨`);
   
-  // Clear cart and redirect
+  // Clear cart and checkout state, then redirect
   localStorage.removeItem('rozaBridalCart');
+  if (typeof clearCheckoutState === 'function') {
+    clearCheckoutState();
+  }
   window.location.href = '{{ site.baseurl }}/';
 }
 
