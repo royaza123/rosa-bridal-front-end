@@ -539,10 +539,17 @@ function loadCheckoutData() {
 function setupCheckoutForm() {
   const completeButton = document.getElementById('complete-order-button');
   
-  completeButton.addEventListener('click', function() {
+  completeButton.addEventListener('click', function(event) {
+    // PREVENT ANY DEFAULT BEHAVIOR
+    event.preventDefault();
+    event.stopPropagation();
+    
     if (validateCheckoutForm()) {
-      processOrder();
+      processOrder(event); // Pass event to processOrder
     }
+    
+    // PREVENT FORM SUBMISSION
+    return false;
   });
 }
 
@@ -579,7 +586,7 @@ function validateCheckoutForm() {
   return true;
 }
 
-function processOrder() {
+function processOrder(event) {
   const cartData = localStorage.getItem('rozaBridalCart');
   const cartItems = cartData ? JSON.parse(cartData) : [];
   
