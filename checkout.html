@@ -607,87 +607,21 @@ function processOrder() {
   
   // Handle based on payment method
   if (selectedPaymentMethod === 'stripe') {
-    console.log('🔄 Starting Stripe checkout process...');
-    
-    // DIRECT STRIPE CHECKOUT - Bypass function if needed
-    if (cartItems.length === 1) {
-      const item = cartItems[0];
-      const cleanName = item.name.replace(/\s*\(Custom\)$/, '');
-      
-      // Manual product ID mapping for reliability
-      const productIdMap = {
-        'Boho Wedding Dress Elegant': 'boho-wedding-dress-elegant',
-        'Boho Beach Wedding Dress': 'boho-beach-wedding-dress',
-        'Custom Lace Mermaid Wedding Dress': 'custom-lace-mermaid-wedding-dress',
-        'Custom Lace Mermaid Wedding Dress V-Neck': 'custom-lace-mermaid-wedding-dress-v-neck',
-        'Elegant Ivory Satin Bridal Gown': 'elegant-ivory-satin-bridal-gown',
-        'Floral Bridal Dress': 'floral-bridal-dress',
-        'Gorgeous Ivory Mermaid Wedding Gown': 'gorgeous-ivory-mermaid-wedding-gown',
-        'Minimalist Off Shoulder Satin Wedding Dress': 'minimalist-off-shoulder-satin-dress',
-        'Modest Satin Wedding Dress': 'modest-satin-wedding-dress',
-        'Sexy Fishtail Bridal Gown': 'sexy-fishtail-bridal-gown',
-        'Sexy Sequin Mermaid Wedding Dress': 'sexy-sequin-mermaid-wedding-dress'
-      };
-      
-      const stripeLinks = {
-        'boho-wedding-dress-elegant': 'https://buy.stripe.com/4gM3cv3TA7sRc093EN1B600',
-        'boho-beach-wedding-dress': 'https://buy.stripe.com/7sY6oHdua7sR6FP0sB1B601',
-        'custom-lace-mermaid-wedding-dress': 'https://buy.stripe.com/5kQ00jcq614t4xH2AJ1B602',
-        'custom-lace-mermaid-wedding-dress-v-neck': 'https://buy.stripe.com/00waEX2PweVj5BL6QZ1B603',
-        'elegant-ivory-satin-bridal-gown': 'https://buy.stripe.com/3cI4gz2Pw8wV7JT6QZ1B604',
-        'floral-bridal-dress': 'https://buy.stripe.com/cNi3cv9dUfZnggpcbj1B605',
-        'gorgeous-ivory-mermaid-wedding-gown': 'https://buy.stripe.com/7sYaEX75MdRf0hrgrz1B606',
-        'minimalist-off-shoulder-satin-dress': 'https://buy.stripe.com/28E9ATgGm9AZ7JTdfn1B607',
-        'modest-satin-wedding-dress': 'https://buy.stripe.com/4gM3cvcq6cNbc09dfn1B608',
-        'sexy-fishtail-bridal-gown': 'https://buy.stripe.com/eVqdR9bm2fZn4xHcbj1B609',
-        'sexy-sequin-mermaid-wedding-dress': 'https://buy.stripe.com/7sY00jeye28xe8h7V31B60a'
-      };
-      
-      const productId = productIdMap[cleanName];
-      const stripeLink = stripeLinks[productId];
-      
-      console.log('🔍 Direct Stripe lookup:', {
-        itemName: item.name,
-        cleanName: cleanName,
-        productId: productId,
-        stripeLink: stripeLink
-      });
-      
-      if (stripeLink) {
-        console.log('✅ Stripe link found, redirecting...');
-        
-        // Save order context
-        const orderContext = {
-          item: item,
-          customer: customerDetails,
-          timestamp: Date.now(),
-          orderId: 'RB-' + Date.now()
-        };
-        localStorage.setItem('stripeOrderContext', JSON.stringify(orderContext));
-        
-        // DON'T clear cart yet - save for potential return
-        const checkoutBackup = {
-          cart: cartItems,
-          customer: customerDetails,
-          timestamp: Date.now()
-        };
-        localStorage.setItem('checkoutBackup', JSON.stringify(checkoutBackup));
-        
-        // Redirect to Stripe
+    // Try Stripe checkout - SHOULD OPEN IN NEW TAB
+    if (typeof handleStripeCheckoutFromCart === 'function') {
+      const stripeSuccess = handleStripeCheckoutFromCart(cartItems, customerDetails);
+      if (stripeSuccess) {
+        // Reset button after opening Stripe in new tab
         setTimeout(() => {
-          window.location.href = stripeLink;
-        }, 500);
-        
-        return; // Stop here, don't continue to email fallback
-      } else {
-        console.log('❌ No Stripe link found for:', cleanName);
+          completeButton.innerHTML = originalContent;
+          completeButton.disabled = false;
+        }, 1000);
+        return; // Stripe opened successfully
       }
     }
     
-    // Reset button and fall back to email
-    completeButton.innerHTML = originalContent;
-    completeButton.disabled = false;
-    alert('⚠️ Stripe checkout temporarily unavailable for this product.\n\nWe\'ll send you a secure payment link via email instead.');
+    // Fallback to email if Stripe fails
+    console.log('Stripe checkout failed, falling back to email processing');
     selectedPaymentMethod = 'custom';
   }
   
