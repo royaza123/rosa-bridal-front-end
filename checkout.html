@@ -7,28 +7,30 @@ title: Checkout - Roza Bridal
   <div class="checkout-form">
     <h2>Checkout</h2>
     
+    <!-- SIMPLIFIED CONTACT INFORMATION -->
     <div class="checkout-section">
       <h3>Contact Information</h3>
       <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
         <div class="form-group">
-          <label for="checkout-first-name">First Name *</label>
+          <label for="checkout-first-name">First Name</label>
           <input type="text" id="checkout-first-name" required>
         </div>
         <div class="form-group">
-          <label for="checkout-last-name">Last Name *</label>
+          <label for="checkout-last-name">Last Name</label>
           <input type="text" id="checkout-last-name" required>
         </div>
       </div>
       <div class="form-group">
-        <label for="checkout-email">Email *</label>
+        <label for="checkout-email">Email</label>
         <input type="email" id="checkout-email" required>
       </div>
       <div class="form-group">
-        <label for="checkout-phone">Phone *</label>
+        <label for="checkout-phone">Phone</label>
         <input type="tel" id="checkout-phone" required>
       </div>
     </div>
     
+    <!-- WEDDING DETAILS (OPTIONAL) -->
     <div class="checkout-section">
       <h3>Wedding Details (Optional)</h3>
       <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
@@ -52,27 +54,68 @@ title: Checkout - Roza Bridal
       </div>
     </div>
     
+    <!-- PAYMENT OPTIONS SELECTION -->
+    <div class="checkout-section">
+      <h3>💳 Choose Your Payment Option</h3>
+      
+      <div class="payment-options-grid">
+        <div class="payment-option-card" id="stripe-option">
+          <div class="payment-option-header">
+            <div class="payment-option-icon">⚡</div>
+            <h4>Quick Stripe Checkout</h4>
+          </div>
+          <div class="payment-option-body">
+            <p>Instant secure payment with credit card, debit card, or digital wallet</p>
+            <ul class="payment-benefits">
+              <li>✅ Instant processing</li>
+              <li>✅ Bank-level security</li>
+              <li>✅ All major cards accepted</li>
+              <li>✅ Apple Pay & Google Pay</li>
+            </ul>
+          </div>
+          <button class="select-payment-btn" data-payment="stripe">
+            Select Stripe Checkout
+          </button>
+        </div>
+        
+        <div class="payment-option-card" id="custom-option">
+          <div class="payment-option-header">
+            <div class="payment-option-icon">✨</div>
+            <h4>Custom Consultation</h4>
+          </div>
+          <div class="payment-option-body">
+            <p>Personalized service with payment link sent via email</p>
+            <ul class="payment-benefits">
+              <li>✅ Personal consultation</li>
+              <li>✅ Custom payment terms</li>
+              <li>✅ Detailed order review</li>
+              <li>✅ 24-hour response</li>
+            </ul>
+          </div>
+          <button class="select-payment-btn" data-payment="custom">
+            Select Custom Service
+          </button>
+        </div>
+      </div>
+      
+      <div id="selected-payment-info" class="selected-payment-info" style="display: none;">
+        <div class="payment-selection-summary">
+          <div class="selection-icon"></div>
+          <div class="selection-text"></div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- ORDER NOTES -->
     <div class="checkout-section">
       <h3>Order Notes</h3>
       <div class="form-group">
         <label for="order-notes">Special Instructions (Optional)</label>
-        <textarea id="order-notes" rows="6" placeholder="Any special instructions, timeline requirements, or customization notes..." style="width: 100%; padding: 1rem; border: 1px solid #e0e0e0; border-radius: 8px; font-family: inherit; font-size: 1rem; line-height: 1.5; resize: vertical; min-height: 120px;"></textarea>
+        <textarea id="order-notes" rows="4" placeholder="Any special instructions, timeline requirements, or customization notes..." style="width: 100%; padding: 1rem; border: 1px solid #e0e0e0; border-radius: 8px; font-family: inherit; font-size: 1rem; line-height: 1.5; resize: vertical;"></textarea>
         <p style="font-size: 0.85rem; color: #666; margin-top: 0.5rem; margin-bottom: 0;">
           💡 <strong>Tip:</strong> Include any custom measurements, color preferences, or special requests here
         </p>
       </div>
-    </div>
-    
-    <div class="checkout-notice" style="background: linear-gradient(135deg, #e3f2fd 0%, #f3e5f5 100%); padding: 1.5rem; border-radius: 8px; margin: 2rem 0; border-left: 4px solid #6772e5;">
-      <h4 style="margin: 0 0 1rem; color: #1a1a1a; display: flex; align-items: center; gap: 0.5rem;">
-        <span style="font-size: 1.2rem;">🔒</span> Secure Stripe Checkout
-      </h4>
-      <ul style="margin: 0; padding-left: 1.5rem; color: #555; line-height: 1.6;">
-        <li><strong>Shipping Address:</strong> Collected securely during Stripe checkout</li>
-        <li><strong>Payment:</strong> Credit card, debit card, or digital wallet</li>
-        <li><strong>Security:</strong> Bank-level encryption and PCI compliance</li>
-        <li><strong>International:</strong> Shipping available to supported countries</li>
-      </ul>
     </div>
   </div>
   
@@ -106,201 +149,391 @@ title: Checkout - Roza Bridal
       </div>
     </div>
     
-    <!-- SINGLE STRIPE CHECKOUT BUTTON -->
-    <button class="stripe-checkout-button" id="stripe-checkout-button">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
-        <line x1="8" y1="21" x2="16" y2="21"/>
-        <line x1="12" y1="17" x2="12" y2="21"/>
-      </svg>
-      Complete Secure Checkout
+    <!-- COMPLETE ORDER BUTTON -->
+    <button class="complete-order-button" id="complete-order-button" disabled>
+      <div class="button-content">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+          <line x1="8" y1="21" x2="16" y2="21"/>
+          <line x1="12" y1="17" x2="12" y2="21"/>
+        </svg>
+        <span>Complete Order</span>
+      </div>
     </button>
     
     <div class="checkout-security" style="text-align: center; margin-top: 1.5rem; padding: 1rem; background: #f8f9fa; border-radius: 8px;">
       <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">🔐</div>
       <p style="margin: 0; font-size: 0.9rem; color: #666;">
-        Your payment and shipping information is processed securely by Stripe
+        Your information is secure and protected with bank-level encryption
       </p>
-    </div>
-    
-    <!-- Stripe Benefits -->
-    <div style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); padding: 1.5rem; border-radius: 8px; margin-top: 1rem;">
-      <h4 style="margin: 0 0 1rem; color: #1a1a1a; font-size: 0.95rem; text-align: center;">✨ What's Included</h4>
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 1rem; text-align: center; font-size: 0.8rem; color: #666;">
-        <div style="display: flex; flex-direction: column; align-items: center; gap: 0.25rem;">
-          <span style="font-size: 1.2rem;">🚚</span>
-          <span>Free Shipping</span>
-        </div>
-        <div style="display: flex; flex-direction: column; align-items: center; gap: 0.25rem;">
-          <span style="font-size: 1.2rem;">🛡️</span>
-          <span>Buyer Protection</span>
-        </div>
-        <div style="display: flex; flex-direction: column; align-items: center; gap: 0.25rem;">
-          <span style="font-size: 1.2rem;">📞</span>
-          <span>24/7 Support</span>
-        </div>
-        <div style="display: flex; flex-direction: column; align-items: center; gap: 0.25rem;">
-          <span style="font-size: 1.2rem;">↩️</span>
-          <span>Easy Returns</span>
-        </div>
-      </div>
     </div>
   </div>
 </div>
 
-<!-- STRIPE PAYMENT LINKS CONFIGURATION -->
-<script>
-const STRIPE_PAYMENT_LINKS = {
-  'Boho Wedding Dress Elegant': 'https://buy.stripe.com/4gM3cv3TA7sRc093EN1B600',
-  'Boho Beach Wedding Dress': 'https://buy.stripe.com/7sY6oHdua7sR6FP0sB1B601',
-  'Custom Lace Mermaid Wedding Dress': 'https://buy.stripe.com/5kQ00jcq614t4xH2AJ1B602',
-  'Elegant Ivory Satin Bridal Gown': 'https://buy.stripe.com/3cI4gz2Pw8wV7JT6QZ1B604',
-  'Floral Bridal Dress': 'https://buy.stripe.com/cNi3cv9dUfZnggpcbj1B605',
-  'Gorgeous Ivory Mermaid Wedding Gown': 'https://buy.stripe.com/7sYaEX75MdRf0hrgrz1B606',
-  'Minimalist Off Shoulder Satin Wedding Dress': 'https://buy.stripe.com/28E9ATgGm9AZ7JTdfn1B607',
-  'Sexy Sequin Mermaid Wedding Dress': 'https://buy.stripe.com/7sY00jeye28xe8h7V31B60a',
-  'Sexy Fishtail Bridal Gown': 'https://buy.stripe.com/eVqdR9bm2fZn4xHcbj1B609',
-  'Modest Satin Wedding Dress': 'https://buy.stripe.com/4gM3cvcq6cNbc09dfn1B608'
-};
+<style>
+/* Payment Options Grid */
+.payment-options-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin: 1.5rem 0;
+}
 
-// Enhanced checkout functionality - STRIPE ONLY
+.payment-option-card {
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 0;
+  background: white;
+  transition: all 0.3s ease;
+  overflow: hidden;
+  position: relative;
+}
+
+.payment-option-card:hover {
+  border-color: #c9a96e;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(201, 169, 110, 0.15);
+}
+
+.payment-option-card.selected {
+  border-color: #c9a96e;
+  background: linear-gradient(135deg, #fefefe 0%, #f9f7f4 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(201, 169, 110, 0.2);
+}
+
+.payment-option-header {
+  padding: 1.5rem 1.5rem 1rem;
+  text-align: center;
+}
+
+.payment-option-icon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.payment-option-header h4 {
+  margin: 0;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.3rem;
+  color: #1a1a1a;
+  font-weight: 400;
+}
+
+.payment-option-body {
+  padding: 0 1.5rem 1rem;
+  text-align: center;
+}
+
+.payment-option-body p {
+  color: #666;
+  margin-bottom: 1rem;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.payment-benefits {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.5rem 0;
+}
+
+.payment-benefits li {
+  padding: 0.25rem 0;
+  font-size: 0.85rem;
+  color: #555;
+  text-align: left;
+}
+
+.select-payment-btn {
+  width: 100%;
+  padding: 1rem;
+  background: linear-gradient(135deg, #c9a96e 0%, #d4b875 100%);
+  color: white;
+  border: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin: 0;
+  border-radius: 0 0 10px 10px;
+}
+
+.select-payment-btn:hover {
+  background: linear-gradient(135deg, #a08850 0%, #b89960 100%);
+}
+
+.payment-option-card.selected .select-payment-btn {
+  background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+}
+
+.selected-payment-info {
+  margin-top: 1.5rem;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, #e8f5e8 0%, #f1f8e9 100%);
+  border-radius: 12px;
+  border-left: 4px solid #28a745;
+}
+
+.payment-selection-summary {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.selection-icon {
+  font-size: 1.5rem;
+}
+
+.selection-text {
+  flex: 1;
+}
+
+.selection-text h5 {
+  margin: 0 0 0.25rem 0;
+  color: #155724;
+  font-weight: 600;
+}
+
+.selection-text p {
+  margin: 0;
+  color: #155724;
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+/* Complete Order Button */
+.complete-order-button {
+  width: 100%;
+  padding: 1.2rem;
+  background: linear-gradient(135deg, #6772e5 0%, #5469d4 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 20px rgba(103, 114, 229, 0.3);
+  margin-bottom: 1rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.button-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.complete-order-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.5s;
+}
+
+.complete-order-button:hover::before {
+  left: 100%;
+}
+
+.complete-order-button:hover:not(:disabled) {
+  background: linear-gradient(135deg, #5469d4 0%, #4c63d2 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(103, 114, 229, 0.4);
+}
+
+.complete-order-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .payment-options-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .checkout-container {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  
+  .checkout-summary {
+    position: static;
+  }
+  
+  .payment-option-header {
+    padding: 1rem 1rem 0.75rem;
+  }
+  
+  .payment-option-icon {
+    font-size: 2rem;
+    margin-bottom: 0.75rem;
+  }
+  
+  .payment-option-header h4 {
+    font-size: 1.1rem;
+  }
+}
+</style>
+
+<script>
+// Simplified checkout functionality
 document.addEventListener('DOMContentLoaded', function() {
   loadCheckoutData();
-  setupStripeCheckout();
+  setupCheckoutForm();
+  setupPaymentOptions();
 });
 
-function setupStripeCheckout() {
-  const stripeButton = document.getElementById('stripe-checkout-button');
+let selectedPaymentMethod = '';
+
+function setupPaymentOptions() {
+  const paymentButtons = document.querySelectorAll('.select-payment-btn');
+  const selectedInfo = document.getElementById('selected-payment-info');
+  const completeButton = document.getElementById('complete-order-button');
   
-  stripeButton.addEventListener('click', function() {
-    processStripeCheckout();
+  paymentButtons.forEach(button => {
+    button.addEventListener('click', function() {
+      const paymentType = this.dataset.payment;
+      
+      // Clear previous selections
+      document.querySelectorAll('.payment-option-card').forEach(card => {
+        card.classList.remove('selected');
+      });
+      
+      // Select current option
+      this.closest('.payment-option-card').classList.add('selected');
+      selectedPaymentMethod = paymentType;
+      
+      // Update UI
+      updatePaymentSelection(paymentType);
+      updateCompleteButton();
+    });
   });
 }
 
-function processStripeCheckout() {
-  if (!validateCheckoutForm()) return;
+function updatePaymentSelection(paymentType) {
+  const selectedInfo = document.getElementById('selected-payment-info');
+  const selectionIcon = selectedInfo.querySelector('.selection-icon');
+  const selectionText = selectedInfo.querySelector('.selection-text');
   
+  if (paymentType === 'stripe') {
+    selectionIcon.textContent = '⚡';
+    selectionText.innerHTML = `
+      <h5>Stripe Checkout Selected</h5>
+      <p>You'll be redirected to secure Stripe payment after clicking Complete Order</p>
+    `;
+  } else if (paymentType === 'custom') {
+    selectionIcon.textContent = '✨';
+    selectionText.innerHTML = `
+      <h5>Custom Consultation Selected</h5>
+      <p>We'll email you a secure payment link within 24 hours</p>
+    `;
+  }
+  
+  selectedInfo.style.display = 'block';
+}
+
+function updateCompleteButton() {
+  const completeButton = document.getElementById('complete-order-button');
   const cartData = localStorage.getItem('rozaBridalCart');
   const cartItems = cartData ? JSON.parse(cartData) : [];
   
+  // Enable if payment method selected and cart has items
+  completeButton.disabled = !selectedPaymentMethod || cartItems.length === 0;
+}
+
+function loadCheckoutData() {
+  const cartData = localStorage.getItem('rozaBridalCart');
+  const cartItems = cartData ? JSON.parse(cartData) : [];
+  
+  const checkoutItems = document.getElementById('checkout-items');
+  const emptyCartNotice = document.getElementById('empty-cart-notice');
+  const checkoutTotals = document.getElementById('checkout-totals');
+  const completeButton = document.getElementById('complete-order-button');
+  
   if (cartItems.length === 0) {
-    alert('Your cart is empty!');
+    emptyCartNotice.style.display = 'block';
+    checkoutItems.style.display = 'none';
+    checkoutTotals.style.display = 'none';
+    completeButton.style.display = 'none';
     return;
   }
   
-  // Show processing state
-  const button = document.getElementById('stripe-checkout-button');
-  const originalText = button.innerHTML;
-  button.innerHTML = '<div class="spinner"></div> Processing...';
-  button.disabled = true;
+  // Hide empty cart message
+  emptyCartNotice.style.display = 'none';
+  checkoutItems.style.display = 'block';
+  checkoutTotals.style.display = 'block';
+  completeButton.style.display = 'flex';
   
-  // DEBUG: Log cart contents
-  console.log('Cart items:', cartItems);
-  console.log('Number of items:', cartItems.length);
-  
-  // For single item, use direct Stripe link
-  if (cartItems.length === 1) {
-    const item = cartItems[0];
-    const productKey = extractProductIdFromName(item.name);
-    const stripeLink = STRIPE_PAYMENT_LINKS[productKey];
-    
-    console.log('Product name:', item.name);
-    console.log('Product key:', productKey);
-    console.log('Stripe link:', stripeLink);
-    
-    if (stripeLink) {
-      // Save order details for post-purchase processing (including custom details)
-      const orderData = createOrderData();
-      localStorage.setItem('pendingStripeOrder', JSON.stringify(orderData));
-      
-      // Track checkout
-      if (typeof ml !== 'undefined') {
-        ml('track', 'stripe_checkout_started', {
-          product_key: productKey,
-          product_name: item.name,
-          total_amount: calculateTotal(),
-          has_customizations: item.isCustom || false
-        });
-      }
-      
-      // Show custom design note if applicable
-      if (item.isCustom && item.customizations) {
-        // Show custom message with automatic redirect
-        showCustomDesignNotification(stripeLink);
-      } else {
-        // For regular items, redirect immediately with shorter message
-        alert('✨ Redirecting to secure Stripe checkout...');
-        setTimeout(() => {
-          window.location.href = stripeLink;
-        }, 800);
-      }
-      return;
-    } else {
-      console.error('No Stripe link found for product:', productKey);
-      alert('❌ Stripe checkout not available for this product.\n\nOur team will contact you with a payment link within 24 hours.');
-    }
-  } else {
-    console.log('Multiple items detected, using email processing');
+  // Auto-fill user data if logged in
+  const userData = localStorage.getItem('rozaBridalUser');
+  if (userData) {
+    const user = JSON.parse(userData);
+    document.getElementById('checkout-first-name').value = user.firstName || '';
+    document.getElementById('checkout-last-name').value = user.lastName || '';
+    document.getElementById('checkout-email').value = user.email || '';
+    if (user.weddingDate) document.getElementById('checkout-wedding-date').value = user.weddingDate;
   }
   
-  // Reset button and handle non-direct checkout cases
-  button.innerHTML = originalText;
-  button.disabled = false;
+  // Populate checkout items
+  checkoutItems.innerHTML = cartItems.map((item, index) => {
+    const customizationHtml = item.isCustom && item.customizations ? `
+      <div class="checkout-item-customizations">
+        <h5>✨ Custom Design Details:</h5>
+        <p style="font-size: 0.85rem; line-height: 1.4;">
+          <strong>Style:</strong> ${item.customizations.style}<br>
+          <strong>Neckline:</strong> ${item.customizations.neckline}<br>
+          <strong>Color:</strong> ${item.customizations.color}<br>
+          <strong>Fabric:</strong> ${item.customizations.fabric}<br>
+          <strong>Train:</strong> ${item.customizations.train}
+          ${item.customizations.specialRequests ? `<br><strong>Special Requests:</strong> ${item.customizations.specialRequests}` : ''}
+        </p>
+      </div>
+    ` : '';
+    
+    return `
+      <div class="checkout-item">
+        <img src="${item.image}" alt="${item.name}" class="checkout-item-image" onerror="this.src='{{ site.baseurl }}/assets/images/placeholder-dress.jpg'">
+        <div class="checkout-item-details">
+          <h4>${item.name}</h4>
+          <p class="checkout-item-meta">Size: ${item.size} • Quantity: ${item.quantity}</p>
+          <p class="checkout-item-price">$${(item.price * item.quantity).toFixed(2)}</p>
+          ${customizationHtml}
+        </div>
+      </div>
+    `;
+  }).join('');
   
-  // For multiple items or items without Stripe links - use email processing
-  alert('📧 Order Processing\n\nOur team will contact you within 24 hours with a secure payment link to complete your order.\n\nYour order details have been saved.');
+  // Calculate totals
+  const subtotal = cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
+  const total = subtotal;
   
-  // Send order via email for manual processing
-  const orderData = createOrderData();
-  saveOrderToStorage(orderData);
-  sendOrderEmail(orderData);
-  
-  // Clear cart and redirect
-  setTimeout(() => {
-    localStorage.removeItem('rozaBridalCart');
-    window.location.href = `${document.querySelector('meta[name="base-url"]')?.content || ''}/`;
-  }, 1000);
+  // Update totals
+  document.getElementById('checkout-subtotal').textContent = `$${subtotal.toFixed(2)}`;
+  document.getElementById('checkout-total').textContent = `$${total.toFixed(2)}`;
 }
 
-function extractProductIdFromName(productName) {
-  // Clean up the product name (remove " (Custom)" suffix if present)
-  const cleanName = productName.replace(/\s*\(Custom\)$/, '');
+function setupCheckoutForm() {
+  const completeButton = document.getElementById('complete-order-button');
   
-  console.log('Original name:', productName);
-  console.log('Cleaned name:', cleanName);
-  console.log('Available Stripe links:', Object.keys(STRIPE_PAYMENT_LINKS));
-  console.log('Direct match found:', STRIPE_PAYMENT_LINKS[cleanName] ? 'YES' : 'NO');
-  
-  return cleanName; // Return the cleaned name directly since we're now using exact names as keys
-}
-
-function createOrderData() {
-  const cartData = localStorage.getItem('rozaBridalCart');
-  const cartItems = cartData ? JSON.parse(cartData) : [];
-  
-  return {
-    contact: {
-      firstName: document.getElementById('checkout-first-name').value,
-      lastName: document.getElementById('checkout-last-name').value,
-      email: document.getElementById('checkout-email').value,
-      phone: document.getElementById('checkout-phone').value
-    },
-    wedding: {
-      date: document.getElementById('checkout-wedding-date').value,
-      venueStyle: document.getElementById('checkout-venue-style').value
-    },
-    notes: document.getElementById('order-notes').value,
-    items: cartItems,
-    totals: {
-      subtotal: calculateTotal(),
-      shipping: 0,
-      tax: 0,
-      total: calculateTotal()
-    },
-    orderDate: new Date().toISOString(),
-    orderId: 'RB-' + Date.now(),
-    paymentMethod: 'stripe'
-  };
+  completeButton.addEventListener('click', function() {
+    if (validateCheckoutForm()) {
+      processOrder();
+    }
+  });
 }
 
 function validateCheckoutForm() {
@@ -323,6 +556,11 @@ function validateCheckoutForm() {
     }
   });
   
+  if (!selectedPaymentMethod) {
+    alert('Please select a payment method.');
+    return false;
+  }
+  
   if (!isValid) {
     alert('Please fill in all required fields.');
     return false;
@@ -331,10 +569,79 @@ function validateCheckoutForm() {
   return true;
 }
 
-function calculateTotal() {
+function processOrder() {
   const cartData = localStorage.getItem('rozaBridalCart');
   const cartItems = cartData ? JSON.parse(cartData) : [];
-  return cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
+  
+  if (cartItems.length === 0) {
+    alert('Your cart is empty!');
+    return;
+  }
+  
+  // Get customer details
+  const customerDetails = {
+    firstName: document.getElementById('checkout-first-name').value,
+    lastName: document.getElementById('checkout-last-name').value,
+    email: document.getElementById('checkout-email').value,
+    phone: document.getElementById('checkout-phone').value,
+    weddingDate: document.getElementById('checkout-wedding-date').value,
+    venueStyle: document.getElementById('checkout-venue-style').value,
+    notes: document.getElementById('order-notes').value
+  };
+  
+  // Show processing state
+  const completeButton = document.getElementById('complete-order-button');
+  const originalContent = completeButton.innerHTML;
+  completeButton.innerHTML = '<div class="spinner"></div> Processing...';
+  completeButton.disabled = true;
+  
+  // Handle based on payment method
+  if (selectedPaymentMethod === 'stripe') {
+    // Try Stripe checkout
+    if (typeof handleStripeCheckoutFromCart === 'function') {
+      const stripeSuccess = handleStripeCheckoutFromCart(cartItems, customerDetails);
+      if (stripeSuccess) {
+        return; // Redirected to Stripe
+      }
+    }
+    
+    // Fallback to email if Stripe fails
+    console.log('Stripe checkout failed, falling back to email processing');
+    selectedPaymentMethod = 'custom';
+  }
+  
+  // Custom/Email processing
+  const orderData = createOrderData(cartItems, customerDetails);
+  saveOrderToStorage(orderData);
+  sendOrderEmail(orderData);
+  
+  // Reset button
+  completeButton.innerHTML = originalContent;
+  completeButton.disabled = false;
+  
+  // Show success message
+  alert(`🎉 Order #${orderData.orderId} submitted!\n\nWe'll contact you within 24 hours with payment details and next steps.\n\nThank you for choosing Roza Bridal! ✨`);
+  
+  // Clear cart and redirect
+  localStorage.removeItem('rozaBridalCart');
+  window.location.href = '{{ site.baseurl }}/';
+}
+
+function createOrderData(cartItems, customerDetails) {
+  return {
+    orderId: 'RB-' + Date.now(),
+    customer: customerDetails,
+    items: cartItems,
+    paymentMethod: selectedPaymentMethod,
+    totals: {
+      subtotal: cartItems.reduce((total, item) => total + (item.price * item.quantity), 0),
+      shipping: 0,
+      tax: 0,
+      total: cartItems.reduce((total, item) => total + (item.price * item.quantity), 0)
+    },
+    orderDate: new Date().toISOString(),
+    status: 'pending'
+  };
 }
 
 function saveOrderToStorage(orderData) {
@@ -347,11 +654,11 @@ function sendOrderEmail(orderData) {
   const itemsList = orderData.items.map(item => {
     const customDetails = item.isCustom && item.customizations ? `
 CUSTOM DETAILS:
-• Style: ${item.customizations.style || 'Not specified'}
-• Neckline: ${item.customizations.neckline || 'Not specified'}
-• Color: ${item.customizations.color || 'Not specified'}
-• Fabric: ${item.customizations.fabric || 'Not specified'}
-• Train: ${item.customizations.train || 'Not specified'}
+• Style: ${item.customizations.style}
+• Neckline: ${item.customizations.neckline}
+• Color: ${item.customizations.color}
+• Fabric: ${item.customizations.fabric}
+• Train: ${item.customizations.train}
 ${item.customizations.specialRequests ? `• Special Requests: ${item.customizations.specialRequests}` : ''}
 ` : '';
     
@@ -359,309 +666,48 @@ ${item.customizations.specialRequests ? `• Special Requests: ${item.customizat
 ITEM: ${item.name}
 • Size: ${item.size}
 • Quantity: ${item.quantity}
-• Price: $${item.price.toFixed(2)} each
-• Total: $${(item.price * item.quantity).toFixed(2)}
+• Price: ${item.price.toFixed(2)} each
+• Total: ${(item.price * item.quantity).toFixed(2)}
 ${customDetails}
 `;
   }).join('\n');
   
-  const subject = encodeURIComponent(`Multiple Item Order - ${orderData.orderId}`);
-  const body = encodeURIComponent(`MULTIPLE ITEM ORDER - STRIPE PROCESSING NEEDED
+  const subject = encodeURIComponent(`New Order #${orderData.orderId} - Roza Bridal`);
+  const body = encodeURIComponent(`NEW ORDER RECEIVED - #${orderData.orderId}
 
-ORDER ID: ${orderData.orderId}
-
-📧 CUSTOMER CONTACT:
-Name: ${orderData.contact.firstName} ${orderData.contact.lastName}
-Email: ${orderData.contact.email}
-Phone: ${orderData.contact.phone}
+📧 CUSTOMER DETAILS:
+Name: ${orderData.customer.firstName} ${orderData.customer.lastName}
+Email: ${orderData.customer.email}
+Phone: ${orderData.customer.phone}
 
 💍 WEDDING DETAILS:
-Date: ${orderData.wedding.date || 'Not specified'}
-Venue Style: ${orderData.wedding.venueStyle || 'Not specified'}
+Date: ${orderData.customer.weddingDate || 'Not specified'}
+Venue Style: ${orderData.customer.venueStyle || 'Not specified'}
+
+💳 PAYMENT METHOD: ${orderData.paymentMethod === 'stripe' ? 'Stripe Checkout' : 'Custom Consultation'}
 
 🛍️ ORDER ITEMS:
 ${itemsList}
 
 💰 ORDER TOTALS:
-Subtotal: $${orderData.totals.subtotal.toFixed(2)}
+Subtotal: ${orderData.totals.subtotal.toFixed(2)}
 Shipping: FREE SHIPPING ✨
-TOTAL: $${orderData.totals.total.toFixed(2)}
+TOTAL: ${orderData.totals.total.toFixed(2)}
 
 📝 ORDER NOTES:
-${orderData.notes || 'None'}
+${orderData.customer.notes || 'None'}
 
 ⏰ ORDER DATE: ${new Date(orderData.orderDate).toLocaleString()}
 
 ---
 NEXT STEPS:
-1. Create Stripe payment link for this order
-2. Email customer within 24 hours with secure payment link
-3. Process order once payment is received
+${orderData.paymentMethod === 'stripe' ? 
+  '1. Process Stripe payment if not already completed\n2. Confirm order details with customer\n3. Begin production' :
+  '1. Send secure payment link to customer\n2. Confirm customization details\n3. Begin production after payment'
+}
 
-This order requires manual Stripe link creation due to multiple items.`);
+Customer expects contact within 24 hours.`);
   
   window.open(`mailto:aetophis@aetophis.com?subject=${subject}&body=${body}`, '_blank');
 }
-
-// Load checkout data function
-function loadCheckoutData() {
-  const cartData = localStorage.getItem('rozaBridalCart');
-  const cartItems = cartData ? JSON.parse(cartData) : [];
-  
-  const checkoutItems = document.getElementById('checkout-items');
-  const emptyCartNotice = document.getElementById('empty-cart-notice');
-  const checkoutTotals = document.getElementById('checkout-totals');
-  const stripeButton = document.getElementById('stripe-checkout-button');
-  
-  if (cartItems.length === 0) {
-    emptyCartNotice.style.display = 'block';
-    checkoutItems.style.display = 'none';
-    checkoutTotals.style.display = 'none';
-    stripeButton.style.display = 'none';
-    return;
-  }
-  
-  // Hide empty cart message
-  emptyCartNotice.style.display = 'none';
-  checkoutItems.style.display = 'block';
-  checkoutTotals.style.display = 'block';
-  stripeButton.style.display = 'flex';
-  
-  // Auto-fill user data if logged in
-  const userData = localStorage.getItem('rozaBridalUser');
-  if (userData) {
-    const user = JSON.parse(userData);
-    document.getElementById('checkout-first-name').value = user.firstName || '';
-    document.getElementById('checkout-last-name').value = user.lastName || '';
-    document.getElementById('checkout-email').value = user.email || '';
-    if (user.weddingDate) document.getElementById('checkout-wedding-date').value = user.weddingDate;
-  }
-  
-  // Populate checkout items
-  checkoutItems.innerHTML = cartItems.map(item => {
-    const customizationHtml = item.isCustom && item.customizations ? `
-      <div class="checkout-item-customizations">
-        <h5>✨ Custom Design Details:</h5>
-        <p style="font-size: 0.85rem; line-height: 1.4;">
-          <strong>Style:</strong> ${item.customizations.style}<br>
-          <strong>Neckline:</strong> ${item.customizations.neckline}<br>
-          <strong>Color:</strong> ${item.customizations.color}<br>
-          <strong>Fabric:</strong> ${item.customizations.fabric}<br>
-          <strong>Train:</strong> ${item.customizations.train}
-          ${item.customizations.specialRequests ? `<br><strong>Special Requests:</strong> ${item.customizations.specialRequests}` : ''}
-        </p>
-      </div>
-    ` : '';
-    
-    return `
-      <div class="checkout-item">
-        <img src="${item.image}" alt="${item.name}" class="checkout-item-image">
-        <div class="checkout-item-details">
-          <h4>${item.name}</h4>
-          <p class="checkout-item-meta">Size: ${item.size} • Quantity: ${item.quantity}</p>
-          <p class="checkout-item-price">${(item.price * item.quantity).toFixed(2)}</p>
-          ${customizationHtml}
-        </div>
-      </div>
-    `;
-  }).join('');
-  
-  // Calculate totals
-  const subtotal = cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
-  const total = subtotal;
-  
-  // Update totals
-  document.getElementById('checkout-subtotal').textContent = `${subtotal.toFixed(2)}`;
-  document.getElementById('checkout-total').textContent = `${total.toFixed(2)}`;
-}
 </script>
-
-<style>
-/* Enhanced Stripe Checkout Button */
-.stripe-checkout-button {
-  width: 100%;
-  padding: 1.5rem;
-  background: linear-gradient(135deg, #6772e5 0%, #5469d4 100%);
-  color: white;
-  border: none;
-  border-radius: 8px;
-  font-size: 1.1rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.75rem;
-  box-shadow: 0 4px 20px rgba(103, 114, 229, 0.3);
-  margin-bottom: 1rem;
-  position: relative;
-  overflow: hidden;
-}
-
-.stripe-checkout-button::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-  transition: left 0.6s;
-}
-
-.stripe-checkout-button:hover::before {
-  left: 100%;
-}
-
-.stripe-checkout-button:hover:not(:disabled) {
-  background: linear-gradient(135deg, #5469d4 0%, #4c63d2 100%);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 30px rgba(103, 114, 229, 0.4);
-}
-
-.stripe-checkout-button:active {
-  transform: translateY(0);
-}
-
-.stripe-checkout-button:disabled {
-  opacity: 0.7;
-  cursor: not-allowed;
-  transform: none;
-}
-
-.stripe-checkout-button svg {
-  flex-shrink: 0;
-}
-
-/* Loading Spinner */
-.spinner {
-  width: 18px;
-  height: 18px;
-  border: 2px solid rgba(255,255,255,0.3);
-  border-top: 2px solid white;
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-/* Enhanced checkout styles */
-.checkout-item {
-  display: flex;
-  gap: 1rem;
-  margin-bottom: 1.5rem;
-  padding: 1.5rem;
-  background: white;
-  border-radius: 12px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-  border: 1px solid #f0f0f0;
-}
-
-.checkout-item-image {
-  width: 80px;
-  height: 100px;
-  object-fit: cover;
-  border-radius: 8px;
-  flex-shrink: 0;
-}
-
-.checkout-item-details {
-  flex: 1;
-  min-width: 0;
-}
-
-.checkout-item-details h4 {
-  margin: 0 0 0.5rem;
-  font-size: 1.1rem;
-  color: #333;
-  line-height: 1.3;
-}
-
-.checkout-item-price {
-  font-weight: 600;
-  font-size: 1.2rem;
-  color: #c9a96e;
-  margin: 0.5rem 0;
-}
-
-.checkout-item-meta {
-  font-size: 0.9rem;
-  color: #666;
-  margin: 0.25rem 0;
-}
-
-.checkout-item-customizations {
-  margin-top: 0.75rem;
-  padding: 0.75rem;
-  background: linear-gradient(135deg, #f8f9fa 0%, #f0f4f7 100%);
-  border-radius: 6px;
-  border-left: 3px solid #c9a96e;
-}
-
-.checkout-item-customizations h5 {
-  margin: 0 0 0.5rem;
-  font-size: 0.9rem;
-  color: #c9a96e;
-  font-weight: 600;
-}
-
-.checkout-item-customizations p {
-  margin: 0;
-  font-size: 0.85rem;
-  color: #666;
-  line-height: 1.4;
-}
-
-/* Enhanced Form Styling */
-#order-notes {
-  font-family: inherit;
-  transition: all 0.3s ease;
-}
-
-#order-notes:focus {
-  outline: none;
-  border-color: #6772e5;
-  box-shadow: 0 0 0 3px rgba(103, 114, 229, 0.1);
-  transform: scale(1.01);
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-  .stripe-checkout-button {
-    padding: 1.25rem;
-    font-size: 1rem;
-  }
-  
-  .checkout-container {
-    grid-template-columns: 1fr;
-    gap: 2rem;
-  }
-  
-  .checkout-summary {
-    position: static;
-    margin-top: 0;
-  }
-  
-  #order-notes {
-    min-height: 100px;
-  }
-  
-  .checkout-item {
-    flex-direction: column;
-    gap: 0.75rem;
-  }
-  
-  .checkout-item-image {
-    width: 100%;
-    height: 200px;
-    align-self: center;
-    max-width: 200px;
-  }
-}
-</style>
