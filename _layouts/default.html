@@ -108,7 +108,7 @@
     </div>
   </footer>
 
-  <!-- JavaScript - FIXED loading order for modal -->
+  <!-- JavaScript - CORRECT loading order -->
   <script src="{{ site.baseurl }}/assets/js/main-ecommerce.js"></script>
   <script src="{{ site.baseurl }}/assets/js/customization-modal.js"></script>
   <script src="{{ site.baseurl }}/assets/js/stripe-integration.js"></script>
@@ -118,35 +118,27 @@
     <script src="{{ site.baseurl }}/assets/js/simplified-checkout.js"></script>
   {% endif %}
   
-  <!-- MODAL INITIALIZATION FIX -->
+  <!-- ENSURE MODAL WORKS -->
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       document.body.classList.add('loaded');
       
-      // FORCE MODAL INITIALIZATION
-      if (typeof initializeCustomizationModal === 'function') {
-        initializeCustomizationModal();
-        console.log('✅ Modal force-initialized');
-      }
-      
-      // Debug info
+      // Wait a bit for all scripts to load, then check modal
       setTimeout(() => {
-        console.log('✅ Roza Bridal Site Ready');
-        console.log('💰 Stripe Integration:', typeof window.handleStripeCheckoutFromCart === 'function' ? 'ACTIVE' : 'INACTIVE');
-        console.log('🎨 Customization Modal Available:', typeof window.openCustomizationModal === 'function' ? 'YES' : 'NO');
-        console.log('🛒 E-commerce System:', typeof window.cart !== 'undefined' ? 'ACTIVE' : 'INACTIVE');
-        
-        // TEST MODAL FUNCTION
-        if (typeof window.openCustomizationModal !== 'function') {
-          console.error('❌ Modal function missing! Check customization-modal.js');
+        if (typeof openCustomizationModal !== 'function') {
+          console.error('❌ Modal function not found! Checking...');
+          console.log('Available window functions:', Object.keys(window).filter(k => k.includes('modal') || k.includes('Modal') || k.includes('custom')));
         } else {
-          console.log('✅ Modal ready to open');
+          console.log('✅ Modal ready!');
+          // Make sure it's globally available
+          window.openCustomizationModal = openCustomizationModal;
         }
         
-        if (window.STRIPE_PAYMENT_LINKS) {
-          console.log('💳 Payment Links Ready:', Object.keys(window.STRIPE_PAYMENT_LINKS).length + ' products');
-        }
-      }, 1500);
+        console.log('🎯 Site Status:');
+        console.log('💰 Stripe:', typeof window.handleStripeCheckoutFromCart === 'function' ? 'READY' : 'NOT READY');
+        console.log('🎨 Modal:', typeof window.openCustomizationModal === 'function' ? 'READY' : 'NOT READY');
+        console.log('🛒 Cart:', typeof window.cart !== 'undefined' ? 'READY' : 'NOT READY');
+      }, 2000);
     });
   </script>
 
