@@ -328,28 +328,71 @@ description: Browse our complete collection of elegant wedding dresses - from bo
   padding: 2rem 0.5rem !important;
 }
 
-/* FIX FOOTER OVERFLOW ISSUE */
-body {
-  overflow-x: hidden !important;
-}
-
-footer, 
-.footer-content,
-.footer-links,
-.business-info {
-  max-width: 100% !important;
-  overflow-x: hidden !important;
-  box-sizing: border-box !important;
-}
-
-.footer-links {
-  flex-wrap: wrap !important;
-  gap: 0.5rem !important;
-}
-
-.footer-links a {
-  font-size: 0.9rem !important;
-  white-space: nowrap !important;
+/* SUPER TINY MOBILE FOOTER */
+@media (max-width: 768px) {
+  footer {
+    padding: 1rem 0 !important;
+    font-size: 0.7rem !important;
+    overflow: hidden !important;
+  }
+  
+  .footer-content {
+    padding: 0 0.5rem !important;
+    max-width: 100% !important;
+    overflow: hidden !important;
+  }
+  
+  .footer-logo-container {
+    margin-bottom: 0.5rem !important;
+  }
+  
+  .footer-logo {
+    max-height: 30px !important;
+    width: auto !important;
+  }
+  
+  .footer-links {
+    display: none !important;
+  }
+  
+  .business-info {
+    text-align: center !important;
+    margin: 0.5rem 0 !important;
+    font-size: 0.65rem !important;
+    line-height: 1.2 !important;
+  }
+  
+  .business-info p {
+    margin: 0.2rem 0 !important;
+    font-size: 0.65rem !important;
+  }
+  
+  .business-info a {
+    font-size: 0.65rem !important;
+    word-break: break-all !important;
+  }
+  
+  .social-links {
+    justify-content: center !important;
+    gap: 0.5rem !important;
+    margin: 0.5rem 0 !important;
+  }
+  
+  .social-links a {
+    width: 24px !important;
+    height: 24px !important;
+  }
+  
+  .social-links svg {
+    width: 16px !important;
+    height: 16px !important;
+  }
+  
+  .copyright {
+    font-size: 0.6rem !important;
+    margin: 0.5rem 0 0 0 !important;
+    text-align: center !important;
+  }
 }
 
 .product-info {
@@ -469,17 +512,6 @@ footer,
   }
   .product-info {
     padding: 0.5rem;
-  }
-  
-  /* MOBILE FOOTER FIX */
-  .footer-links {
-    flex-direction: column !important;
-    align-items: center !important;
-    text-align: center !important;
-  }
-  
-  .business-info p {
-    font-size: 0.8rem !important;
   }
 }
 
