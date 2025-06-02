@@ -22,7 +22,7 @@ description: Discover our collection of elegant wedding dresses - from bohemian 
     </div>
     
     <div class="product-grid">
-      <!-- Featured Dress 1 - FIXED LINK -->
+      <!-- Featured Dress 1 -->
       <div class="product-card">
         <a href="{{ site.baseurl }}/products/boho.html">
           <div class="product-image-container">
@@ -290,101 +290,133 @@ description: Discover our collection of elegant wedding dresses - from bohemian 
   </div>
 </section>
 
-<!-- Additional CSS for pricing display -->
+<!-- PERFECT DESKTOP + MOBILE CSS -->
 <style>
-/* SUPER TINY MOBILE FOOTER */
-@media (max-width: 768px) {
-  footer {
-    padding: 1rem 0 !important;
-    font-size: 0.7rem !important;
-    overflow: hidden !important;
-  }
-  
-  .footer-content {
-    padding: 0 0.5rem !important;
-    max-width: 100% !important;
-    overflow: hidden !important;
-  }
-  
-  .footer-logo-container {
-    margin-bottom: 0.5rem !important;
-  }
-  
-  .footer-logo {
-    max-height: 30px !important;
-    width: auto !important;
-  }
-  
-  .footer-links {
-    display: none !important;
-  }
-  
-  .business-info {
-    text-align: center !important;
-    margin: 0.5rem 0 !important;
-    font-size: 0.65rem !important;
-    line-height: 1.2 !important;
-  }
-  
-  .business-info p {
-    margin: 0.2rem 0 !important;
-    font-size: 0.65rem !important;
-  }
-  
-  .business-info a {
-    font-size: 0.65rem !important;
-    word-break: break-all !important;
-  }
-  
-  .social-links {
-    justify-content: center !important;
-    gap: 0.5rem !important;
-    margin: 0.5rem 0 !important;
-  }
-  
-  .social-links a {
-    width: 24px !important;
-    height: 24px !important;
-  }
-  
-  .social-links svg {
-    width: 16px !important;
-    height: 16px !important;
-  }
-  
-  .copyright {
-    font-size: 0.6rem !important;
-    margin: 0.5rem 0 0 0 !important;
-    text-align: center !important;
-  }
+/* DESKTOP FIRST - BEAUTIFUL LAYOUT */
+
+/* Container management */
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+/* Product Grid - DESKTOP */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.product-card {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.product-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+}
+
+.product-image-container {
+  position: relative;
+  width: 100%;
+  height: 400px;
+  overflow: hidden;
+  background: #f8f8f8;
+}
+
+.product-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 0.3s ease;
+}
+
+.product-card:hover .product-image {
+  transform: scale(1.05);
+}
+
+.product-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.product-card:hover .product-overlay {
+  opacity: 1;
+}
+
+.product-details {
+  text-align: center;
+  color: white;
+  padding: 2rem;
+}
+
+.product-details h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.product-details p {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  margin-bottom: 1.5rem;
+  opacity: 0.9;
+}
+
+.view-button {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  background: #8b7355;
+  color: white;
+  border-radius: 25px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-size: 0.8rem;
 }
 
 .product-info {
-  padding: 1rem;
+  padding: 1.5rem;
   text-align: center;
   background: white;
-  border-top: 1px solid #f0f0f0;
 }
 
 .product-name {
   font-family: 'Cormorant Garamond', serif;
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   font-weight: 400;
   color: #1a1a1a;
-  margin: 0 0 0.5rem 0;
+  margin: 0 0 0.75rem 0;
   line-height: 1.3;
 }
 
 .product-pricing {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 1rem;
   justify-content: center;
 }
 
 .current-price {
   font-family: 'Cormorant Garamond', serif;
-  font-size: 1.3rem;
+  font-size: 1.4rem;
   font-weight: 600;
   color: #8b7355;
 }
@@ -398,127 +430,139 @@ description: Discover our collection of elegant wedding dresses - from bohemian 
 
 .product-card:hover .current-price {
   color: #c9a96e;
+  transform: scale(1.05);
   transition: all 0.3s ease;
 }
 
-/* TIGHT responsive grid */
-.product-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-  gap: 1rem;
-  margin-top: 2rem;
+.product-card a {
+  text-decoration: none;
+  color: inherit;
+  display: block;
 }
 
-/* FIXED: Perfect image fitting like products/index.html */
-.product-image-container {
-  position: relative;
-  width: 100%;
-  height: 320px;
-  overflow: hidden;
-  border-radius: 12px 12px 0 0;
-  background: #f8f8f8;
-}
+/* RESPONSIVE BREAKPOINTS */
 
-.product-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-  transition: transform 0.3s ease;
-}
-
-.product-card {
-  background: white;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-  transition: all 0.3s ease;
-}
-
-.product-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 12px 40px rgba(0,0,0,0.15);
-}
-
-.product-card:hover .product-image {
-  transform: scale(1.03);
-}
-
-/* Container adjustments for tighter layout */
-.container {
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 0 1rem;
-}
-
-/* Responsive breakpoints */
-@media (max-width: 1200px) {
-  .container {
-    padding: 0 0.75rem;
-  }
+/* Large Desktop */
+@media (min-width: 1400px) {
   .product-grid {
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 0.75rem;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2.5rem;
   }
+  
   .product-image-container {
-    height: 300px;
+    height: 450px;
   }
 }
 
-@media (max-width: 768px) {
+/* Desktop */
+@media (min-width: 1024px) and (max-width: 1399px) {
+  .container {
+    padding: 0 1.5rem;
+  }
+  
+  .product-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+  
+  .product-image-container {
+    height: 380px;
+  }
+}
+
+/* Tablet */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .container {
+    padding: 0 1rem;
+  }
+  
+  .product-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+  
+  .product-image-container {
+    height: 350px;
+  }
+  
+  .product-name {
+    font-size: 1.1rem;
+  }
+  
+  .current-price {
+    font-size: 1.3rem;
+  }
+}
+
+/* Mobile */
+@media (max-width: 767px) {
   .container {
     padding: 0 0.5rem;
   }
+  
   .product-grid {
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    grid-template-columns: repeat(2, 1fr);
     gap: 0.5rem;
   }
+  
   .product-image-container {
     height: 250px;
   }
-  .current-price {
-    font-size: 1.2rem;
+  
+  .product-info {
+    padding: 1rem;
   }
-  .original-price {
+  
+  .product-name {
     font-size: 0.9rem;
   }
-  .product-name {
-    font-size: 1rem;
+  
+  .current-price {
+    font-size: 1.1rem;
+  }
+  
+  .original-price {
+    font-size: 0.85rem;
+  }
+  
+  /* Hide overlay on mobile for performance */
+  .product-overlay {
+    display: none;
+  }
+  
+  .product-details {
+    display: none;
   }
 }
 
-@media (max-width: 576px) {
-  .product-grid {
-    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-    gap: 0.25rem;
-  }
-  .product-image-container {
-    height: 220px;
-  }
-  .product-info {
-    padding: 0.75rem;
-  }
-}
-
+/* Small Mobile */
 @media (max-width: 480px) {
   .container {
     padding: 0 0.25rem;
   }
+  
   .product-grid {
-    grid-template-columns: repeat(2, 1fr);
     gap: 0.25rem;
   }
+  
   .product-image-container {
-    height: 200px;
+    height: 220px;
   }
+  
+  .product-info {
+    padding: 0.75rem;
+  }
+  
   .product-name {
-    font-size: 0.85rem;
+    font-size: 0.8rem;
   }
+  
   .current-price {
     font-size: 1rem;
   }
+  
   .original-price {
-    font-size: 0.8rem;
+    font-size: 0.75rem;
   }
 }
 </style>
