@@ -334,7 +334,7 @@ description: Discover our collection of elegant wedding dresses - from bohemian 
   transition: all 0.3s ease;
 }
 
-/* TIGHT responsive grid - NO excessive airways */
+/* TIGHT responsive grid */
 .product-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
@@ -342,7 +342,7 @@ description: Discover our collection of elegant wedding dresses - from bohemian 
   margin-top: 2rem;
 }
 
-/* Perfect image fitting */
+/* FIXED: Perfect image fitting like products/index.html */
 .product-image-container {
   position: relative;
   width: 100%;
@@ -355,10 +355,9 @@ description: Discover our collection of elegant wedding dresses - from bohemian 
 .product-image {
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: cover;
   object-position: center;
   transition: transform 0.3s ease;
-  background: white;
 }
 
 .product-card {
@@ -385,7 +384,7 @@ description: Discover our collection of elegant wedding dresses - from bohemian 
   padding: 0 1rem;
 }
 
-/* Responsive breakpoints - MUCH TIGHTER */
+/* Responsive breakpoints */
 @media (max-width: 1200px) {
   .container {
     padding: 0 0.75rem;
