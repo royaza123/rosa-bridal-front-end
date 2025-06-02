@@ -597,11 +597,11 @@ function processOrder() {
   
   // Handle based on payment method
   if (selectedPaymentMethod === 'stripe') {
-    // Try Stripe checkout
+    // Try Stripe checkout - NO CONFIRMATION POPUP
     if (typeof handleStripeCheckoutFromCart === 'function') {
       const stripeSuccess = handleStripeCheckoutFromCart(cartItems, customerDetails);
       if (stripeSuccess) {
-        return; // Redirected to Stripe
+        return; // Redirected to Stripe immediately
       }
     }
     
