@@ -316,10 +316,16 @@ description: Browse our complete collection of elegant wedding dresses - from bo
 
 <!-- Additional CSS for pricing display -->
 <style>
+/* OVERRIDE CONTAINER - NO SIDE SPACE */
 .container {
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 0 1rem;
+  max-width: none !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 0.5rem !important;
+}
+
+.collection {
+  padding: 2rem 0.5rem !important;
 }
 
 .product-info {
@@ -383,19 +389,20 @@ description: Browse our complete collection of elegant wedding dresses - from bo
   display: block;
 }
 
-/* TIGHT responsive grid - NO side airways */
+/* SUPER TIGHT GRID - FILL SCREEN WIDTH */
 .product-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-  gap: 1rem;
-  margin-top: 2rem;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 0.5rem;
+  margin-top: 1rem;
+  width: 100%;
 }
 
-/* Perfect image fitting */
+/* Perfect image fitting like products/index.html good format */
 .product-image-container {
   position: relative;
   width: 100%;
-  height: 320px;
+  height: 220px;
   overflow: hidden;
   background: #f8f8f8;
 }
@@ -403,84 +410,60 @@ description: Browse our complete collection of elegant wedding dresses - from bo
 .product-image {
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: cover;
   object-position: center;
   transition: transform 0.3s ease;
-  background: white;
 }
 
 .product-card:hover .product-image {
   transform: scale(1.03);
 }
 
-/* Responsive breakpoints - MUCH TIGHTER */
-@media (max-width: 1200px) {
-  .container {
-    padding: 0 0.75rem;
-  }
-  .product-grid {
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 0.75rem;
-  }
-  .product-image-container {
-    height: 300px;
-  }
-}
-
+/* Responsive - EVEN TIGHTER */
 @media (max-width: 768px) {
   .container {
-    padding: 0 0.5rem;
+    padding: 0 0.25rem !important;
+  }
+  .collection {
+    padding: 1rem 0.25rem !important;
   }
   .product-grid {
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-    gap: 0.5rem;
-  }
-  .product-image-container {
-    height: 250px;
-  }
-  .current-price {
-    font-size: 1.2rem;
-  }
-  .original-price {
-    font-size: 0.9rem;
-  }
-  .product-name {
-    font-size: 1rem;
-  }
-}
-
-@media (max-width: 576px) {
-  .product-grid {
-    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
     gap: 0.25rem;
   }
   .product-image-container {
-    height: 220px;
+    height: 180px;
+  }
+  .current-price {
+    font-size: 1.1rem;
+  }
+  .original-price {
+    font-size: 0.85rem;
+  }
+  .product-name {
+    font-size: 0.9rem;
   }
   .product-info {
-    padding: 0.75rem;
+    padding: 0.5rem;
   }
 }
 
 @media (max-width: 480px) {
-  .container {
-    padding: 0 0.25rem;
-  }
   .product-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 0.25rem;
   }
   .product-image-container {
-    height: 200px;
+    height: 160px;
   }
   .product-name {
-    font-size: 0.85rem;
+    font-size: 0.8rem;
   }
   .current-price {
     font-size: 1rem;
   }
   .original-price {
-    font-size: 0.8rem;
+    font-size: 0.75rem;
   }
 }
 </style>
