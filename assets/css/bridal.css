@@ -1,0 +1,839 @@
+/* 💍 ULTIMATE BRIDAL LUXURY STYLES - OVERRIDES FOR PURE BRIDAL PERFECTION */
+
+/* BRIDAL COLOR PALETTE */
+:root {
+  --bridal-ivory: #fef9f3;
+  --bridal-champagne: #f7e7ce;
+  --bridal-blush: #f8e8e7;
+  --bridal-pearl: #f5f3f0;
+  --bridal-gold: #d4b896;
+  --bridal-rose-gold: #e8b4a0;
+  --bridal-soft-gold: #f2e7d5;
+  --bridal-lace: #f9f6f2;
+  --bridal-shadow: rgba(212, 184, 150, 0.15);
+  --bridal-glow: rgba(248, 232, 231, 0.8);
+}
+
+/* 💎 BRIDAL FONTS & TYPOGRAPHY */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Great+Vibes&family=Dancing+Script:wght@400;500;600;700&display=swap');
+
+/* 🌸 BODY BRIDAL BASE */
+body {
+  background: linear-gradient(135deg, var(--bridal-ivory) 0%, var(--bridal-pearl) 50%, var(--bridal-lace) 100%);
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* BRIDAL LACE PATTERN OVERLAY */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    radial-gradient(circle at 25% 25%, rgba(212, 184, 150, 0.03) 2px, transparent 2px),
+    radial-gradient(circle at 75% 75%, rgba(248, 232, 231, 0.05) 1px, transparent 1px);
+  background-size: 50px 50px, 30px 30px;
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* 👑 LUXURY BRIDAL HEADER */
+header {
+  background: linear-gradient(135deg, rgba(254, 249, 243, 0.98) 0%, rgba(245, 243, 240, 0.95) 100%);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(212, 184, 150, 0.2);
+  box-shadow: 0 4px 20px rgba(212, 184, 150, 0.1);
+  position: relative;
+}
+
+header::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--bridal-champagne), transparent);
+}
+
+.header-container {
+  padding: 1.5rem 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.logo {
+  filter: drop-shadow(0 2px 8px rgba(212, 184, 150, 0.2));
+  transition: all 0.4s ease;
+}
+
+.logo:hover {
+  filter: drop-shadow(0 4px 12px rgba(212, 184, 150, 0.3));
+  transform: scale(1.02);
+}
+
+/* 💍 BRIDAL NAVIGATION */
+nav ul {
+  gap: 3rem;
+}
+
+nav a {
+  font-family: 'Playfair Display', serif;
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: #8b7355;
+  text-transform: capitalize;
+  letter-spacing: 0.5px;
+  position: relative;
+  transition: all 0.4s ease;
+}
+
+nav a::before {
+  content: '';
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--bridal-rose-gold), var(--bridal-gold));
+  transition: width 0.4s ease;
+}
+
+nav a:hover::before {
+  width: 100%;
+}
+
+nav a:hover {
+  color: var(--bridal-gold);
+  transform: translateY(-1px);
+}
+
+/* 🌹 BRIDAL USER & CART ICONS */
+.header-controls {
+  gap: 1.5rem;
+}
+
+.user-icon, .cart-icon {
+  width: 44px;
+  height: 44px;
+  background: linear-gradient(135deg, rgba(248, 232, 231, 0.8) 0%, rgba(245, 243, 240, 0.6) 100%);
+  border-radius: 50%;
+  color: var(--bridal-gold);
+  transition: all 0.4s ease;
+  border: 1px solid rgba(212, 184, 150, 0.2);
+}
+
+.user-icon:hover, .cart-icon:hover {
+  background: linear-gradient(135deg, var(--bridal-champagne) 0%, var(--bridal-blush) 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(212, 184, 150, 0.2);
+}
+
+.cart-count {
+  background: linear-gradient(135deg, var(--bridal-rose-gold) 0%, var(--bridal-gold) 100%);
+  box-shadow: 0 2px 8px rgba(212, 184, 150, 0.3);
+}
+
+/* 💎 BRIDAL HERO SECTION */
+.hero {
+  background: linear-gradient(135deg, 
+    var(--bridal-ivory) 0%, 
+    var(--bridal-pearl) 25%, 
+    var(--bridal-champagne) 50%, 
+    var(--bridal-blush) 75%, 
+    var(--bridal-lace) 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><defs><pattern id="lace" width="40" height="40" patternUnits="userSpaceOnUse"><circle cx="20" cy="20" r="1" fill="%23d4b896" opacity="0.1"/><circle cx="5" cy="5" r="0.5" fill="%23f8e8e7" opacity="0.1"/><circle cx="35" cy="35" r="0.5" fill="%23f8e8e7" opacity="0.1"/></pattern></defs><rect width="200" height="200" fill="url(%23lace)"/></svg>');
+  opacity: 0.6;
+  animation: float 20s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-10px) rotate(0.5deg); }
+}
+
+.hero h1 {
+  font-family: 'Great Vibes', cursive;
+  background: linear-gradient(135deg, var(--bridal-gold) 0%, var(--bridal-rose-gold) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0 4px 8px rgba(212, 184, 150, 0.2);
+  position: relative;
+  z-index: 2;
+}
+
+.hero p {
+  font-family: 'Playfair Display', serif;
+  color: #8b7355;
+  font-style: italic;
+  position: relative;
+  z-index: 2;
+}
+
+.hero-cta {
+  background: linear-gradient(135deg, var(--bridal-gold) 0%, var(--bridal-rose-gold) 100%);
+  box-shadow: 0 8px 32px rgba(212, 184, 150, 0.3);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-cta::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+  transition: left 0.6s;
+}
+
+.hero-cta:hover::before {
+  left: 100%;
+}
+
+.hero-cta:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 12px 48px rgba(212, 184, 150, 0.4);
+}
+
+/* 🌸 BRIDAL SECTION TITLES */
+.section-title h2 {
+  font-family: 'Dancing Script', cursive;
+  background: linear-gradient(135deg, var(--bridal-gold) 0%, var(--bridal-rose-gold) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  position: relative;
+}
+
+.section-title h2::after {
+  background: linear-gradient(90deg, transparent, var(--bridal-gold), var(--bridal-rose-gold), transparent);
+  height: 2px;
+  width: 120px;
+}
+
+.section-title h2::before {
+  content: '✿';
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: var(--bridal-gold);
+  font-size: 1.5rem;
+  opacity: 0.6;
+}
+
+.section-title p {
+  font-family: 'Playfair Display', serif;
+  color: #8b7355;
+  font-style: italic;
+}
+
+/* 💍 BRIDAL PRODUCT CARDS */
+.product-card {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 232, 231, 0.8) 100%);
+  border: 1px solid rgba(212, 184, 150, 0.2);
+  box-shadow: 0 8px 40px rgba(212, 184, 150, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.product-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, 
+    rgba(248, 232, 231, 0.1) 0%, 
+    rgba(245, 243, 240, 0.05) 50%, 
+    rgba(212, 184, 150, 0.1) 100%);
+  opacity: 0;
+  transition: opacity 0.6s ease;
+  pointer-events: none;
+}
+
+.product-card:hover::before {
+  opacity: 1;
+}
+
+.product-card:hover {
+  transform: translateY(-12px) scale(1.02);
+  box-shadow: 
+    0 20px 60px rgba(212, 184, 150, 0.2), 
+    0 8px 32px rgba(248, 232, 231, 0.3),
+    0 0 0 1px rgba(212, 184, 150, 0.2);
+}
+
+/* Featured cards special bridal treatment */
+.product-card.featured {
+  border: 2px solid rgba(212, 184, 150, 0.4);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(248, 232, 231, 0.9) 100%);
+}
+
+.product-card.bestseller {
+  border: 2px solid rgba(248, 232, 231, 0.5);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(245, 243, 240, 0.9) 100%);
+}
+
+/* 🌹 BRIDAL BADGES */
+.luxury-badge {
+  background: linear-gradient(135deg, rgba(212, 184, 150, 0.9) 0%, rgba(248, 232, 231, 0.8) 100%);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+  font-family: 'Playfair Display', serif;
+  font-weight: 500;
+}
+
+.luxury-badge.trending {
+  background: linear-gradient(135deg, var(--bridal-rose-gold) 0%, var(--bridal-gold) 100%);
+}
+
+.luxury-badge.bestseller {
+  background: linear-gradient(135deg, #d4af37 0%, var(--bridal-gold) 100%);
+  animation: bridal-glow 3s ease-in-out infinite;
+}
+
+@keyframes bridal-glow {
+  0%, 100% { box-shadow: 0 4px 16px rgba(212, 175, 55, 0.3); }
+  50% { box-shadow: 0 4px 24px rgba(212, 175, 55, 0.5), 0 0 20px rgba(248, 232, 231, 0.4); }
+}
+
+.luxury-badge.custom { background: linear-gradient(135deg, var(--bridal-champagne) 0%, var(--bridal-gold) 100%); }
+.luxury-badge.modern { background: linear-gradient(135deg, var(--bridal-pearl) 0%, var(--bridal-champagne) 100%); color: #8b7355; }
+.luxury-badge.elegant { background: linear-gradient(135deg, var(--bridal-blush) 0%, var(--bridal-rose-gold) 100%); }
+.luxury-badge.vintage { background: linear-gradient(135deg, var(--bridal-gold) 0%, var(--bridal-champagne) 100%); }
+.luxury-badge.beach { background: linear-gradient(135deg, #a8d5e2 0%, var(--bridal-pearl) 100%); }
+.luxury-badge.floral { background: linear-gradient(135deg, var(--bridal-blush) 0%, #f5a5a5 100%); }
+.luxury-badge.dramatic { background: linear-gradient(135deg, #8b7355 0%, var(--bridal-gold) 100%); }
+.luxury-badge.traditional { background: linear-gradient(135deg, var(--bridal-champagne) 0%, var(--bridal-pearl) 100%); color: #8b7355; }
+.luxury-badge.luxury { background: linear-gradient(135deg, #d4af37 0%, #ffd700 100%); color: white; }
+.luxury-badge.sparkle { background: linear-gradient(135deg, #d4af37 0%, #ffd700 50%, #ffed4e 100%); color: white; }
+.luxury-badge.premium { background: linear-gradient(135deg, var(--bridal-rose-gold) 0%, var(--bridal-gold) 100%); }
+
+/* 💖 BRIDAL HEART ICON */
+.heart-icon {
+  background: linear-gradient(135deg, rgba(248, 232, 231, 0.9) 0%, rgba(255, 255, 255, 0.8) 100%);
+  border: 1px solid rgba(212, 184, 150, 0.3);
+  color: var(--bridal-rose-gold);
+}
+
+.heart-icon:hover {
+  background: linear-gradient(135deg, var(--bridal-rose-gold) 0%, var(--bridal-gold) 100%);
+  color: white;
+  transform: scale(1.1);
+  animation: heartbeat 0.6s ease-in-out;
+}
+
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1.1); }
+  50% { transform: scale(1.2); }
+}
+
+/* 🌸 BRIDAL PRICING */
+.current-price {
+  font-family: 'Playfair Display', serif;
+  background: linear-gradient(135deg, var(--bridal-gold) 0%, var(--bridal-rose-gold) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.product-card:hover .current-price {
+  background: linear-gradient(135deg, var(--bridal-rose-gold) 0%, #d4af37 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  transform: scale(1.05);
+}
+
+/* 💍 BRIDAL OVERLAY */
+.product-overlay {
+  background: linear-gradient(135deg,
+    rgba(212, 184, 150, 0.1) 0%,
+    rgba(248, 232, 231, 0.3) 50%,
+    rgba(139, 115, 85, 0.8) 100%
+  );
+  backdrop-filter: blur(3px);
+}
+
+.view-button {
+  background: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(248, 232, 231, 0.9) 100%);
+  color: var(--bridal-gold);
+  border: 1px solid rgba(212, 184, 150, 0.3);
+  font-family: 'Playfair Display', serif;
+  font-weight: 500;
+}
+
+.view-button:hover {
+  background: linear-gradient(135deg, var(--bridal-gold) 0%, var(--bridal-rose-gold) 100%);
+  color: white;
+  box-shadow: 0 8px 24px rgba(212, 184, 150, 0.4);
+}
+
+/* 👑 BRIDAL ABOUT SECTION */
+.about {
+  background: linear-gradient(135deg, var(--bridal-lace) 0%, var(--bridal-pearl) 100%);
+  position: relative;
+}
+
+.about::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="florals" width="50" height="50" patternUnits="userSpaceOnUse"><path d="M25,25 Q30,20 35,25 Q30,30 25,25 Q20,20 25,25" fill="%23f8e8e7" opacity="0.3"/></pattern></defs><rect width="100" height="100" fill="url(%23florals)"/></svg>');
+  opacity: 0.4;
+}
+
+.about-text h2 {
+  font-family: 'Great Vibes', cursive;
+  background: linear-gradient(135deg, var(--bridal-gold) 0%, var(--bridal-rose-gold) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.about-text p {
+  font-family: 'Playfair Display', serif;
+  color: #8b7355;
+  font-style: italic;
+  line-height: 1.8;
+}
+
+/* 🌹 BRIDAL FEATURES */
+.features {
+  background: linear-gradient(135deg, var(--bridal-ivory) 0%, var(--bridal-champagne) 100%);
+}
+
+.features h3 {
+  font-family: 'Dancing Script', cursive;
+  color: var(--bridal-gold);
+  font-size: 1.5rem;
+}
+
+.features p {
+  font-family: 'Playfair Display', serif;
+  color: #8b7355;
+}
+
+/* 💎 BRIDAL CONTACT SECTION */
+.contact {
+  background: linear-gradient(135deg, var(--bridal-pearl) 0%, var(--bridal-blush) 100%);
+}
+
+.contact-icon {
+  background: linear-gradient(135deg, rgba(248, 232, 231, 0.8) 0%, rgba(255, 255, 255, 0.6) 100%);
+  border: 1px solid rgba(212, 184, 150, 0.2);
+  transition: all 0.4s ease;
+}
+
+.contact-icon:hover {
+  background: linear-gradient(135deg, var(--bridal-champagne) 0%, var(--bridal-blush) 100%);
+  transform: translateY(-8px);
+  box-shadow: 0 12px 32px rgba(212, 184, 150, 0.2);
+}
+
+.icon-circle {
+  background: linear-gradient(135deg, var(--bridal-gold) 0%, var(--bridal-rose-gold) 100%);
+}
+
+.contact-icon:hover .icon-circle {
+  background: linear-gradient(135deg, var(--bridal-rose-gold) 0%, #d4af37 100%);
+  transform: scale(1.1);
+}
+
+/* 🌸 BRIDAL FOOTER */
+footer {
+  background: linear-gradient(135deg, var(--bridal-champagne) 0%, var(--bridal-pearl) 100%);
+  border-top: 1px solid rgba(212, 184, 150, 0.3);
+  position: relative;
+}
+
+footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 60"><defs><pattern id="footer-lace" width="30" height="30" patternUnits="userSpaceOnUse"><circle cx="15" cy="15" r="1" fill="%23d4b896" opacity="0.2"/></pattern></defs><rect width="60" height="60" fill="url(%23footer-lace)"/></svg>');
+  opacity: 0.5;
+}
+
+.footer-links a {
+  font-family: 'Playfair Display', serif;
+  color: var(--bridal-gold);
+  transition: all 0.3s ease;
+}
+
+.footer-links a:hover {
+  color: var(--bridal-rose-gold);
+  transform: translateY(-1px);
+}
+
+.social-links a {
+  background: linear-gradient(135deg, var(--bridal-gold) 0%, var(--bridal-rose-gold) 100%);
+}
+
+.social-links a:hover {
+  background: linear-gradient(135deg, var(--bridal-rose-gold) 0%, #d4af37 100%);
+  transform: translateY(-3px) scale(1.05);
+}
+
+/* 💍 BRIDAL CTA SECTIONS */
+.luxury-cta-section {
+  background: linear-gradient(135deg, var(--bridal-lace) 0%, var(--bridal-ivory) 100%);
+  border: 1px solid rgba(212, 184, 150, 0.2);
+  position: relative;
+}
+
+.luxury-cta-section::before {
+  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><defs><pattern id="bridal-pattern" width="40" height="40" patternUnits="userSpaceOnUse"><circle cx="20" cy="20" r="2" fill="%23f8e8e7" opacity="0.3"/><path d="M10,10 Q20,5 30,10 Q20,15 10,10" fill="%23d4b896" opacity="0.2"/></pattern></defs><rect width="200" height="200" fill="url(%23bridal-pattern)"/></svg>');
+}
+
+.luxury-cta-content h2 {
+  font-family: 'Great Vibes', cursive;
+  background: linear-gradient(135deg, var(--bridal-gold) 0%, var(--bridal-rose-gold) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.luxury-contact-btn, .luxury-cta {
+  background: linear-gradient(135deg, var(--bridal-gold) 0%, var(--bridal-rose-gold) 100%);
+  box-shadow: 0 8px 32px rgba(212, 184, 150, 0.3);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  font-family: 'Playfair Display', serif;
+  font-weight: 500;
+}
+
+.luxury-contact-btn:hover, .luxury-cta:hover {
+  background: linear-gradient(135deg, var(--bridal-rose-gold) 0%, #d4af37 100%);
+  box-shadow: 0 12px 48px rgba(212, 184, 150, 0.4);
+}
+
+/* 🌹 BRIDAL COLLECTION STATS */
+.collection-stats {
+  gap: 2rem;
+}
+
+.stat-item {
+  background: linear-gradient(135deg, rgba(248, 232, 231, 0.8) 0%, rgba(255, 255, 255, 0.6) 100%);
+  border: 1px solid rgba(212, 184, 150, 0.3);
+  backdrop-filter: blur(10px);
+}
+
+.stat-item strong {
+  color: var(--bridal-gold);
+  font-family: 'Playfair Display', serif;
+}
+
+.stat-item small {
+  color: #8b7355;
+  font-family: 'Playfair Display', serif;
+}
+
+/* 💎 BRIDAL SAVINGS BADGES */
+.savings-badge {
+  background: linear-gradient(135deg, rgba(39, 174, 96, 0.1) 0%, rgba(248, 232, 231, 0.2) 100%);
+  border: 1px solid rgba(39, 174, 96, 0.3);
+  font-family: 'Playfair Display', serif;
+}
+
+.savings-badge.bestseller-savings {
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, rgba(248, 232, 231, 0.2) 100%);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+}
+
+/* 🌸 BRIDAL RESPONSIVE ADJUSTMENTS */
+@media (max-width: 768px) {
+  .hero h1 {
+    font-family: 'Dancing Script', cursive;
+    font-size: 2.5rem;
+  }
+  
+  .section-title h2 {
+    font-size: 2rem;
+  }
+  
+  nav a {
+    font-size: 0.85rem;
+  }
+  
+  .luxury-badge {
+    font-size: 0.65rem;
+    padding: 4px 10px;
+  }
+}
+
+/* 💍 BRIDAL SCROLL ANIMATIONS */
+@keyframes bridal-fade-in {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.product-card {
+  animation: bridal-fade-in 0.6s ease-out;
+}
+
+.product-card:nth-child(1) { animation-delay: 0.1s; }
+.product-card:nth-child(2) { animation-delay: 0.2s; }
+.product-card:nth-child(3) { animation-delay: 0.3s; }
+.product-card:nth-child(4) { animation-delay: 0.4s; }
+.product-card:nth-child(5) { animation-delay: 0.5s; }
+.product-card:nth-child(6) { animation-delay: 0.6s; }
+
+/* 🌹 BRIDAL SELECTION STYLES */
+::selection {
+  background: var(--bridal-glow);
+  color: var(--bridal-gold);
+}
+
+::-moz-selection {
+  background: var(--bridal-glow);
+  color: var(--bridal-gold);
+}
+
+/* 💎 FINAL BRIDAL TOUCHES */
+.product-name {
+  font-family: 'Playfair Display', serif;
+  color: #8b7355;
+  font-style: italic;
+}
+
+.product-card:hover .product-name {
+  color: var(--bridal-gold);
+}
+
+/* 👑 BRIDAL FLOATING ELEMENTS */
+@keyframes bridal-sparkle {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.1); }
+}
+
+.luxury-badge.bestseller, .luxury-badge.sparkle {
+  animation: bridal-sparkle 2s ease-in-out infinite;
+}
+
+/* 🌸 BRIDAL FOCUS STATES */
+.product-card:focus-within {
+  box-shadow: 
+    0 20px 60px rgba(212, 184, 150, 0.2), 
+    0 8px 32px rgba(248, 232, 231, 0.3),
+    0 0 0 2px var(--bridal-glow);
+}
+
+/* 💍 BRIDAL BUTTON ENHANCEMENTS */
+button, .hero-cta, .luxury-cta, .luxury-contact-btn {
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Final bridal magic touch */
+* {
+  transition-duration: 0.4s;
+  transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* 🌹 BRIDAL PRODUCT PAGE SPECIFIC STYLES */
+.product-page-container {
+  background: linear-gradient(135deg, var(--bridal-ivory) 0%, var(--bridal-pearl) 100%);
+}
+
+.product-title {
+  font-family: 'Great Vibes', cursive;
+  background: linear-gradient(135deg, var(--bridal-gold) 0%, var(--bridal-rose-gold) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.product-pricing {
+  background: linear-gradient(135deg, rgba(248, 232, 231, 0.8) 0%, rgba(255, 255, 255, 0.6) 100%);
+  border: 1px solid rgba(212, 184, 150, 0.3);
+}
+
+.customize-button {
+  background: linear-gradient(135deg, var(--bridal-gold) 0%, var(--bridal-rose-gold) 100%);
+  font-family: 'Playfair Display', serif;
+  box-shadow: 0 8px 32px rgba(212, 184, 150, 0.3);
+}
+
+.customize-button:hover {
+  background: linear-gradient(135deg, var(--bridal-rose-gold) 0%, #d4af37 100%);
+  box-shadow: 0 12px 48px rgba(212, 184, 150, 0.4);
+}
+
+/* 💎 BRIDAL GALLERY STYLES */
+.gallery-container {
+  border: 1px solid rgba(212, 184, 150, 0.2);
+  box-shadow: 0 8px 32px rgba(212, 184, 150, 0.1);
+}
+
+.gallery-arrow {
+  background: linear-gradient(135deg, rgba(248, 232, 231, 0.9) 0%, rgba(255, 255, 255, 0.8) 100%);
+  border: 1px solid rgba(212, 184, 150, 0.3);
+  color: var(--bridal-gold);
+}
+
+.gallery-arrow:hover {
+  background: linear-gradient(135deg, var(--bridal-champagne) 0%, var(--bridal-blush) 100%);
+  transform: scale(1.1);
+}
+
+.gallery-dot {
+  background: rgba(212, 184, 150, 0.5);
+  border: 1px solid rgba(248, 232, 231, 0.8);
+}
+
+.gallery-dot.active, .gallery-dot:hover {
+  background: linear-gradient(135deg, var(--bridal-gold) 0%, var(--bridal-rose-gold) 100%);
+}
+
+/* 🌸 BRIDAL CHECKOUT STYLES */
+.checkout-container {
+  background: linear-gradient(135deg, var(--bridal-ivory) 0%, var(--bridal-pearl) 100%);
+}
+
+.checkout-summary {
+  background: linear-gradient(135deg, rgba(248, 232, 231, 0.8) 0%, rgba(255, 255, 255, 0.9) 100%);
+  border: 1px solid rgba(212, 184, 150, 0.3);
+}
+
+.place-order-button {
+  background: linear-gradient(135deg, var(--bridal-gold) 0%, var(--bridal-rose-gold) 100%);
+  font-family: 'Playfair Display', serif;
+}
+
+/* 💍 BRIDAL CART DRAWER */
+.cart-drawer {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(248, 232, 231, 0.95) 100%);
+  backdrop-filter: blur(20px);
+  border-left: 1px solid rgba(212, 184, 150, 0.3);
+}
+
+.cart-drawer-header {
+  background: linear-gradient(135deg, var(--bridal-lace) 0%, var(--bridal-pearl) 100%);
+  border-bottom: 1px solid rgba(212, 184, 150, 0.2);
+}
+
+.checkout-button {
+  background: linear-gradient(135deg, var(--bridal-gold) 0%, var(--bridal-rose-gold) 100%);
+  font-family: 'Playfair Display', serif;
+}
+
+/* 👑 BRIDAL NOTIFICATION */
+.cart-notification {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(248, 232, 231, 0.95) 100%);
+  border: 1px solid rgba(212, 184, 150, 0.3);
+  backdrop-filter: blur(20px);
+}
+
+/* 🌹 BRIDAL AUTH MODALS */
+.auth-modal-content {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(248, 232, 231, 0.95) 100%);
+  border: 1px solid rgba(212, 184, 150, 0.3);
+}
+
+.auth-modal-header {
+  background: linear-gradient(135deg, var(--bridal-lace) 0%, var(--bridal-pearl) 100%);
+}
+
+.submit-button {
+  background: linear-gradient(135deg, var(--bridal-gold) 0%, var(--bridal-rose-gold) 100%);
+  font-family: 'Playfair Display', serif;
+}
+
+/* 💎 BRIDAL INPUT FIELDS */
+input, select, textarea {
+  border: 1px solid rgba(212, 184, 150, 0.3);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(248, 232, 231, 0.1) 100%);
+}
+
+input:focus, select:focus, textarea:focus {
+  border-color: var(--bridal-gold);
+  box-shadow: 0 0 0 3px rgba(212, 184, 150, 0.2);
+}
+
+/* 🌸 BRIDAL MOBILE ENHANCEMENTS */
+@media (max-width: 767px) {
+  .hero {
+    background: linear-gradient(135deg, 
+      var(--bridal-ivory) 0%, 
+      var(--bridal-pearl) 50%, 
+      var(--bridal-champagne) 100%);
+  }
+  
+  .product-card {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(248, 232, 231, 0.9) 100%);
+  }
+  
+  .header-container {
+    background: linear-gradient(135deg, rgba(254, 249, 243, 0.99) 0%, rgba(245, 243, 240, 0.98) 100%);
+  }
+}
+
+/* 💍 FINAL BRIDAL POLISH */
+body, html {
+  scroll-behavior: smooth;
+}
+
+.product-card, .hero, .about, .features, .contact, footer {
+  will-change: transform;
+}
+
+/* 👑 BRIDAL LOADING STATES */
+.product-image[loading] {
+  background: linear-gradient(90deg, var(--bridal-pearl) 25%, var(--bridal-champagne) 50%, var(--bridal-pearl) 75%);
+  background-size: 200% 100%;
+  animation: bridal-shimmer 2s infinite;
+}
+
+@keyframes bridal-shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* 🌹 BRIDAL ACCESSIBILITY */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* 💎 BRIDAL PRINT STYLES */
+@media print {
+  body {
+    background: white !important;
+    color: #333 !important;
+  }
+  
+  .hero, .product-card {
+    background: white !important;
+    box-shadow: none !important;
+  }
+}
